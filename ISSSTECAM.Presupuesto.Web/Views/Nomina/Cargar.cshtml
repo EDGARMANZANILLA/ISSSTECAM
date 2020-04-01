@@ -1,4 +1,4 @@
-﻿@{  
+﻿@{
     ViewBag.Title = "Cargar nómina";
 }
 
@@ -11,41 +11,118 @@
 <div class="row">
     <div class="col-md-6">
         <div id="fileuploader">Agregar archivo</div>
+        @*<button onclick="obten();">Prueba</button>*@
     </div>
     <div class="col-md-6 ">
-        <button class="btn btn-success" id="guardar" title="Guarda el archivo en la base de datos" style="display:none;"  onclick="guarda();">Guardar archivo</button>
+        @*<button class="btn btn-success" id="guardar" title="Guarda el archivo en la base de datos" style="display:none;"  onclick="guarda();">Guardar archivo</button>*@
         @*<button class="btn btn-success" title="Guarda la tabla en formato PDF" id="PDF" style="display:none;" onclick="CreatePDF();">Guardar Tabla</button>*@
-        <button title="Guarda la tabla en PDF" class="btn btn-success" id="ConvertPDF" data-backdrop="false" onclick="CreatePDF();" style="display:none;position:center;margin-left:1%">Guardar Tabla</button>
+
+        <button title="Guarda la tabla en PDF" class="btn btn-success" id="ConvertPDF" data-backdrop="false" onclick="CrearPDF();" style="display:none;position:center;margin-left:1%">Guardar Tabla</button>
         @*<a class="btn btn-success" href="@Url.Action("ReporteConcentradoPrograma", "Calendario")" target="_blank">Reporte programa-concentrado</a>*@
         @*<input id="fileupload" type="file" name="files[]" data-url="@Url.Action("ImportarArchivo", "Calendario")" multiple>*@
-    <form name="formul" id="Formulario" style="display:none;">
-        Seleccione la fecha de la quincena correspondiente:
-        <select name="quince">
-            <option value="01" selected>1ra</option>
-            <option value="02">2da</option>
-        </select>
-        <select name="mes">
-            <option value="Enero" selected>Enero</option>
-            <option value="Febrero">Febrero</option>
-            <option value="Marzo">Marzo</option>
-            <option value="Abril">Abril</option>
-            <option value="Mayo">Mayo</option>
-            <option value="Junio">Junio</option>
-            <option value="Julio">Julio</option>
-            <option value="Agosto">Agosto</option>
-            <option value="Septiembre">Septiembre</option>
-            <option value="Octubre">Octubre</option>
-            <option value="Noviembre">Noviembre</option>
-            <option value="Diciembre">Diciembre</option>
-        </select>
-        <input type="text" name="año" id="año" maxlength="4">
+        <nav name="NMenuFecha" id="MenuFecha" class="menu" style="display:none;">
+            <ul>
+                <li name="quincena">
+                    <textarea name="NCajaQuincena" id="CajaQuincena" readonly="readonly">15na</textarea>
+                    <ul id="ListaQuincenas">
+                        <li value="01" id="1ra"><a>1ra</a></li>
+                        <li value="02" id="2da"><a>2da</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+
+        <nav name="NMenuFecha2" id="MenuFecha2" class="menu" style="display:none;">
+            <ul>
+                <li name="meses">
+                    <textarea name="NCajaMes" id="CajaMes" readonly="readonly">Mes</textarea>
+                    <ul id="ListaMeses">
+                        <li value="Enero" id="Month1"><a>Enero</a></li>
+                        <li value="Febrero" id="Month2"><a>Febrero</a></li>
+                        <li value="Marzo" id="Month3"><a>Marzo</a></li>
+                        <li value="Abril" id="Month4"><a>Abril</a></li>
+                        <li value="Mayo" id="Month5"><a>Mayo</a></li>
+                        <li value="Junio" id="Month6"><a>Junio</a></li>
+                        <li value="Julio" id="Month7"><a>Julio</a></li>
+                        <li value="Agosto" id="Month8"><a>Agosto</a></li>
+                        <li value="Septiembre" id="Month9"><a>Septiembre</a></li>
+                        <li value="Octubre" id="Month10"><a>Octubre</a></li>
+                        <li value="Noviembre" id="Month11"><a>Noviembre</a></li>
+                        <li value="Diciembre" id="Month12"><a>Diciembre</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <nav name="NMenuFecha3" id="MenuFecha3" class="menu" style="display:none;">
+            <ul>
+                <li name="años">
+                    <textarea name="NCajaAño" id="CajaAño" readonly="readonly">Año</textarea>
+                    <ul id="ListaAños">
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        @*<form name="formul" id="Formulario" style="display:none;">
+            Seleccione la fecha de la quincena correspondiente:
+            <select name="quince">
+                <option value="01" selected>1ra</option>
+                <option value="02">2da</option>
+            </select>
+            <select name="mes">
+                <option value="Enero" selected>Enero</option>
+                <option value="Febrero">Febrero</option>
+                <option value="Marzo">Marzo</option>
+                <option value="Abril">Abril</option>
+                <option value="Mayo">Mayo</option>
+                <option value="Junio">Junio</option>
+                <option value="Julio">Julio</option>
+                <option value="Agosto">Agosto</option>
+                <option value="Septiembre">Septiembre</option>
+                <option value="Octubre">Octubre</option>
+                <option value="Noviembre">Noviembre</option>
+                <option value="Diciembre">Diciembre</option>
+            </select>
+
+        </form>*@
+        @*<input type="text" name="año" id="año" maxlength="4">*@
         @*<input type="date" value="" id ="AutoSelec" onload="getFullYear('#AutoSelec')">*@
         @*</input>*@
+
+        @*<select name="años" id="Years"> </select>*@
+
         @*<option value="blank" selected></option>
         <option value="year"></option>*@
+       
+        
+        @*<input type="button" class="btn btn-success" value="Enviar" onclick="Quincena2()">*@
+        <nav name="Formul2" id="nomina" class="menu" style="display:none;">
+            Defina el tipo de nómina.
+            <ul>
+                <li name="nomina">
+                    <textarea name="NCajaNomina" id="CajaNomina" readonly="readonly">Tipo</textarea>
+                    <ul id="ListaTipoNomina">
+                        <li value="Regular" id="N_Regular"><a>Regular</a></li>
+                        <li value="Extraordinaria" id="N_Extraordinaria"><a>Extraordinaria</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        @*<form name="formul2" id="nomina" style="display:none">
+            Determine el tipo de Nómina:
+            <select name="tNomina">
+                <option value="Nomina_Regular" selected>Regular</option>
+                <option value="NominaExtraordinaria">Extraordinaria</option>
+            </select>
+        </form>*@
         <br>
-        <input type="button" class="btn btn-success" value="Enviar" onclick="Quincena2()">
-    </form>
+        <br>
+        @*guarda();*@
+
+
+        <input type="button" id="btnGuarda" class="btn btn-success" value="Guardar" style="display:none" onclick="Quincena2();guarda();">
+        <br>
+        <br>
+        <button title="Deshacer cambios y reiniciar proceso" class="btn btn-danger" id="Deshacer" data-backdrop="false" onClick="location.reload();" style="display:none;position:center;">Deshacer</button>
     </div>
     @*////////////////////////////////////seccion donde se muestra la tabla generada/////////////////////////////////////////////////////////////////*@
     <div id="Modal" class="modal-backdrop">
@@ -56,17 +133,22 @@
                     <table id="excelDataTable">
                         <thead><tr><th>Concepto</th><th>Total</th></tr></thead>
                         <tbody id="CuerpoTabla"> </tbody>
+                        <tbody id="Separa"><tr><td>...</td><td>...</td></tr></tbody>
+                        <tfoot id="PieDeTabla"> </tfoot>
                     </table>
                 </div>
-
+                @*<table id="PieDeTabla" style="width:300px;z-index:9999999999999999999999999999999;height:auto;"></table>*@
             </div>
             ¿Es correcta su tabla?
-            <button title="Podra proceder a guardar sus grafícas y su tabla" class="btn btn-success" data-backdrop="false" onclick="HideModal();" style="position:center;margin-left:1%">SI</button>
+            @*masAños();*@
+            <button title="Podra proceder a guardar sus grafícas y su tabla" class="btn btn-success" data-backdrop="false" onclick="ocultarModal();" style="position:center;margin-left:1%">SI</button>
             <button title="La tabla se borrará" class="btn btn-danger" data-backdrop="false" onclick="Delete();" style="position:center;margin-left:2%">NO</button>
 
         </div>
     </div>
     @*///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*@
+</div>
+<div id="Espacio">
 </div>
 <div class="row" id="Grafos" style="z-index:9">
     <div class="col-md-12" id="grafica">
@@ -81,6 +163,8 @@
 
 <style id="Estradivarius">
     /*style="position: center;background-color: rgba(151, 220, 255, 0.85);margin-left: 0%;margin-right: 0%;margin-bottom: 0%;margin-top: 0%;border: groove 4px rgba(0, 70, 156, 0.5);"*/
+
+    /*///////////////////////////////////////////////////////////////////////////////*/
     table {
         position: center;
         background-color: rgba(151, 220, 255, 0.85);
@@ -91,32 +175,128 @@
         border: groove 4px rgba(0, 70, 156, 0.5);
         width: 100%;
     }
+
+    #Separa {
+        background-color: rgba(151, 220, 255, 185);
+        border-color: rgba(151, 220, 255, 185);
+        color: rgba(151, 220, 255, 185);
+    }
+
+        #Separa td {
+            color: rgba(255, 255, 255, 0.00);
+            background-color: white;
+        }
+
     td, th {
         border: solid 2px rgba(0, 70, 156, 0.75);
         padding: 3px;
         text-align: left;
         color: black;
     }
-    th{
-        font-weight : bold;
-        font-size:larger;   }
+
+    th {
+        font-weight: bold;
+        font-size: larger;
+    }
+
     .modal-backdrop {
         background-color: rgba(00,00,00,0.5);
-        display:none;width:100%;
-        z-index:9999999999999999999;
-        height:100%;
-        position:absolute;
-        top:0%;
-        left:0%;
+        display: none;
+        width: 100%;
+        z-index: 9999999999999999999;
+        height: 100%;
+        position: absolute;
+        top: 0%;
+        left: 0%;
     }
+    #Espacio {height:220px}
     .modal-content {
-        font-weight : bold;
-        color:black;
+        font-weight: bold;
+        color: black;
+    }
+    /*////////////////////////CSS PARA EL FORMULARIO DE LA FECHA DE LA QUINCENA/////////////////////////////////////////*/
+
+    .menu ul li {
+        display: inline-block;
+        background-color: #2e518b;
+    }
+
+    .menu ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        width: 105px;
+    }
+
+        .menu ul a {
+            display: block;
+            cursor: pointer;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 300;
+            font-size: 12px;
+            padding: 0px;
+            /* font-family:"HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif; */
+            /*font-family: Arial;*/
+            text-transform: uppercase;
+            letter-spacing: 0px;
+        }
+
+    .menu {
+        z-index: 99999999999999999999;
+    }
+
+        .menu ul li {
+            position: relative;
+            float: left;
+            margin: 0;
+            padding: 0;
+        }
+
+            .menu ul li:hover {
+                background: #5b78a7;
+            }
+
+        .menu ul ul {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            padding: 0;
+        }
+
+            .menu ul ul li {
+                float: none;
+                width: 100px;
+            }
+
+            .menu ul ul a {
+                line-height: 100%;
+                padding: 10px 15px;
+                padding: 10px 10px;
+            }
+
+        .menu ul li:hover > ul {
+            display: block;
+        }
+
+    textarea {
+        width: 100px;
+        font-family: Arial;
+        font-size: small;
+        background-color: transparent;
+        color: white;
+        height: 21px;
+        resize: none;
+        border: none;
+        padding-bottom: 0px;
+        padding-top: 3px;
+        padding-left: 10px;
     }
 </style>
 
 <script>
- 
+
 
    //html2canvas(document.body,{
    //onrendered:function(canvas){
@@ -129,7 +309,7 @@
 
    //});
 /////////////////////////////////////
-    
+
     //}
 
     $(function () {
@@ -183,7 +363,7 @@
                     alert("Estos codigos de empleados no existen: " + "\r\n" +data.errores+"\r\n"+ "VERIFIQUE LOS DATOS CON R.H.");
                     alert("\r\n"+"!Dado que algunos empleados no existen!"+"\r\n" +"LA TABLA SE GENERARA CON ERRORES"+"\r\n"+"POR FAVOR SELECCIONE:"+ " "+"NO ");
 
-                    
+
                 }
 
                 //alert(data.total);
@@ -200,136 +380,80 @@
                     datosConceptos.push(new Array(item.Concepto, item.Total));
                 });
 
-            
+
 
                 crearGrafica(datos);
                 crearGraficaConceptos(datosConceptos);
 
-                var Tab = null;
+                var ArrayConceptos = null;
 
-                Tab = data.conceptos
-              
+                ArrayConceptos = data.conceptos
 
-      
+
+
                crearGraficaGastosTotalesCentroCosto();
 
-               crearTablaConceptos(Tab);
+               crearTablaConceptos(ArrayConceptos);
 
-               $.unblockUI();
+                obtenAño();
 
+                $.unblockUI();
 
-                
+                 mostrarModal();
 
-
-                // localStorage.setItem('myList',JSON.stringify(data.conceptos));
-                
-                //myList2="";
-
-                //if (myList2 != null) {
-                //    myList2 = null;
-
-                   
-                //}
-                //      myList2 = data.conceptos;
-               
-
-                 //buildHtmlTable('#excelDataTable');
-                 ShowModal();
-
-
+                //Hasta aquí llegué de las remodelaciones 11/03/2020 , miercoles, 03:58 p.m.
             },
             //termina la funcion de (file, data, xhr, pd)
         });
     }
 
-         // var myList = JSON.parse( localStorage.getItem('myList'));
-          // console.log('ShowMe', myList);
 
-            
-    
+
+
+
             //Comienza la elaboración de la tabla ////////
-
-
-
-    ////////////////
-    //function buildHtmlTable(selector) {
-    //    var myList = null;
-
-    //    if (myList == null) {
-    //        myList = myList2;
-    //    }
-
-        
-    //    console.log("eres un genio",myList2);
-    //    var columns = addAllColumnHeaders(myList, selector);
-    //            for (var i = 0; i < myList.length; i++) {
-    //                var row$ = $('<tr/>');
-
-    //                for (var colIndex = 0; colIndex < columns.length; colIndex++) {
-    //                    var cellValue = myList[i][columns[colIndex]];
-    //                    if (cellValue == null) cellValue = "";
-    //                    row$.append($('<td/>').html(cellValue));
-    //                }
-    //                $(selector).append(row$);
-    //            }
-
-    //}
-
-
-
-
-    //function addAllColumnHeaders(myList, selector) {
-    //            var columnSet = [];
-    //            var headerTr$ = $('<tr/>');
-    //            for (var i = 0; i < myList.length; i++) {
-    //                var rowHash = myList[i];
-    //                for (var key in rowHash) {
-    //                    if ($.inArray(key, columnSet) == -1) {
-    //                        columnSet.push(key);
-    //                        headerTr$.append($('<th/>').html(key));
-    //                    }
-    //                }
-    //            }
-    //            $(selector).append(headerTr$);
-    //            return columnSet;
-
-    //}
-
-    ////////////
-    //termina la elaboración de la tabla
-
-
-
-
-
 
     //
 
-    function crearTablaConceptos(Tab) {
-        //dibujar tabla
-        var Tab2 = null;
-        if (Tab2 == null) { 
-            Tab2 = Tab;
-                const $cuerpoTabla = document.querySelector('#CuerpoTabla');
-                //recorrer todos los datos 
-                Tab2.forEach(Dato => {
-                    //crear un <tr>
-                    const $tr = document.createElement("tr");
-                    // Creamos el <td> de Nómina y lo adjuntamos a tr
-                    let $tdConcepto = document.createElement("td");
-                    $tdConcepto.textContent = Dato.Concepto; //el textContent del td es el concepto
-                    $tr.appendChild($tdConcepto);
-                    // el td de nómina
-                    let $tdTotal = document.createElement("td");
-                    $tdTotal.textContent = Dato.Total;
-                    $tr.appendChild($tdTotal);
+    //function crearTablaConceptos(ArrayConceptos) {
+    //    //dibujar tabla
+    //    var ArrayTabla = null;
+    //    if (ArrayTabla == null) {
+    //        ArrayTabla = ArrayConceptos;
+    //            const CUERPOTABLA = document.querySelector('#CuerpoTabla');
+    //            //recorrer todos los datos
+    //            ArrayTabla.forEach(Dato => {
+    //                //crear un <tr>
+    //                const TR = document.createElement("tr");
+    //                // Creamos el <td> de Nómina y lo adjuntamos a tr
+    //                let tdConcepto = document.createElement("td");
+    //                tdConcepto.textContent = Dato.Concepto; //el textContent del td es el concepto
+    //                TR.appendChild(tdConcepto);
+    //                // el td de nómina
+    //                let tdTotal = document.createElement("td");
+    //                tdTotal.textContent = Dato.Total;
+    //                TR.appendChild(tdTotal);
 
-                    $cuerpoTabla.appendChild($tr);
-                    //y el ciclo se repite hasta q se termine de recorrer el arreglo
-                })
-
-        }
-    }
+    //                CUERPOTABLA.appendChild(TR);
+    //                //y el ciclo se repite hasta q se termine de recorrer el arreglo
+    //            })
+    //        //
+    //        const SUMATOTAL = document.querySelector('#PieDeTabla')
+    //        var SumatoriaTotal = 0;
+    //        var Totales = "Suma de Totales";
+    //        const TR2 = document.createElement("tr");
+    //        let TdTotales = document.createElement("td");
+    //        TdTotales.textContent = Totales;
+    //        TR2.appendChild(TdTotales);
+    //        let TdSuma = document.createElement("td");
+    //        ArrayTabla.forEach(Dato => {
+    //            SumatoriaTotal = SumatoriaTotal + Dato.Total;
+    //        })
+    //        TdSuma.textContent = SumatoriaTotal;
+    //        TR2.appendChild(TdSuma);
+    //        SUMATOTAL.appendChild(TR2);
+    //    }
+    //}
 
 
 
@@ -690,56 +814,51 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
     /////////////////////
 
 function Quincena2() {
-    var texto;
-    var indice = document.formul.quince.selectedIndex;
-    var indice2 = document.formul.mes.selectedIndex;
-  //  var indice3 = document.formul.año.selectedIndex;
-    //var valor = document.formul.quince.options[indice].value;
-    //texto = "valor de la opcion escogida: " + valor;
-    var quincenaEscogida = document.formul.quince.options[indice].text;
-    texto = "Quincena escogida: " + quincenaEscogida;
-    var mesEscogido = document.formul.mes.options[indice2].text;
-    texto += " ,Mes escogido: " + mesEscogido;
-
-    var añoEscogido = parseFloat(document.getElementsByName('año')[0].value);
-    if (isNaN(añoEscogido)) {
-        alert("El valor ingresado no es número válido");
-        return;
-    } else {
-        texto += " del año " + añoEscogido;
-    }
-    //document.write(Año.getFullYear());
-    //document.getElementById('AutoSelec').write(Año.getFullYear());
-    //var mesEscogido = document.getElementById('AutoSelec').month;
+    //var texto;
+    //var indice = document.formul.quince.selectedIndex;
+    //var indice2 = document.formul.mes.selectedIndex;
+    //var indice3 = document.formul.años.selectedIndex;
+    ////var valor = document.formul.quince.options[indice].value;
+    ////texto = "valor de la opcion escogida: " + valor;
+    //var quincenaEscogida = document.formul.quince.options[indice].text;
+    //var valorQuincena = document.formul.quince.options[indice].value;
+    //texto = "Quincena escogida: " + quincenaEscogida;
+    //var mesEscogido = document.formul.mes.options[indice2].text;
     //texto += " ,Mes escogido: " + mesEscogido;
-    alert(texto);
-    
-    document.getElementById('Formulario').style.display = 'none';
-    document.getElementById('ConvertPDF').style.display = 'inline';
-    document.getElementById('guardar').style.display = 'inline';
+    //var añoEscogido = document.formul.años.options[indice3].text;
+    //texto += " ,Año : " + añoEscogido;
 
-        
+        var CajaQ = document.getElementById('CajaQuincena');
+        var CajaM = document.getElementById('CajaMes');
+        var CajaA = document.getElementById('CajaAño');
+
+        alert("Esta es la " + CajaQ.textContent + " quincena " + " de " + CajaM.textContent + " del " + CajaA.textContent);
+
+    //var añoEscogido = parseFloat(document.getElementsByName('año')[0].value);
+    //if (isNaN(añoEscogido)) {
+    //    alert("El valor ingresado no es número válido");
+    //    return;
+    //} else {
+    //    texto += " del año " + añoEscogido;
+    //}
+
+    //alert(texto);
+
+  //  document.getElementById('Formulario').style.display = 'none';
+    document.getElementById('MenuFecha').style.display = 'none';
+    document.getElementById('MenuFecha2').style.display = 'none';
+    document.getElementById('MenuFecha3').style.display = 'none';
+  //  document.getElementById('ConvertPDF').style.display = 'inline';
+      document.getElementById('btnGuarda').style.display = 'none';
+    document.getElementById('nomina').style.display = "none";
+    document.getElementById('Deshacer').style.display = "none";
+
+
     //  var actionData = {quincena: indice , mes : indice2 , ano:  indice3 };
-    var actionData = "{'quincena': '" + indice + "','mes': '" + mesEscogido + "', 'ano': '" + añoEscogido + "' }";
+    var actionData = "{'quincena': '" + valorQuincena + "','mes': '" + mesEscogido + "', 'ano': '" + añoEscogido + "' }";
 
     $.ajax(
         {
@@ -782,11 +901,11 @@ function Quincena2() {
             dataType: "json",
             returnType: 'json',
            // async: true,
-          
+
                 success: function(resultado)
                 {
 
-                    
+
                     console.log("Resultado" + resultado);
                     console.log("Resultado2",  resultado);
                 //Console.log("prueba:" + prueba);
@@ -799,11 +918,109 @@ function Quincena2() {
                 console.error(error);
             }
         });
-      
-        
+
+
+    }
+   // nuevoAño = obtenAño();
+
+             function obtenAño() {
+        alert("entro");
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("devolverAo", "Nomina")',
+                success: function(resultado)
+                {
+
+
+                    console.log("Resultado " + resultado);
+                    var añoNuevo = null;
+                    if (añoNuevo == null) {
+                        añoNuevo = resultado;
+                        console.log("Es el hijo más mayor de Cronos...", añoNuevo);
+                        arrayAños = ["2019"];
+                    }
+                        if (arrayAños.indexOf(añoNuevo) === -1) {
+                            arrayAños.push(añoNuevo);
+                            console.log("Lista de años ", arrayAños);
+                        } else if (arrayAños.indexOf(añoNuevo) > -1) {
+                            console.log(añoNuevo + " es el año en curso, pringao...");
+
+                    }
+                    const OPTIONS = document.querySelector('#ListaAños');
+                    i = 0;
+                    arrayAños.forEach(Element => {
+                        // OPTIONS.insertAdjacentHTML('beforeend', '<option value="' + i + '">' + Element + '</option>');
+                        OPTIONS.insertAdjacentHTML('beforeend', '<li value="' + i + '" id="Año-' + i + '"><a>' + Element + '</a></li>')
+                        i++;
+                    });
+
+                },
+
+
+            error:function(error)
+            {
+                console.error(error);
+            }
+        });
+   //    nuevoAño = resultado;
         }
 
-
-
-
+    $('#ListaAños').click(function(e){
+      var li = e.target.parentNode;
+     // alert(li.id);
+      let ID = li.id;
+     //alert("Ver " + ID)
+     // var Ident = li.id;
+      var Identidad = document.getElementById(ID).textContent;
+    //alert("Has invocado a " + Summon)
+      const WRITELINE = document.querySelector('#CajaAño');
+      var Lista = document.getElementById('CajaAño');
+      Lista.innerHTML = "";
+      // WRITELINE.insertAdjacentHTML('beforeend','<p>Has invocado a '+Summon+'</p>')
+      WRITELINE.insertAdjacentHTML('beforeend',Identidad)
+    });
+     $('#ListaMeses').click(function(e){
+      var li = e.target.parentNode;
+     // alert(li.id);
+      let ID = li.id;
+     //alert("Ver " + ID)
+     // var Ident = li.id;
+      var Identidad = document.getElementById(ID).textContent;
+    //alert("Has invocado a " + Summon)
+      const WRITELINE = document.querySelector('#CajaMes');
+      var Lista = document.getElementById('CajaMes');
+      Lista.innerHTML = "";
+      // WRITELINE.insertAdjacentHTML('beforeend','<p>Has invocado a '+Summon+'</p>')
+      WRITELINE.insertAdjacentHTML('beforeend',Identidad)
+     });
+     $('#ListaQuincenas').click(function(e){
+      var li = e.target.parentNode;
+     // alert(li.id);
+      let ID = li.id;
+     //alert("Ver " + ID)
+     // var Ident = li.id;
+      var Identidad = document.getElementById(ID).textContent;
+    //alert("Has invocado a " + Summon)
+      const WRITELINE = document.querySelector('#CajaQuincena');
+      var Lista = document.getElementById('CajaQuincena');
+      Lista.innerHTML = "";
+      // WRITELINE.insertAdjacentHTML('beforeend','<p>Has invocado a '+Summon+'</p>')
+         WRITELINE.insertAdjacentHTML('beforeend', Identidad)
+        
+     });
+     $('#ListaTipoNomina').click(function(e){
+      var li = e.target.parentNode;
+     // alert(li.id);
+      let ID = li.id;
+     //alert("Ver " + ID)
+     // var Ident = li.id;
+      var Identidad = document.getElementById(ID).textContent;
+    //alert("Has invocado a " + Summon)
+      const WRITELINE = document.querySelector('#CajaNomina');
+      var Lista = document.getElementById('CajaNomina');
+      Lista.innerHTML = "";
+      // WRITELINE.insertAdjacentHTML('beforeend','<p>Has invocado a '+Summon+'</p>')
+         WRITELINE.insertAdjacentHTML('beforeend', Identidad)
+        
+  });
 </script>

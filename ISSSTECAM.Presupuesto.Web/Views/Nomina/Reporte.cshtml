@@ -17,5 +17,274 @@
 
 
 <p>
-   <a class="btn btn-success" href="@Url.Action("GenerarReporte", "Nomina")">Download Report</a> 
+    <a class="btn btn-success" href="@Url.Action("GenerarReporte", "Nomina")">Download Report</a>
 </p>
+
+
+<h3>Generar Reporte</h3>
+<div class="row">
+    <button id="Enviar" onclick="QuincenaReporte();" style="display:none">Enviar</button>
+    <div class="col-md-6">
+        <br><h3 id="Inicio">Introduzca los datos para generar su reporte por quincena</h3>
+        <br><h3 id="Final" style="display:none;">Reporte Generado Exitosamente</h3>
+        <button id="CargarAño" onclick="Comienzo();">Comenzar</button>
+        <br>
+        <br>
+        <button title="Guarda la tabla en PDF" class="btn btn-success" id="ConvertPDF" onclick="CrearPDF();" style="display:none;position:center;margin-left:1%">Guardar Tabla</button>
+    </div>
+    <br>
+    @*//////////////////////////////////////////////////////////////*@
+    <div class="col-md-6">
+        <form name="formularioA" id="Formulario1" style="display:none;">
+            <br><h4>Quincena para iniciar su reporte.</h4>
+            <select name="quincenaA">
+                <option value="01" selected>Primera</option>
+                <option value="02">Segunda</option>
+            </select>
+            <select name="meses1">
+                <option value="Enero" selected>Enero</option>
+                <option value="Febrero">Febrero</option>
+                <option value="Marzo">Marzo</option>
+                <option value="Abril">Abril</option>
+                <option value="Mayo">Mayo</option>
+                <option value="Junio">Junio</option>
+                <option value="Julio">Julio</option>
+                <option value="Agosto">Agosto</option>
+                <option value="Septiembre">Septiembre</option>
+                <option value="Octubre">Octubre</option>
+                <option value="Noviembre">Noviembre</option>
+                <option value="Diciembre">Diciembre</option>
+            </select>
+            <select name="años1" id="Years1"></select>
+            <br>
+        </form>
+        <form name="FormularioNomina1" id="FormularioNomina1" style="display:none;">
+            <br><h4>Determine el tipo de nómina:</h4>
+            <select name="Nomina1">
+                <option value="Nomina.Regular.inicial" selected>Regular</option>
+                <option value="Nomina.Extraordinaria.inicial">Extraordinaria</option>
+            </select>
+        </form>
+        <br>
+        <br>
+        <br>
+        @*///////*@
+        <form name="formularioB" id="Formulario2" style="display:none;">
+            <br><h4>Quincena para finalizar su reporte.</h4>
+            <select name="quincenaB">
+                <option value="01" selected>Primera</option>
+                <option value="02">Segunda</option>
+            </select>
+            <select name="meses2">
+                <option value="Enero" selected>Enero</option>
+                <option value="Febrero">Febrero</option>
+                <option value="Marzo">Marzo</option>
+                <option value="Abril">Abril</option>
+                <option value="Mayo">Mayo</option>
+                <option value="Junio">Junio</option>
+                <option value="Julio">Julio</option>
+                <option value="Agosto">Agosto</option>
+                <option value="Septiembre">Septiembre</option>
+                <option value="Octubre">Octubre</option>
+                <option value="Noviembre">Noviembre</option>
+                <option value="Diciembre">Diciembre</option>
+            </select>
+            <select name="años2" id="Years2"></select>
+            <br>
+        </form>
+        <form name="FormularioNomina2" id="FormularioNomina2" style="display:none;">
+            <br><h4>Determine el tipo de nómina:</h4>
+            <select name="Nomina2">
+                <option value="Nomina.Regular.Final" selected>Regular</option>
+                <option value="Nomina.Extraordinaria.Final">Extraordinaria</option>
+            </select>
+        </form>
+    </div>
+    @*////////////////////////////////////////////////////////////////////////////*@
+    <div id="Modal" class="modal-backdrop">
+        <div class="modal-content" id="ModalTabla" style="width:400px;z-index:999999;left:25%;margin-right:10%;margin-left:10%;height:auto;">
+            Gastos por concepto
+            <button title="Proceder a Guardar/Imprimir su tabla" class="btn btn-danger" onclick="HideModalReport();" style="position:relative;left:55%;margin-left:1%">X</button>
+            <div class="modal-header Popup" id="Cabecera" style="height:auto;text-align:center;">
+                <div style="width:300px;z-index:9999999999999999999999999999999;margin-right:10%;margin-left:10%;height:auto;">
+                    <table id="TablaExcelReporte">
+                        <thead><tr><th>Concepto</th><th>Total</th></tr></thead>
+                        <tbody id="CuerpoTablaReporte"> </tbody>
+                        <tbody id="SeparaCeldasReporte"><tr><td>...</td><td>...</td></tr></tbody>
+                        <tfoot id="PieDeTablaReporte"></tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="Clase">
+    </div>
+</div>
+<style>
+    .Clase {
+        width: 100%;
+        height: 539px;
+    }
+
+    table {
+        position: center;
+        background-color: rgba(151, 220, 255, 0.85);
+        margin-left: 0%;
+        margin-right: 0%;
+        margin-top: 0%;
+        margin-bottom: 0%;
+        border: groove 4px rgba(0, 70, 156, 0.5);
+        width: 100%;
+    }
+
+    #SeparaCeldasReporte {
+        background-color: rgba(151, 220, 255, 185);
+        border-color: rgba(151, 220, 255, 185);
+        color: rgba(151, 220, 255, 185);
+    }
+
+        #SeparaCeldasReporte td {
+            color: rgba(255, 255, 255, 0.00);
+            background-color: white;
+        }
+
+    td, th {
+        border: solid 2px rgba(0, 70, 156, 0.75);
+        padding: 3px;
+        text-align: left;
+        color: black;
+    }
+
+    th {
+        font-weight: bold;
+        font-size: larger;
+    }
+
+    .modal-backdrop {
+        background-color: rgba(00,00,00,0.5);
+        display: none;
+        width: 100%;
+        z-index: 99999999999999;
+        height: 100%;
+        position: absolute;
+        top: 0%;
+        left: 0%;
+    }
+
+    .modal-content {
+        font-weight: bold;
+        color: black;
+    }
+</style>
+<script>
+
+    function QuincenaReporte() {
+        var Mensaje;
+        var indice1 = document.formularioA.quincenaA.selectedIndex;
+        var indice2 = document.formularioA.meses1.selectedIndex;
+        var indice3 = document.formularioA.años1.selectedIndex;
+
+        var quincenaEscogida = document.formularioA.quincenaA.options[indice1].text;
+        var valorQuincena = document.formularioA.quincenaA.options[indice1].value;
+        Mensaje = "Quincena inicial: " + quincenaEscogida;
+        var mesEscogido = document.formularioA.meses1.options[indice2].text;
+        Mensaje += " de " + mesEscogido;
+        var añoEscogido = document.formularioA.años1.options[indice3].text;
+        Mensaje += " del " + añoEscogido;
+
+        alert(Mensaje);
+
+        document.getElementById('Formulario1').style.display = 'none';
+        document.getElementById('Formulario2').style.display = 'none';
+        document.getElementById('FormularioNomina1').style.display = 'none';
+        document.getElementById('FormularioNomina2').style.display = 'none';
+        document.getElementById('Enviar').style.display = 'none';
+        document.getElementById('Final').style.display = 'inline';
+        document.getElementById('Inicio').style.display = 'none';
+
+
+        var actionData = "{'quincena': '" + valorQuincena + "','mes': '" + mesEscogido + "', 'ano': '" + añoEscogido + "' }";
+
+        $.ajax(
+            {
+                url: '@Url.Action("FechaG", "Nomina")',
+                data: actionData,
+                dataType: "json",
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                succes: function (msg) { console.log("msg", msg); },
+                error: function (result) {
+                    alert("ERROR SEVERO, VUELVA A CARGAR LA PÁGINA" + result.status);
+                }
+
+            });
+
+        //crearTablaRep();
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+     function ObtenAño() {
+        alert("entro");
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("devolverAo", "Nomina")',
+                success: function(resultado)
+                {
+
+
+                    console.log("Resultado " + resultado);
+                    var añoNuevo = null;
+                    if (añoNuevo == null) {
+                        añoNuevo = resultado;
+                        console.log("Es el hijo más mayor de Cronos...", añoNuevo);
+                        arrayAños = ["2019"];
+                    }
+                        if (arrayAños.indexOf(añoNuevo) === -1) {
+                            arrayAños.push(añoNuevo);
+                            console.log("Lista de años ", arrayAños);
+                        } else if (arrayAños.indexOf(añoNuevo) > -1) {
+                            console.log(añoNuevo + " es el año en curso, pringao...");
+
+                    }
+                    const OPTIONS = document.querySelector('#Years1');
+                    i = 0;
+                    arrayAños.forEach(Element => {
+                        OPTIONS.insertAdjacentHTML('beforeend', '<option value="' + i + '">' + Element + '</option>');
+                        i++;
+                    });
+                   /////////
+                    const OPTIONS2 = document.querySelector('#Years2');
+                    x = 0;
+                    arrayAños.forEach(Element => {
+                        OPTIONS2.insertAdjacentHTML('beforeend', '<option value="' + x + '">' + Element + '</option>');
+                        x++;
+                    });
+
+                },
+
+
+            error:function(error)
+            {
+                console.error(error);
+            }
+        });
+   //    nuevoAño = resultado;
+
+         //Mañana revisar con más detalle y agregar scripts faltantes en NominaCargar
+         //, hoy 12 / 03 / 2020 03: 57 p.m.
+        }
+</script>

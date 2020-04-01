@@ -11,34 +11,15 @@
 <div class="row">
     <div class="col-md-6">
         <div id="fileuploader">Agregar archivo</div>
-        @*<button onclick="obten();">Prueba</button>*@     
+        @*<button onclick="obten();">Prueba</button>*@
     </div>
     <div class="col-md-6 ">
         @*<button class="btn btn-success" id="guardar" title="Guarda el archivo en la base de datos" style="display:none;"  onclick="guarda();">Guardar archivo</button>*@
         @*<button class="btn btn-success" title="Guarda la tabla en formato PDF" id="PDF" style="display:none;" onclick="CreatePDF();">Guardar Tabla</button>*@
-        @*<div style="display:none" id="EspacioValue"></div>*@
-        @*<button title="Guarda la tabla en PDF" class="btn btn-success" id="ConvertPDF" data-backdrop="false" onclick="CrearPDF();" style="display:none;position:center;margin-left:1%">Guardar Tabla</button>*@
+
+        <button title="Guarda la tabla en PDF" class="btn btn-success" id="ConvertPDF" data-backdrop="false" onclick="CrearPDF();" style="display:none;position:center;margin-left:1%">Guardar Tabla</button>
         @*<a class="btn btn-success" href="@Url.Action("ReporteConcentradoPrograma", "Calendario")" target="_blank">Reporte programa-concentrado</a>*@
         @*<input id="fileupload" type="file" name="files[]" data-url="@Url.Action("ImportarArchivo", "Calendario")" multiple>*@
-
-
-        <nav name="Formul2" id="nomina" class="menu" style="display:none;">
-            <h5>Seleccione el tipo de nómina</h5>
-            <ul>
-                <li name="nomina">
-                    <textarea name="NCajaNomina" id="CajaNomina" readonly="readonly">Tipo</textarea>
-                    <ul id="ListaTipoNomina">
-                        <li value="1" id="N_Regular"><a>Regular</a></li>
-                        <li value="2" id="N_Extraordinaria"><a>Extraordinaria</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
-        @*<br>
-        <br>
-        <br>
-        <br>*@
-        @*<br>*@
         <nav name="NMenuFecha" id="MenuFecha" class="menu" style="display:none;">
             <ul>
                 <li name="quincena">
@@ -50,6 +31,7 @@
                 </li>
             </ul>
         </nav>
+
         <nav name="NMenuFecha2" id="MenuFecha2" class="menu" style="display:none;">
             <ul>
                 <li name="meses">
@@ -80,20 +62,67 @@
                 </li>
             </ul>
         </nav>
-        <br>
-        <br>
-        <br>
-        @*<br>
-        <br>*@
-        <br>
-        <br>
-        <input type="button" id="btnGuarda" class="btn btn-success" value="Guardar" style="display:none;padding-left:5px" onclick="Quincena2();">
-        <button title="Deshacer cambios y reiniciar proceso" class="btn btn-danger" id="Deshacer" data-backdrop="false" onClick="location.reload();" style="display:none;position:center;">Deshacer</button>
+        @*<form name="formul" id="Formulario" style="display:none;">
+            Seleccione la fecha de la quincena correspondiente:
+            <select name="quince">
+                <option value="01" selected>1ra</option>
+                <option value="02">2da</option>
+            </select>
+            <select name="mes">
+                <option value="Enero" selected>Enero</option>
+                <option value="Febrero">Febrero</option>
+                <option value="Marzo">Marzo</option>
+                <option value="Abril">Abril</option>
+                <option value="Mayo">Mayo</option>
+                <option value="Junio">Junio</option>
+                <option value="Julio">Julio</option>
+                <option value="Agosto">Agosto</option>
+                <option value="Septiembre">Septiembre</option>
+                <option value="Octubre">Octubre</option>
+                <option value="Noviembre">Noviembre</option>
+                <option value="Diciembre">Diciembre</option>
+            </select>
 
+        </form>*@
+        @*<input type="text" name="año" id="año" maxlength="4">*@
+        @*<input type="date" value="" id ="AutoSelec" onload="getFullYear('#AutoSelec')">*@
+        @*</input>*@
+
+        @*<select name="años" id="Years"> </select>*@
+
+        @*<option value="blank" selected></option>
+        <option value="year"></option>*@
+       
+        
+        @*<input type="button" class="btn btn-success" value="Enviar" onclick="Quincena2()">*@
+        <nav name="Formul2" id="nomina" class="menu" style="display:none;">
+            Defina el tipo de nómina.
+            <ul>
+                <li name="nomina">
+                    <textarea name="NCajaNomina" id="CajaNomina" readonly="readonly">Tipo</textarea>
+                    <ul id="ListaTipoNomina">
+                        <li value="Regular" id="N_Regular"><a>Regular</a></li>
+                        <li value="Extraordinaria" id="N_Extraordinaria"><a>Extraordinaria</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        @*<form name="formul2" id="nomina" style="display:none">
+            Determine el tipo de Nómina:
+            <select name="tNomina">
+                <option value="Nomina_Regular" selected>Regular</option>
+                <option value="NominaExtraordinaria">Extraordinaria</option>
+            </select>
+        </form>*@
+        <br>
+        <br>
         @*guarda();*@
 
 
-
+        <input type="button" id="btnGuarda" class="btn btn-success" value="Guardar" style="display:none" onclick="Quincena2();guarda();">
+        <br>
+        <br>
+        <button title="Deshacer cambios y reiniciar proceso" class="btn btn-danger" id="Deshacer" data-backdrop="false" onClick="location.reload();" style="display:none;position:center;">Deshacer</button>
     </div>
     @*////////////////////////////////////seccion donde se muestra la tabla generada/////////////////////////////////////////////////////////////////*@
     <div id="Modal" class="modal-backdrop">
@@ -180,9 +209,7 @@
         top: 0%;
         left: 0%;
     }
-    #Espacio {/*height:220px*/
-    height:20px
-    }
+    #Espacio {height:220px}
     .modal-content {
         font-weight: bold;
         color: black;
@@ -217,7 +244,6 @@
 
     .menu {
         z-index: 99999999999999999999;
-        padding-left:8px;
     }
 
         .menu ul li {
@@ -225,12 +251,10 @@
             float: left;
             margin: 0;
             padding: 0;
-             z-index: 99999999999999999999;
         }
 
             .menu ul li:hover {
                 background: #5b78a7;
-
             }
 
         .menu ul ul {
@@ -244,14 +268,12 @@
             .menu ul ul li {
                 float: none;
                 width: 100px;
-                 z-index: 99999999999999999999;
             }
 
             .menu ul ul a {
                 line-height: 100%;
                 padding: 10px 15px;
                 padding: 10px 10px;
-                 z-index: 99999999999999999999;
             }
 
         .menu ul li:hover > ul {
@@ -269,7 +291,7 @@
         border: none;
         padding-bottom: 0px;
         padding-top: 3px;
-        padding-left: 4px;
+        padding-left: 10px;
     }
 </style>
 
@@ -794,104 +816,53 @@
 
     /////////////////////
 
-    function Quincena2() {
-        //var texto;
-        //var indice = document.formul.quince.selectedIndex;
-        //var indice2 = document.formul.mes.selectedIndex;
-        //var indice3 = document.formul.años.selectedIndex;
-        ////var valor = document.formul.quince.options[indice].value;
-        ////texto = "valor de la opcion escogida: " + valor;
-        //var quincenaEscogida = document.formul.quince.options[indice].text;
-        //var valorQuincena = document.formul.quince.options[indice].value;
-        //texto = "Quincena escogida: " + quincenaEscogida;
-        //var mesEscogido = document.formul.mes.options[indice2].text;
-        //texto += " ,Mes escogido: " + mesEscogido;
-        //var añoEscogido = document.formul.años.options[indice3].text;
-        //texto += " ,Año : " + añoEscogido;
+function Quincena2() {
+    //var texto;
+    //var indice = document.formul.quince.selectedIndex;
+    //var indice2 = document.formul.mes.selectedIndex;
+    //var indice3 = document.formul.años.selectedIndex;
+    ////var valor = document.formul.quince.options[indice].value;
+    ////texto = "valor de la opcion escogida: " + valor;
+    //var quincenaEscogida = document.formul.quince.options[indice].text;
+    //var valorQuincena = document.formul.quince.options[indice].value;
+    //texto = "Quincena escogida: " + quincenaEscogida;
+    //var mesEscogido = document.formul.mes.options[indice2].text;
+    //texto += " ,Mes escogido: " + mesEscogido;
+    //var añoEscogido = document.formul.años.options[indice3].text;
+    //texto += " ,Año : " + añoEscogido;
 
         var CajaQ = document.getElementById('CajaQuincena');
         var CajaM = document.getElementById('CajaMes');
         var CajaA = document.getElementById('CajaAño');
-       // var Entero = 01;
-        var ValActionData = 0;
-        var Val1 = document.getElementById('1ra').textContent;
-        //var Val2 = document.getElementById('2da');
-      //  alert("Val1 es igual a = " + Val1);
-        var TipoNominaReporte = document.getElementById('CajaNomina');
-
-        var TipoNomina = document.getElementById('N_Regular').textContent;
-        if (TipoNomina == TipoNominaReporte.textContent) {
-            QuincenaTipoNomina = document.getElementById('N_Regular').getAttribute('value');
-        } else {
-            QuincenaTipoNomina = document.getElementById('N_Extraordinaria').getAttribute('value');
-        }
-
-        if (Val1 == CajaQ.textContent) {
-            ValActionData = document.getElementById('1ra').getAttribute('Value');
-           // alert("ValActionData es = "+ValActionData)
-        } else {
-            ValActionData = document.getElementById('2da').getAttribute('Value');
-          //  alert("ValActionData es = "+ValActionData)
-        }
-            //} else (Val2 == CajaQ.textContent){
-        //     ValActionData = document.getElementById('2da').getAttribute('Value');
-        //}
 
         alert("Esta es la " + CajaQ.textContent + " quincena " + " de " + CajaM.textContent + " del " + CajaA.textContent);
-      //  alert("Value de la quincena " +  ValActionData);
+
     //var añoEscogido = parseFloat(document.getElementsByName('año')[0].value);
-  $('#ListaQuincenas').click(function(e){
-      var li = e.target.parentNode;
-     // alert(li.id);
-         let ID = li.id;
-        // let Val = li.Value;
-     //alert("Ver " + ID)
-     // var Ident = li.id;
-         var Identidad = document.getElementById(ID).textContent;
-         var Valor = document.getElementById(ID).getAttribute("Value");
-    //alert("Has invocado a " + Summon)
-      const WRITELINE = document.querySelector('#CajaQuincena');
-      var Lista = document.getElementById('CajaQuincena');
-      Lista.innerHTML = "";
-      // WRITELINE.insertAdjacentHTML('beforeend','<p>Has invocado a '+Summon+'</p>')
-         WRITELINE.insertAdjacentHTML('beforeend', Identidad);
-         ///
-         //alert("Variable Valor" + Valor);
-        
-     });
+    //if (isNaN(añoEscogido)) {
+    //    alert("El valor ingresado no es número válido");
+    //    return;
+    //} else {
+    //    texto += " del año " + añoEscogido;
+    //}
+
+    //alert(texto);
+
+  //  document.getElementById('Formulario').style.display = 'none';
+    document.getElementById('MenuFecha').style.display = 'none';
+    document.getElementById('MenuFecha2').style.display = 'none';
+    document.getElementById('MenuFecha3').style.display = 'none';
+  //  document.getElementById('ConvertPDF').style.display = 'inline';
+      document.getElementById('btnGuarda').style.display = 'none';
+    document.getElementById('nomina').style.display = "none";
+    document.getElementById('Deshacer').style.display = "none";
+
 
     //  var actionData = {quincena: indice , mes : indice2 , ano:  indice3 };
-    var actionData = "{'guardaQuincena': '" + ValActionData + "','guardaMes': '" + CajaM.textContent + "', 'guardaAnio': '" + CajaA.textContent + "','tipoNomina': '" +  QuincenaTipoNomina +"' }";
+    var actionData = "{'quincena': '" + valorQuincena + "','mes': '" + mesEscogido + "', 'ano': '" + añoEscogido + "' }";
 
-
-         @*$.ajax({
-            type: 'POST',
-            url: '@Url.Action("PruebaG", "Nomina")',
-            data:  actionData,
-            dataType: "json",
-            returnType: 'json',
-           // async: true,
-
-                success: function(resultado)
-                {
-
-
-                    console.log("Resultado" + resultado);
-                    console.log("Resultado2",  resultado);
-                //Console.log("prueba:" + prueba);
-
-                },
-
-
-            error:function(error)
-            {
-                console.error(error);
-            }
-        });*@
     $.ajax(
         {
-            @*url: '@Url.Action("FechaG", "Nomina")',*@
-             url: '@Url.Action("PruebaG", "Nomina")',
+            url: '@Url.Action("FechaG", "Nomina")',
             data: actionData,
             dataType: "json",
             type: "POST",
@@ -901,16 +872,6 @@
                 alert("ERROR " + result.status);
             }
         });
-
-    
-  //  document.getElementById('Formulario').style.display = 'none';
-    document.getElementById('MenuFecha').style.display = 'none';
-    document.getElementById('MenuFecha2').style.display = 'none';
-    document.getElementById('MenuFecha3').style.display = 'none';
-  //  document.getElementById('ConvertPDF').style.display = 'inline';
-      document.getElementById('btnGuarda').style.display = 'none';
-    document.getElementById('nomina').style.display = "none";
-    document.getElementById('Deshacer').style.display = "none";
 
 }
 
@@ -963,12 +924,10 @@
    // nuevoAño = obtenAño();
 
              function obtenAño() {
-      //  alert("entro");
+        alert("entro");
         $.ajax({
             type: 'POST',
             url: '@Url.Action("devolverAo", "Nomina")',
-            dataType: "json",
-            returnType: 'json',
                 success: function(resultado)
                 {
 
@@ -978,19 +937,18 @@
                     if (añoNuevo == null) {
                         añoNuevo = resultado;
                         console.log("Es el hijo más mayor de Cronos...", añoNuevo);
-                       // arrayAños = ["2019"];
+                        arrayAños = ["2019"];
                     }
-                    //    if (arrayAños.indexOf(añoNuevo) === -1) {
-                    //        arrayAños.push(añoNuevo);
-                    //        console.log("Lista de años ", arrayAños);
-                    //    } else if (arrayAños.indexOf(añoNuevo) > -1) {
-                    //        console.log(añoNuevo + " es el año en curso, pringao...");
+                        if (arrayAños.indexOf(añoNuevo) === -1) {
+                            arrayAños.push(añoNuevo);
+                            console.log("Lista de años ", arrayAños);
+                        } else if (arrayAños.indexOf(añoNuevo) > -1) {
+                            console.log(añoNuevo + " es el año en curso, pringao...");
 
-                    //}
+                    }
                     const OPTIONS = document.querySelector('#ListaAños');
                     i = 0;
-                    //arrayAños.forEach(Element => {
-                     añoNuevo.forEach(Element => {
+                    arrayAños.forEach(Element => {
                         // OPTIONS.insertAdjacentHTML('beforeend', '<option value="' + i + '">' + Element + '</option>');
                         OPTIONS.insertAdjacentHTML('beforeend', '<li value="' + i + '" id="Año-' + i + '"><a>' + Element + '</a></li>')
                         i++;
@@ -1006,7 +964,7 @@
         });
    //    nuevoAño = resultado;
         }
-    
+
     $('#ListaAños').click(function(e){
       var li = e.target.parentNode;
      // alert(li.id);
@@ -1038,20 +996,16 @@
      $('#ListaQuincenas').click(function(e){
       var li = e.target.parentNode;
      // alert(li.id);
-         let ID = li.id;
-        // let Val = li.Value;
+      let ID = li.id;
      //alert("Ver " + ID)
      // var Ident = li.id;
-         var Identidad = document.getElementById(ID).textContent;
-         var Valor = document.getElementById(ID).getAttribute("Value");
+      var Identidad = document.getElementById(ID).textContent;
     //alert("Has invocado a " + Summon)
       const WRITELINE = document.querySelector('#CajaQuincena');
       var Lista = document.getElementById('CajaQuincena');
       Lista.innerHTML = "";
       // WRITELINE.insertAdjacentHTML('beforeend','<p>Has invocado a '+Summon+'</p>')
-         WRITELINE.insertAdjacentHTML('beforeend', Identidad);
-         ///
-         alert("Variable Valor" + Valor);
+         WRITELINE.insertAdjacentHTML('beforeend', Identidad)
         
      });
      $('#ListaTipoNomina').click(function(e){

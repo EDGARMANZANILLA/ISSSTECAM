@@ -1,6 +1,5 @@
 ﻿using CrystalDecisions.CrystalReports.Engine;
 using ISSSTECAM.Presupuesto.Entidades;
-using ISSSTECAM.Presupuesto.Web.Reportes;
 using Newtonsoft.Json;
 using OfficeOpenXml;
 using System;
@@ -30,31 +29,9 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
             return PartialView();
         }
 
-        /// <summary>
-        /// Devuelve a la vista del reporte una lista obtenida de la base de datos la cual se filtra por 
-        /// unicamente los conceptos para que el usuario pueda elegir despues de su seleccion
-        /// </summary>
-        /// <returns></returns>
+
         public ActionResult Reporte() {
-          
-            List<string> conceptos = new List<string>();
-
-            var conceptosActivos = Negocios.ConceptosNegocios.ObtenerActivos();
-
-            foreach (var concepto in conceptosActivos)
-            {
-                if (concepto.ConceptoNomina != null || concepto.ConceptoNomina != " ")
-                {
-                    if (!conceptos.Contains(concepto.ConceptoNomina.Trim().ToUpper()))
-                    {
-                        conceptos.Add(concepto.ConceptoNomina.Trim().ToUpper());
-                    }
-
-                }
-
-            }
-
-            return PartialView(conceptos);
+            return PartialView();
         }
         
 
@@ -369,6 +346,7 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
             }
         }
 
+
         public JsonResult TotalesConceptos(/*DateTime fechaInicio, DateTime fechaFin*/)
         {
             DateTime fechaInicio = Convert.ToDateTime("01/01/2020");
@@ -455,11 +433,8 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
 
 
         #region obtiene fecha y luego guarda, (modificar a un solo metodo)
-        public JsonResult PruebaG(int guardaQuincena, string guardaMes, int guardaAnio, int tipoNomina)
+        public JsonResult PruebaG()
         {
-            //int tipoNomina es 1 o 2 que se encuentran asi en la DB
-            int TipoNomina = tipoNomina;
-
 
             Nomina nueva = new Nomina();
 
@@ -488,26 +463,15 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
             //return Json(JsonConvert.SerializeObject(exit), JsonRequestBehavior.AllowGet);
             return Json(exit, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult FechaG(int inicialQuincena, string inicialMes, int  inicialAnio, int finalQuincena, string finalMes, int finalAnio, int tipoNomina )
+        public JsonResult FechaG(int quincena, string mes, int ano)
         {
-            int InicialQuincena, InicialAnio;
-            string InicialMes;
+            int NumeroDeQuincena, AnoDeQuincena;
+            string Mees;
 
-            InicialQuincena = inicialQuincena;
-            InicialAnio = inicialAnio;
-            InicialMes = inicialMes;
+            NumeroDeQuincena = quincena;
+            AnoDeQuincena = ano;
+            Mees = mes;
 
-
-            int FinalQuincena, FinalAnio;
-            string FinalMes;
-            int TipoNomina;
-
-            FinalQuincena = finalQuincena;
-            FinalAnio = finalAnio;
-            FinalMes = finalMes;
-            TipoNomina = tipoNomina;
-
-            ////prueba
 
             String A = "Exitoso3";
 
@@ -515,6 +479,7 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
             return Json(A, JsonRequestBehavior.AllowGet);
         }
         #endregion
+
 
 
         #region Se obtinen  los datos para incluirlos en el dateset para la creacion del reporte
@@ -691,107 +656,42 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
             }
 
 
-       
-
             return conceptoYMonto;
         }
         #endregion
 
         #region Se obtiene la fecha actual y la manda a la vista(proximamente guardará la fecha en un array)
 
-        public JsonResult devolverAo()
+        public int devolverAo()
         {
             //DateTime año = Convert.ToDateTime("07/06/2021");
 
             int año = DateTime.Now.Year;
-            List<int> ListaAños = new List<int>();
-            ListaAños.Add(2019);
-            if (!ListaAños.Contains(año))
-            {
-                ListaAños.Add(año);
-            }
-           // return año;
-            return Json(ListaAños, JsonRequestBehavior.AllowGet);
+
+            return año;
+
 
         }
         #endregion
 
-        #region Recibe el array de los Conceptos seleccionados por el usuario
-        public JsonResult ConceptArray(string[] data)
+
+
+        public ActionResult GenerarReporte(/*DateTime fechaInicio, DateTime fechaFin*/)
         {
-            string exit = "exitoso";
-
-            return Json(exit, JsonRequestBehavior.AllowGet);
-        }
-        #endregion
-
-
-        #region Filtro de conceptos que escoje el usuario final para la generacion del reporte
-        private Dictionary<string, decimal> FiltradoDeConceptosPorElUsuario( Dictionary<string, decimal> conceptoYMonto, List<string>conceptosSeleccionados)
-        {
-
-
-            Dictionary<string, decimal> filtroDeConceptos = new Dictionary<string, decimal>();
-
-            foreach (var item in conceptoYMonto) {
-                foreach (var item2 in conceptosSeleccionados)
-                {
-                    if (item.Key.Trim().ToUpper()== item2.Trim().ToUpper()) 
-                    {
-                        filtroDeConceptos.Add(item.Key.Trim().ToUpper(), item.Value);
-                    }
-
-                }
-
-            }
-
-
-            return filtroDeConceptos;
-        }
-
-        #endregion
-
-
-
-
-            public ActionResult GenerarReporte(/*DateTime fechaInicio, DateTime fechaFin, int tipoNomina , List<string>ConceptosSelecionados*/)
-            {
-
-
             DateTime fechaInicio = Convert.ToDateTime("01/01/2019");
             DateTime fechaFin = Convert.ToDateTime("31/12/2019");
             int PMensual= 10;
             int Porcent =20;
             int NTrabajadores= 30;
             int PMenXTrabajador = 40;
-            //sustituir por lista del parametro Todo en Mayusculas
-            List<string> conceptosSeleccionados = new List<string>();
-         // conceptosSeleccionados = ListaDeConceptosActivos();
-
-            conceptosSeleccionados.Add("SUELDO");
-            conceptosSeleccionados.Add("SUELDO EVENTUAL");
-            conceptosSeleccionados.Add("DIA ECONOMICO");
-            conceptosSeleccionados.Add("SUBS. X INCAP.");
-            conceptosSeleccionados.Add("SUBS. X INCAP. (EVENTUAL)");
-            conceptosSeleccionados.Add("QUINQUENIO");
-            conceptosSeleccionados.Add("P. S. M.");
-            conceptosSeleccionados.Add("puntualidad");
-            
-
 
             var centrosCostos = ObtenerMontosPorCentroCosto(fechaInicio, fechaFin);
             var centroCostosConfianza = ObtenerMontosPorCentroCostoDeConFianza(fechaInicio, fechaFin);
             var centroCostosBase = ObtenerMontosPorCentroCostoDeBase(fechaInicio, fechaFin);
             var centroCostosContrato = ObtenerMontosPorCentroCostoDeContrato(fechaInicio, fechaFin);
 
-            ///obtiene todos los conceptos que contengan montos guardados y los suma.
-            ///en el metodo 2 envia esos conceptos y montos y se filtran por los elegidos por el usuario
-            Dictionary<string, decimal> conceptoMonto = new Dictionary<string, decimal>();
-            conceptoMonto = ObtenerMontosPorConceptos(fechaInicio, fechaFin);
-            var conceptosFiltrados = FiltradoDeConceptosPorElUsuario(conceptoMonto, conceptosSeleccionados);
 
-
-
+            var conceptos = ObtenerMontosPorConceptos(fechaInicio, fechaFin);
             Datasets.dtsReporteGastosSueldosSalarios dts = new Datasets.dtsReporteGastosSueldosSalarios();
 
 
@@ -824,7 +724,7 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
            }
 
 
-           foreach (var concepto in conceptosFiltrados)
+           foreach (var concepto in conceptos)
            {
                dts.ConceptosTotal.AddConceptosTotalRow(concepto.Key, concepto.Value, PMensual, Porcent, NTrabajadores, PMenXTrabajador);
 

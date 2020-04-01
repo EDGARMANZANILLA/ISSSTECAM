@@ -1,0 +1,630 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B3DDF0D3-531D-4A8E-9982-A7BE438D9EE5}</ProjectGuid>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ISSSTECAM.Presupuesto.Web</RootNamespace>
+    <AssemblyName>ISSSTECAM.Presupuesto.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <TargetFrameworkProfile />
+    <Use64BitIISExpress />
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=4.0.4.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.4.0.4\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="EO.Pdf, Version=20.0.33.0, Culture=neutral, PublicKeyToken=e92353a6bf73fffc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Essential Objects\EO.Total 2020\EO.Pdf.dll</HintPath>
+    </Reference>
+    <Reference Include="EO.Pdf.Mvc, Version=20.0.33.0, Culture=neutral, PublicKeyToken=e92353a6bf73fffc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Essential Objects\EO.Total 2020\EO.Pdf.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus, Version=4.1.1.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.4.1.1\lib\net40\EPPlus.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.DataVisualization" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Mvc.FixedDisplayModes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.FixedDisplayModes.1.0.0\lib\net40\Microsoft.Web.Mvc.FixedDisplayModes.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Net.Http.2.0.20710.0\lib\net40\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.20710.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Net.Http.2.0.20710.0\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.20710.0\lib\net40\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.20710.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.0.0\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Providers">
+      <HintPath>..\packages\Microsoft.AspNet.Providers.Core.1.2\lib\net40\System.Web.Providers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20715.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.3.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.3.0\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ActividadesController.cs" />
+    <Compile Include="Controllers\CalendarioController.cs" />
+    <Compile Include="Controllers\CentrosCostosController.cs" />
+    <Compile Include="Controllers\ClavesPresupuestalesController.cs" />
+    <Compile Include="Controllers\ConfiguracionesController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\NominaController.cs" />
+    <Compile Include="Controllers\PartidasController.cs" />
+    <Compile Include="Controllers\ProgramasController.cs" />
+    <Compile Include="Controllers\ProyectosController.cs" />
+    <Compile Include="Controllers\SolicitudesController.cs" />
+    <Compile Include="Datasets\dtsReporteGastosSueldosSalarios.cs">
+      <DependentUpon>dtsReporteGastosSueldosSalarios.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Datasets\dtsReporteGastosSueldosSalarios.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dtsReporteGastosSueldosSalarios.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CalendarioClavePresupuestal.cs" />
+    <Compile Include="Models\ClavePresupuestal.cs" />
+    <Compile Include="Models\ClavesPresupuestalesSolicitudes.cs" />
+    <Compile Include="Models\SolicitudPresupuestal.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reportes\Base.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Base.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes\Conceptos.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Conceptos.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes\Confianza.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Confianza.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes\Contrato.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Contrato.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes\GastosSueldosSalarios.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GastosSueldosSalarios.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes\TotalDeTrabajadores.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TotalDeTrabajadores.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Service References\RH.ServiciosWeb\Reference.cs" />
+    <Compile Include="Service References\RH.ServiciosWeb\Reference1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ServicioEmpleados\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\app-rtl.css" />
+    <Content Include="Content\app.css" />
+    <Content Include="Content\bootstrap-rtl.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\images\Banner.jpg" />
+    <Content Include="Content\images\EscudoCampeche.png" />
+    <Content Include="Content\images\issstecam_logo.png" />
+    <Content Include="Content\images\issstecam_logo2.png" />
+    <Content Include="Content\images\logo%282016%29.png" />
+    <Content Include="Content\images\LogoGeneral.png" />
+    <Content Include="Content\images\LogoGeneralSimple.png" />
+    <Content Include="Content\images\LogoGeneralSimple_BCO.png" />
+    <Content Include="Content\notificacion.css" />
+    <Content Include="Content\plantilla.css" />
+    <Content Include="Content\theme-f.css" />
+    <Content Include="Content\theme-h.css" />
+    <Content Include="Content\theme.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery.ui.accordion.css" />
+    <Content Include="Content\themes\base\jquery.ui.all.css" />
+    <Content Include="Content\themes\base\jquery.ui.autocomplete.css" />
+    <Content Include="Content\themes\base\jquery.ui.base.css" />
+    <Content Include="Content\themes\base\jquery.ui.button.css" />
+    <Content Include="Content\themes\base\jquery.ui.core.css" />
+    <Content Include="Content\themes\base\jquery.ui.datepicker.css" />
+    <Content Include="Content\themes\base\jquery.ui.dialog.css" />
+    <Content Include="Content\themes\base\jquery.ui.progressbar.css" />
+    <Content Include="Content\themes\base\jquery.ui.resizable.css" />
+    <Content Include="Content\themes\base\jquery.ui.selectable.css" />
+    <Content Include="Content\themes\base\jquery.ui.slider.css" />
+    <Content Include="Content\themes\base\jquery.ui.tabs.css" />
+    <Content Include="Content\themes\base\jquery.ui.theme.css" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\minified\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.accordion.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.autocomplete.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.button.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.core.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.datepicker.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.dialog.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.progressbar.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.resizable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.selectable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Scripts\animo.js\animo.js" />
+    <Content Include="Scripts\app.js" />
+    <Content Include="Scripts\bootstrap\dist\css\bootstrap.css" />
+    <Content Include="Scripts\bootstrap\dist\js\bootstrap.js" />
+    <Content Include="Scripts\chosen_v1.2.0\js\chosen.jquery.min.js" />
+    <Content Include="Scripts\datatables-colvis\css\dataTables.colVis.css" />
+    <Content Include="Scripts\datatables-colvis\js\dataTables.colVis.js" />
+    <Content Include="Scripts\datatables\media\images\Sorting icons.psd" />
+    <Content Include="Scripts\datatables\media\js\dataTables.bootstrap.js" />
+    <Content Include="Scripts\datatables\media\js\dataTables.responsive.js" />
+    <Content Include="Scripts\datatables\media\js\dataTables.rowGroup.min.js" />
+    <Content Include="Scripts\datatables\media\js\jquery.dataTables.js" />
+    <Content Include="Scripts\datatables\media\js\jquery.dataTables.min.js" />
+    <Content Include="Scripts\datatables\media\js\tablesaw-init.js" />
+    <Content Include="Scripts\datatables\media\js\tablesaw.js" />
+    <Content Include="Scripts\fontawesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="Scripts\fontawesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Scripts\fontawesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="Scripts\fontawesome\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Scripts\fontawesome\fonts\FontAwesome.otf" />
+    <Content Include="Scripts\animate.css\animate.min.css" />
+    <Content Include="Scripts\chosen_v1.2.0\css\chosen-sprite%402x.png" />
+    <Content Include="Scripts\chosen_v1.2.0\css\chosen-sprite.png" />
+    <Content Include="Scripts\chosen_v1.2.0\css\chosen.min.css" />
+    <Content Include="Scripts\dataTables.fontAwesome\index.css" />
+    <Content Include="Scripts\datatables\media\css\dataTables.bootstrap.css" />
+    <Content Include="Scripts\datatables\media\css\responsive.dataTables.css" />
+    <Content Include="Scripts\datatables\media\css\tablesaw.css" />
+    <Content Include="Scripts\datatables\media\images\favicon.ico" />
+    <Content Include="Scripts\datatables\media\images\sort_asc.png" />
+    <Content Include="Scripts\datatables\media\images\sort_asc_disabled.png" />
+    <Content Include="Scripts\datatables\media\images\sort_both.png" />
+    <Content Include="Scripts\datatables\media\images\sort_desc.png" />
+    <Content Include="Scripts\datatables\media\images\sort_desc_disabled.png" />
+    <Content Include="Scripts\fontawesome\css\font-awesome.min.css" />
+    <Content Include="Scripts\fontawesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="Datasets\dtsReporteGastosSueldosSalarios.xsc">
+      <DependentUpon>dtsReporteGastosSueldosSalarios.xsd</DependentUpon>
+    </Content>
+    <None Include="Datasets\dtsReporteGastosSueldosSalarios.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dtsReporteGastosSueldosSalarios.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Datasets\dtsReporteGastosSueldosSalarios.xss">
+      <DependentUpon>dtsReporteGastosSueldosSalarios.xsd</DependentUpon>
+    </Content>
+    <None Include="Properties\PublishProfiles\Publicado.pubxml" />
+    <None Include="Scripts\jquery-1.9.1.intellisense.js" />
+    <Content Include="Scripts\Html2Canvas\html2canvas.js" />
+    <Content Include="Scripts\Html2Canvas\html2canvas.min.js" />
+    <Content Include="Scripts\jquery-1.9.1.js" />
+    <Content Include="Scripts\jquery-1.9.1.min.js" />
+    <Content Include="Scripts\jquery-1.9.1.min.map" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-localize-i18n\dist\jquery.localize.js" />
+    <Content Include="Scripts\jQuery-Storage-API\jquery.storageapi.js" />
+    <Content Include="Scripts\jquery-ui-1.8.24.js" />
+    <Content Include="Scripts\jquery-ui-1.8.24.min.js" />
+    <Content Include="Scripts\jquery.animateNumber.min.js" />
+    <Content Include="Scripts\jquery.blockUI.js" />
+    <Content Include="Scripts\jquery.easing\js\jquery.easing.js" />
+    <Content Include="Scripts\jquery.noty.packaged.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jquery\dist\jquery.js" />
+    <Content Include="Scripts\jsPDF\build.js" />
+    <Content Include="Scripts\jsPDF\dist\jspdf.debug.js" />
+    <Content Include="Scripts\jsPDF\dist\jspdf.min.js" />
+    <Content Include="Scripts\jsPDF\jspdf.js" />
+    <Content Include="Scripts\jsPDF\libs\canvg_context2d\canvg.js" />
+    <Content Include="Scripts\jsPDF\libs\canvg_context2d\libs\rgbcolor.js" />
+    <Content Include="Scripts\jsPDF\libs\canvg_context2d\libs\StackBlur.js" />
+    <Content Include="Scripts\jsPDF\libs\css_colors.js" />
+    <Content Include="Scripts\jsPDF\libs\deflate.js" />
+    <Content Include="Scripts\jsPDF\libs\Downloadify\images\download.png" />
+    <Content Include="Scripts\jsPDF\libs\Downloadify\js\downloadify.min.js" />
+    <Content Include="Scripts\jsPDF\libs\Downloadify\js\swfobject.js" />
+    <Content Include="Scripts\jsPDF\libs\Downloadify\media\downloadify.swf" />
+    <Content Include="Scripts\jsPDF\libs\Downloadify\src\downloadify.js" />
+    <Content Include="Scripts\jsPDF\libs\html2canvas\dist\html2canvas.js" />
+    <Content Include="Scripts\jsPDF\libs\html2canvas\src\clone.js" />
+    <Content Include="Scripts\jsPDF\libs\html2canvas\src\color.js" />
+    <Content Include="Scripts\jsPDF\libs\html2canvas\src\core.js" />
+    <Content Include="Scripts\jsPDF\libs\html2canvas\src\dummyimagecontainer.js" />
+    <Content Include="Scripts\jsPDF\libs\html2canvas\src\fallback.js" />
+    <Content Include="Scripts\jsPDF\libs\html2canvas\src\font.js" />
+    <Content Include="Scripts\jsPDF\libs\html2canvas\src\fontmetrics.js" />
+    <Content Include="Scripts\jsPDF\libs\html2canvas\src\framecontainer.js" />
+    <Content Include="Scripts\jsPDF\libs\html2canvas\src\gradientcontainer.js" />
+    <Content Include="Scripts\jsPDF\libs\html2canvas\src\imagecontainer.js" />
+    <Content Include="Scripts\jsPDF\libs\html2canvas\src\imageloader.js" />
+    <Content Include="Scripts\jsPDF\libs\html2canvas\src\lineargradientcontainer.js" />
+    <Content Include="Scripts\jsPDF\libs\html2canvas\src\log.js" />
+    <Content Include="Scripts\jsPDF\libs\html2canvas\src\nodecontainer.js" />
+    <Content Include="Scripts\jsPDF\libs\html2canvas\src\nodeparser.js" />
+    <Content Include="Scripts\jsPDF\libs\html2canvas\src\promise.js" />
+    <Content Include="Scripts\jsPDF\libs\html2canvas\src\proxy.js" />
+    <Content Include="Scripts\jsPDF\libs\html2canvas\src\proxyimagecontainer.js" />
+    <Content Include="Scripts\jsPDF\libs\html2canvas\src\pseudoelementcontainer.js" />
+    <Content Include="Scripts\jsPDF\libs\html2canvas\src\renderer.js" />
+    <Content Include="Scripts\jsPDF\libs\html2canvas\src\renderers\canvas.js" />
+    <Content Include="Scripts\jsPDF\libs\html2canvas\src\stackingcontext.js" />
+    <Content Include="Scripts\jsPDF\libs\html2canvas\src\support.js" />
+    <Content Include="Scripts\jsPDF\libs\html2canvas\src\svgcontainer.js" />
+    <Content Include="Scripts\jsPDF\libs\html2canvas\src\svgnodecontainer.js" />
+    <Content Include="Scripts\jsPDF\libs\html2canvas\src\textcontainer.js" />
+    <Content Include="Scripts\jsPDF\libs\html2canvas\src\utils.js" />
+    <Content Include="Scripts\jsPDF\libs\html2canvas\src\webkitgradientcontainer.js" />
+    <Content Include="Scripts\jsPDF\libs\html2canvas\src\xhr.js" />
+    <Content Include="Scripts\jsPDF\libs\html2pdf.js" />
+    <Content Include="Scripts\jsPDF\libs\png_support\png.js" />
+    <Content Include="Scripts\jsPDF\libs\png_support\zlib.js" />
+    <Content Include="Scripts\jsPDF\libs\polyfill.js" />
+    <Content Include="Scripts\jsPDF\libs\require\config.js" />
+    <Content Include="Scripts\jsPDF\libs\require\require.js" />
+    <Content Include="Scripts\jsPDF\main.js" />
+    <Content Include="Scripts\knockout-2.2.0.debug.js" />
+    <Content Include="Scripts\knockout-2.2.0.js" />
+    <Content Include="Scripts\Mensajes.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\modernizr\modernizr.custom.js" />
+    <Content Include="Scripts\NominaCargar.js" />
+    <Content Include="Scripts\notificacion.js" />
+    <Content Include="Scripts\PaginaMaestra.js" />
+    <Content Include="Scripts\screenfull\dist\screenfull.js" />
+    <Content Include="Scripts\select2\css\select2.css" />
+    <Content Include="Scripts\select2\dist\css\select2-bootstrap.css" />
+    <Content Include="Scripts\select2\dist\css\select2.css" />
+    <Content Include="Scripts\select2\dist\js\select2.js" />
+    <Content Include="Scripts\select2\js\i18n\en.js" />
+    <Content Include="Scripts\select2\js\i18n\es.js" />
+    <Content Include="Scripts\select2\js\select2.js" />
+    <Content Include="Scripts\simple-line-icons\css\simple-line-icons.css" />
+    <Content Include="Scripts\simple-line-icons\fonts\Simple-Line-Icons.svg" />
+    <Content Include="Scripts\spinkit\css\spinkit.css" />
+    <Content Include="Scripts\Token.js" />
+    <Content Include="Scripts\Upload\jquery.uploadfile.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\Upload\uploadfile.css" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Scripts\jsPDF\libs\canvg_context2d\README.md" />
+    <Content Include="Scripts\jsPDF\libs\Downloadify\src\com\dynamicflash\util\Base64.as" />
+    <Content Include="Scripts\jsPDF\libs\Downloadify\src\com\dynamicflash\util\tests\Base64Test.as" />
+    <Content Include="Scripts\jsPDF\libs\Downloadify\src\Downloadify.as" />
+    <Content Include="Scripts\jsPDF\libs\html2canvas\LICENSE" />
+    <Content Include="Scripts\jsPDF\libs\html2canvas\readme.md" />
+    <Content Include="Scripts\jsPDF\libs\README" />
+    <None Include="Service References\RH.ServiciosWeb\configuration.svcinfo" />
+    <None Include="Service References\RH.ServiciosWeb\configuration91.svcinfo" />
+    <None Include="Service References\RH.ServiciosWeb\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference1.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\RH.ServiciosWeb\ServicioEmpleados.disco" />
+    <Content Include="Service References\ServicioEmpleados\ISSSTECAM.Presupuesto.Web.ServicioEmpleados.CompositeType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ServicioEmpleados\ISSSTECAM.Presupuesto.Web.ServicioEmpleados.vstEmpleadoDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\RH.ServiciosWeb\ISSSTECAM.Presupuesto.Web.RH.ServiciosWeb.CompositeType.datasource" />
+    <Content Include="Service References\RH.ServiciosWeb\ISSSTECAM.Presupuesto.Web.RH.ServiciosWeb.vstEmpleadoDTO.datasource" />
+    <None Include="Service References\RH.ServiciosWeb\ServicioEmpleados.wsdl" />
+    <None Include="Service References\RH.ServiciosWeb\ServicioEmpleados.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RH.ServiciosWeb\ServicioEmpleados1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RH.ServiciosWeb\ServicioEmpleados2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RH.ServiciosWeb\ServicioEmpleados3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServicioEmpleados\ServicioEmpleados.disco" />
+    <None Include="Service References\ServicioEmpleados\configuration91.svcinfo" />
+    <None Include="Service References\ServicioEmpleados\configuration.svcinfo" />
+    <None Include="Service References\ServicioEmpleados\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Scripts\simple-line-icons\fonts\Simple-Line-Icons.eot" />
+    <Content Include="Scripts\simple-line-icons\fonts\Simple-Line-Icons.ttf" />
+    <Content Include="Scripts\simple-line-icons\fonts\Simple-Line-Icons.woff" />
+    <Content Include="Scripts\simple-line-icons\fonts\Simple-Line-Icons.woff2" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Calendario\Index.cshtml" />
+    <Content Include="Views\Solicitudes\Index.cshtml" />
+    <Content Include="Views\Solicitudes\Operaciones.cshtml" />
+    <Content Include="Views\ClavesPresupuestales\Captura.cshtml" />
+    <Content Include="Views\CentrosCostos\Index.cshtml" />
+    <Content Include="Views\CentrosCostos\Lista.cshtml" />
+    <Content Include="Views\Partidas\Lista.cshtml" />
+    <Content Include="Views\Programas\Lista.cshtml" />
+    <Content Include="Views\Proyectos\Lista.cshtml" />
+    <Content Include="Views\Actividades\Lista.cshtml" />
+    <Content Include="Views\Configuraciones\Index.cshtml" />
+    <Content Include="Views\Calendario\ReporteCentroCostoMensual.cshtml" />
+    <Content Include="Views\Nomina\Conceptos.cshtml" />
+    <Content Include="Views\Nomina\Cargar.cshtml" />
+    <None Include="Service References\ServicioEmpleados\ServicioEmpleados.wsdl" />
+    <None Include="Service References\ServicioEmpleados\ServicioEmpleados.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServicioEmpleados\ServicioEmpleados1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServicioEmpleados\ServicioEmpleados2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServicioEmpleados\ServicioEmpleados3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Views\Nomina\Reporte.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Reportes\animate.css\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ISSSTECAM.Presupuesto.Entidades\ISSSTECAM.Presupuesto.Entidades.csproj">
+      <Project>{13bbbf40-485b-4079-928c-e46121a02d57}</Project>
+      <Name>ISSSTECAM.Presupuesto.Entidades</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ISSSTECAM.Presupuesto.Negocios\ISSSTECAM.Presupuesto.Negocios.csproj">
+      <Project>{08339b46-aec1-4d2d-879e-76f828e142e4}</Project>
+      <Name>ISSSTECAM.Presupuesto.Negocios</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\ServicioEmpleados\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Reportes\Base.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Base.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\Conceptos.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Conceptos.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\Confianza.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Confianza.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\Contrato.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Contrato.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\GastosSueldosSalarios.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>GastosSueldosSalarios.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\TotalDeTrabajadores.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>TotalDeTrabajadores.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>3162</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:53317/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

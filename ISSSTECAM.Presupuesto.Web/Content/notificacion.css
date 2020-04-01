@@ -1,0 +1,225 @@
+.nuevos-notis{
+    max-height: 220px;
+    overflow: auto;
+}
+
+.tip-container, 
+.tip, 
+.tip-message,
+.notification-body
+{
+    display: flex;
+}
+
+
+.tip-container
+{
+    width: 100%;
+    height: 100%;
+    justify-content: flex-end;
+    position: absolute;
+}
+.tip
+{
+    width: 300px;
+    height: 60px;
+    align-self: flex-end;
+    margin-right: 40px;
+    margin-bottom: 20px;
+    z-index: 12001;
+}
+.tip-message, .tip-app, .message, .tip-close
+{
+    height: 100%;
+}
+.tip-message
+{
+    width: 240px;
+}
+.tip-app
+{
+    border-radius: 30px;
+    width: 60px;
+    background: #fff url('https://cdn0.iconfinder.com/data/icons/user-pictures/100/male-128.png') no-repeat center;
+    background-size: 60px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
+}
+.tip-message {
+    padding: 5px;
+    background: #eee;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    margin-right: 8px;
+}
+.tip-message:before, .tip-message:after{
+    position: absolute;
+    content: '';
+}
+.tip-message:before {
+    border-top: 7px solid transparent;
+    border-left: 7px solid #ccc;
+    border-bottom: 7px solid transparent;
+    border-right-color: rgba(0, 0, 0, 0.2);
+    right: 100px;
+    bottom: 45px;
+}
+.tip-message:after {
+    border-top: 6px solid transparent;
+    border-left: 6px solid #eee;
+    border-bottom: 6px solid transparent;
+    right: 102px;
+    bottom: 46px;
+}
+
+.text-message
+{
+    padding: 10px;
+    width: 205px;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow: ellipsis;
+}
+.text-message a{
+    color: inherit;
+}
+.tip-close
+{
+    width: 15px;
+    margin-left: 2px;
+}
+.tip-close:hover
+{
+    color: #808284;
+    cursor: pointer;
+}
+/*notifications{
+    list-style: none;
+}
+.notification-item{
+    margin-bottom: 10px;
+    min-width: 40rem;
+    padding: 2px 0;
+    border-bottom: 1px solid #d8d8d8;
+    max-width: 75rem;
+}
+
+.unread {
+    background-color: rgba(216, 216, 216, 0.31);
+}
+.read{
+
+}
+.notification-item:hover{
+    background-color: #e2e2e2;
+    cursor: pointer;
+
+}
+.notification-image{
+    width: 4rem;
+    height: 4rem;
+    margin-right: 1rem;
+    background: #76c2af url('https://cdn2.iconfinder.com/data/icons/circle-icons-1/64/computer-128.png') no-repeat center;
+    background-size: 4rem;
+}
+.notification-image-temp{
+    width: 8rem;
+    height: 8rem;
+    background: #76c2af;
+    background-size: 8rem;
+}
+
+.notification-title{
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+.notification-text{
+    font-size:1.4rem;
+}
+.notification-options a{
+    color: #f5f7fa;
+}
+.unread .notification-options a{
+    display: none;
+}
+.notification-item:hover .item-options{
+    display: inline;
+    position: relative;
+    top: -8px;
+    left: 2px;
+    color: #f5f7fa;
+}
+.notification-item:hover .item-options:hover{
+    color: #989898;
+    cursor: pointer;
+    text-decoration: none;
+}*/
+.n-total
+{
+    display:none;
+}
+.n-icono
+{
+    padding: 5px 0;
+    font-size: 20px;
+    color: white;
+    background-color: #a6a6a7;
+}
+.n-read
+{
+}
+        .n-read  .n-status-text::after
+        {
+            content:'Visto';
+        }
+.n-unread
+{
+    color: white !important;
+}
+    .n-unread .n-status-text
+    {
+        background-color: #f05050;
+        color:white !important;
+    }
+        .n-unread .n-status-text::after
+        {
+            content:'Nuevo';
+        }
+
+.n-options
+{
+    
+    width: 40px;
+    text-align: end;
+    vertical-align: super !important;
+}
+.n-table
+{
+    overflow: inherit;
+}
+.n-mark-read
+{
+    cursor:pointer;
+}
+.n-unread .n-mark-read::after
+{
+    content: 'Marcar como leido';
+}
+.n-read .n-mark-read::after
+{
+    content: 'Marcar como no leido';
+}
+.n-selected
+{
+    -webkit-box-shadow: 0 1px 5px 0 #929191;
+    -moz-box-shadow: 0 1px 5px 0 #000;
+    box-shadow: 0 1px 5px 0 #929191;
+}
+.n-status-text
+{
+    padding: 2px 5px;
+}
+.text-unread
+{
+    color: #f05050;
+}

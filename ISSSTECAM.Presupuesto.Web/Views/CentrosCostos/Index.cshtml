@@ -1,0 +1,42 @@
+﻿<h3>Centros de costos</h3>
+
+<div class="row">
+    <div class="col-md-12">
+        <button class="btn btn-success">Agregar</button>
+    </div>
+    <div class="col-md-12">
+        <table id="centrosCostos" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>Clave</th>
+                <th>Nombre</th>
+                <th>Abreviatura</th>
+                <th>Activo</th>                
+            </tr>
+        </thead>        
+    </table>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+
+
+        $('#centrosCostos').DataTable({
+            'ajax':
+            {
+                'url' : '@Url.Action("ObtenerActivos", "CentrosCostos")',
+                'type': 'POST'
+            },
+            'processing': true,
+            'serverSide': true,
+            'columns': [
+                { "data": "Clave" },
+                { "data": "Nombre" },
+                { "data": "Abreviatura" },
+                { "data": "Activo" }
+            ]
+        });
+    });
+</script>

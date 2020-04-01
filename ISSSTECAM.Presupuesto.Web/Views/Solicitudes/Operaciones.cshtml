@@ -1,0 +1,60 @@
+﻿@model ISSSTECAM.Presupuesto.Web.Models.SolicitudPresupuestal
+
+<h3>Crear solicitud presupuestal</h3>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>SolicitudPresupuestal</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Fecha)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Fecha)
+            @Html.ValidationMessageFor(model => model.Fecha)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Concepto)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Concepto)
+            @Html.ValidationMessageFor(model => model.Concepto)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Solicita)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Solicita)
+            @Html.ValidationMessageFor(model => model.Solicita)
+        </div>
+
+        <select id="detallesClavesPresupuestales"></select>
+
+        <p>
+            <input type="submit" value="Crear" class="btn btn-success" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    <a class="btn btn-info ajax" href="@Url.Action("Index","Solicitudes")">Regresar al listado</a>
+</div>
+
+
+<script>
+    $(function () {
+
+        $('#detallesClavesPresupuestales').select2({
+            ajax: {
+                url: '@Url.Action("Disponibles","ClavesPresupuestales")',
+                dataType: 'json'
+                // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
+            }
+        });
+    });
+</script>

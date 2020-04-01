@@ -1,0 +1,332 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="UsuarioSSOModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="UsuarioSSOModelStoreContainer">
+          <EntitySet Name="vst_EmpleadosRH" EntityType="UsuarioSSOModel.Store.vst_EmpleadosRH" store:Type="Views" store:Schema="dbo" store:Name="vst_EmpleadosRH">
+            <DefiningQuery>SELECT 
+      [vst_EmpleadosRH].[IdEmpleado] AS [IdEmpleado], 
+      [vst_EmpleadosRH].[IdComportamiento] AS [IdComportamiento], 
+      [vst_EmpleadosRH].[IdClaveOrganismo] AS [IdClaveOrganismo], 
+      [vst_EmpleadosRH].[ClaveOrganismo] AS [ClaveOrganismo], 
+      [vst_EmpleadosRH].[IdOrganismo] AS [IdOrganismo], 
+      [vst_EmpleadosRH].[Organismo] AS [Organismo], 
+      [vst_EmpleadosRH].[IdClaveRamo] AS [IdClaveRamo], 
+      [vst_EmpleadosRH].[ClaveRamo] AS [ClaveRamo], 
+      [vst_EmpleadosRH].[IdRamo] AS [IdRamo], 
+      [vst_EmpleadosRH].[Ramo] AS [Ramo], 
+      [vst_EmpleadosRH].[IdClaveUnidad] AS [IdClaveUnidad], 
+      [vst_EmpleadosRH].[ClaveUnidad] AS [ClaveUnidad], 
+      [vst_EmpleadosRH].[IdUnidad] AS [IdUnidad], 
+      [vst_EmpleadosRH].[Unidad] AS [Unidad], 
+      [vst_EmpleadosRH].[ClaveOficina] AS [ClaveOficina], 
+      [vst_EmpleadosRH].[IdOficina] AS [IdOficina], 
+      [vst_EmpleadosRH].[Oficina] AS [Oficina], 
+      [vst_EmpleadosRH].[NumeroEmpleado] AS [NumeroEmpleado], 
+      [vst_EmpleadosRH].[Titulo] AS [Titulo], 
+      [vst_EmpleadosRH].[Nombre] AS [Nombre], 
+      [vst_EmpleadosRH].[ApellidoPaterno] AS [ApellidoPaterno], 
+      [vst_EmpleadosRH].[ApellidoMaterno] AS [ApellidoMaterno], 
+      [vst_EmpleadosRH].[RFC] AS [RFC], 
+      [vst_EmpleadosRH].[CURP] AS [CURP], 
+      [vst_EmpleadosRH].[IFE] AS [IFE], 
+      [vst_EmpleadosRH].[Sexo] AS [Sexo], 
+      [vst_EmpleadosRH].[Puesto] AS [Puesto], 
+      [vst_EmpleadosRH].[Cargo] AS [Cargo], 
+      [vst_EmpleadosRH].[IdTipoEmpleado] AS [IdTipoEmpleado], 
+      [vst_EmpleadosRH].[TipoEmpleado] AS [TipoEmpleado], 
+      [vst_EmpleadosRH].[Nivel] AS [Nivel], 
+      [vst_EmpleadosRH].[Escolaridad] AS [Escolaridad], 
+      [vst_EmpleadosRH].[NumeroContrato] AS [NumeroContrato], 
+      [vst_EmpleadosRH].[FechaInicio] AS [FechaInicio], 
+      [vst_EmpleadosRH].[FechaFin] AS [FechaFin], 
+      [vst_EmpleadosRH].[Comisionado] AS [Comisionado], 
+      [vst_EmpleadosRH].[UrlFoto] AS [UrlFoto], 
+      [vst_EmpleadosRH].[Activo] AS [Activo], 
+      [vst_EmpleadosRH].[Comportamiento] AS [Comportamiento], 
+      [vst_EmpleadosRH].[ClavePresupuestal] AS [ClavePresupuestal], 
+      [vst_EmpleadosRH].[Programa] AS [Programa], 
+      [vst_EmpleadosRH].[CodPer] AS [CodPer], 
+      [vst_EmpleadosRH].[FechaCreacion] AS [FechaCreacion], 
+      [vst_EmpleadosRH].[RamoActivo] AS [RamoActivo], 
+      [vst_EmpleadosRH].[CvRamoActivo] AS [CvRamoActivo], 
+      [vst_EmpleadosRH].[TipoBaja] AS [TipoBaja], 
+      [vst_EmpleadosRH].[IdEmpleadoNomina] AS [IdEmpleadoNomina], 
+      [vst_EmpleadosRH].[NombreCompleto] AS [NombreCompleto], 
+      [vst_EmpleadosRH].[IdCosto] AS [IdCosto], 
+      [vst_EmpleadosRH].[ClaveCosto] AS [ClaveCosto], 
+      [vst_EmpleadosRH].[NombreCosto] AS [NombreCosto]
+      FROM [dbo].[vst_EmpleadosRH] AS [vst_EmpleadosRH]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+        <!--Se encontraron errores durante la generación:
+      advertencia 6002: La tabla o vista 'UsuarioSSO.dbo.vst_EmpleadosRH' no tiene ninguna clave principal definida. Se ha inferido la clave y la definición se creó como vista o tabla de solo lectura.
+      -->
+        <EntityType Name="vst_EmpleadosRH">
+          <Key>
+            <PropertyRef Name="IdEmpleado" />
+            <PropertyRef Name="IdComportamiento" />
+            <PropertyRef Name="IdClaveOrganismo" />
+            <PropertyRef Name="ClaveOrganismo" />
+            <PropertyRef Name="IdOrganismo" />
+            <PropertyRef Name="Organismo" />
+            <PropertyRef Name="IdClaveRamo" />
+            <PropertyRef Name="ClaveRamo" />
+            <PropertyRef Name="IdRamo" />
+            <PropertyRef Name="Ramo" />
+            <PropertyRef Name="IdClaveUnidad" />
+            <PropertyRef Name="ClaveUnidad" />
+            <PropertyRef Name="IdUnidad" />
+            <PropertyRef Name="Unidad" />
+            <PropertyRef Name="NumeroEmpleado" />
+            <PropertyRef Name="Nombre" />
+            <PropertyRef Name="ApellidoPaterno" />
+            <PropertyRef Name="ApellidoMaterno" />
+            <PropertyRef Name="Sexo" />
+            <PropertyRef Name="IdTipoEmpleado" />
+            <PropertyRef Name="TipoEmpleado" />
+            <PropertyRef Name="Escolaridad" />
+            <PropertyRef Name="Comisionado" />
+            <PropertyRef Name="Activo" />
+            <PropertyRef Name="Comportamiento" />
+            <PropertyRef Name="FechaCreacion" />
+            <PropertyRef Name="RamoActivo" />
+            <PropertyRef Name="CvRamoActivo" />
+            <PropertyRef Name="NombreCompleto" />
+            <PropertyRef Name="ClaveCosto" />
+            <PropertyRef Name="NombreCosto" />
+          </Key>
+          <Property Name="IdEmpleado" Type="int" Nullable="false" />
+          <Property Name="IdComportamiento" Type="int" Nullable="false" />
+          <Property Name="IdClaveOrganismo" Type="int" Nullable="false" />
+          <Property Name="ClaveOrganismo" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="IdOrganismo" Type="int" Nullable="false" />
+          <Property Name="Organismo" Type="varchar(max)" Nullable="false" />
+          <Property Name="IdClaveRamo" Type="int" Nullable="false" />
+          <Property Name="ClaveRamo" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="IdRamo" Type="int" Nullable="false" />
+          <Property Name="Ramo" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="IdClaveUnidad" Type="int" Nullable="false" />
+          <Property Name="ClaveUnidad" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="IdUnidad" Type="int" Nullable="false" />
+          <Property Name="Unidad" Type="varchar" Nullable="false" MaxLength="500" />
+          <Property Name="ClaveOficina" Type="varchar" MaxLength="3" />
+          <Property Name="IdOficina" Type="int" />
+          <Property Name="Oficina" Type="varchar" MaxLength="250" />
+          <Property Name="NumeroEmpleado" Type="varchar(max)" Nullable="false" />
+          <Property Name="Titulo" Type="varchar" MaxLength="250" />
+          <Property Name="Nombre" Type="varchar(max)" Nullable="false" />
+          <Property Name="ApellidoPaterno" Type="varchar(max)" Nullable="false" />
+          <Property Name="ApellidoMaterno" Type="varchar(max)" Nullable="false" />
+          <Property Name="RFC" Type="varchar(max)" />
+          <Property Name="CURP" Type="varchar(max)" />
+          <Property Name="IFE" Type="varchar(max)" />
+          <Property Name="Sexo" Type="varchar" Nullable="false" MaxLength="1" />
+          <Property Name="Puesto" Type="varchar(max)" />
+          <Property Name="Cargo" Type="varchar(max)" />
+          <Property Name="IdTipoEmpleado" Type="int" Nullable="false" />
+          <Property Name="TipoEmpleado" Type="varchar" Nullable="false" MaxLength="250" />
+          <Property Name="Nivel" Type="varchar(max)" />
+          <Property Name="Escolaridad" Type="int" Nullable="false" />
+          <Property Name="NumeroContrato" Type="varchar(max)" />
+          <Property Name="FechaInicio" Type="datetime" />
+          <Property Name="FechaFin" Type="datetime" />
+          <Property Name="Comisionado" Type="bit" Nullable="false" />
+          <Property Name="UrlFoto" Type="varchar(max)" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="Comportamiento" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="ClavePresupuestal" Type="varchar" MaxLength="200" />
+          <Property Name="Programa" Type="varchar" MaxLength="200" />
+          <Property Name="CodPer" Type="varchar" MaxLength="7" />
+          <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
+          <Property Name="RamoActivo" Type="bit" Nullable="false" />
+          <Property Name="CvRamoActivo" Type="bit" Nullable="false" />
+          <Property Name="TipoBaja" Type="varchar" MaxLength="1" />
+          <Property Name="IdEmpleadoNomina" Type="int" />
+          <Property Name="NombreCompleto" Type="varchar(max)" Nullable="false" />
+          <Property Name="IdCosto" Type="int" />
+          <Property Name="ClaveCosto" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="NombreCosto" Type="varchar" Nullable="false" MaxLength="300" />
+        </EntityType>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="UsuarioSSOModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="UsuarioSSOEntidades" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="vst_EmpleadosRH" EntityType="UsuarioSSOModel.vst_EmpleadosRH" />
+        </EntityContainer>
+        <EntityType Name="vst_EmpleadosRH">
+          <Key>
+            <PropertyRef Name="IdEmpleado" />
+            <PropertyRef Name="IdComportamiento" />
+            <PropertyRef Name="IdClaveOrganismo" />
+            <PropertyRef Name="ClaveOrganismo" />
+            <PropertyRef Name="IdOrganismo" />
+            <PropertyRef Name="Organismo" />
+            <PropertyRef Name="IdClaveRamo" />
+            <PropertyRef Name="ClaveRamo" />
+            <PropertyRef Name="IdRamo" />
+            <PropertyRef Name="Ramo" />
+            <PropertyRef Name="IdClaveUnidad" />
+            <PropertyRef Name="ClaveUnidad" />
+            <PropertyRef Name="IdUnidad" />
+            <PropertyRef Name="Unidad" />
+            <PropertyRef Name="NumeroEmpleado" />
+            <PropertyRef Name="Nombre" />
+            <PropertyRef Name="ApellidoPaterno" />
+            <PropertyRef Name="ApellidoMaterno" />
+            <PropertyRef Name="Sexo" />
+            <PropertyRef Name="IdTipoEmpleado" />
+            <PropertyRef Name="TipoEmpleado" />
+            <PropertyRef Name="Escolaridad" />
+            <PropertyRef Name="Comisionado" />
+            <PropertyRef Name="Activo" />
+            <PropertyRef Name="Comportamiento" />
+            <PropertyRef Name="FechaCreacion" />
+            <PropertyRef Name="RamoActivo" />
+            <PropertyRef Name="CvRamoActivo" />
+            <PropertyRef Name="NombreCompleto" />
+            <PropertyRef Name="ClaveCosto" />
+            <PropertyRef Name="NombreCosto" />
+          </Key>
+          <Property Type="Int32" Name="IdEmpleado" Nullable="false" />
+          <Property Type="Int32" Name="IdComportamiento" Nullable="false" />
+          <Property Type="Int32" Name="IdClaveOrganismo" Nullable="false" />
+          <Property Type="String" Name="ClaveOrganismo" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="IdOrganismo" Nullable="false" />
+          <Property Type="String" Name="Organismo" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="IdClaveRamo" Nullable="false" />
+          <Property Type="String" Name="ClaveRamo" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="IdRamo" Nullable="false" />
+          <Property Type="String" Name="Ramo" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="IdClaveUnidad" Nullable="false" />
+          <Property Type="String" Name="ClaveUnidad" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="IdUnidad" Nullable="false" />
+          <Property Type="String" Name="Unidad" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ClaveOficina" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="IdOficina" />
+          <Property Type="String" Name="Oficina" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="NumeroEmpleado" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Titulo" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ApellidoPaterno" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ApellidoMaterno" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="RFC" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="CURP" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="IFE" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Sexo" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Puesto" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Cargo" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="IdTipoEmpleado" Nullable="false" />
+          <Property Type="String" Name="TipoEmpleado" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Nivel" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="Escolaridad" Nullable="false" />
+          <Property Type="String" Name="NumeroContrato" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FechaInicio" Precision="3" />
+          <Property Type="DateTime" Name="FechaFin" Precision="3" />
+          <Property Type="Boolean" Name="Comisionado" Nullable="false" />
+          <Property Type="String" Name="UrlFoto" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="Activo" Nullable="false" />
+          <Property Type="String" Name="Comportamiento" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ClavePresupuestal" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Programa" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="CodPer" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="FechaCreacion" Nullable="false" Precision="3" />
+          <Property Type="Boolean" Name="RamoActivo" Nullable="false" />
+          <Property Type="Boolean" Name="CvRamoActivo" Nullable="false" />
+          <Property Type="String" Name="TipoBaja" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="IdEmpleadoNomina" />
+          <Property Type="String" Name="NombreCompleto" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="IdCosto" />
+          <Property Type="String" Name="ClaveCosto" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="NombreCosto" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="UsuarioSSOModelStoreContainer" CdmEntityContainer="UsuarioSSOEntidades">
+          <EntitySetMapping Name="vst_EmpleadosRH">
+            <EntityTypeMapping TypeName="UsuarioSSOModel.vst_EmpleadosRH">
+              <MappingFragment StoreEntitySet="vst_EmpleadosRH">
+                <ScalarProperty Name="NombreCosto" ColumnName="NombreCosto" />
+                <ScalarProperty Name="ClaveCosto" ColumnName="ClaveCosto" />
+                <ScalarProperty Name="IdCosto" ColumnName="IdCosto" />
+                <ScalarProperty Name="NombreCompleto" ColumnName="NombreCompleto" />
+                <ScalarProperty Name="IdEmpleadoNomina" ColumnName="IdEmpleadoNomina" />
+                <ScalarProperty Name="TipoBaja" ColumnName="TipoBaja" />
+                <ScalarProperty Name="CvRamoActivo" ColumnName="CvRamoActivo" />
+                <ScalarProperty Name="RamoActivo" ColumnName="RamoActivo" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="CodPer" ColumnName="CodPer" />
+                <ScalarProperty Name="Programa" ColumnName="Programa" />
+                <ScalarProperty Name="ClavePresupuestal" ColumnName="ClavePresupuestal" />
+                <ScalarProperty Name="Comportamiento" ColumnName="Comportamiento" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="UrlFoto" ColumnName="UrlFoto" />
+                <ScalarProperty Name="Comisionado" ColumnName="Comisionado" />
+                <ScalarProperty Name="FechaFin" ColumnName="FechaFin" />
+                <ScalarProperty Name="FechaInicio" ColumnName="FechaInicio" />
+                <ScalarProperty Name="NumeroContrato" ColumnName="NumeroContrato" />
+                <ScalarProperty Name="Escolaridad" ColumnName="Escolaridad" />
+                <ScalarProperty Name="Nivel" ColumnName="Nivel" />
+                <ScalarProperty Name="TipoEmpleado" ColumnName="TipoEmpleado" />
+                <ScalarProperty Name="IdTipoEmpleado" ColumnName="IdTipoEmpleado" />
+                <ScalarProperty Name="Cargo" ColumnName="Cargo" />
+                <ScalarProperty Name="Puesto" ColumnName="Puesto" />
+                <ScalarProperty Name="Sexo" ColumnName="Sexo" />
+                <ScalarProperty Name="IFE" ColumnName="IFE" />
+                <ScalarProperty Name="CURP" ColumnName="CURP" />
+                <ScalarProperty Name="RFC" ColumnName="RFC" />
+                <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+                <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+                <ScalarProperty Name="NumeroEmpleado" ColumnName="NumeroEmpleado" />
+                <ScalarProperty Name="Oficina" ColumnName="Oficina" />
+                <ScalarProperty Name="IdOficina" ColumnName="IdOficina" />
+                <ScalarProperty Name="ClaveOficina" ColumnName="ClaveOficina" />
+                <ScalarProperty Name="Unidad" ColumnName="Unidad" />
+                <ScalarProperty Name="IdUnidad" ColumnName="IdUnidad" />
+                <ScalarProperty Name="ClaveUnidad" ColumnName="ClaveUnidad" />
+                <ScalarProperty Name="IdClaveUnidad" ColumnName="IdClaveUnidad" />
+                <ScalarProperty Name="Ramo" ColumnName="Ramo" />
+                <ScalarProperty Name="IdRamo" ColumnName="IdRamo" />
+                <ScalarProperty Name="ClaveRamo" ColumnName="ClaveRamo" />
+                <ScalarProperty Name="IdClaveRamo" ColumnName="IdClaveRamo" />
+                <ScalarProperty Name="Organismo" ColumnName="Organismo" />
+                <ScalarProperty Name="IdOrganismo" ColumnName="IdOrganismo" />
+                <ScalarProperty Name="ClaveOrganismo" ColumnName="ClaveOrganismo" />
+                <ScalarProperty Name="IdClaveOrganismo" ColumnName="IdClaveOrganismo" />
+                <ScalarProperty Name="IdComportamiento" ColumnName="IdComportamiento" />
+                <ScalarProperty Name="IdEmpleado" ColumnName="IdEmpleado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

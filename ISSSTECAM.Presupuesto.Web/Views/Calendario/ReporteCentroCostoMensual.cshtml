@@ -1,0 +1,16 @@
+﻿<script>
+    $(function () {
+        $.ajax({            
+            url: "@Url.Action("MontoMensual", "Calendario")",
+            type: "POST",
+            dataType: "json",
+            success: function (resultado) {
+                console.log(resultado);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+
+    });
+</script>

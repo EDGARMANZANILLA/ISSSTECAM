@@ -1,0 +1,20 @@
+﻿<select id="actividades" style="width:100%"></select>
+
+<script>
+    $(function () {
+        $('#actividades').select2({
+            ajax: {
+                url: '@Url.Action("ObtenerActivosLista", "Actividades")',
+                dataType: 'json',
+                type: 'POST',
+                //processResults: function (resultado) {
+                //    // Transforms the top-level key of the response object from 'items' to 'results'
+                //    return {
+                //        results: resultado.data
+                //    };
+                //}
+                // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
+            }
+        });
+    });
+</script>

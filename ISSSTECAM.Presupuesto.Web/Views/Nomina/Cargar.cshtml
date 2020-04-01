@@ -1,0 +1,809 @@
+﻿@{  
+    ViewBag.Title = "Cargar nómina";
+}
+
+@section titulo{
+    <h2>Cargar nómina</h2>
+}
+
+<h3>Cargar nómina</h3>
+
+<div class="row">
+    <div class="col-md-6">
+        <div id="fileuploader">Agregar archivo</div>
+    </div>
+    <div class="col-md-6 ">
+        <button class="btn btn-success" id="guardar" title="Guarda el archivo en la base de datos" style="display:none;"  onclick="guarda();">Guardar archivo</button>
+        @*<button class="btn btn-success" title="Guarda la tabla en formato PDF" id="PDF" style="display:none;" onclick="CreatePDF();">Guardar Tabla</button>*@
+        <button title="Guarda la tabla en PDF" class="btn btn-success" id="ConvertPDF" data-backdrop="false" onclick="CreatePDF();" style="display:none;position:center;margin-left:1%">Guardar Tabla</button>
+        @*<a class="btn btn-success" href="@Url.Action("ReporteConcentradoPrograma", "Calendario")" target="_blank">Reporte programa-concentrado</a>*@
+        @*<input id="fileupload" type="file" name="files[]" data-url="@Url.Action("ImportarArchivo", "Calendario")" multiple>*@
+    <form name="formul" id="Formulario" style="display:none;">
+        Seleccione la fecha de la quincena correspondiente:
+        <select name="quince">
+            <option value="01" selected>1ra</option>
+            <option value="02">2da</option>
+        </select>
+        <select name="mes">
+            <option value="Enero" selected>Enero</option>
+            <option value="Febrero">Febrero</option>
+            <option value="Marzo">Marzo</option>
+            <option value="Abril">Abril</option>
+            <option value="Mayo">Mayo</option>
+            <option value="Junio">Junio</option>
+            <option value="Julio">Julio</option>
+            <option value="Agosto">Agosto</option>
+            <option value="Septiembre">Septiembre</option>
+            <option value="Octubre">Octubre</option>
+            <option value="Noviembre">Noviembre</option>
+            <option value="Diciembre">Diciembre</option>
+        </select>
+        <input type="text" name="año" id="año" maxlength="4">
+        @*<input type="date" value="" id ="AutoSelec" onload="getFullYear('#AutoSelec')">*@
+        @*</input>*@
+        @*<option value="blank" selected></option>
+        <option value="year"></option>*@
+        <br>
+        <input type="button" class="btn btn-success" value="Enviar" onclick="Quincena2()">
+    </form>
+    </div>
+    @*////////////////////////////////////seccion donde se muestra la tabla generada/////////////////////////////////////////////////////////////////*@
+    <div id="Modal" class="modal-backdrop">
+        <div class="modal-content" id="ModalTabla" style="width:400px;z-index:9999999999999999999999999999999;left:25%;margin-right:10%;margin-left:10%;height:auto;">
+            Gastos por concepto
+            <div class="modal-header Popup" id="cell" style="height:auto;text-align:center;">
+                <div style="width:300px;z-index:9999999999999999999999999999999;margin-right:10%;margin-left:10%;height:auto;">
+                    <table id="excelDataTable">
+                        <thead><tr><th>Concepto</th><th>Total</th></tr></thead>
+                        <tbody id="CuerpoTabla"> </tbody>
+                    </table>
+                </div>
+
+            </div>
+            ¿Es correcta su tabla?
+            <button title="Podra proceder a guardar sus grafícas y su tabla" class="btn btn-success" data-backdrop="false" onclick="HideModal();" style="position:center;margin-left:1%">SI</button>
+            <button title="La tabla se borrará" class="btn btn-danger" data-backdrop="false" onclick="Delete();" style="position:center;margin-left:2%">NO</button>
+
+        </div>
+    </div>
+    @*///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*@
+</div>
+<div class="row" id="Grafos" style="z-index:9">
+    <div class="col-md-12" id="grafica">
+    </div>
+    <div class="col-md-12" id="graficaConceptos">
+    </div>
+    <div class="col-md-12" id="graficaGastosTotalesCentroCosto">
+    </div>
+    <div class="col-md-12" id="graficaGastosTotalesPercepciones">
+    </div>
+</div>
+
+<style id="Estradivarius">
+    /*style="position: center;background-color: rgba(151, 220, 255, 0.85);margin-left: 0%;margin-right: 0%;margin-bottom: 0%;margin-top: 0%;border: groove 4px rgba(0, 70, 156, 0.5);"*/
+    table {
+        position: center;
+        background-color: rgba(151, 220, 255, 0.85);
+        margin-left: 0%;
+        margin-right: 0%;
+        margin-bottom: 0%;
+        margin-top: 0%;
+        border: groove 4px rgba(0, 70, 156, 0.5);
+        width: 100%;
+    }
+    td, th {
+        border: solid 2px rgba(0, 70, 156, 0.75);
+        padding: 3px;
+        text-align: left;
+        color: black;
+    }
+    th{
+        font-weight : bold;
+        font-size:larger;   }
+    .modal-backdrop {
+        background-color: rgba(00,00,00,0.5);
+        display:none;width:100%;
+        z-index:9999999999999999999;
+        height:100%;
+        position:absolute;
+        top:0%;
+        left:0%;
+    }
+    .modal-content {
+        font-weight : bold;
+        color:black;
+    }
+</style>
+
+<script>
+ 
+
+   //html2canvas(document.body,{
+   //onrendered:function(canvas){
+
+   //var img=canvas.toDataURL(nombre);
+   //var doc = new jsPDF();
+   //doc.addImage(img,'JPEG',20,20);
+   //doc.save('test.pdf');
+   //}
+
+   //});
+/////////////////////////////////////
+    
+    //}
+
+    $(function () {
+
+        $('#anios').select2();
+        habilitarImportacion();
+        //habilitarGuardarCalendario();
+        //habilitarCalendario();
+        //habilitarCargarClaves();
+    });
+    function prueba() {
+        $.ajax({
+            url: 'http://172.19.2.200/presupuesto/Nomina/TotalesConceptos',
+            success: function (r) {
+                console.log('prueba', r);
+            },
+            error: function (e) {
+                console.error(e);
+            }
+        });
+    }
+
+
+    function habilitarImportacion() {
+        $("#fileuploader").uploadFile({
+            url: '@Url.Action("ImportarArchivo", "Nomina")',
+            multiple: false,
+            maxFileCount: 1,
+            fileName: "calendario",
+            returnType: 'json',
+            allowedTypes: 'xlsx',
+            showDelete: true,
+            onSubmit: function (files) {
+                $.blockUI({
+                    message: 'Cargando archivo...',
+                    css: {
+                        border: 'none',
+                        padding: '15px',
+                        backgroundColor: '#000',
+                        '-webkit-border-radius': '10px',
+                        '-moz-border-radius': '10px',
+                        opacity: .5,
+                        color: '#fff'
+                    }
+                });
+            },
+            onSuccess: function (files, data, xhr, pd) {
+
+                if (data.errores != "") {
+                    console.log('Empleados inexistentes', data.errores);
+                    alert("Estos codigos de empleados no existen: " + "\r\n" +data.errores+"\r\n"+ "VERIFIQUE LOS DATOS CON R.H.");
+                    alert("\r\n"+"!Dado que algunos empleados no existen!"+"\r\n" +"LA TABLA SE GENERARA CON ERRORES"+"\r\n"+"POR FAVOR SELECCIONE:"+ " "+"NO ");
+
+                    
+                }
+
+                //alert(data.total);
+                //console.log(data.mensaje);
+                console.log(data.datos);
+
+                var datos = new Array();
+                $.each(data.datos, function (i, item) {
+                    datos.push(new Array(item.Nombre, item.Total));
+                });
+
+                var datosConceptos = new Array();
+                $.each(data.conceptos, function (i, item) {
+                    datosConceptos.push(new Array(item.Concepto, item.Total));
+                });
+
+            
+
+                crearGrafica(datos);
+                crearGraficaConceptos(datosConceptos);
+
+                var Tab = null;
+
+                Tab = data.conceptos
+              
+
+      
+               crearGraficaGastosTotalesCentroCosto();
+
+               crearTablaConceptos(Tab);
+
+               $.unblockUI();
+
+
+                
+
+
+                // localStorage.setItem('myList',JSON.stringify(data.conceptos));
+                
+                //myList2="";
+
+                //if (myList2 != null) {
+                //    myList2 = null;
+
+                   
+                //}
+                //      myList2 = data.conceptos;
+               
+
+                 //buildHtmlTable('#excelDataTable');
+                 ShowModal();
+
+
+            },
+            //termina la funcion de (file, data, xhr, pd)
+        });
+    }
+
+         // var myList = JSON.parse( localStorage.getItem('myList'));
+          // console.log('ShowMe', myList);
+
+            
+    
+            //Comienza la elaboración de la tabla ////////
+
+
+
+    ////////////////
+    //function buildHtmlTable(selector) {
+    //    var myList = null;
+
+    //    if (myList == null) {
+    //        myList = myList2;
+    //    }
+
+        
+    //    console.log("eres un genio",myList2);
+    //    var columns = addAllColumnHeaders(myList, selector);
+    //            for (var i = 0; i < myList.length; i++) {
+    //                var row$ = $('<tr/>');
+
+    //                for (var colIndex = 0; colIndex < columns.length; colIndex++) {
+    //                    var cellValue = myList[i][columns[colIndex]];
+    //                    if (cellValue == null) cellValue = "";
+    //                    row$.append($('<td/>').html(cellValue));
+    //                }
+    //                $(selector).append(row$);
+    //            }
+
+    //}
+
+
+
+
+    //function addAllColumnHeaders(myList, selector) {
+    //            var columnSet = [];
+    //            var headerTr$ = $('<tr/>');
+    //            for (var i = 0; i < myList.length; i++) {
+    //                var rowHash = myList[i];
+    //                for (var key in rowHash) {
+    //                    if ($.inArray(key, columnSet) == -1) {
+    //                        columnSet.push(key);
+    //                        headerTr$.append($('<th/>').html(key));
+    //                    }
+    //                }
+    //            }
+    //            $(selector).append(headerTr$);
+    //            return columnSet;
+
+    //}
+
+    ////////////
+    //termina la elaboración de la tabla
+
+
+
+
+
+
+    //
+
+    function crearTablaConceptos(Tab) {
+        //dibujar tabla
+        var Tab2 = null;
+        if (Tab2 == null) { 
+            Tab2 = Tab;
+                const $cuerpoTabla = document.querySelector('#CuerpoTabla');
+                //recorrer todos los datos 
+                Tab2.forEach(Dato => {
+                    //crear un <tr>
+                    const $tr = document.createElement("tr");
+                    // Creamos el <td> de Nómina y lo adjuntamos a tr
+                    let $tdConcepto = document.createElement("td");
+                    $tdConcepto.textContent = Dato.Concepto; //el textContent del td es el concepto
+                    $tr.appendChild($tdConcepto);
+                    // el td de nómina
+                    let $tdTotal = document.createElement("td");
+                    $tdTotal.textContent = Dato.Total;
+                    $tr.appendChild($tdTotal);
+
+                    $cuerpoTabla.appendChild($tr);
+                    //y el ciclo se repite hasta q se termine de recorrer el arreglo
+                })
+
+        }
+    }
+
+
+
+
+
+
+
+    //
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    function crearGrafica(datos)
+    {
+        console.log(datos);
+        Highcharts.chart('grafica', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Gastos por dirección'
+            },
+            subtitle: {
+                text: '(Solo percepciones)'
+            },
+            xAxis: {
+                type: 'category',
+                labels: {
+                    rotation: -45,
+                    style: {
+                        fontSize: '8px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Monto (pesos)'
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            tooltip: {
+                pointFormat: 'Gasto: <b>${point.y:,.2f} pesos</b>'
+            },
+            plotOptions: {
+                series: {
+                    color: '#57B257'
+                }
+            },
+            series: [{
+                name: 'Gasto',
+                data: datos
+                    /*[
+                    ['Shanghai', 24.2],
+                    ['Beijing', 20.8],
+                    ['Karachi', 14.9],
+                    ['Shenzhen', 13.7],
+                    ['Guangzhou', 13.1],
+                    ['Istanbul', 12.7],
+                    ['Mumbai', 12.4],
+                    ['Moscow', 12.2],
+                    ['São Paulo', 12.0],
+                    ['Delhi', 11.7],
+                    ['Kinshasa', 11.5],
+                    ['Tianjin', 11.2],
+                    ['Lahore', 11.1],
+                    ['Jakarta', 10.6],
+                    ['Dongguan', 10.6],
+                    ['Lagos', 10.6],
+                    ['Bengaluru', 10.3],
+                    ['Seoul', 9.8],
+                    ['Foshan', 9.3],
+                    ['Tokyo', 9.3]
+                ]*/,
+                dataLabels: {
+                    enabled: true,
+                    //rotation: -90,
+                    //color: '#FFFFFF',
+                    //align: 'right',
+                    format: '${point.y:,.2f}', // one decimal
+                    //y: 10, // 10 pixels down from the top
+                    //style: {
+                    //    fontSize: '13px',
+                    //    fontFamily: 'Verdana, sans-serif'
+                    //}
+                }
+            }]
+        });
+    }
+
+    function crearGraficaConceptos(datos) {
+        console.log(datos);
+        Highcharts.chart('graficaConceptos', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Gastos por concepto'
+            },
+            subtitle: {
+            xAxis: {
+                text: '(Solo percepciones)'
+            },
+                type: 'category',
+                labels: {
+                    rotation: -45,
+                    style: {
+                        fontSize: '8px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Monto (pesos)'
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            tooltip: {
+                pointFormat: 'Gasto: <b>${point.y:,.2f} pesos</b>'
+            },
+            series: [{
+                name: 'Gasto',
+                data: datos
+                /*[
+                ['Shanghai', 24.2],
+                ['Beijing', 20.8],
+                ['Karachi', 14.9],
+                ['Shenzhen', 13.7],
+                ['Guangzhou', 13.1],
+                ['Istanbul', 12.7],
+                ['Mumbai', 12.4],
+                ['Moscow', 12.2],
+                ['São Paulo', 12.0],
+                ['Delhi', 11.7],
+                ['Kinshasa', 11.5],
+                ['Tianjin', 11.2],
+                ['Lahore', 11.1],
+                ['Jakarta', 10.6],
+                ['Dongguan', 10.6],
+                ['Lagos', 10.6],
+                ['Bengaluru', 10.3],
+                ['Seoul', 9.8],
+                ['Foshan', 9.3],
+                ['Tokyo', 9.3]
+            ]*/,
+                dataLabels: {
+                    enabled: true,
+                    rotation: -45,
+                    //color: '#FFFFFF',
+                    align: 'left',
+                    format: '${point.y:,.2f}', // one decimal
+                    y: -10, // 10 pixels down from the top
+                    style: {
+                        fontSize: '8px',
+                        //fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            }]
+        });
+    }
+
+    function crearGraficaGastosTotalesCentroCosto() {
+
+        $.ajax({
+            url:'@Url.Action("TotalesCentrosCostos", "Nomina")',
+            success: function(resultado)
+            {
+                console.log("Centro de Costo :", resultado)
+                var datosConceptos = new Array();
+                $.each(resultado, function (i, item) {
+                    datosConceptos.push(new Array(item.Concepto, item.Total));
+                });
+
+
+
+                Highcharts.chart('graficaGastosTotalesCentroCosto', {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Gastos por centro de costo'
+                    },
+                    subtitle: {
+                        text: '(Solo percepciones)'
+                    },
+                    xAxis: {
+                        type: 'category',
+                        labels: {
+                            rotation: -45,
+                            style: {
+                                fontSize: '8px',
+                                fontFamily: 'Verdana, sans-serif'
+                            }
+                        }
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: 'Monto (pesos)'
+                        }
+                    },
+                    legend: {
+                        enabled: false
+                    },
+                    tooltip: {
+                        pointFormat: 'Gasto: <b>${point.y:,.2f} pesos</b>'
+                    },
+                    plotOptions: {
+                        series: {
+                            color: '#57B257'
+                        }
+                    },
+                    series: [{
+                        name: 'Gasto',
+                        data: datosConceptos,
+                        dataLabels: {
+                            enabled: true,
+                            //rotation: -90,
+                            //color: '#FFFFFF',
+                            //align: 'right',
+                            format: '${point.y:,.2f}', // one decimal
+                            //y: 10, // 10 pixels down from the top
+                            //style: {
+                            //    fontSize: '13px',
+                            //    fontFamily: 'Verdana, sans-serif'
+                            //}
+                        }
+                    }]
+                });
+
+            },
+            error:function(error){
+                console.error(error);
+            }
+        });
+
+    }
+
+
+
+
+
+
+
+     function crearGraficaGastosTotalesCentroCosto() {
+
+        $.ajax({
+            url:'@Url.Action("TotalesCentrosCostos", "Nomina")',
+            success: function(resultado)
+            {
+
+                var datosConceptos = new Array();
+                $.each(resultado, function (i, item) {
+                    datosConceptos.push(new Array(item.Concepto, item.Total));
+                });
+
+                Highcharts.chart('graficaGastosTotalesCentroCosto', {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Gastos por centro de costo'
+                    },
+                    subtitle: {
+                        text: '(Solo percepciones)'
+                    },
+                    xAxis: {
+                        type: 'category',
+                        labels: {
+                            rotation: -45,
+                            style: {
+                                fontSize: '8px',
+                                fontFamily: 'Verdana, sans-serif'
+                            }
+                        }
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: 'Monto (pesos)'
+                        }
+                    },
+                    legend: {
+                        enabled: false
+                    },
+                    tooltip: {
+                        pointFormat: 'Gasto: <b>${point.y:,.2f} pesos</b>'
+                    },
+                    plotOptions: {
+                        series: {
+                            color: '#57B257'
+                        }
+                    },
+                    series: [{
+                        name: 'Gasto',
+                        data: datosConceptos,
+                        dataLabels: {
+                            enabled: true,
+                            //rotation: -90,
+                            //color: '#FFFFFF',
+                            //align: 'right',
+                            format: '${point.y:,.2f}', // one decimal
+                            //y: 10, // 10 pixels down from the top
+                            //style: {
+                            //    fontSize: '13px',
+                            //    fontFamily: 'Verdana, sans-serif'
+                            //}
+                        }
+                    }]
+                });
+
+            },
+            error:function(error){
+                console.error(error);
+            }
+        });
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+    /////////////////////
+
+function Quincena2() {
+    var texto;
+    var indice = document.formul.quince.selectedIndex;
+    var indice2 = document.formul.mes.selectedIndex;
+  //  var indice3 = document.formul.año.selectedIndex;
+    //var valor = document.formul.quince.options[indice].value;
+    //texto = "valor de la opcion escogida: " + valor;
+    var quincenaEscogida = document.formul.quince.options[indice].text;
+    texto = "Quincena escogida: " + quincenaEscogida;
+    var mesEscogido = document.formul.mes.options[indice2].text;
+    texto += " ,Mes escogido: " + mesEscogido;
+
+    var añoEscogido = parseFloat(document.getElementsByName('año')[0].value);
+    if (isNaN(añoEscogido)) {
+        alert("El valor ingresado no es número válido");
+        return;
+    } else {
+        texto += " del año " + añoEscogido;
+    }
+    //document.write(Año.getFullYear());
+    //document.getElementById('AutoSelec').write(Año.getFullYear());
+    //var mesEscogido = document.getElementById('AutoSelec').month;
+    //texto += " ,Mes escogido: " + mesEscogido;
+    alert(texto);
+    
+    document.getElementById('Formulario').style.display = 'none';
+    document.getElementById('ConvertPDF').style.display = 'inline';
+    document.getElementById('guardar').style.display = 'inline';
+
+        
+    //  var actionData = {quincena: indice , mes : indice2 , ano:  indice3 };
+    var actionData = "{'quincena': '" + indice + "','mes': '" + mesEscogido + "', 'ano': '" + añoEscogido + "' }";
+
+    $.ajax(
+        {
+            url: '@Url.Action("FechaG", "Nomina")',
+            data: actionData,
+            dataType: "json",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) { console.log("msg", msg); },
+            error: function (result) {
+                alert("ERROR " + result.status);
+            }
+        });
+
+}
+
+
+
+    ////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+        function guarda() {
+        alert("entro");
+
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("PruebaG", "Nomina")',
+            //data: oParam,
+            dataType: "json",
+            returnType: 'json',
+           // async: true,
+          
+                success: function(resultado)
+                {
+
+                    
+                    console.log("Resultado" + resultado);
+                    console.log("Resultado2",  resultado);
+                //Console.log("prueba:" + prueba);
+
+                },
+
+
+            error:function(error)
+            {
+                console.error(error);
+            }
+        });
+      
+        
+        }
+
+
+
+
+</script>

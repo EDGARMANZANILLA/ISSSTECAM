@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="974f2b2adf794d248611d5615c0162b9" Name="Diagrama1">
+        <EntityTypeShape EntityType="PresupuestoDBModel.CentrosCostos" Width="1.5" PointX="1.5147534969797141" PointY="30.956523388138283" />
+        <EntityTypeShape EntityType="PresupuestoDBModel.Partidas" Width="1.5" PointX="6.375" PointY="30.375" />
+        <EntityTypeShape EntityType="PresupuestoDBModel.Actividades" Width="1.5" PointX="4.782497704393462" PointY="25.746320766278693" />
+        <EntityTypeShape EntityType="PresupuestoDBModel.ConfiguracionesActividades" Width="1.5" PointX="9.875108196341948" PointY="5.7755888131333464" />
+        <EntityTypeShape EntityType="PresupuestoDBModel.ConfiguracionesPartidas" Width="1.5" PointX="1.0209122025505231" PointY="31.64245361073057" />
+        <EntityTypeShape EntityType="PresupuestoDBModel.ConfiguracionesProgramas" Width="1.5" PointX="5.6213606361399222" PointY="2.627752886446078" />
+        <EntityTypeShape EntityType="PresupuestoDBModel.ConfiguracionesProyectos" Width="1.5" PointX="1.5753764945899027" PointY="18.384962790824922" />
+        <EntityTypeShape EntityType="PresupuestoDBModel.Programas" Width="1.5" PointX="6.8887250604521135" PointY="6.3205397456514367" />
+        <EntityTypeShape EntityType="PresupuestoDBModel.Proyectos" Width="1.5" PointX="0.5" PointY="23.875" />
+        <AssociationConnector Association="PresupuestoDBModel.FK_Actividades_ConfiguracionesActividades" />
+        <AssociationConnector Association="PresupuestoDBModel.FK_Partidas_ConfiguracionesPartidas" />
+        <AssociationConnector Association="PresupuestoDBModel.FK_Programas_ConfiguracionesProgramas" />
+        <AssociationConnector Association="PresupuestoDBModel.FK_Proyectos_ConfiguracionesProyectos" />
+        <EntityTypeShape EntityType="PresupuestoDBModel.ClavesPresupuestales" Width="1.5" PointX="2.75" PointY="24.25" />
+        <AssociationConnector Association="PresupuestoDBModel.FK_ClavesPresupuestales_Actividades" />
+        <AssociationConnector Association="PresupuestoDBModel.FK_ClavesPresupuestales_CentrosCostos" />
+        <AssociationConnector Association="PresupuestoDBModel.FK_ClavesPresupuestales_Partidas" />
+        <AssociationConnector Association="PresupuestoDBModel.FK_ClavesPresupuestales_Programas" />
+        <AssociationConnector Association="PresupuestoDBModel.FK_ClavesPresupuestales_Proyectos" />
+        <EntityTypeShape EntityType="PresupuestoDBModel.Conceptos" Width="1.5" PointX="12.25" PointY="26.875" />
+        <EntityTypeShape EntityType="PresupuestoDBModel.Nomina" Width="1.5" PointX="12.25" PointY="23.5" />
+        <EntityTypeShape EntityType="PresupuestoDBModel.TiposConceptos" Width="1.5" PointX="14.375" PointY="28.25" />
+        <EntityTypeShape EntityType="PresupuestoDBModel.TiposEmpleados" Width="1.5" PointX="9.875" PointY="28.125" />
+        <AssociationConnector Association="PresupuestoDBModel.FK_Conceptos_TiposConceptos" />
+        <AssociationConnector Association="PresupuestoDBModel.FK_Conceptos_TiposEmpleados" />
+        <EntityTypeShape EntityType="PresupuestoDBModel.Modulos" Width="1.5" PointX="7.75" PointY="10.125" />
+        <EntityTypeShape EntityType="PresupuestoDBModel.Opciones" Width="1.5" PointX="10" PointY="10" />
+        <EntityTypeShape EntityType="PresupuestoDBModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" />
+        <AssociationConnector Association="PresupuestoDBModel.FK_Opciones_Modulos" />
+        <EntityTypeShape EntityType="PresupuestoDBModel.DetallesNomina" Width="1.5" PointX="14.375" PointY="24.5" />
+        <AssociationConnector Association="PresupuestoDBModel.FK_DetallesNomina_Conceptos" />
+        <AssociationConnector Association="PresupuestoDBModel.FK_DetallesNomina_Nomina" />
+        <EntityTypeShape EntityType="PresupuestoDBModel.TiposNominas" Width="1.5" PointX="10.125" PointY="23.25" />
+        <AssociationConnector Association="PresupuestoDBModel.FK_Nomina_TiposNominas" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

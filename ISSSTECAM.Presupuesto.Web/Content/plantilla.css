@@ -1,0 +1,88 @@
+﻿/* ========================================================================
+    section
+ ========================================================================== */
+
+
+
+.wrapper > section {
+    margin-bottom: 80px !important;
+}
+
+/* ========================================================================
+    footer
+ ========================================================================== */
+.wrapper > footer {
+    height: 80px !important;
+    padding: 10px;
+}
+
+.fa-1_6x {
+    font-size: 1.6em;
+}
+
+.links {
+    text-decoration: none !important;
+}
+
+
+/* ========================================================================
+    Botones principales de los sistemas
+ ========================================================================== */
+.acciones {
+    margin-bottom: 15px;
+}
+
+    .acciones a,
+    .acciones a:hover,
+    .acciones a:focus {
+        text-decoration: none !important;
+    }
+/* ========================================================================
+   nombresistema
+ ========================================================================== */
+.logo {
+    display: none;
+}
+
+.nombrelogo {
+    display: block;
+}
+
+@media only screen and (max-width: 768px) {
+    .logo {
+        display: block;
+    }
+
+    .nombrelogo {
+        display: none;
+    }
+}
+
+
+.item-apps {
+    width: 100% !important;
+}
+
+.bg-inventarios {
+    background-color: #23b7e5;
+    color: #ffffff !important;
+}
+.bg-rh {
+    background-color: #9CB265;
+    color: #ffffff !important;
+}
+.fa.icono-sistema {
+    position: absolute;
+    display: block;
+    left: 50%;
+    top: 50%;
+    /* width: 20px; */
+    /* height: 20px; */
+    margin-top: -20px;
+    margin-left: -10px;
+    text-align: center;
+    font-size: 1.33333333em;
+    vertical-align: -15%;
+    color: #fff;
+    /* opacity: 0; */
+}

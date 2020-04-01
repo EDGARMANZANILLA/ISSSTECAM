@@ -1,0 +1,342 @@
+﻿
+<style>
+    .cellCaptura {
+        width:100px;
+    }
+</style>
+
+<h3>Captura de claves presupuestales</h3>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-default">
+            @*<div class="card-header">Captura de elementos presupuestales</div>*@
+            <div class="card-body">
+                <form>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label style="color:red;">Programa</label>
+                                @Html.Action("Lista", "Programas")
+                            </div>
+                            <div class="col-md-6">
+                                <label style="color:green">Proyecto</label>
+                                @Html.Action("Lista", "Proyectos")
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label style="color:blue">Actividad</label>
+                                @Html.Action("Lista", "Actividades")
+                            </div>
+                            <div class="col-md-6">
+                                <label style="color:orange">Partida</label>
+                                @Html.Action("Lista", "Partidas")
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>Centro de costo</label>
+                                @Html.Action("Lista", "CentrosCostos")
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h2 id="clavePresupuestal">21120283626211C016000J<span id="programa" style="color:red;">XXX</span><span id="proyecto" style="color:green;">XXXX</span><span id="actividad" style="color:blue;">XXXX</span>0L415A<span id="partida" style="color:orange;">XXXX</span></h2>
+                            </div>
+                            <div class="col-md-4">
+                                <h2 id="montoClave">$0.00</h2>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                @*<div id="capturaMensual"></div>*@
+                                <table class="table table-striped table-hover" id="capturaMensual">
+                                    <thead>
+                                        <tr>
+                                            <th>Clave presupuestal</th>                                            
+                                            <th>Enero</th>
+                                            <th>Febrero</th>
+                                            <th>Marzo</th>
+                                            <th>Abril</th>
+                                            <th>Mayo</th>
+                                            <th>Junio</th>
+                                            <th>Julio</th>
+                                            <th>Agosto</th>
+                                            <th>Septiembre</th>
+                                            <th>Octubre</th>
+                                            <th>Noviembre</th>
+                                            <th>Diciembre</th>                
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input type="text" value="" disabled="disabled"></td>
+                                            <td><input type="number" value="0" step="0.1" class="cellCaptura"></td>
+                                            <td><input type="number" value="0" class="cellCaptura"></td>                
+                                            <td><input type="number" value="0" class="cellCaptura"></td>
+                                            <td><input type="number" value="0" class="cellCaptura"></td>
+                                            <td><input type="number" value="0" class="cellCaptura"></td>
+                                            <td><input type="number"" value="0" class="cellCaptura"></td>
+                                            <td><input type="number"" value="0" class="cellCaptura"></td>
+                                            <td><input type="number" value="0" class="cellCaptura"></td>
+                                            <td><input type="number" value="0" class="cellCaptura"></td>
+                                            <td><input type="number" value="0" class="cellCaptura"></td>
+                                            <td><input type="number" value="0" class="cellCaptura"></td>
+                                            <td><input type="number" value="0" class="cellCaptura"></td>
+
+                                </table>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <button class="btn btn-info" id="agregar">Agregar clave a calendario</button>
+                            @*<button class="btn btn-info" id="modificar">Modificar montos de clave</button>*@
+                            <button class="btn btn-danger" id="eliminar" disabled>Eliminar clave del calendario</button>                            
+                        </div>                        
+                    </div>                    
+                    @*<button class="btn btn-sm btn-secondary" type="submit">Submit</button>*@
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+    <table class="table table-striped table-hover" id="clavesCalendario">
+        <thead>
+            <tr>
+                <th>Clave presupuestal</th>
+                <th></th>
+                <th>Enero</th>
+                <th>Febrero</th>
+                <th>Marzo</th>
+                <th>Abril</th>
+                <th>Mayo</th>
+                <th>Junio</th>
+                <th>Julio</th>
+                <th>Agosto</th>
+                <th>Septiembre</th>
+                <th>Octubre</th>
+                <th>Noviembre</th>
+                <th>Diciembre</th>                
+            </tr>
+        </thead>
+    </table>
+        </div>
+</div>
+
+
+
+<script>
+    $(function () {
+        habilitarCaptura();
+        habilitarEliminacion();
+
+        habilitarCalendario();
+
+        $('select', '#cuerpo').change(function (e) {
+            obtenerValores();
+        });        
+
+        
+    });
+
+    function obtenerValores() {
+        $('select', '#cuerpo').each(function (i, el) {
+            if ($(el).val() != undefined) {
+                switch ($(el).attr('id')) {
+                    case 'programas':
+                        $('#programa').text($(el).val());
+                        break;
+                    case 'proyectos':
+                        $('#proyecto').text($(el).val());
+                        break;
+                    case 'actividades':
+                        $('#actividad').text($(el).val());
+                        break;
+                    case 'partidas':
+                        $('#partida').text($(el).val());
+                        break;
+                }
+            }
+        });
+    }
+
+    function habilitarCaptura() {
+        
+        tablaCaptura = $('#capturaMensual').DataTable({
+            "language": {
+                "lengthMenu": "Desplegando _MENU_ claves por página",
+                "zeroRecords": "No se encontró nada",
+                "info": "Mostrando página _PAGE_ de _PAGES_",
+                "infoEmpty": "Sin datos",
+                "infoFiltered": "(filtrado de _MAX_ total de registros)"
+            },
+            paging: false, 
+            searching: false
+        });
+
+        $('.cellCaptura').keyup(function (e) {            
+            sumatoria();
+            if ($('#agregar').attr('disabled')) {
+                //actualizar valores en la tabla
+
+            }
+        });
+
+        $('#agregar').click(function (e) {
+            e.preventDefault();
+
+            if (!esClaveValida($('#clavePresupuestal').text())) {
+                alert('La clave no cumple las características requeridas');
+                return;
+            }
+
+            if (esClaveAgregada($('#clavePresupuestal').text())) {
+                alert('Ya existe la clave, puedes modificarla seleccionandola');
+                return;
+            }
+
+            var fila = new Array();
+            fila.push($('#clavePresupuestal').text());
+            fila.push('');
+
+            var datos = $('.cellCaptura');
+
+            $.each(datos, function (i, el) {
+                if (!isNaN($(el).val()) && $(el).val() != '') {
+
+                    fila.push($(el).val());
+                }
+            });
+
+            
+            //verificar que la clave tenga la estructura y que no exista previamente en la tabla
+
+            filaClave = tabla.row.add(fila).draw();
+            filaClave.nodes().to$().data("centroCosto", $('#centrosCostos').val());
+            filaClave.nodes().to$().data("programa", $('#programas').val());
+            filaClave.nodes().to$().data("proyecto", $('#proyectos').val());
+            filaClave.nodes().to$().data("actividad", $('#actividades').val());
+            filaClave.nodes().to$().data("partida", $('#partidas').val());
+
+            //filaClave.nodes().to$().css('backgroundColor', 'red').animate({ color: 'white' });
+
+            var chart = $('<span></span>');
+            $(filaClave.nodes()[0]).children().first().next().append(chart);
+
+            chart.sparkline($.map(datos, function (i) {
+                return parseFloat($(i).val());
+            }));            
+            
+        });
+    }
+
+    function sumatoria() {
+        var datos = $('.cellCaptura');
+
+        var total = 0;
+
+        $.each(datos, function (i, el) {
+            if (!isNaN($(el).val()) && $(el).val() != '') {
+                total += parseFloat($(el).val());
+            }
+        });
+
+
+        $('#montoClave').text(numeral(total).format('0,0.00'));
+    }
+
+    function esClaveAgregada(clave) {
+
+        var clavesAgregadas = tabla.column(0).data();
+
+        //console.log(clavesAgregadas);
+
+        return $.Enumerable.From(clavesAgregadas).Where("i => i == '" + clave + "'").Count() > 0;
+        
+    }
+
+    function esClaveValida(clave) {
+        var myRe = /\d{14}[A-Z]{1}\d{6}[A-Z]{1}\d{12}[A-Z]{1}\d{3}[A-Z]{1}\d{4}/g;
+        return myRe.test(clave);
+    }
+
+    function habilitarEliminacion() {
+
+        
+        $('#eliminar').click(function (e) {
+            e.preventDefault();
+
+            var indice = tabla.rows('.selected').remove().draw();
+
+            $('#agregar').attr('disabled', false);
+            $('#eliminar').attr('disabled', true);
+            //filaClave.nodes().to$().css('backgroundColor', 'red').animate({ color: 'white' });
+        });
+    }
+
+    function habilitarCalendario() {
+        tabla = $('#clavesCalendario').DataTable({
+            "scrollY": "200px",
+            "scrollCollapse": true,
+            "paging": false,
+            select: true,
+            language: {
+                "emptyTable": "Sin claves a mostrar",
+                "info": "Mostrando _START_ a _END_ de _TOTAL_ claves",
+                "infoEmpty": "Mostrando 0 a 0 de 0 claves",
+                "infoFiltered": "(filtered from _MAX_ total entries)",
+                "infoPostFix": "",
+                "thousands": ",",
+                "lengthMenu": "Show _MENU_ entries",
+                "loadingRecords": "Loading...",
+                "processing": "Processing...",
+                "search": "Buscar:",
+                "zeroRecords": "No matching records found",
+                "paginate": {
+                    "first": "First",
+                    "last": "Last",
+                    "next": "Next",
+                    "previous": "Previous"
+                },
+                "aria": {
+                    "sortAscending": ": activate to sort column ascending",
+                    "sortDescending": ": activate to sort column descending"
+                }
+            }
+        });
+
+        tabla.on('select', function (e, dt, type, indexes) {
+            if (type === 'row') {
+                $('#agregar').attr('disabled', true);
+                $('#eliminar').attr('disabled', false);
+
+                ////cargar combos con los valores de la clave
+                //$('#programas').val(tabla.row(indexes).nodes().to$().data('programa')).trigger('change');
+                //$('#proyectos').val(tabla.row(indexes).nodes().to$().data('proyecto')).trigger('change');
+                //$('#actividades').val(tabla.row(indexes).nodes().to$().data('actividad')).trigger('change');
+                //$('#partidas').val(tabla.row(indexes).nodes().to$().data('partida')).trigger('change');
+                //$('#centrosCostos').val(tabla.row(indexes).nodes().to$().data('centroCosto')).trigger('change');
+                ////cargar montos
+
+                //$.each($('td', tabla.row(indexes).nodes().to$()), function (i, el) {
+                //    if (i != 0) {
+                //        $($('td>input', tablaCaptura.row(0).nodes().to$()).get(i)).val($(el).text());
+                //    }
+                //});
+
+            }
+        })
+        .on('deselect', function (e, dt, type, indexes) {
+            if (type === 'row') {
+                // do something with the ID of the deselected items
+                $('#agregar').attr('disabled', false);
+                $('#eliminar').attr('disabled', true);
+            }
+        });
+    }
+</script>

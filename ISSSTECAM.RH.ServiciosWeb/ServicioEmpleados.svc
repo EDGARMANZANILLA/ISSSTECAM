@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="ISSSTECAM.RH.ServiciosWeb.ServicioEmpleados" CodeBehind="ServicioEmpleados.svc.cs" %>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="a9d6fc67-1660-451d-ab6a-2473a0e6ee47" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://sig.issstecam.campeche.gob.mx/servicioempleados/servicioempleados.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="ServicioEmpleados.wsdl" MetadataType="Wsdl" ID="ef0ad397-4668-4a50-858e-893b6c0c7ec6" SourceId="1" SourceUrl="http://sig.issstecam.campeche.gob.mx/ServicioEmpleados/ServicioEmpleados.svc?wsdl" />
+    <MetadataFile FileName="ServicioEmpleados.xsd" MetadataType="Schema" ID="4b5dc8bc-8cee-4816-ae6a-e8e4606c32fa" SourceId="1" SourceUrl="http://sig.issstecam.campeche.gob.mx/ServicioEmpleados/ServicioEmpleados.svc?xsd=xsd1" />
+    <MetadataFile FileName="ServicioEmpleados1.xsd" MetadataType="Schema" ID="98c11bcb-41eb-476f-ba04-d85ad2aa8bbd" SourceId="1" SourceUrl="http://sig.issstecam.campeche.gob.mx/ServicioEmpleados/ServicioEmpleados.svc?xsd=xsd0" />
+    <MetadataFile FileName="ServicioEmpleados2.xsd" MetadataType="Schema" ID="2ab85302-afb6-4f44-8601-ab32dc43f79d" SourceId="1" SourceUrl="http://sig.issstecam.campeche.gob.mx/ServicioEmpleados/ServicioEmpleados.svc?xsd=xsd3" />
+    <MetadataFile FileName="ServicioEmpleados3.xsd" MetadataType="Schema" ID="08989e7f-780c-4ed3-acdc-5904f71c601e" SourceId="1" SourceUrl="http://sig.issstecam.campeche.gob.mx/ServicioEmpleados/ServicioEmpleados.svc?xsd=xsd2" />
+    <MetadataFile FileName="ServicioEmpleados.disco" MetadataType="Disco" ID="4fcfad8c-4555-4f8f-a09e-5b8869ee444c" SourceId="1" SourceUrl="http://sig.issstecam.campeche.gob.mx/ServicioEmpleados/ServicioEmpleados.svc?disco" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

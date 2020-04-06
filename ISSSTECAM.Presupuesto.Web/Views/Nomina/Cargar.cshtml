@@ -833,7 +833,8 @@ function Quincena2() {
 
         var CajaQ = document.getElementById('CajaQuincena');
         var CajaM = document.getElementById('CajaMes');
-        var CajaA = document.getElementById('CajaAño');
+    var CajaA = document.getElementById('CajaAño');
+    var Entero = 01;
 
         alert("Esta es la " + CajaQ.textContent + " quincena " + " de " + CajaM.textContent + " del " + CajaA.textContent);
 
@@ -847,18 +848,9 @@ function Quincena2() {
 
     //alert(texto);
 
-  //  document.getElementById('Formulario').style.display = 'none';
-    document.getElementById('MenuFecha').style.display = 'none';
-    document.getElementById('MenuFecha2').style.display = 'none';
-    document.getElementById('MenuFecha3').style.display = 'none';
-  //  document.getElementById('ConvertPDF').style.display = 'inline';
-      document.getElementById('btnGuarda').style.display = 'none';
-    document.getElementById('nomina').style.display = "none";
-    document.getElementById('Deshacer').style.display = "none";
-
 
     //  var actionData = {quincena: indice , mes : indice2 , ano:  indice3 };
-    var actionData = "{'quincena': '" + valorQuincena + "','mes': '" + mesEscogido + "', 'ano': '" + añoEscogido + "' }";
+    var actionData = "{'quincena': '" + Entero + "','mes': '" + CajaM.textContent + "', 'ano': '" + CajaA.textContent + "' }";
 
     $.ajax(
         {
@@ -872,6 +864,16 @@ function Quincena2() {
                 alert("ERROR " + result.status);
             }
         });
+
+    
+  //  document.getElementById('Formulario').style.display = 'none';
+    document.getElementById('MenuFecha').style.display = 'none';
+    document.getElementById('MenuFecha2').style.display = 'none';
+    document.getElementById('MenuFecha3').style.display = 'none';
+  //  document.getElementById('ConvertPDF').style.display = 'inline';
+      document.getElementById('btnGuarda').style.display = 'none';
+    document.getElementById('nomina').style.display = "none";
+    document.getElementById('Deshacer').style.display = "none";
 
 }
 

@@ -1,5 +1,6 @@
 ﻿using CrystalDecisions.CrystalReports.Engine;
 using ISSSTECAM.Presupuesto.Entidades;
+using ISSSTECAM.Presupuesto.Web.Reportes;
 using Newtonsoft.Json;
 using OfficeOpenXml;
 using System;
@@ -656,30 +657,80 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
             }
 
 
+       
+
             return conceptoYMonto;
         }
         #endregion
 
 
+        #region Filtro de conceptos que escoje el usuario final para la generacion del reporte
 
-
-
-        public ActionResult GenerarReporte(/*DateTime fechaInicio, DateTime fechaFin*/)
+        private Dictionary<string, decimal> FiltradoDeConceptosPorElUsuario( Dictionary<string, decimal> conceptoYMonto, List<string>conceptosSeleccionados)
         {
+
+
+            Dictionary<string, decimal> filtroDeConceptos = new Dictionary<string, decimal>();
+
+            foreach (var item in conceptoYMonto) {
+                foreach (var item2 in conceptosSeleccionados)
+                {
+                    if (item.Key.Trim().ToUpper()== item2.Trim().ToUpper()) 
+                    {
+                        filtroDeConceptos.Add(item.Key.Trim().ToUpper(), item.Value);
+                    }
+
+                }
+
+            }
+
+
+
+
+
+            return filtroDeConceptos;
+        }
+
+
+
+        #endregion
+
+
+
+
+            public ActionResult GenerarReporte(/*DateTime fechaInicio, DateTime fechaFin , List<string>ConceptosSelecionados*/)
+            {
+
+
             DateTime fechaInicio = Convert.ToDateTime("01/01/2019");
             DateTime fechaFin = Convert.ToDateTime("31/12/2019");
             int PMensual= 10;
             int Porcent =20;
             int NTrabajadores= 30;
             int PMenXTrabajador = 40;
+            //sustituir por lista del parametro Todo en Mayusculas
+            List<string> conceptosSeleccionados = new List<string>();
+            conceptosSeleccionados.Add("SUELDO");
+            conceptosSeleccionados.Add("SUELDO EVENTUAL");
+            conceptosSeleccionados.Add("DIA ECONOMICO");
+            conceptosSeleccionados.Add("SUBS. X INCAP.");
+            conceptosSeleccionados.Add("SUBS. X INCAP. (EVENTUAL)");
+            conceptosSeleccionados.Add("QUINQUENIO");
+            conceptosSeleccionados.Add("P. S. M.");
+            conceptosSeleccionados.Add("puntualidad");
+
 
             var centrosCostos = ObtenerMontosPorCentroCosto(fechaInicio, fechaFin);
             var centroCostosConfianza = ObtenerMontosPorCentroCostoDeConFianza(fechaInicio, fechaFin);
             var centroCostosBase = ObtenerMontosPorCentroCostoDeBase(fechaInicio, fechaFin);
             var centroCostosContrato = ObtenerMontosPorCentroCostoDeContrato(fechaInicio, fechaFin);
 
+            Dictionary<string, decimal> conceptoMonto = new Dictionary<string, decimal>();
+            conceptoMonto = ObtenerMontosPorConceptos(fechaInicio, fechaFin);
+            var conceptosFiltrados = FiltradoDeConceptosPorElUsuario(conceptoMonto, conceptosSeleccionados);
 
-            var conceptos = ObtenerMontosPorConceptos(fechaInicio, fechaFin);
+
+
             Datasets.dtsReporteGastosSueldosSalarios dts = new Datasets.dtsReporteGastosSueldosSalarios();
 
 
@@ -712,7 +763,7 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
            }
 
 
-           foreach (var concepto in conceptos)
+           foreach (var concepto in conceptosFiltrados)
            {
                dts.ConceptosTotal.AddConceptosTotalRow(concepto.Key, concepto.Value, PMensual, Porcent, NTrabajadores, PMenXTrabajador);
 

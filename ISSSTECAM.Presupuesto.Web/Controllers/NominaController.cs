@@ -664,14 +664,19 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
 
         #region Se obtiene la fecha actual y la manda a la vista(proximamente guardará la fecha en un array)
 
-        public int devolverAo()
+        public JsonResult devolverAo()
         {
             //DateTime año = Convert.ToDateTime("07/06/2021");
 
             int año = DateTime.Now.Year;
-
-            return año;
-
+            List<int> ListaAños = new List<int>();
+            ListaAños.Add(2019);
+            if (!ListaAños.Contains(año))
+            {
+                ListaAños.Add(año);
+            }
+           // return año;
+            return Json(ListaAños, JsonRequestBehavior.AllowGet);
 
         }
         #endregion

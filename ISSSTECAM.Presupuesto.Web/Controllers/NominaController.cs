@@ -30,9 +30,31 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
             return PartialView();
         }
 
-
+        /// <summary>
+        /// Devuelve a la vista del reporte una lista obtenida de la base de datos la cual se filtra por 
+        /// unicamente los conceptos para que el usuario pueda elegir despues de su seleccion
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Reporte() {
-            return PartialView();
+          
+            List<string> conceptos = new List<string>();
+
+            var conceptosActivos = Negocios.ConceptosNegocios.ObtenerActivos();
+
+            foreach (var concepto in conceptosActivos)
+            {
+                if (concepto.ConceptoNomina != null || concepto.ConceptoNomina != " ")
+                {
+                    if (!conceptos.Contains(concepto.ConceptoNomina.Trim().ToUpper()))
+                    {
+                        conceptos.Add(concepto.ConceptoNomina.Trim().ToUpper());
+                    }
+
+                }
+
+            }
+
+            return PartialView(conceptos);
         }
         
 
@@ -347,7 +369,6 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
             }
         }
 
-
         public JsonResult TotalesConceptos(/*DateTime fechaInicio, DateTime fechaFin*/)
         {
             DateTime fechaInicio = Convert.ToDateTime("01/01/2020");
@@ -480,7 +501,6 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
             return Json(A, JsonRequestBehavior.AllowGet);
         }
         #endregion
-
 
 
         #region Se obtinen  los datos para incluirlos en el dateset para la creacion del reporte
@@ -685,13 +705,8 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
             }
 
 
-
-
-
             return filtroDeConceptos;
         }
-
-
 
         #endregion
 
@@ -710,6 +725,8 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
             int PMenXTrabajador = 40;
             //sustituir por lista del parametro Todo en Mayusculas
             List<string> conceptosSeleccionados = new List<string>();
+         // conceptosSeleccionados = ListaDeConceptosActivos();
+
             conceptosSeleccionados.Add("SUELDO");
             conceptosSeleccionados.Add("SUELDO EVENTUAL");
             conceptosSeleccionados.Add("DIA ECONOMICO");
@@ -718,6 +735,7 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
             conceptosSeleccionados.Add("QUINQUENIO");
             conceptosSeleccionados.Add("P. S. M.");
             conceptosSeleccionados.Add("puntualidad");
+            
 
 
             var centrosCostos = ObtenerMontosPorCentroCosto(fechaInicio, fechaFin);
@@ -725,6 +743,8 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
             var centroCostosBase = ObtenerMontosPorCentroCostoDeBase(fechaInicio, fechaFin);
             var centroCostosContrato = ObtenerMontosPorCentroCostoDeContrato(fechaInicio, fechaFin);
 
+            ///obtiene todos los conceptos que contengan montos guardados y los suma.
+            ///en el metodo 2 envia esos conceptos y montos y se filtran por los elegidos por el usuario
             Dictionary<string, decimal> conceptoMonto = new Dictionary<string, decimal>();
             conceptoMonto = ObtenerMontosPorConceptos(fechaInicio, fechaFin);
             var conceptosFiltrados = FiltradoDeConceptosPorElUsuario(conceptoMonto, conceptosSeleccionados);

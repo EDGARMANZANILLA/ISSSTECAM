@@ -1,4 +1,5 @@
-﻿@{
+﻿@model List<string>
+@{
     ViewBag.Title = "Reporte";
 }
 
@@ -7,6 +8,12 @@
 }
 
 <h3>Generar Reporte</h3>
+
+@foreach (string item in Model) 
+{
+<h5> @item </h5>
+}
+
 
 
 <p>

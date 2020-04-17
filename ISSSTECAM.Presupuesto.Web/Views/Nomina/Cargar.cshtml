@@ -35,11 +35,11 @@
                 </li>
             </ul>
         </nav>
+        @*<br>
         <br>
         <br>
-        <br>
-        <br>
-        <br>
+        <br>*@
+        @*<br>*@
         <nav name="NMenuFecha" id="MenuFecha" class="menu" style="display:none;">
             <ul>
                 <li name="quincena">
@@ -82,8 +82,8 @@
             </ul>
         </nav>
         <br>
-        <br>
-        <br>
+        @*<br>
+        <br>*@
 
 
 
@@ -214,6 +214,7 @@
 
     .menu {
         z-index: 99999999999999999999;
+        padding-left:8px;
     }
 
         .menu ul li {
@@ -265,7 +266,7 @@
         border: none;
         padding-bottom: 0px;
         padding-top: 3px;
-        padding-left: 5px;
+        padding-left: 4px;
     }
 </style>
 
@@ -808,18 +809,18 @@
         var CajaQ = document.getElementById('CajaQuincena');
         var CajaM = document.getElementById('CajaMes');
         var CajaA = document.getElementById('CajaAño');
-        var Entero = 01;
+       // var Entero = 01;
         var ValActionData = 0;
         var Val1 = document.getElementById('1ra').textContent;
         //var Val2 = document.getElementById('2da');
-        alert("Val1 es igual a = " + Val1);
+      //  alert("Val1 es igual a = " + Val1);
 
         if (Val1 == CajaQ.textContent) {
             ValActionData = document.getElementById('1ra').getAttribute('Value');
-            alert("ValActionData es = "+ValActionData)
+           // alert("ValActionData es = "+ValActionData)
         } else {
             ValActionData = document.getElementById('2da').getAttribute('Value');
-            alert("ValActionData es = "+ValActionData)
+          //  alert("ValActionData es = "+ValActionData)
         }
             //} else (Val2 == CajaQ.textContent){
         //     ValActionData = document.getElementById('2da').getAttribute('Value');

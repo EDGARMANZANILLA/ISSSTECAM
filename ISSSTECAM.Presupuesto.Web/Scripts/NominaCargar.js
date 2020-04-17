@@ -34,11 +34,19 @@ function Delete() {
 }
 function Comienzo() {
     document.getElementById('Enviar').style.display = 'inline';
-    document.getElementById('Formulario1').style.display = 'inline';
-    document.getElementById('Formulario2').style.display = 'inline';
-    document.getElementById('FormularioNomina1').style.display = 'inline';
-    document.getElementById('FormularioNomina2').style.display = 'inline';
+    //document.getElementById('Formulario1').style.display = 'inline';
+    //document.getElementById('Formulario2').style.display = 'inline';
+    //document.getElementById('FormularioNomina1').style.display = 'inline';
+    //document.getElementById('FormularioNomina2').style.display = 'inline';
     document.getElementById('CargarAño').style.display = 'none';
+    document.getElementById('nominaReporte').style.display = 'inline-block';
+    document.getElementById('nominaReporte2').style.display = 'inline-block';
+    document.getElementById('MenuFecha4').style.display = 'inline-block';
+    document.getElementById('MenuFecha5').style.display = 'inline-block';
+    document.getElementById('MenuFecha6').style.display = 'inline-block';
+    document.getElementById('MenuFecha7').style.display = 'inline-block';
+    document.getElementById('MenuFecha8').style.display = 'inline-block';
+    document.getElementById('MenuFecha9').style.display = 'inline-block';
     ObtenAño();
 
     

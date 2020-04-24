@@ -25,6 +25,10 @@ function ocultarModal() {
     //getAño('#AutoSelec');
     $.unblockUI();
 }
+function ocultarModalReporte() {
+    document.getElementById('Modal2').style.display = 'none';
+    //$.unblockUI();
+}
 
 //funcion para ocultar loa botones y las graficas, además de borrar la tabla generada 
 function Delete() {

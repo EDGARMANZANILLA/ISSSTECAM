@@ -7,33 +7,43 @@
 }
 
 @*<h3>Generar Reporte</h3>*@
+@*onload="Comienzo();"*@
 <h3>Generar Reporte</h3>
-
-
-
-
-
-<div class="row">
+<nav>
+   
     <p>
-        <a class="btn btn-success" href="@Url.Action("GenerarReporte", "Nomina")">Download Report</a>
+        <a class="btn btn-success" id="DlReport" style="display:none;" href="@Url.Action("GenerarReporte", "Nomina")">Download Report</a>
     </p>
-    <button id="Enviar" onclick="QuincenaReporte();" style="display:none">Enviar</button>
-    <div class="col-md-6">
+    <br><h3 id="Inicio">Introduzca los datos para generar su reporte por quincena</h3>
+    <br><h3 id="Final" style="display:none;">Reporte Generado Exitosamente</h3>
+    @*<button id="CargarAño" onclick="Comienzo();">Comenzar</button>*@
+    <br>
+    <br>
+    <button title="Guarda la tabla en PDF" class="btn btn-success" id="ConvertPDF" onclick="CrearPDF();" style="display:none;position:center;margin-left:1%">Guardar Tabla</button>
+</nav>
+<div class="row">
+    @*<button id="Enviar" onclick="QuincenaReporte();" style="display:none">Enviar</button>
+    <p>
+        <a class="btn btn-success" id="DlReport" style="display:none;" href="@Url.Action("GenerarReporte", "Nomina")">Download Report</a>
+    </p>*@
+    
+    @*<div class="col-md-6">
         <br><h3 id="Inicio">Introduzca los datos para generar su reporte por quincena</h3>
         <br><h3 id="Final" style="display:none;">Reporte Generado Exitosamente</h3>
-        <button id="CargarAño" onclick="Comienzo();">Comenzar</button>
+   
         <br>
         <br>
         <button title="Guarda la tabla en PDF" class="btn btn-success" id="ConvertPDF" onclick="CrearPDF();" style="display:none;position:center;margin-left:1%">Guardar Tabla</button>
     </div>
-    <br>
+    <br>*@
+
+
     @*////////////////////////////////////////////////////////////////////*@
-    <br>
-    <br>
-    <br>
+    @*<br>
+        <br>
+        <br>*@
     <div class="col-md-6">
-
-
+        <p id="RI">Reporte Inicial</p>
         <nav name="NMenuFecha4" id="MenuFecha4" class="menu" style="display:none;">
             <ul>
                 <li name="quincena2">
@@ -45,7 +55,6 @@
                 </li>
             </ul>
         </nav>
-
         <nav name="NMenuFecha5" id="MenuFecha5" class="menu" style="display:none;">
             <ul>
                 <li name="meses2">
@@ -93,74 +102,81 @@
         </nav>
         <br>
         <br>
+        <button id="Enviar" onclick="QuincenaReporte();" style="display:none">Siguiente</button>
         <br>
         <br>
         <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
     </div>
-    <div class="col-md-6">
+        <div class="col-md-6">
+    <p id="RF">Reporte Final</p>
+    <nav name="NMenuFecha7" id="MenuFecha7" class="menu" style="display:none;">
+        <ul>
+            <li name="quincena3">
+                <textarea name="NCajaQuincenaReporte2" id="CajaQuincenaReporte2" readonly="readonly">15na</textarea>
+                <ul id="ListaQuincenasReporte2">
+                    <li value="01" id="1raReporte"><a>1ra</a></li>
+                    <li value="02" id="2daReporte"><a>2da</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
 
-        <nav name="NMenuFecha7" id="MenuFecha7" class="menu" style="display:none;">
-            <ul>
-                <li name="quincena3">
-                    <textarea name="NCajaQuincenaReporte2" id="CajaQuincenaReporte2" readonly="readonly">15na</textarea>
-                    <ul id="ListaQuincenasReporte2">
-                        <li value="01" id="1raReporte"><a>1ra</a></li>
-                        <li value="02" id="2daReporte"><a>2da</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
 
-
-        <nav name="NMenuFecha8" id="MenuFecha8" class="menu" style="display:none;">
-            <ul>
-                <li name="meses3">
-                    <textarea name="NCajaMesReporte2" id="CajaMesReporte2" readonly="readonly">Mes</textarea>
-                    <ul id="ListaMesesReporte2">
-                        <li value="Enero" id="Month1"><a>Enero</a></li>
-                        <li value="Febrero" id="Month2"><a>Febrero</a></li>
-                        <li value="Marzo" id="Month3"><a>Marzo</a></li>
-                        <li value="Abril" id="Month4"><a>Abril</a></li>
-                        <li value="Mayo" id="Month5"><a>Mayo</a></li>
-                        <li value="Junio" id="Month6"><a>Junio</a></li>
-                        <li value="Julio" id="Month7"><a>Julio</a></li>
-                        <li value="Agosto" id="Month8"><a>Agosto</a></li>
-                        <li value="Septiembre" id="Month9"><a>Septiembre</a></li>
-                        <li value="Octubre" id="Month10"><a>Octubre</a></li>
-                        <li value="Noviembre" id="Month11"><a>Noviembre</a></li>
-                        <li value="Diciembre" id="Month12"><a>Diciembre</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
-        <nav name="NMenuFecha9" id="MenuFecha9" class="menu" style="display:none;">
-            <ul>
-                <li name="años3">
-                    <textarea name="NCajaAñoReporte2" id="CajaAñoReporte2" readonly="readonly">Año</textarea>
-                    <ul id="ListaAñosReporte2">
-                    </ul>
-                </li>
-            </ul>
-        </nav>
-        <br>
-        <br>
-        <br>
-        <nav name="Nomina2" id="nominaReporte2" class="menu" style="display:none;">
-            <h5>Seleccione el tipo de nómina</h5>
-            <ul>
-                <li name="nominaReporte2">
-                    <textarea name="NCajaNominaReporte2" id="CajaNominaReporte2" readonly="readonly">Tipo</textarea>
-                    <ul id="ListaTipoNominaReporte2">
-                        <li value="Regular" id="N_Regular"><a>Regular</a></li>
-                        <li value="Extraordinaria" id="N_Extraordinaria"><a>Extraordinaria</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
-    </div>
+    <nav name="NMenuFecha8" id="MenuFecha8" class="menu" style="display:none;">
+        <ul>
+            <li name="meses3">
+                <textarea name="NCajaMesReporte2" id="CajaMesReporte2" readonly="readonly">Mes</textarea>
+                <ul id="ListaMesesReporte2">
+                    <li value="Enero" id="Month1"><a>Enero</a></li>
+                    <li value="Febrero" id="Month2"><a>Febrero</a></li>
+                    <li value="Marzo" id="Month3"><a>Marzo</a></li>
+                    <li value="Abril" id="Month4"><a>Abril</a></li>
+                    <li value="Mayo" id="Month5"><a>Mayo</a></li>
+                    <li value="Junio" id="Month6"><a>Junio</a></li>
+                    <li value="Julio" id="Month7"><a>Julio</a></li>
+                    <li value="Agosto" id="Month8"><a>Agosto</a></li>
+                    <li value="Septiembre" id="Month9"><a>Septiembre</a></li>
+                    <li value="Octubre" id="Month10"><a>Octubre</a></li>
+                    <li value="Noviembre" id="Month11"><a>Noviembre</a></li>
+                    <li value="Diciembre" id="Month12"><a>Diciembre</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <nav name="NMenuFecha9" id="MenuFecha9" class="menu" style="display:none;">
+        <ul>
+            <li name="años3">
+                <textarea name="NCajaAñoReporte2" id="CajaAñoReporte2" readonly="readonly">Año</textarea>
+                <ul id="ListaAñosReporte2">
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <br>
+    <br>
+    <br>
+    @*<nav name="Nomina2" id="nominaReporte2" class="menu" style="display:none;">
+        <h5>Seleccione el tipo de nómina</h5>
+        <ul>
+            <li name="nominaReporte2">
+                <textarea name="NCajaNominaReporte2" id="CajaNominaReporte2" readonly="readonly">Tipo</textarea>
+                <ul id="ListaTipoNominaReporte2">
+                    <li value="Regular" id="N_Regular"><a>Regular</a></li>
+                    <li value="Extraordinaria" id="N_Extraordinaria"><a>Extraordinaria</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>*@
+</div>
     @*//////////////////////////////////////////////////////////////*@
 
-     
+
     @*////////////////////////////////////////////////////////////////////////////*@
     <div id="Modal" class="modal-backdrop">
         <div class="modal-content" id="ModalTabla" style="width:400px;z-index:999999;left:25%;margin-right:10%;margin-left:10%;height:auto;">
@@ -183,6 +199,7 @@
     <div class="Clase">
     </div>
 </div>
+
 <style>
     .Clase {
         width: 100%;
@@ -323,7 +340,8 @@
     }
 </style>
 <script>
-
+    window.onload = Comienzo();{ };
+   
     function QuincenaReporte() {
         //var Mensaje;
         //var indice1 = document.formularioA.quincenaA.selectedIndex;
@@ -440,13 +458,16 @@
         document.getElementById('Final').style.display = 'inline';
         document.getElementById('Inicio').style.display = 'none';
         document.getElementById('nominaReporte').style.display = 'none';
-        document.getElementById('nominaReporte2').style.display = 'none';
+        //document.getElementById('nominaReporte2').style.display = 'none';
         document.getElementById('MenuFecha4').style.display = 'none';
         document.getElementById('MenuFecha5').style.display = 'none';
         document.getElementById('MenuFecha6').style.display = 'none';
         document.getElementById('MenuFecha7').style.display = 'none';
         document.getElementById('MenuFecha8').style.display = 'none';
         document.getElementById('MenuFecha9').style.display = 'none';
+        document.getElementById('DlReport').style.display = 'inline';
+        document.getElementById('RI').style.display = 'none';
+        document.getElementById('RF').style.display = 'none';
     }
 
 
@@ -636,19 +657,19 @@
          WRITELINE.insertAdjacentHTML('beforeend', Identidad)
         
      });
-      $('#ListaTipoNominaReporte2').click(function(e){
-      var li = e.target.parentNode;
-     // alert(li.id);
-      let ID = li.id;
-     //alert("Ver " + ID)
-     // var Ident = li.id;
-      var Identidad = document.getElementById(ID).textContent;
-    //alert("Has invocado a " + Summon)
-      const WRITELINE = document.querySelector('#CajaNominaReporte2');
-      var Lista = document.getElementById('CajaNominaReporte2');
-      Lista.innerHTML = "";
-      // WRITELINE.insertAdjacentHTML('beforeend','<p>Has invocado a '+Summon+'</p>')
-         WRITELINE.insertAdjacentHTML('beforeend', Identidad)
+  //    $('#ListaTipoNominaReporte2').click(function(e){
+  //    var li = e.target.parentNode;
+  //   // alert(li.id);
+  //    let ID = li.id;
+  //   //alert("Ver " + ID)
+  //   // var Ident = li.id;
+  //    var Identidad = document.getElementById(ID).textContent;
+  //  //alert("Has invocado a " + Summon)
+  //    const WRITELINE = document.querySelector('#CajaNominaReporte2');
+  //    var Lista = document.getElementById('CajaNominaReporte2');
+  //    Lista.innerHTML = "";
+  //    // WRITELINE.insertAdjacentHTML('beforeend','<p>Has invocado a '+Summon+'</p>')
+  //       WRITELINE.insertAdjacentHTML('beforeend', Identidad)
         
-  });
+  //});
 </script>

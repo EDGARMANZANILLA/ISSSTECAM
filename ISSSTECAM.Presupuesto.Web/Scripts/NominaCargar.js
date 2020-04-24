@@ -38,9 +38,10 @@ function Comienzo() {
     //document.getElementById('Formulario2').style.display = 'inline';
     //document.getElementById('FormularioNomina1').style.display = 'inline';
     //document.getElementById('FormularioNomina2').style.display = 'inline';
-    document.getElementById('CargarAño').style.display = 'none';
+    //document.getElementById('CargarAño').style.display = 'none';
+    //document.getElementById('CargarAño').style.display = 'none';
     document.getElementById('nominaReporte').style.display = 'inline-block';
-    document.getElementById('nominaReporte2').style.display = 'inline-block';
+    //document.getElementById('nominaReporte2').style.display = 'inline-block';
     document.getElementById('MenuFecha4').style.display = 'inline-block';
     document.getElementById('MenuFecha5').style.display = 'inline-block';
     document.getElementById('MenuFecha6').style.display = 'inline-block';

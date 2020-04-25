@@ -17,12 +17,11 @@
         @*<button class="btn btn-success" id="guardar" title="Guarda el archivo en la base de datos" style="display:none;"  onclick="guarda();">Guardar archivo</button>*@
         @*<button class="btn btn-success" title="Guarda la tabla en formato PDF" id="PDF" style="display:none;" onclick="CreatePDF();">Guardar Tabla</button>*@
         @*<div style="display:none" id="EspacioValue"></div>*@
-        <button title="Guarda la tabla en PDF" class="btn btn-success" id="ConvertPDF" data-backdrop="false" onclick="CrearPDF();" style="display:none;position:center;margin-left:1%">Guardar Tabla</button>
+        @*<button title="Guarda la tabla en PDF" class="btn btn-success" id="ConvertPDF" data-backdrop="false" onclick="CrearPDF();" style="display:none;position:center;margin-left:1%">Guardar Tabla</button>*@
         @*<a class="btn btn-success" href="@Url.Action("ReporteConcentradoPrograma", "Calendario")" target="_blank">Reporte programa-concentrado</a>*@
         @*<input id="fileupload" type="file" name="files[]" data-url="@Url.Action("ImportarArchivo", "Calendario")" multiple>*@
-        <input type="button" id="btnGuarda" class="btn btn-success" value="Guardar" style="display:none;padding-left:5px" onclick="Quincena2();">
-        <button title="Deshacer cambios y reiniciar proceso" class="btn btn-danger" id="Deshacer" data-backdrop="false" onClick="location.reload();" style="display:none;position:center;">Deshacer</button>
-        <br>
+
+
         <nav name="Formul2" id="nomina" class="menu" style="display:none;">
             <h5>Seleccione el tipo de nómina</h5>
             <ul>
@@ -82,10 +81,14 @@
             </ul>
         </nav>
         <br>
+        <br>
+        <br>
         @*<br>
         <br>*@
-
-
+        <br>
+        <br>
+        <input type="button" id="btnGuarda" class="btn btn-success" value="Guardar" style="display:none;padding-left:5px" onclick="Quincena2();">
+        <button title="Deshacer cambios y reiniciar proceso" class="btn btn-danger" id="Deshacer" data-backdrop="false" onClick="location.reload();" style="display:none;position:center;">Deshacer</button>
 
         @*guarda();*@
 
@@ -178,7 +181,7 @@
         left: 0%;
     }
     #Espacio {/*height:220px*/
-    height:120px
+    height:20px
     }
     .modal-content {
         font-weight: bold;

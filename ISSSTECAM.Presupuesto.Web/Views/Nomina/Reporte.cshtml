@@ -1,4 +1,5 @@
-﻿@{
+﻿@model List<string>
+@{
     ViewBag.Title = "Reporte";
 }
 
@@ -9,8 +10,13 @@
 @*<h3>Generar Reporte</h3>*@
 @*onload="Comienzo();"*@
 <h3>Generar Reporte</h3>
+
+
+@*<p>*@
+@*<a class="btn btn-success" href="@Url.Action("GenerarReporte", "Nomina")">Download Report</a> *@
+@*</p>*@
 <nav>
-   
+
     <p>
         <a class="btn btn-success" id="DlReport" style="display:none;" href="@Url.Action("GenerarReporte", "Nomina")">Download Report</a>
     </p>
@@ -234,10 +240,39 @@
         </div>
     </div>
 </div>
+
+@foreach (string item in Model)
+{
+    <h5> @item </h5>
+}
+
 <div class="row">
     <div class="Clase">
     </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <style>
     .Clase {
@@ -294,31 +329,31 @@
         font-weight: bold;
         color: black;
     }
-   /* ////////////////////////////////////////////////////////////////////*/
+    /* ////////////////////////////////////////////////////////////////////*/
     .tablainput {
         border: 1px solid rgba(151, 220, 255, 0.00);
         float: right;
     }
     /*.demo input[type="checkbox"] {
-        display:none;
+            display:none;
+        }
+    .demo input[type="checkbox"] + label span {
+        display: inline-block;
+        width: 15px;
+        height: 15px;
+        margin: -1px 4px 0 0;
+        vertical-align: middle;
+        background: url(checkbox-uncheck.png);
+        background-size: cover;
+        cursor: pointer;
     }
-.demo input[type="checkbox"] + label span {
-	display: inline-block;
-	width: 15px;
-	height: 15px;
-	margin: -1px 4px 0 0;
-	vertical-align: middle;
-	background: url(checkbox-uncheck.png);
-	background-size: cover;
-	cursor: pointer;
-}
-.demo input[type="checkbox"]:checked + label span {
-	background: url(checkbox-check.png);
-	background-size: cover;
-}*/
+    .demo input[type="checkbox"]:checked + label span {
+        background: url(checkbox-check.png);
+        background-size: cover;
+    }*/
 
     /*/////////////////////////////////////////////////////////////////////////////////*/
-     .menu ul li {
+    .menu ul li {
         display: inline-block;
         background-color: rgb(69, 110, 185);
     }
@@ -346,7 +381,7 @@
 
     .menu {
         z-index: 99999999999999999999;
-        padding-left:8px;
+        padding-left: 8px;
     }
 
         .menu ul li {
@@ -354,12 +389,11 @@
             float: left;
             margin: 0;
             padding: 0;
-             z-index: 99999999999999999999;
+            z-index: 99999999999999999999;
         }
 
             .menu ul li:hover {
-                background:  rgb(11, 66, 167);
-
+                background: rgb(11, 66, 167);
             }
 
         .menu ul ul {
@@ -373,14 +407,14 @@
             .menu ul ul li {
                 float: none;
                 width: 100px;
-                 z-index: 99999999999999999999;
+                z-index: 99999999999999999999;
             }
 
             .menu ul ul a {
                 line-height: 100%;
                 padding: 10px 15px;
                 padding: 10px 10px;
-                 z-index: 99999999999999999999;
+                z-index: 99999999999999999999;
             }
 
         .menu ul li:hover > ul {
@@ -403,7 +437,7 @@
 </style>
 <script>
     window.onload = Comienzo();{ };
-   
+
     function QuincenaReporte() {
         //var Mensaje;
         //var indice1 = document.formularioA.quincenaA.selectedIndex;
@@ -456,7 +490,7 @@
          WRITELINE.insertAdjacentHTML('beforeend', Identidad);
          ///
          alert("Variable Valor" + Valor);
-        
+
      });
         //var actionData1 = "{'quincena': '" + valorQuincena + "','mes': '" + mesEscogido + "', 'ano': '" + añoEscogido + "' }";
          @*var actionData1 = "{'quincena': '" + QuincenaInicialQuincena + "','mes': '" +  QuincenaInicialMes.textContent + "', 'ano': '" +  QuincenaInicialAño.textContent + "' }";
@@ -506,7 +540,7 @@
          WRITELINE.insertAdjacentHTML('beforeend', Identidad);
          ///
          alert("Variable Valor" + Valor);
-        
+
          });
         //  var actionData1 = "{'quincena': '" + QuincenaInicialQuincena + "','mes': '" +  QuincenaInicialMes.textContent + "', 'ano': '" +  QuincenaInicialAño.textContent + "' }";
         //int inicialQuincena, string inicialMes, int  inicialAnio, int finalQuincena, string finalMes, int finalAnio
@@ -691,7 +725,7 @@
          WRITELINE.insertAdjacentHTML('beforeend', Identidad);
          ///
          //alert("Variable Valor" + Valor);
-        
+
      });
       $('#ListaQuincenasReporte2').click(function(e){
       var li = e.target.parentNode;
@@ -710,7 +744,7 @@
          WRITELINE.insertAdjacentHTML('beforeend', Identidad);
          ///
          //alert("Variable Valor" + Valor);
-        
+
      });
 
 
@@ -729,7 +763,7 @@
       Lista.innerHTML = "";
       // WRITELINE.insertAdjacentHTML('beforeend','<p>Has invocado a '+Summon+'</p>')
          WRITELINE.insertAdjacentHTML('beforeend', Identidad)
-        
+
      });
   //    $('#ListaTipoNominaReporte2').click(function(e){
   //    var li = e.target.parentNode;
@@ -744,6 +778,6 @@
   //    Lista.innerHTML = "";
   //    // WRITELINE.insertAdjacentHTML('beforeend','<p>Has invocado a '+Summon+'</p>')
   //       WRITELINE.insertAdjacentHTML('beforeend', Identidad)
-        
+
   //});
 </script>

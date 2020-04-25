@@ -713,7 +713,7 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
 
 
 
-            public ActionResult GenerarReporte(/*DateTime fechaInicio, DateTime fechaFin , List<string>ConceptosSelecionados*/)
+            public ActionResult GenerarReporte(/*DateTime fechaInicio, DateTime fechaFin, int tipoNomina , List<string>ConceptosSelecionados*/)
             {
 
 

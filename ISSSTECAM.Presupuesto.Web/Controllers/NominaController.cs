@@ -433,8 +433,11 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
 
 
         #region obtiene fecha y luego guarda, (modificar a un solo metodo)
-        public JsonResult PruebaG()
+        public JsonResult PruebaG(int guardaQuincena, string guardaMes, int guardaAnio, int tipoNomina)
         {
+            //int tipoNomina es 1 o 2 que se encuentran asi en la DB
+            int TipoNomina = tipoNomina;
+
 
             Nomina nueva = new Nomina();
 
@@ -463,15 +466,24 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
             //return Json(JsonConvert.SerializeObject(exit), JsonRequestBehavior.AllowGet);
             return Json(exit, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult FechaG(int quincena, string mes, int ano)
+        public JsonResult FechaG(int inicialQuincena, string inicialMes, int  inicialAnio, int finalQuincena, string finalMes, int finalAnio, int tipoNomina )
         {
-            int NumeroDeQuincena, AnoDeQuincena;
-            string Mees;
+            int InicialQuincena, InicialAnio;
+            string InicialMes;
 
-            NumeroDeQuincena = quincena;
-            AnoDeQuincena = ano;
-            Mees = mes;
+            InicialQuincena = inicialQuincena;
+            InicialAnio = inicialAnio;
+            InicialMes = inicialMes;
 
+
+            int FinalQuincena, FinalAnio;
+            string FinalMes;
+            int TipoNomina;
+
+            FinalQuincena = finalQuincena;
+            FinalAnio = finalAnio;
+            FinalMes = finalMes;
+            TipoNomina = tipoNomina;
 
             ////prueba
 

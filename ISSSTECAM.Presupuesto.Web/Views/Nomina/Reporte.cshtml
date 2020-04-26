@@ -108,7 +108,7 @@
         </nav>
         <br>
         <br>
-        <button id="Enviar" onclick="QuincenaReporte();" style="display:none">Siguiente</button>
+        <button id="Enviar" onclick="QuincenaReporte();GetListConcept()" style="display:none">Siguiente</button>
         <br>
         <br>
         <br>
@@ -181,35 +181,48 @@
                 </ul>
             </nav>*@
     </div>
+ 
     <div id="Modal2" style="display:none" class="modal-backdrop">
         <div class="modal-content" style="width:400px;z-index:9999999999999999999999999999999;left:25%;margin-right:10%;margin-left:10%;height:auto;">
             Conceptos Nomina
             <div class="modal-header Popup" id="HeaderModal" style="height:auto;text-align:center;">
                 <div style="width:300px;z-index:9999999999999999999999999999999;margin-right:8%;margin-left:8%;height:auto;">
                     <table id="TablaConceptos">
-                        <tr>
-                            <th colspan="2" style="text-align:center;">Seleccione los conceptos</th>
-                        </tr>
-                        <tr>
-                            <td>Sueldo</td>
-                            <td class="tablainput"><input class="single-checkbox" type="checkbox"></td>
-                        </tr>
-                        <tr>
-                            <td>Día Economico</td>
-                            <td class="tablainput"><input class="single-checkbox" type="checkbox"></td>
-                        </tr>
-                        <tr>
-                            <td>Puntualidad</td>
-                            <td class="tablainput"><input class="single-checkbox" type="checkbox"></td>
-                        </tr>
-                        <tr>
-                            <td>Quinquenio</td>
-                            <td class="tablainput"><input class="single-checkbox" type="checkbox"></td>
-                        </tr>
-                        <tr>
-                            <td>Sueldo Eventual</td>
-                            <td class="tablainput"><input class="single-checkbox" type="checkbox"></td>
-                        </tr>
+                        <thead>
+                            <tr>
+                                <th colspan="2" style="text-align:center;">Seleccione un máximo de 10 conceptos</th>
+                            </tr>
+                        </thead>
+                        @*<tbody id="CuerpoTablaConceptos"> </tbody>*@
+                        @foreach (string item in Model)
+        {
+
+            <tr>
+                <td>@item</td>
+                <td class="tablainput"><input class="single-checkbox" value="@item" id="@item" type="checkbox"></td>
+            </tr>
+
+        }
+                        @*<tr>
+            <td>Sueldo</td>
+            <td class="tablainput"><input class="single-checkbox" type="checkbox"></td>
+        </tr>
+        <tr>
+            <td>Día Economico</td>
+            <td class="tablainput"><input class="single-checkbox" type="checkbox"></td>
+        </tr>
+        <tr>
+            <td>Puntualidad</td>
+            <td class="tablainput"><input class="single-checkbox" type="checkbox"></td>
+        </tr>
+        <tr>
+            <td>Quinquenio</td>
+            <td class="tablainput"><input class="single-checkbox" type="checkbox"></td>
+        </tr>
+        <tr>
+            <td>Sueldo Eventual</td>
+            <td class="tablainput"><input class="single-checkbox" type="checkbox"></td>
+        </tr>*@
                         @*<tbody id="CuerpoTabla"> </tbody>*@
                         @*<tbody id="Separa"><tr><td>...</td><td>...</td></tr></tbody>*@
                         @*<tfoot id="PieDeTabla"> </tfoot>*@
@@ -241,10 +254,14 @@
     </div>
 </div>
 
-@foreach (string item in Model)
-{
-    <h5> @item </h5>
-}
+@*<div style="display:none">
+    <ul id="ListaConceptos">
+        @foreach (string item in Model)
+        {
+            <li value="@item"> "@item", </li>
+        }
+    </ul>
+</div>*@
 
 <div class="row">
     <div class="Clase">
@@ -303,7 +320,7 @@
         }
 
     td, th {
-        border: solid 2px rgba(22, 81, 152, 0.75);
+        border: solid 3px rgba(22, 81, 152, 0.75);
         padding: 3px;
         text-align: left;
         color: black;
@@ -331,8 +348,10 @@
     }
     /* ////////////////////////////////////////////////////////////////////*/
     .tablainput {
-        border: 1px solid rgba(151, 220, 255, 0.00);
-        float: right;
+        /*border: 2px solid rgb(22, 81, 152);*/
+         /*border: solid 1px rgba(22, 81, 152, 0.75);*/
+        /*float: right;*/
+         
     }
     /*.demo input[type="checkbox"] {
             display:none;
@@ -780,4 +799,27 @@
   //       WRITELINE.insertAdjacentHTML('beforeend', Identidad)
 
   //});
+
+
+
+
+
+
+
+
+    //function GetListConcept() {
+    //    //var ListConcept = [];
+    //    var ListConcept = document.getElementById('ListaConceptos').textContent;
+    //    console.log("Lista Conceptos " + ListConcept);
+    //    const CUERPOTABLACONCEPTOS = document.querySelector('#CuerpoTablaConceptos');
+    //    i = 1;
+    //    ListConcept.forEach(Element => {
+    //        CUERPOTABLACONCEPTOS.insertAdjacentHTML('beforeend', '<tr><td>' + Element + '</td><td class="tablainput"><input class="single-checkbox" value="' + Element + '" id="Concept'+i+'" type="checkbox"></td></tr>')
+    //    })
+      
+        
+    //}
+  
+
+
 </script>

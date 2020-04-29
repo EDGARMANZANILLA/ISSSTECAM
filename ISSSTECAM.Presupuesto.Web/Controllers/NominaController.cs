@@ -719,6 +719,7 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
         #region Recibe el array de los Conceptos seleccionados por el usuario
         public JsonResult ConceptArray(string[] data)
         {
+            Session["listaDeConceptosUsuario"] = data.ToList();
             string exit = "exitoso";
 
             return Json(exit, JsonRequestBehavior.AllowGet);
@@ -756,7 +757,7 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
 
             public ActionResult GenerarReporte(/*DateTime fechaInicio, DateTime fechaFin, int tipoNomina , List<string>ConceptosSelecionados*/)
             {
-
+                 
 
             DateTime fechaInicio = Convert.ToDateTime("01/01/2019");
             DateTime fechaFin = Convert.ToDateTime("31/12/2019");
@@ -766,7 +767,7 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
             int PMenXTrabajador = 40;
             //sustituir por lista del parametro Todo en Mayusculas
             List<string> conceptosSeleccionados = new List<string>();
-         // conceptosSeleccionados = ListaDeConceptosActivos();
+            ///conceptosSeleccionados = (List<string>)Session["listaDeConceptosUsuario"];
 
             conceptosSeleccionados.Add("SUELDO");
             conceptosSeleccionados.Add("SUELDO EVENTUAL");
@@ -776,7 +777,7 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
             conceptosSeleccionados.Add("QUINQUENIO");
             conceptosSeleccionados.Add("P. S. M.");
             conceptosSeleccionados.Add("puntualidad");
-            
+
 
 
             var centrosCostos = ObtenerMontosPorCentroCosto(fechaInicio, fechaFin);

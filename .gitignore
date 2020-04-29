@@ -340,9 +340,8 @@ ASALocalRun/
 healthchecksdb
 
 #Archivos ignorados por Trabajo en DB local
-.ISSSTECAM.Presupuesto.Datos/App.Config
-.Modelo.Designer.cs
-.ISSSTECAM.Presupuesto.Web/Web.config
+ISSSTECAM.Presupuesto.Datos/
+ISSSTECAM.Presupuesto.Web/Web.config
 
 
 

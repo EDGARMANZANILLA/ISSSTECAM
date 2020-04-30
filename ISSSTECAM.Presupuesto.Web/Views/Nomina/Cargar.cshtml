@@ -450,32 +450,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     function crearGrafica(datos)
     {
         console.log(datos);
@@ -710,11 +684,6 @@
     }
 
 
-
-
-
-
-
      function crearGraficaGastosTotalesCentroCosto() {
 
         $.ajax({
@@ -866,7 +835,7 @@
 
          @*$.ajax({
             type: 'POST',
-            url: '@Url.Action("PruebaG", "Nomina")',
+            url: '@Url.Action("RecibirFechaParaGuardarNomina", "Nomina")',
             data:  actionData,
             dataType: "json",
             returnType: 'json',
@@ -891,12 +860,12 @@
     $.ajax(
         {
             @*url: '@Url.Action("FechaG", "Nomina")',*@
-             url: '@Url.Action("PruebaG", "Nomina")',
+             url: '@Url.Action("RecibirFechaParaGuardarNomina", "Nomina")',
             data: actionData,
             dataType: "json",
             type: "POST",
             contentType: "application/json; charset=utf-8",
-            success: function (msg) { console.log("msg", msg); },
+            success: function (msg) { alert(msg); },
             error: function (result) {
                 alert("ERROR " + result.status);
             }
@@ -919,23 +888,13 @@
     ////////////////////
 
 
-
-
-
-
-
-
-
-
-
-
-        function guarda() {
+        @*function guarda() {
         alert("entro");
 
 
         $.ajax({
             type: 'POST',
-            url: '@Url.Action("PruebaG", "Nomina")',
+            url: '@Url.Action("RecibirFechaParaGuardarNomina", "Nomina")',
             //data: oParam,
             dataType: "json",
             returnType: 'json',
@@ -959,14 +918,17 @@
         });
 
 
-    }
+
+        }*@
+
+
    // nuevoAño = obtenAño();
 
-             function obtenAño() {
+     function obtenAño() {
       //  alert("entro");
         $.ajax({
             type: 'POST',
-            url: '@Url.Action("devolverAo", "Nomina")',
+            url: '@Url.Action("DevolverAnio", "Nomina")',
             dataType: "json",
             returnType: 'json',
                 success: function(resultado)

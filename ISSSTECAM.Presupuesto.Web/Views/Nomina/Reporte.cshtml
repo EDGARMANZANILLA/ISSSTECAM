@@ -514,7 +514,7 @@
          @*var actionData1 = "{'quincena': '" + QuincenaInicialQuincena + "','mes': '" +  QuincenaInicialMes.textContent + "', 'ano': '" +  QuincenaInicialAño.textContent + "' }";
         $.ajax(
             {
-                url: '@Url.Action("FechaG", "Nomina")',
+                url: '@Url.Action("ObtenerFechaReporte", "Nomina")',
                 data: actionData1,
                 dataType: "json",
                 type: "POST",
@@ -567,7 +567,7 @@
          var actionData2 = "{'inicialQuincena': '" + QuincenaInicialQuincena + "','inicialMes': '" +  QuincenaInicialMes.textContent + "', 'inicialAnio': '" +  QuincenaInicialAño.textContent + "','finalQuincena': '" + QuincenaFinalQuincena + "','finalMes': '" +  QuincenaFinalMes.textContent + "', 'finalAnio': '" + QuincenaFinalAño.textContent + "','tipoNomina':'" + QuincenaTipoNomina +"' }";
         $.ajax(
             {
-                url: '@Url.Action("FechaG", "Nomina")',
+                url: '@Url.Action("ObtenerFechaReporte", "Nomina")',
                 data: actionData2,
                 dataType: "json",
                 type: "POST",
@@ -612,7 +612,7 @@
         //alert("entro");
         $.ajax({
             type: 'POST',
-            url: '@Url.Action("devolverAo", "Nomina")',
+            url: '@Url.Action("DevolverAnio", "Nomina")',
             dataType: "json",
             returnType: 'json',
                 success: function(resultado)
@@ -832,8 +832,8 @@
         var actionData = selected;
          $.ajax(
         {
-            @*url: '@Url.Action("FechaG", "Nomina")',*@
-             url: '@Url.Action("ConceptArray", "Nomina")',
+            @*url: '@Url.Action("ObtenerFechaReporte", "Nomina")',*@
+             url: '@Url.Action("RecibirArray", "Nomina")',
                  type: "POST",
             //  dataType: "json",
             data: JSON.stringify(actionData),

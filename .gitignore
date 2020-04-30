@@ -342,6 +342,8 @@ healthchecksdb
 #Archivos ignorados por Trabajo en DB local
 ISSSTECAM.Presupuesto.Datos/
 ISSSTECAM.Presupuesto.Web/Web.config
+Archivos de prueba para proyecto/
+
 
 
 

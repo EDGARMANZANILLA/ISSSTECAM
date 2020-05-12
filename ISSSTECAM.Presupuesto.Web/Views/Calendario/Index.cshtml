@@ -123,6 +123,19 @@
             },
             onSuccess: function (files, data, xhr, pd) {
 
+                //atendiente errores 
+                if ( data.errores != null ) {
+                  //  console.log('las sig lineas no contienen 43 caracteres', data.errores);
+                    alert("Las siguientes filas del exel cargado no contienen 43 caracteres " + "\r\n" + data.errores + "\r\n" );
+                    alert("VERIFIQUE LOS DATOS POR FAVOR Y VUELVA A INTENTAR");
+
+
+                  
+                }
+
+
+                console.log(data.exitoso);
+
                 //noty({
                 //    text: data.mensaje,
                 //    type: 'info',

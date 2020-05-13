@@ -18,7 +18,7 @@
 <nav>
 
     <p>
-        <a class="btn btn-success" id="DlReport" style="display:none;" href="@Url.Action("GenerarReporte", "Nomina")">Download Report</a>
+        <a class="btn btn-success" id="DlReport" style="display:none;" href="@Url.Action("GenerarReporte", "Nomina")">Descargar Reporte</a>
     </p>
     <br><h3 id="Inicio">Introduzca los datos para generar su reporte por quincena</h3>
     <br><h3 id="Final" style="display:none;">Reporte Generado Exitosamente</h3>
@@ -52,8 +52,9 @@
         <p id="RI">Reporte Inicial</p>
         <nav name="NMenuFecha4" id="MenuFecha4" class="menu" style="display:none;">
             <ul>
+                <p>Quincena</p>
                 <li name="quincena2">
-                    <textarea name="NCajaQuincenaReporte" id="CajaQuincenaReporte" readonly="readonly">15na</textarea>
+                    <textarea name="NCajaQuincenaReporte" id="CajaQuincenaReporte" readonly="readonly"> </textarea>
                     <ul id="ListaQuincenasReporte">
                         <li value="01" id="1ra"><a>1ra</a></li>
                         <li value="02" id="2da"><a>2da</a></li>
@@ -62,9 +63,10 @@
             </ul>
         </nav>
         <nav name="NMenuFecha5" id="MenuFecha5" class="menu" style="display:none;">
+            <p>Mes</p>
             <ul>
                 <li name="meses2">
-                    <textarea name="NCajaMesReporte" id="CajaMesReporte" readonly="readonly">Mes</textarea>
+                    <textarea name="NCajaMesReporte" id="CajaMesReporte" readonly="readonly"> </textarea>
                     <ul id="ListaMesesReporte">
                         <li value="Enero" id="Month1"><a>Enero</a></li>
                         <li value="Febrero" id="Month2"><a>Febrero</a></li>
@@ -83,9 +85,10 @@
             </ul>
         </nav>
         <nav name="NMenuFecha6" id="MenuFecha6" class="menu" style="display:none;">
+            <p>Año</p>
             <ul>
                 <li name="años2">
-                    <textarea name="NCajaAñoReporte" id="CajaAñoReporte" readonly="readonly">Año</textarea>
+                    <textarea name="NCajaAñoReporte" id="CajaAñoReporte" readonly="readonly"> </textarea>
                     <ul id="ListaAñosReporte">
                     </ul>
                 </li>
@@ -98,10 +101,11 @@
             <h5>Seleccione el tipo de nómina</h5>
             <ul>
                 <li name="nominaReporte">
-                    <textarea name="NCajaNominaReporte" id="CajaNominaReporte" readonly="readonly">Tipo</textarea>
+                    <textarea name="NCajaNominaReporte" id="CajaNominaReporte" readonly="readonly"> </textarea>
                     <ul id="ListaTipoNominaReporte">
                         <li value="1" id="N_Regular"><a>Regular</a></li>
                         <li value="2" id="N_Extraordinaria"><a>Extraordinaria</a></li>
+                        <li value="3" id="N_Ambos"><a>Ambos</a></li>
                     </ul>
                 </li>
             </ul>
@@ -122,9 +126,10 @@
     <div class="col-md-6">
         <p id="RF">Reporte Final</p>
         <nav name="NMenuFecha7" id="MenuFecha7" class="menu" style="display:none;">
+            <p>Quincena</p>
             <ul>
                 <li name="quincena3">
-                    <textarea name="NCajaQuincenaReporte2" id="CajaQuincenaReporte2" readonly="readonly">15na</textarea>
+                    <textarea name="NCajaQuincenaReporte2" id="CajaQuincenaReporte2" readonly="readonly"> </textarea>
                     <ul id="ListaQuincenasReporte2">
                         <li value="01" id="1raReporte"><a>1ra</a></li>
                         <li value="02" id="2daReporte"><a>2da</a></li>
@@ -135,9 +140,10 @@
 
 
         <nav name="NMenuFecha8" id="MenuFecha8" class="menu" style="display:none;">
+            <p>Mes</p>
             <ul>
                 <li name="meses3">
-                    <textarea name="NCajaMesReporte2" id="CajaMesReporte2" readonly="readonly">Mes</textarea>
+                    <textarea name="NCajaMesReporte2" id="CajaMesReporte2" readonly="readonly"> </textarea>
                     <ul id="ListaMesesReporte2">
                         <li value="Enero" id="Month1"><a>Enero</a></li>
                         <li value="Febrero" id="Month2"><a>Febrero</a></li>
@@ -156,9 +162,10 @@
             </ul>
         </nav>
         <nav name="NMenuFecha9" id="MenuFecha9" class="menu" style="display:none;">
+            <p>Año</p>
             <ul>
                 <li name="años3">
-                    <textarea name="NCajaAñoReporte2" id="CajaAñoReporte2" readonly="readonly">Año</textarea>
+                    <textarea name="NCajaAñoReporte2" id="CajaAñoReporte2" readonly="readonly"> </textarea>
                     <ul id="ListaAñosReporte2">
                     </ul>
                 </li>
@@ -460,7 +467,7 @@
         //var Mensaje;
         //var indice1 = document.formularioA.quincenaA.selectedIndex;
         //var indice2 = document.formularioA.meses1.selectedIndex;
-      //  var indice3 = document.formularioA.años1.selectedIndex;
+        //  var indice3 = document.formularioA.años1.selectedIndex;
 
         //var quincenaEscogida = document.formularioA.quincenaA.options[indice1].text;
         //var valorQuincena = document.formularioA.quincenaA.options[indice1].value;
@@ -474,42 +481,46 @@
         var TipoNominaReporte = document.getElementById('CajaNominaReporte');
 
         var TipoNomina = document.getElementById('N_Regular').textContent;
+        var TipoNomina2 = document.getElementById('N_Extraordinaria').textContent;
+
         if (TipoNomina == TipoNominaReporte.textContent) {
             QuincenaTipoNomina = document.getElementById('N_Regular').getAttribute('value');
-        } else {
+        } else if  (TipoNomina2 == TipoNominaReporte.textContent){
             QuincenaTipoNomina = document.getElementById('N_Extraordinaria').getAttribute('value');
+        } else {
+             QuincenaTipoNomina = document.getElementById('N_Ambos').getAttribute('value');
         }
 
         var QuincenaInicialQuincena = 0;
         var Val1 = document.getElementById('1ra').textContent;
-         if (Val1 == CajaQ.textContent) {
-           QuincenaInicialQuincena = document.getElementById('1ra').getAttribute('Value');
-           // alert("ValActionData es = "+ValActionData)
+        if (Val1 == CajaQ.textContent) {
+            QuincenaInicialQuincena = document.getElementById('1ra').getAttribute('Value');
+            // alert("ValActionData es = "+ValActionData)
         } else {
             QuincenaInicialQuincena = document.getElementById('2da').getAttribute('Value');
-          //  alert("ValActionData es = "+ValActionData)
+            //  alert("ValActionData es = "+ValActionData)
         }
-         alert("Esta es la " + CajaQ.textContent + " quincena " + " de " +  QuincenaInicialMes.textContent + " del " + QuincenaInicialAño.textContent + "Del inicio del reporte");
+        //  alert("Esta es la " + CajaQ.textContent + " quincena " + " de " +  QuincenaInicialMes.textContent + " del " + QuincenaInicialAño.textContent + "Del inicio del reporte");
 
-         $('#ListaQuincenasReporte').click(function(e){
-      var li = e.target.parentNode;
-     // alert(li.id);
-         let ID = li.id;
-        // let Val = li.Value;
-     //alert("Ver " + ID)
-     // var Ident = li.id;
-         var Identidad = document.getElementById(ID).textContent;
-         var Valor = document.getElementById(ID).getAttribute("Value");
-    //alert("Has invocado a " + Summon)
-      const WRITELINE = document.querySelector('#CajaQuincenaReporte');
-      var Lista = document.getElementById('CajaQuincenaReporte');
-      Lista.innerHTML = "";
-      // WRITELINE.insertAdjacentHTML('beforeend','<p>Has invocado a '+Summon+'</p>')
-         WRITELINE.insertAdjacentHTML('beforeend', Identidad);
-         ///
-         alert("Variable Valor" + Valor);
+        $('#ListaQuincenasReporte').click(function (e) {
+            var li = e.target.parentNode;
+            // alert(li.id);
+            let ID = li.id;
+            // let Val = li.Value;
+            //alert("Ver " + ID)
+            // var Ident = li.id;
+            var Identidad = document.getElementById(ID).textContent;
+            var Valor = document.getElementById(ID).getAttribute("Value");
+            //alert("Has invocado a " + Summon)
+            const WRITELINE = document.querySelector('#CajaQuincenaReporte');
+            var Lista = document.getElementById('CajaQuincenaReporte');
+            Lista.innerHTML = "";
+            // WRITELINE.insertAdjacentHTML('beforeend','<p>Has invocado a '+Summon+'</p>')
+            WRITELINE.insertAdjacentHTML('beforeend', Identidad);
+            ///
+            //  alert("Variable Valor" + Valor);
 
-     });
+        });
         //var actionData1 = "{'quincena': '" + valorQuincena + "','mes': '" + mesEscogido + "', 'ano': '" + añoEscogido + "' }";
          @*var actionData1 = "{'quincena': '" + QuincenaInicialQuincena + "','mes': '" +  QuincenaInicialMes.textContent + "', 'ano': '" +  QuincenaInicialAño.textContent + "' }";
         $.ajax(
@@ -532,68 +543,91 @@
 
         var QuincenaFinalQuincena = 0;
         var Val2 = document.getElementById('1raReporte').textContent;
-         if (Val2 == CajaQ2.textContent) {
+        if (Val2 == CajaQ2.textContent) {
             QuincenaFinalQuincena = document.getElementById('1raReporte').getAttribute('Value');
-           // alert("ValActionData es = "+ValActionData)
+            // alert("ValActionData es = "+ValActionData)
         } else {
             QuincenaFinalQuincena = document.getElementById('2daReporte').getAttribute('Value');
-          //  alert("ValActionData es = "+ValActionData)
+            //  alert("ValActionData es = "+ValActionData)
         }
-         alert("Esta es la " + CajaQ2.textContent + " quincena " + " de " + QuincenaFinalMes.textContent + " del " + QuincenaFinalAño.textContent + "Del final del reporte");
+        //   alert("Esta es la " + CajaQ2.textContent + " quincena " + " de " + QuincenaFinalMes.textContent + " del " + QuincenaFinalAño.textContent + "Del final del reporte");
 
-         $('#ListaQuincenasReporte2').click(function(e){
-      var li = e.target.parentNode;
-     // alert(li.id);
-         let ID = li.id;
-        // let Val = li.Value;
-     //alert("Ver " + ID)
-     // var Ident = li.id;
-         var Identidad = document.getElementById(ID).textContent;
-         var Valor = document.getElementById(ID).getAttribute("Value");
-    //alert("Has invocado a " + Summon)
-      const WRITELINE = document.querySelector('#CajaQuincenaReporte2');
-      var Lista = document.getElementById('CajaQuincenaReporte2');
-      Lista.innerHTML = "";
-      // WRITELINE.insertAdjacentHTML('beforeend','<p>Has invocado a '+Summon+'</p>')
-         WRITELINE.insertAdjacentHTML('beforeend', Identidad);
-         ///
-         alert("Variable Valor" + Valor);
+        $('#ListaQuincenasReporte2').click(function (e) {
+            var li = e.target.parentNode;
+            // alert(li.id);
+            let ID = li.id;
+            // let Val = li.Value;
+            //alert("Ver " + ID)
+            // var Ident = li.id;
+            var Identidad = document.getElementById(ID).textContent;
+            var Valor = document.getElementById(ID).getAttribute("Value");
+            //alert("Has invocado a " + Summon)
+            const WRITELINE = document.querySelector('#CajaQuincenaReporte2');
+            var Lista = document.getElementById('CajaQuincenaReporte2');
+            Lista.innerHTML = "";
+            // WRITELINE.insertAdjacentHTML('beforeend','<p>Has invocado a '+Summon+'</p>')
+            WRITELINE.insertAdjacentHTML('beforeend', Identidad);
+            ///
+            //  alert("Variable Valor" + Valor);
 
-         });
+        });
         //  var actionData1 = "{'quincena': '" + QuincenaInicialQuincena + "','mes': '" +  QuincenaInicialMes.textContent + "', 'ano': '" +  QuincenaInicialAño.textContent + "' }";
         //int inicialQuincena, string inicialMes, int  inicialAnio, int finalQuincena, string finalMes, int finalAnio
         //var actionData1 = "{'quincena': '" + valorQuincena + "','mes': '" + mesEscogido + "', 'ano': '" + añoEscogido + "' }";
 
-         var actionData2 = "{'inicialQuincena': '" + QuincenaInicialQuincena + "','inicialMes': '" +  QuincenaInicialMes.textContent + "', 'inicialAnio': '" +  QuincenaInicialAño.textContent + "','finalQuincena': '" + QuincenaFinalQuincena + "','finalMes': '" +  QuincenaFinalMes.textContent + "', 'finalAnio': '" + QuincenaFinalAño.textContent + "','tipoNomina':'" + QuincenaTipoNomina +"' }";
-        $.ajax(
-            {
-                url: '@Url.Action("ObtenerFechaReporte", "Nomina")',
-                data: actionData2,
-                dataType: "json",
-                type: "POST",
-                contentType: "application/json; charset=utf-8",
-                succes: function (msg) { console.log("msg", msg); },
-                error: function (result) {
-                    alert("ERROR SEVERO, VUELVA A CARGAR LA PÁGINA" + result.status);
-                }
+        //Aqui van las validaciones de los las fechas y el tipo nomina.
+        if (CajaQ.textContent == ' ') {
+            alert('Por favor seleccione una quincena inicial')
+        } else if (QuincenaInicialMes.textContent == ' ') {
+            alert('Por favor seleccione un mes para la quincena inicial del reporte')
+        } else if (QuincenaInicialAño.textContent == ' ') {
+            alert('Por favor seleccione un año inicial para el reporte')
+        } else if (TipoNominaReporte.textContent == ' ') {
+            alert('Por favor seleccione un tipo de nómina para el reporte')
+            //Con esto ya valido todos los datos del menu, seguirían los datos de los checkboxes, q sean un maximo de 10.
+        } else if (CajaQ2.textContent == ' ') {
+            alert('Por favor seleccione una quincena final')
+        } else if (QuincenaFinalMes.textContent == ' ') {
+            alert('Por favor seleccione un mes para la quincena final del reporte')
+        } else if (QuincenaFinalAño.textContent == ' ') {
+            alert('Por favor seleccione un año final para el reporte')
+        } else {
 
-            });
-        //crearTablaRep();
-        document.getElementById('Enviar').style.display = 'none';
-        document.getElementById('Final').style.display = 'inline';
-        document.getElementById('Inicio').style.display = 'none';
-        document.getElementById('nominaReporte').style.display = 'none'; /////////////////////
-        //document.getElementById('nominaReporte2').style.display = 'none';
-        document.getElementById('MenuFecha4').style.display = 'none';
-        document.getElementById('MenuFecha5').style.display = 'none';
-        document.getElementById('MenuFecha6').style.display = 'none';
-        document.getElementById('MenuFecha7').style.display = 'none';
-        document.getElementById('MenuFecha8').style.display = 'none';
-        document.getElementById('MenuFecha9').style.display = 'none';
-        document.getElementById('DlReport').style.display = 'inline'; ///////////////////////////
-        document.getElementById('RI').style.display = 'none';
-        document.getElementById('RF').style.display = 'none';
-         document.getElementById('Modal2').style.display = 'inline';
+            alert("Esta es la " + CajaQ.textContent + " quincena " + " de " + QuincenaInicialMes.textContent + " del " + QuincenaInicialAño.textContent + "Del inicio del reporte");
+            alert("Esta es la " + CajaQ2.textContent + " quincena " + " de " + QuincenaFinalMes.textContent + " del " + QuincenaFinalAño.textContent + "Del final del reporte");
+            //
+            var actionData2 = "{'inicialQuincena': '" + QuincenaInicialQuincena + "','inicialMes': '" + QuincenaInicialMes.textContent + "', 'inicialAnio': '" + QuincenaInicialAño.textContent + "','finalQuincena': '" + QuincenaFinalQuincena + "','finalMes': '" + QuincenaFinalMes.textContent + "', 'finalAnio': '" + QuincenaFinalAño.textContent + "','tipoNomina':'" + QuincenaTipoNomina + "' }";
+
+            $.ajax(
+                {
+                    url: '@Url.Action("ObtenerFechaReporte", "Nomina")',
+                    data: actionData2,
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    succes: function (msg) { console.log("msg", msg); },
+                    error: function (result) {
+                        alert("ERROR SEVERO, VUELVA A CARGAR LA PÁGINA" + result.status);
+                    }
+
+                });
+            //crearTablaRep();
+            document.getElementById('Enviar').style.display = 'none';
+            document.getElementById('Final').style.display = 'inline';
+            document.getElementById('Inicio').style.display = 'none';
+            document.getElementById('nominaReporte').style.display = 'none'; /////////////////////
+            //document.getElementById('nominaReporte2').style.display = 'none';
+            document.getElementById('MenuFecha4').style.display = 'none';
+            document.getElementById('MenuFecha5').style.display = 'none';
+            document.getElementById('MenuFecha6').style.display = 'none';
+            document.getElementById('MenuFecha7').style.display = 'none';
+            document.getElementById('MenuFecha8').style.display = 'none';
+            document.getElementById('MenuFecha9').style.display = 'none';
+            document.getElementById('DlReport').style.display = 'inline'; ///////////////////////////
+            document.getElementById('RI').style.display = 'none';
+            document.getElementById('RF').style.display = 'none';
+            document.getElementById('Modal2').style.display = 'inline';
+        }
     }
 
 
@@ -820,30 +854,39 @@
     //}
     function GetListConcept() {
         var selected = new Array();
+        CountCheckBoxes = 0;
         $('#TablaConceptos').ready(function () {
 
             $("input:checkbox:checked").each(function () {
                 //alert($(this).val());
                 selected.push($(this).val());
+                CountCheckBoxes++;
             });
 
         });
         console.log("Array de Conceptos... ", selected);
-        var actionData = selected;
-         $.ajax(
-        {
+        //Aqui va la validacion de no mas de 10 conceptos.
+        if (CountCheckBoxes > 10) {
+            alert('Ha seleccionado demasiados conceptos, el máximo es de 10')
+            document.getElementById('Modal2').style.display = 'inline';
+        } else {
+            console.log("Array de Conceptos... ", selected);
+            //
+            var actionData = selected;
+            $.ajax(
+                {
             @*url: '@Url.Action("ObtenerFechaReporte", "Nomina")',*@
-             url: '@Url.Action("RecibirArray", "Nomina")',
-                 type: "POST",
-            //  dataType: "json",
-            data: JSON.stringify(actionData),
-            contentType: "application/json",
-            success: function (msg) { console.log("msg", msg); },
-            error: function (result) {
-                alert("ERROR " + result.status);
-            }
-        });
-
+                    url: '@Url.Action("RecibirArray", "Nomina")',
+                    type: "POST",
+                    //  dataType: "json",
+                    data: JSON.stringify(actionData),
+                    contentType: "application/json",
+                    success: function (msg) { console.log("msg", msg); },
+                    error: function (result) {
+                        alert("ERROR " + result.status);
+                    }
+                });
+        }
     }
 
 </script>

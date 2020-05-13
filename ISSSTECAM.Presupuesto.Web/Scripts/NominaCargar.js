@@ -94,7 +94,7 @@ function crearTablaConceptos(ArrayConceptos) {
             TR.appendChild(tdConcepto);
             // el td de nómina
             let tdTotal = document.createElement("td");
-            tdTotal.textContent = Dato.Total;
+            tdTotal.textContent = "$  "+Dato.Total;
             TR.appendChild(tdTotal);
 
             CUERPOTABLA.appendChild(TR);
@@ -112,7 +112,7 @@ function crearTablaConceptos(ArrayConceptos) {
         ArrayTabla.forEach(Dato => {
             SumatoriaTotal = SumatoriaTotal + Dato.Total;
         })
-        TdSuma.textContent = SumatoriaTotal;
+        TdSuma.textContent = "$  "+SumatoriaTotal;
         TR2.appendChild(TdSuma);
         SUMATOTAL.appendChild(TR2);
     }

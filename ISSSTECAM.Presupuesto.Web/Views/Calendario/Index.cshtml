@@ -124,13 +124,16 @@
             onSuccess: function (files, data, xhr, pd) {
 
                 //atendiente errores 
-                if ( data.errores != null ) {
-                  //  console.log('las sig lineas no contienen 43 caracteres', data.errores);
-                    alert("Las siguientes filas del exel cargado no contienen 43 caracteres " + "\r\n" + data.errores + "\r\n" );
+                if (data.errores != null) {
+                    //  console.log('las sig lineas no contienen 43 caracteres', data.errores);
+                    alert("Las siguientes filas del exel cargado no contienen 43 caracteres " + "\r\n" + data.errores + "\r\n");
                     alert("VERIFIQUE LOS DATOS POR FAVOR Y VUELVA A INTENTAR");
 
+                } else if (data.elementoDeClave != null)
+                {
+                   // alert("Las siguientes filas del exel cargado no contienen 43 caracteres " + "\r\n" + data.errores + "\r\n");
+                    alert("VERIFIQUE LOS SIGUIENTES ELEMENTOS DE LA CLAVE PRESUPUESTAL" + "\r\n" + data.elementoDeClave + "\r\n");
 
-                  
                 }
 
 

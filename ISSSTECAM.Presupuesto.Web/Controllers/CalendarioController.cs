@@ -45,9 +45,9 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
 
                 int filas = hoja.Dimension.End.Row;
 
-                //Valida que la cada celda de la columna 1 tenga 43 caracteres
+
+                #region Valida que la cada celda de la columna 1 tenga 43 caracteres (valida la clave presupuestal sea correcta en digitos) 
                 Dictionary<int, int> verificarCeldasDiferentesA43 = new Dictionary<int, int>();
-                verificarCeldasDiferentesA43 = null;
 
                 if (hoja.Dimension != null) {
                     for (int i = 2; i <= filas; i++)
@@ -63,16 +63,57 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
                         }
                     }
 
-                    if (verificarCeldasDiferentesA43 != null ) 
+                    if (verificarCeldasDiferentesA43.Count() != 0 ) 
                     {
                         return Json(new { exitoso = false, errores = string.Join(Environment.NewLine, verificarCeldasDiferentesA43.ToArray()), });
                     }
                     
                 }
+                #endregion
+                #region verificar que ninguno de los elementos de la clave presupuestas este vacio
+                //Valida que la cada elemento
+                Dictionary<int, string> verificacion = new Dictionary<int, string>();
+
+                for (int i = 2; i <= filas; i++)
+                {
+                   
+                    string cadenaClave = hoja.Cells[i, 1].Value.ToString();
+
+                    var programa = ProgramasNegocios.ObtenerActivosDelAnioPorClave(2019, cadenaClave.Substring(22, 3));
+                    var projecto = ProyectosNegocios.ObtenerActivosDelAnioPorClave(2019, cadenaClave.Substring(25, 4));
+                    var actividad = ActividadesNegocios.ObtenerActivosDelAnioPorClave(2019, cadenaClave.Substring(29, 4));
+                    var partida = PartidasNegocios.ObtenerActivaPorClave(cadenaClave.Substring(39, 4));
+
+                    if (programa == null)
+                    {
+                        verificacion.Add(Convert.ToInt16(cadenaClave.Substring(22, 3)), "Programa");
+
+                    }else if (projecto == null)
+                    {
+                        verificacion.Add(Convert.ToInt16(cadenaClave.Substring(25, 4)), "Projecto");
+
+                    }else if(actividad == null)
+                    {
+                        verificacion.Add(Convert.ToInt16(cadenaClave.Substring(29, 4)), "Actividad");
+
+                    }else if (partida == null)
+                    {
+                        verificacion.Add(Convert.ToInt16(cadenaClave.Substring(39, 4)), "Partida");
+
+                    }
+
+                }
+                if (verificacion.Count() != 0)
+                {
+                    verificacion.GroupBy(d => d.Value);
+                    return Json(new { exitoso = false, elementoDeClave = string.Join(Environment.NewLine, verificacion.ToArray()), });
+                }
+                #endregion
+
 
 
                 //verificar la validacion
-                if (verificarCeldasDiferentesA43 == null)
+                if (verificarCeldasDiferentesA43.Count() == 0)
                 {
 
                     for (int i = 2; i <= filas; i++)
@@ -83,6 +124,7 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
                         var proj = ProyectosNegocios.ObtenerActivosDelAnioPorClave(2019, cadenaClave.Substring(25, 4));
                         var act = ActividadesNegocios.ObtenerActivosDelAnioPorClave(2019, cadenaClave.Substring(29, 4));
                         var par = PartidasNegocios.ObtenerActivaPorClave(cadenaClave.Substring(39, 4));
+                        
                         var cc = CentrosCostosNegocios.ObtenerPorClave(ObtenerClaveCentroDeCostoPorClaveActividad(cadenaClave.Substring(29, 4)));
 
                         claves.Add(new ClavesPresupuestales

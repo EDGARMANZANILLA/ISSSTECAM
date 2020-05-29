@@ -23,10 +23,11 @@
         @*<input id="fileupload" type="file" name="files[]" data-url="@Url.Action("ImportarArchivo", "Calendario")" multiple>*@
     </div>
 </div>
+
 @*//*@
 <nav>
     @*<br><h3 id="Inicio">Introduzca los datos para generar su reporte por quincena</h3>
-    <br><h3 id="Final" style="display:none;">Reporte Generado Exitosamente</h3>*@
+        <br><h3 id="Final" style="display:none;">Reporte Generado Exitosamente</h3>*@
     @*<button id="CargarAño" onclick="Comienzo();">Comenzar</button>*@
     <br>
     <br>
@@ -127,6 +128,7 @@
 </div>
 
 @*//*@
+
 <div class="row">
     <div class="col-xl-3 col-md-6">
         <span>GRAN TOTAL</span>
@@ -189,7 +191,6 @@
     <div class="col-md-6" id="graficaMensualCapitulo">
     </div>
 </div>
-
 
 
 <style>
@@ -338,11 +339,10 @@
     }
     /*//*/
     .P-Kevin {
-         text-align: left;
+        text-align: left;
     }
     /*//*/
 </style>
-
 
 <script>
 
@@ -381,12 +381,15 @@
             onSuccess: function (files, data, xhr, pd) {
 
                 //atendiente errores
-                if ( data.errores != null ) {
-                  //  console.log('las sig lineas no contienen 43 caracteres', data.errores);
-                    alert("Las siguientes filas del exel cargado no contienen 43 caracteres " + "\r\n" + data.errores + "\r\n" );
+                if (data.errores != null) {
+                    //  console.log('las sig lineas no contienen 43 caracteres', data.errores);
+                    alert("Las siguientes filas del exel cargado no contienen 43 caracteres " + "\r\n" + data.errores + "\r\n");
                     alert("VERIFIQUE LOS DATOS POR FAVOR Y VUELVA A INTENTAR");
 
-
+                } else if (data.elementoDeClave != null)
+                {
+                   // alert("Las siguientes filas del exel cargado no contienen 43 caracteres " + "\r\n" + data.errores + "\r\n");
+                    alert("VERIFIQUE LOS SIGUIENTES ELEMENTOS DE LA CLAVE PRESUPUESTAL" + "\r\n" + data.elementoDeClave + "\r\n");
 
                 }
 
@@ -665,7 +668,8 @@
 
         });
     }
-    function ProcReduc() {
+    //////
+     function ProcReduc() {
         document.getElementById('Reduc').style.display = 'none';
         document.getElementById('Transfer').style.display = 'none';
 
@@ -735,4 +739,5 @@
     }
 
    
+
 </script>

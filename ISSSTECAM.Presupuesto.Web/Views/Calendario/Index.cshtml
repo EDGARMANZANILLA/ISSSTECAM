@@ -23,124 +23,21 @@
         @*<input id="fileupload" type="file" name="files[]" data-url="@Url.Action("ImportarArchivo", "Calendario")" multiple>*@
     </div>
 </div>
-@*//*@
-<nav>
-    @*<br><h3 id="Inicio">Introduzca los datos para generar su reporte por quincena</h3>
-    <br><h3 id="Final" style="display:none;">Reporte Generado Exitosamente</h3>*@
-    @*<button id="CargarAño" onclick="Comienzo();">Comenzar</button>*@
-    <br>
-    <br>
-    <button title="Reducción" class="btn btn-success" id="Reduc" onclick="ProcReduc();" style="display:inline;position:center;margin-left:1%">Reduccion</button>
-    <button title="Reducción" class="btn btn-success" id="Transfer" onclick="ProcTransfer();" style="display:inline;position:center;margin-left:1%">Transferencia</button>
-</nav>
-@*/SECCION DEL MENU DE REDUCCIÓN/*@
-<div class="col-md-6">
-    <h3 id="proc1" style="display:none;">Reducción</h3>
-    <nav name="MenuReduc1" id="IDMenuReduc1" class="menu" style="display:none;">
-        <h5 class="P-Kevin">Monto</h5>
-        <ul>
-            <li name="monto1">
-                <textarea name="NCajaMontoReduccion" id="CajaMontoR"></textarea>
-            </li>
-        </ul>
-    </nav>
-    <nav name="MenuReduc2" id="IDMenuReduc2" class="menu" style="display:none;">
-        <h5 class="P-Kevin">Clave</h5>
-        <ul>
-            <li name="clave1">
-                <textarea name="NCajaClaveReduccion" id="CajaClaveR"></textarea>
-            </li>
-        </ul>
-    </nav>
-    <nav name="MenuReduc3" id="IDMenuReduc3" class="menu" style="display:none;">
-        <h5 class="P-Kevin">Motivo</h5>
-        <ul>
-            <li name="motivo1">
-                <textarea name="NCajaMotivoReduccion" id="CajaMotivoR"></textarea>
-            </li>
-        </ul>
-    </nav>
-    <br>
-    @*<br>
-        <br>
-        <br>*@
-    <br>
-    <button id="EnviarReduc" onclick="Reduccion();" style="display:none">Siguiente</button>
-    <br>
-    @*<br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>*@
 
-</div>
-@*//*@
-@*/SECCION DEL MENU DE TRANSFERENCIA/*@
-
-<div class="col-md-6">
-    <h3 id="proc2" style="display:none;">Transferencia</h3>
-    <br>
-    <nav name="MenuTransfer1" id="IDMenuTransfer1" class="menu" style="display:none;">
-
-        <h5 class="P-Kevin">Monto</h5>
-        <ul>
-            <li name="monto2">
-                <textarea name="NCajaMontoTransferencia" id="CajaMontoT"></textarea>
-            </li>
-        </ul>
-    </nav>
-    <nav name="MenuTransfer2" id="IDMenuTransfer2" class="menu" style="display:none;">
-
-        <h5 class="P-Kevin">Clave Origen</h5>
-        <ul>
-            <li name="claveOrigen">
-                <textarea name="NCajaClaveOrigenTransfer" id="CajaClaveOrigenT"></textarea>
-            </li>
-        </ul>
-    </nav>
-    <nav name="MenuTransfer3" id="IDMenuTransfer3" class="menu" style="display:none;">
-
-        <h5 class="P-Kevin">Clave Destino</h5>
-        <ul>
-            <li name="claveDestino">
-                <textarea name="NCajaClaveDestinoTransfer" id="CajaClaveDestinoT"></textarea>
-            </li>
-        </ul>
-    </nav>
-
-
-    <nav name="MenuTransfer4" id="IDMenuTransfer4" class="menu" style="display:none;">
-        <h5 class="P-Kevin">Motivo</h5>
-        <ul>
-            <li name="motivo2">
-                <textarea name="NCajaMotivoTransferencia" id="CajaMotivoT"></textarea>
-            </li>
-        </ul>
-    </nav>
-    <br>
-    <br>
-    <button id="EnviarTransfer" onclick="Transferencia();" style="display:none">Siguiente</button>
-    <br>
-</div>
-
-@*//*@
 <div class="row">
     <div class="col-xl-3 col-md-6">
         <span>GRAN TOTAL</span>
         <h2 id="granTotal">$0</h2>
         <!-- START card-->
         @*<div class="card flex-row align-items-center align-items-stretch border-0">
-                <div class="col-md-4">
-                    <em class="icon-cloud-upload fa-3x"></em>
-                </div>
-                <div class="col-md-8">
-                    <div class="h2 mt-0" id="granTotal">$0</div>
-                    <div class="text-uppercase">Gran total</div>
-                </div>
-            </div>*@
+            <div class="col-md-4">
+                <em class="icon-cloud-upload fa-3x"></em>
+            </div>
+            <div class="col-md-8">
+                <div class="h2 mt-0" id="granTotal">$0</div>
+                <div class="text-uppercase">Gran total</div>
+            </div>
+        </div>*@
     </div>
     <div class="col-md-6 col-xl-9">
         <div id="fileuploader">Agregar archivo</div>
@@ -148,15 +45,15 @@
 </div>
 
 @*<div class="row">
-        <div class="col-md-12">
-            <select id="anios" style="width:100px">
-                <option value="2019">2019</option>
-                <option value="2020">2020</option>
-            </select>
-        </div>
-        <div class="col-md-12" id="calendarioExcel">
-        </div>
-    </div>*@
+    <div class="col-md-12">
+        <select id="anios" style="width:100px">
+            <option value="2019">2019</option>
+            <option value="2020">2020</option>
+        </select>
+    </div>
+    <div class="col-md-12" id="calendarioExcel">
+    </div>
+</div>*@
 
 <div class="row">
     <div class="col-md-12">
@@ -189,160 +86,6 @@
     <div class="col-md-6" id="graficaMensualCapitulo">
     </div>
 </div>
-
-
-
-<style>
-    .Clase {
-        width: 100%;
-        height: 539px;
-    }
-
-    table {
-        position: center;
-        background-color: rgba(151, 202, 228, 0.85);
-        margin-left: 0%;
-        margin-right: 0%;
-        margin-top: 0%;
-        margin-bottom: 0%;
-        border: groove 4px rgba(16, 79, 155, 0.50);
-        width: 100%;
-    }
-
-    #SeparaCeldasReporte {
-        background-color: rgba(151, 220, 255, 185);
-        border-color: rgba(151, 220, 255, 185);
-        color: rgba(151, 220, 255, 185);
-    }
-
-        #SeparaCeldasReporte td {
-            color: rgba(255, 255, 255, 0.00);
-            background-color: white;
-        }
-
-    td, th {
-        border: solid 3px rgba(22, 81, 152, 0.75);
-        padding: 3px;
-        text-align: left;
-        color: black;
-    }
-
-    th {
-        font-weight: bold;
-        font-size: larger;
-    }
-
-    .modal-backdrop {
-        background-color: rgba(00,00,00,0.5);
-        display: none;
-        width: 100%;
-        z-index: 99999999999999;
-        height: 100%;
-        position: absolute;
-        top: 0%;
-        left: 0%;
-    }
-
-    .modal-content {
-        font-weight: bold;
-        color: black;
-    }
-    /* ////////////////////////////////////////////////////////////////////*/
-    .tablainput {
-        /*border: 2px solid rgb(22, 81, 152);*/
-        /*border: solid 1px rgba(22, 81, 152, 0.75);*/
-        /*float: right;*/
-    }
-
-    /*/////////////////////////////////////////////////////////////////////////////////*/
-    .menu ul li {
-        display: inline-block;
-        background-color: rgb(69, 110, 185);
-    }
-
-    .menu ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        width: 105px;
-    }
-
-        .menu ul a {
-            display: block;
-            cursor: pointer;
-            color: #fff;
-            text-decoration: none;
-            font-weight: 300;
-            font-size: 12px;
-            padding: 0px;
-            /* font-family:"HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif; */
-            /*font-family: Arial;*/
-            text-transform: uppercase;
-            letter-spacing: 0px;
-        }
-
-    .menu {
-        z-index: 99999999999999999999;
-        padding-left: 8px;
-    }
-
-        .menu ul li {
-            position: relative;
-            float: left;
-            margin: 0;
-            padding: 0;
-            z-index: 99999999999999999999;
-        }
-
-            .menu ul li:hover {
-                background: rgb(11, 66, 167);
-            }
-
-        .menu ul ul {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            padding: 0;
-        }
-
-            .menu ul ul li {
-                float: none;
-                width: 100px;
-                z-index: 99999999999999999999;
-            }
-
-            .menu ul ul a {
-                line-height: 100%;
-                padding: 10px 15px;
-                padding: 10px 10px;
-                z-index: 99999999999999999999;
-            }
-
-        .menu ul li:hover > ul {
-            display: block;
-        }
-
-    textarea {
-        width: 100px;
-        font-family: Arial;
-        font-size: small;
-        background-color: transparent;
-        color: white;
-        height: 21px;
-        resize: none;
-        border: none;
-        padding-bottom: 0px;
-        padding-top: 3px;
-        padding-left: 4px;
-    }
-    /*//*/
-    .P-Kevin {
-         text-align: left;
-    }
-    /*//*/
-</style>
-
 
 <script>
 
@@ -380,13 +123,16 @@
             },
             onSuccess: function (files, data, xhr, pd) {
 
-                //atendiente errores
-                if ( data.errores != null ) {
-                  //  console.log('las sig lineas no contienen 43 caracteres', data.errores);
-                    alert("Las siguientes filas del exel cargado no contienen 43 caracteres " + "\r\n" + data.errores + "\r\n" );
+                //atendiente errores 
+                if (data.errores != null) {
+                    //  console.log('las sig lineas no contienen 43 caracteres', data.errores);
+                    alert("Las siguientes filas del exel cargado no contienen 43 caracteres " + "\r\n" + data.errores + "\r\n");
                     alert("VERIFIQUE LOS DATOS POR FAVOR Y VUELVA A INTENTAR");
 
-
+                } else if (data.elementoDeClave != null)
+                {
+                   // alert("Las siguientes filas del exel cargado no contienen 43 caracteres " + "\r\n" + data.errores + "\r\n");
+                    alert("VERIFIQUE LOS SIGUIENTES ELEMENTOS DE LA CLAVE PRESUPUESTAL" + "\r\n" + data.elementoDeClave + "\r\n");
 
                 }
 
@@ -665,74 +411,4 @@
 
         });
     }
-    function ProcReduc() {
-        document.getElementById('Reduc').style.display = 'none';
-        document.getElementById('Transfer').style.display = 'none';
-
-        document.getElementById('IDMenuReduc1').style.display = 'inline';
-        document.getElementById('IDMenuReduc2').style.display = 'inline';
-        document.getElementById('IDMenuReduc3').style.display = 'inline';
-        document.getElementById('proc1').style.display = 'inline';
-
-        document.getElementById('EnviarReduc').style.display = 'inline';
-    }
-    function ProcTransfer() {
-        document.getElementById('Reduc').style.display = 'none';
-        document.getElementById('Transfer').style.display = 'none';
-
-        document.getElementById('IDMenuTransfer1').style.display = 'inline';
-        document.getElementById('IDMenuTransfer2').style.display = 'inline';
-        document.getElementById('IDMenuTransfer3').style.display = 'inline';
-        document.getElementById('IDMenuTransfer4').style.display = 'inline';
-
-         document.getElementById('proc2').style.display = 'inline';
-
-        document.getElementById('EnviarTransfer').style.display = 'inline';
-    }
-    function Reduccion() {
-        var CajaMonto = document.getElementById('CajaMontoR').value;
-        var CajaClave = document.getElementById('CajaClaveR').value;
-        var CajaMotivo = document.getElementById('CajaMotivoR').value;
-
-        //alert("Monto: " + CajaMonto.textContent + "  Clave: " + CajaClave.textContent);
-        //alert("El motivo es: " + CajaMotivo.textContent);
-        alert("Monto: " + CajaMonto + "  Clave: " + CajaClave);
-        alert("El motivo es: " + CajaMotivo);
-
-
-        alert("Reducción Exitosa(obvio es un ejemplo no se ha realizado nada xP)");
-
-         document.getElementById('IDMenuReduc1').style.display = 'none';
-        document.getElementById('IDMenuReduc2').style.display = 'none';
-        document.getElementById('IDMenuReduc3').style.display = 'none';
-        document.getElementById('proc1').style.display = 'none';
-
-        document.getElementById('EnviarReduc').style.display = 'none';
-    }
-
-    function Transferencia(){
-        var CajaMonto = document.getElementById('CajaMontoT').value;
-        var CajaClaveOT = document.getElementById('CajaClaveOrigenT').value;
-        var CajaClaveDT = document.getElementById('CajaClaveDestinoT').value;
-        var CajaMotivo = document.getElementById('CajaMotivoT').value;
-
-        //alert("Monto: " + CajaMonto.textContent + "  Clave: " + CajaClave.textContent);
-        //alert("El motivo es: " + CajaMotivo.textContent);
-        alert("Monto: " + CajaMonto + "  Clave Origen: " + CajaClaveOT + "  Clave Destino: " + CajaClaveDT);
-        alert("El motivo es: " + CajaMotivo);
-
-
-        alert("Transferencia Exitosa(obvio es un ejemplo no se ha realizado nada :v)");
-
-        document.getElementById('IDMenuTransfer1').style.display = 'none';
-        document.getElementById('IDMenuTransfer2').style.display = 'none';
-        document.getElementById('IDMenuTransfer3').style.display = 'none';
-        document.getElementById('IDMenuTransfer4').style.display = 'none';
-
-         document.getElementById('proc2').style.display = 'none';
-
-        document.getElementById('EnviarTransfer').style.display = 'none';
-    }
-
-   
 </script>

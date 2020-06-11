@@ -540,6 +540,7 @@
       <SubType>Designer</SubType>
     </None>
     <Content Include="Views\Nomina\Reporte.cshtml" />
+    <Content Include="Views\ClavesPresupuestales\Transaccion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

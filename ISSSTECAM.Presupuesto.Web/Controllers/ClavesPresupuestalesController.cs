@@ -16,6 +16,10 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
         {
             return PartialView();
         }
-        
+
+        public ActionResult Transaccion()
+        {
+            return PartialView();
+        }
     }
 }

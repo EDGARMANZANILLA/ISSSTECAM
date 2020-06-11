@@ -1,0 +1,408 @@
+﻿
+@section titulo{
+    <h2>Transacción</h2>
+}
+
+<h3>Transacción</h3>
+
+
+@*//*@
+<nav class="Navigate" id="NavInitial">
+    @*<br><h3 id="Inicio">Introduzca los datos para generar su reporte por quincena</h3>
+        <br><h3 id="Final" style="display:none;">Reporte Generado Exitosamente</h3>*@
+    @*<button id="CargarAño" onclick="Comienzo();">Comenzar</button>*@
+    <h2 id="TxtInicial">Selecciona la opción que desea</h2>
+    <br>
+    <button title="Reducción" class="btn-T" id="Reduc" onclick="ProcReduc();" style="display:inline;position:center;margin-left:5%">Reduccion</button>
+    <button title="Transferir" class="btn-T" id="Transfer" onclick="ProcTransfer();" style="display:inline;position:center;margin-left:5%">Transferencia</button>
+</nav>
+@*/SECCION DEL MENU DE REDUCCIÓN/*@
+<div class="col-md-6">
+    <h3 id="TxtRedu" style="display:none;">Introduzca los siguientes datos para realizar la reducción</h3>
+    <nav name="MenuReduc1" id="IDMenuReduc1" class="menu" style="display:none;">
+        <h5 class="P-Kevin">Monto</h5>
+        <ul>
+            <li name="monto1">
+                <textarea name="NCajaMontoReduccion" id="CajaMontoR"></textarea>
+            </li>
+        </ul>
+    </nav>
+    <nav name="MenuReduc2" id="IDMenuReduc2" class="menu" style="display:none;">
+        <h5 class="P-Kevin">Clave</h5>
+        <ul>
+            <li name="clave1">
+                <textarea name="NCajaClaveReduccion" id="CajaClaveR"></textarea>
+            </li>
+        </ul>
+    </nav>
+    <nav name="MenuReduc3" id="IDMenuReduc3" class="menu" style="display:none;">
+        <h5 class="P-Kevin">Motivo</h5>
+        <ul>
+            <li name="motivo1">
+                <textarea name="NCajaMotivoReduccion" id="CajaMotivoR"></textarea>
+            </li>
+        </ul>
+    </nav>
+    <nav name="MenuReduc4" id="IDMenuReduc4" class="menu" style="display:none;">
+        <h5 class="P-Kevin">Mes</h5>
+        <ul>
+            <li name="mes1">
+                <textarea name="NCajaMesReduccion" id="CajaMesR"></textarea>
+            </li>
+        </ul>
+    </nav>
+
+    <br>
+    @*<br>
+        <br>
+        <br>*@
+    <br>
+    <button id="EnviarReduc" class="btn btn-success" onclick="Reduccion();" style="display:none">Reducir</button>
+    <br>
+</div>
+@*//*@
+@*/SECCION DEL MENU DE TRANSFERENCIA/*@
+
+<div class="col-md-6">
+    <h3 id="TxtTrans" style="display:none;">Introduzca los siguientes datos para realizar la transferencia</h3>
+    <br>
+    <br>
+    <div class="col-md-6" id="Origen">
+        <nav name="MenuTransfer2" id="IDMenuTransfer2" class="menu" style="display:none;">
+            <h5 class="P-Kevin">Clave Origen</h5>
+            <ul>
+                <li name="claveOrigen">
+                    <textarea name="NCajaClaveOrigenTransfer" id="CajaClaveOrigenT"></textarea>
+                </li>
+            </ul>
+        </nav>
+        <nav name="MenuTransfer5" id="IDMenuTransfer5" class="menu" style="display:none;">
+            <h5 class="P-Kevin">Mes Origen</h5>
+            <ul>
+                <li name="mesOrigen">
+                    <textarea name="NCajaMesOrigen" id="CajaMesOrigen"></textarea>
+                </li>
+            </ul>
+        </nav>
+        <nav name="MenuTransfer1" id="IDMenuTransfer1" class="menu" style="display:none;">
+            <h5 class="P-Kevin">Monto Origen</h5>
+            <ul>
+                <li name="montoOrigen">
+                    <textarea name="NCajaMontoOrigen" id="CajaMontoOrigen"></textarea>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="col-md-6" id="Destino">
+        <nav name="MenuTransfer3" id="IDMenuTransfer3" class="menu" style="display:none;">
+
+            <h5 class="P-Kevin">Clave Destino</h5>
+            <ul>
+                <li name="claveDestino">
+                    <textarea name="NCajaClaveDestinoTransfer" id="CajaClaveDestinoT"></textarea>
+                </li>
+            </ul>
+        </nav>
+        <nav name="MenuTransfer6" id="IDMenuTransfer6" class="menu" style="display:none;">
+            <h5 class="P-Kevin">Mes Destino</h5>
+            <ul>
+                <li name="mesDestino">
+                    <textarea name="NCajaMesDestino" id="CajaMesDestino"></textarea>
+                </li>
+            </ul>
+        </nav>
+        <nav name="MenuTransfer7" id="IDMenuTransfer7" class="menu" style="display:none;">
+            <h5 class="P-Kevin">Monto Destino</h5>
+            <ul>
+                <li name="montoDestino">
+                    <textarea name="NCajaMontoDestino" id="CajaMontoDestino"></textarea>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    @*seccion media*@
+    <div>
+        <nav name="MenuTransfer4" id="IDMenuTransfer4" class="menu" style="display:none;">
+            <h5 class="P-Kevin">Motivo</h5>
+            <ul>
+                <li name="motivo2">
+                    <textarea name="NCajaMotivoTransferencia" id="CajaMotivoT"></textarea>
+                </li>
+            </ul>
+        </nav>
+        <br>
+        <br>
+        <button id="EnviarTransfer" class="btn btn-success" onclick="Transferencia();" style="display:none">Transferir</button>
+        <br>
+    </div>
+</div>
+
+@*//*@
+
+
+<style>
+    .Navigate {
+        display: inline;
+      
+    }
+    .btn-T {
+        background-color: rgb(154, 154, 151);
+        border-radius: 30px;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 30px;
+    }
+        .Clase {
+            width: 100%;
+            height: 539px;
+        }
+
+    table {
+        position: center;
+        background-color: rgba(151, 202, 228, 0.85);
+        margin-left: 0%;
+        margin-right: 0%;
+        margin-top: 0%;
+        margin-bottom: 0%;
+        border: groove 4px rgba(16, 79, 155, 0.50);
+        width: 100%;
+    }
+
+    #SeparaCeldasReporte {
+        background-color: rgba(151, 220, 255, 185);
+        border-color: rgba(151, 220, 255, 185);
+        color: rgba(151, 220, 255, 185);
+    }
+
+        #SeparaCeldasReporte td {
+            color: rgba(255, 255, 255, 0.00);
+            background-color: white;
+        }
+
+    td, th {
+        border: solid 3px rgba(22, 81, 152, 0.75);
+        padding: 3px;
+        text-align: left;
+        color: black;
+    }
+
+    th {
+        font-weight: bold;
+        font-size: larger;
+    }
+
+    .modal-backdrop {
+        background-color: rgba(00,00,00,0.5);
+        display: none;
+        width: 100%;
+        z-index: 99999999999999;
+        height: 100%;
+        position: absolute;
+        top: 0%;
+        left: 0%;
+    }
+
+    .modal-content {
+        font-weight: bold;
+        color: black;
+    }
+    /* ////////////////////////////////////////////////////////////////////*/
+    .tablainput {
+        /*border: 2px solid rgb(22, 81, 152);*/
+        /*border: solid 1px rgba(22, 81, 152, 0.75);*/
+        /*float: right;*/
+    }
+
+    /*/////////////////////////////////////////////////////////////////////////////////*/
+    .menu ul li {
+        display: inline-block;
+        background-color: rgb(69, 110, 185);
+    }
+
+    .menu ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        width: 105px;
+    }
+
+        .menu ul a {
+            display: block;
+            cursor: pointer;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 300;
+            font-size: 12px;
+            padding: 0px;
+            /* font-family:"HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif; */
+            /*font-family: Arial;*/
+            text-transform: uppercase;
+            letter-spacing: 0px;
+        }
+
+    .menu {
+        z-index: 99999999999999999999;
+        padding-left: 8px;
+    }
+
+        .menu ul li {
+            position: relative;
+            float: left;
+            margin: 0;
+            padding: 0;
+            z-index: 99999999999999999999;
+        }
+
+            .menu ul li:hover {
+                background: rgb(128, 128, 128);
+            }
+
+        .menu ul ul {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            padding: 0;
+        }
+
+            .menu ul ul li {
+                float: none;
+                width: 100px;
+                z-index: 99999999999999999999;
+            }
+
+            .menu ul ul a {
+                line-height: 100%;
+                padding: 10px 15px;
+                padding: 10px 10px;
+                z-index: 99999999999999999999;
+            }
+
+        .menu ul li:hover > ul {
+            display: block;
+        }
+
+    textarea {
+        width: 100px;
+        font-family: Arial;
+        font-size: small;
+        background-color: transparent;
+        color: white;
+        height: 21px;
+        resize: none;
+        border: none;
+        padding-bottom: 0px;
+        padding-top: 3px;
+        padding-left: 4px;
+    }
+    /*//*/
+    .P-Kevin {
+        text-align: left;
+    }
+    /*//*/
+</style>
+
+<script>
+    function ProcReduc() {
+        //document.getElementById('Reduc').style.display = 'none';
+        //document.getElementById('Transfer').style.display = 'none';
+        document.getElementById('TxtRedu').style.display = 'inline';
+        //document.getElementById('TxtInicial').style.display = 'none';
+        document.getElementById('NavInitial').style.display = 'none';
+        
+
+        document.getElementById('IDMenuReduc1').style.display = 'inline';
+        document.getElementById('IDMenuReduc2').style.display = 'inline';
+        document.getElementById('IDMenuReduc3').style.display = 'inline';
+        document.getElementById('IDMenuReduc4').style.display = 'inline';
+
+        document.getElementById('EnviarReduc').style.display = 'inline';
+    }
+    function ProcTransfer() {
+        //document.getElementById('Reduc').style.display = 'none';
+        //document.getElementById('Transfer').style.display = 'none';
+        document.getElementById('NavInitial').style.display = 'none';
+        document.getElementById('TxtTrans').style.display = 'inline';
+        //document.getElementById('TxtInicial').style.display = 'none';
+
+        document.getElementById('IDMenuTransfer1').style.display = 'inline';
+        document.getElementById('IDMenuTransfer2').style.display = 'inline';
+        document.getElementById('IDMenuTransfer3').style.display = 'inline';
+        document.getElementById('IDMenuTransfer4').style.display = 'inline';
+        document.getElementById('IDMenuTransfer5').style.display = 'inline';
+        document.getElementById('IDMenuTransfer6').style.display = 'inline';
+        document.getElementById('IDMenuTransfer7').style.display = 'inline';
+
+
+        document.getElementById('EnviarTransfer').style.display = 'inline';
+    }
+    function Reduccion() {
+        var CajaMonto = document.getElementById('CajaMontoR').value;
+        var CajaClave = document.getElementById('CajaClaveR').value;
+        var CajaMotivo = document.getElementById('CajaMotivoR').value;
+        var CajaMes = document.getElementById('CajaMesR').value;
+
+        //alert("Monto: " + CajaMonto.textContent + "  Clave: " + CajaClave.textContent);
+        //alert("El motivo es: " + CajaMotivo.textContent);
+        alert("Monto: " + CajaMonto + "  Clave: " + CajaClave);
+        alert("El motivo es: " + CajaMotivo + "  Mes: " + CajaMes);
+
+
+        //alert("Reducción Exitosa(obvio es un ejemplo no se ha realizado nada xP)");
+
+        document.getElementById('TxtRedu').style.display = 'none';
+
+        document.getElementById('IDMenuReduc1').style.display = 'none';
+        document.getElementById('IDMenuReduc2').style.display = 'none';
+        document.getElementById('IDMenuReduc3').style.display = 'none';
+        document.getElementById('IDMenuReduc4').style.display = 'none';
+
+
+        document.getElementById('EnviarReduc').style.display = 'none';
+
+        //document.getElementById('Reduc').style.display = 'inline';
+        //document.getElementById('Transfer').style.display = 'inline';
+        //document.getElementById('TxtRedu').style.display = 'none';
+        //document.getElementById('TxtInicial').style.display = 'inline';
+        document.getElementById('NavInitial').style.display = 'inline';
+    }
+
+    function Transferencia() {
+        var CajaMontoOrigen = document.getElementById('CajaMontoOrigen').value;
+        var CajaClaveOT = document.getElementById('CajaClaveOrigenT').value;
+        var CajaMesOrigen = document.getElementById('CajaMesOrigen').value;
+
+        var CajaClaveDT = document.getElementById('CajaClaveDestinoT').value;
+        var CajaMontoDestino = document.getElementById('CajaMontoDestino').value;
+        var CajaMesDestino = document.getElementById('CajaMesDestino').value;
+
+        var CajaMotivo = document.getElementById('CajaMotivoT').value;
+
+        //alert("Monto: " + CajaMonto.textContent + "  Clave: " + CajaClave.textContent);
+        //alert("El motivo es: " + CajaMotivo.textContent);
+        alert("Monto Origen:  " + CajaMontoOrigen + "  Clave Origen:  " + CajaClaveOT + " Mes Origen:  " + CajaMesOrigen);
+        alert("Monto Destino: " + CajaMontoDestino + "  Clave Destino: " + CajaClaveDT + " Mes Destino: " + CajaMesDestino);
+        alert("El motivo es: " + CajaMotivo);
+
+
+        document.getElementById('IDMenuTransfer1').style.display = 'none';
+        document.getElementById('IDMenuTransfer2').style.display = 'none';
+        document.getElementById('IDMenuTransfer3').style.display = 'none';
+        document.getElementById('IDMenuTransfer4').style.display = 'none';
+        document.getElementById('IDMenuTransfer5').style.display = 'none';
+        document.getElementById('IDMenuTransfer6').style.display = 'none';
+        document.getElementById('IDMenuTransfer7').style.display = 'none';
+
+        document.getElementById('TxtTrans').style.display = 'none';
+
+        document.getElementById('EnviarTransfer').style.display = 'none';
+
+        document.getElementById('NavInitial').style.display = 'inline';
+    }
+
+
+
+</script>

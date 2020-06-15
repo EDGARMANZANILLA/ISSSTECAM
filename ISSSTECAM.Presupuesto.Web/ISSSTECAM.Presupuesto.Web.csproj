@@ -168,6 +168,7 @@
     <Compile Include="Controllers\ProgramasController.cs" />
     <Compile Include="Controllers\ProyectosController.cs" />
     <Compile Include="Controllers\SolicitudesController.cs" />
+    <Compile Include="Controllers\TransaccionesController.cs" />
     <Compile Include="Datasets\dtsReporteGastosSueldosSalarios.cs">
       <DependentUpon>dtsReporteGastosSueldosSalarios.xsd</DependentUpon>
     </Compile>

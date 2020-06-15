@@ -23,7 +23,7 @@
         <h5 class="P-Kevin">Monto</h5>
         <ul>
             <li name="monto1">
-                <textarea name="NCajaMontoReduccion" id="CajaMontoR"></textarea>
+                <textarea name="NCajaMontoReduccion" id="CajaMontoR"> </textarea>
             </li>
         </ul>
     </nav>
@@ -31,7 +31,7 @@
         <h5 class="P-Kevin">Clave</h5>
         <ul>
             <li name="clave1">
-                <textarea name="NCajaClaveReduccion" id="CajaClaveR"></textarea>
+                <textarea name="NCajaClaveReduccion" id="CajaClaveR"> </textarea>
             </li>
         </ul>
     </nav>
@@ -39,7 +39,7 @@
         <h5 class="P-Kevin">Motivo</h5>
         <ul>
             <li name="motivo1">
-                <textarea name="NCajaMotivoReduccion" id="CajaMotivoR"></textarea>
+                <textarea name="NCajaMotivoReduccion" id="CajaMotivoR"> </textarea>
             </li>
         </ul>
     </nav>
@@ -47,7 +47,7 @@
         <h5 class="P-Kevin">Mes</h5>
         <ul>
             <li name="mes1">
-                <textarea name="NCajaMesReduccion" id="CajaMesR"></textarea>
+                <textarea name="NCajaMesReduccion" id="CajaMesR"> </textarea>
             </li>
         </ul>
     </nav>
@@ -312,7 +312,7 @@
         document.getElementById('TxtRedu').style.display = 'inline';
         //document.getElementById('TxtInicial').style.display = 'none';
         document.getElementById('NavInitial').style.display = 'none';
-        
+
 
         document.getElementById('IDMenuReduc1').style.display = 'inline';
         document.getElementById('IDMenuReduc2').style.display = 'inline';
@@ -340,18 +340,39 @@
         document.getElementById('EnviarTransfer').style.display = 'inline';
     }
     function Reduccion() {
-        var CajaMonto = document.getElementById('CajaMontoR').value;
-        var CajaClave = document.getElementById('CajaClaveR').value;
-        var CajaMotivo = document.getElementById('CajaMotivoR').value;
-        var CajaMes = document.getElementById('CajaMesR').value;
+        var CajaMonto = document.getElementById('CajaMontoR');
+        var CajaClave = document.getElementById('CajaClaveR');
+        var CajaMotivo = document.getElementById('CajaMotivoR');
+        var CajaMes = document.getElementById('CajaMesR');
 
-        //alert("Monto: " + CajaMonto.textContent + "  Clave: " + CajaClave.textContent);
-        //alert("El motivo es: " + CajaMotivo.textContent);
-        alert("Monto: " + CajaMonto + "  Clave: " + CajaClave);
-        alert("El motivo es: " + CajaMotivo + "  Mes: " + CajaMes);
+        //if (CajaMonto.textContent == ' ') {
+        //    alert('Por favor ingrese un monto ')
+        //} else if (CajaClave.textContent == ' ') {
 
-
-        //alert("Reducción Exitosa(obvio es un ejemplo no se ha realizado nada xP)");
+        if (CajaMonto.value == ' ') {
+            alert('Por favor ingrese un monto ')
+        } else if (CajaClave.value == ' ') {
+            alert('Por favor ingrese una clave')
+        } else if (CajaMotivo.value == ' ') {
+            alert('Por favor ingrese un motivo')
+        } else if (CajaMes.value == ' ') {
+            alert('Por favor ingrese el mes al que se le hara la reducción')
+        }else {
+            alert("Monto: " + CajaMonto.value + "  Clave: " + CajaClave.value);
+            alert("El motivo es: " + CajaMotivo.value + "  Mes: " + CajaMes.value);
+          
+          //  var actionData2 = "{'inicialQuincena': '" + QuincenaInicialQuincena + "','inicialMes': '" + QuincenaInicialMes.textContent + "', 'inicialAnio': '" + QuincenaInicialAño.textContent + "','finalQuincena': '" + QuincenaFinalQuincena + "','finalMes': '" + QuincenaFinalMes.textContent + "', 'finalAnio': '" + QuincenaFinalAño.textContent + "','tipoNomina':'" + QuincenaTipoNomina + "' }";
+            @*$.ajax({
+                    url: '@Url.Action("ObtenerFechaReporte", "Nomina")',
+                    data: actionData2,
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    succes: function (msg) { console.log("msg", msg); },
+                    error: function (result) {
+                        alert("ERROR SEVERO, VUELVA A CARGAR LA PÁGINA" + result.status);
+                    }
+                });*@
 
         document.getElementById('TxtRedu').style.display = 'none';
 
@@ -360,14 +381,10 @@
         document.getElementById('IDMenuReduc3').style.display = 'none';
         document.getElementById('IDMenuReduc4').style.display = 'none';
 
-
         document.getElementById('EnviarReduc').style.display = 'none';
 
-        //document.getElementById('Reduc').style.display = 'inline';
-        //document.getElementById('Transfer').style.display = 'inline';
-        //document.getElementById('TxtRedu').style.display = 'none';
-        //document.getElementById('TxtInicial').style.display = 'inline';
         document.getElementById('NavInitial').style.display = 'inline';
+        }
     }
 
     function Transferencia() {

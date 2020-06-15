@@ -108,37 +108,47 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
 
         //Aquí es donde planeaba asignar la recepción de los datos de la vista de Transacción.
 
-        //[HttpPost]
-        //#region obtiene fecha y luego guarda, (modificar a un solo metodo)
-        //public JsonResult RecibirFechaParaGuardarNomina(int guardaQuincena, string guardaMes, int guardaAnio, int tipoNomina)
-        //{
-        //    string dato;
-        //    try
-        //    {
-        //        Nomina nueva = new Nomina();
+        [HttpPost]
+        public JsonResult ObtenerTransferenciaData(int origenMonto, string origenClave, string origenMes, int destinoMonto, string destinoClave, string destinoMes, string motivoTransfer)
+        {
+            string origen = origenMonto + "/" + origenClave + "/" + origenMes;
+            string destino = destinoMonto + "/" + destinoClave + "/" + destinoMes;
+            string motivo = motivoTransfer;
+            String dato;
 
-        //        nueva = (Nomina)Session["nueva"];
-        //        nueva.FechaAplicacion = DateTime.Now;
+            if (origen != null && destino != null && motivo != null)
+            {
+                //Session["fechaInicial"] = fechaInicial;
+                //Session["fechaFinal"] = fechaFinal;
+                dato = "Transferencia exitosa";
+            }
+            else
+            {
+                dato = "Transferencia fallida, por favor vuelva a intentarlo";
+            }
 
-        //        //La fecha (yyyy/mm/dd)
-        //        string fecha = guardaAnio + "/" + guardaMes + "/" + guardaQuincena;
-        //        nueva.FechaQuincena = Convert.ToDateTime(fecha);
-        //        nueva.Observacion = "-";
-        //        nueva.Activo = true;
+                return Json(dato, JsonRequestBehavior.AllowGet);
+        }
 
-        //        //int tipoNomina es 1 o 2 que se encuentran asi en la DB
-        //        nueva.idTiposNominas = tipoNomina;
+        public JsonResult ObtenerReduccionData(int reduccionMonto, string reduccionClave, string reduccionMes, string reduccionMotivo)
+        {
+            string origen = reduccionMonto + "/" + reduccionClave + "/" + reduccionMes;
+            string motivo = reduccionMotivo;
+            String dato;
 
-        //        Negocios.NominaNegocios.GuardarNomina(nueva);
-        //        dato = "Guardado Existoso";
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        dato = "NO se pudo guardar la nomina, verifique e intente de nuevo por favor";
-        //    }
-        //    return Json(dato, JsonRequestBehavior.AllowGet);
-        //}
-        //#endregion
+            if (origen != null && motivo != null)
+            {
+                //Session["fechaInicial"] = fechaInicial;
+                //Session["fechaFinal"] = fechaFinal;
+                dato = "Reducción exitosa";
+            }
+            else
+            {
+                dato = "Reducción fallida, por favor vuelva a intentarlo";
+            }
+
+            return Json(dato, JsonRequestBehavior.AllowGet);
+        }
     }
 
 

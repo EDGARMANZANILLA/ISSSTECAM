@@ -17,18 +17,16 @@ namespace ISSSTECAM.Presupuesto.Entidades
         public long Id { get; set; }
         public System.DateTime Fecha { get; set; }
         public int IdClavePresupuestalRemitente { get; set; }
-        public int IdMesRemitente { get; set; }
         public Nullable<int> IdClavePresupuestalDestinataria { get; set; }
-        public Nullable<int> IdMesDestinataria { get; set; }
+        public int IdMes { get; set; }
+        public int IdTipoDeTransaccion { get; set; }
         public decimal Monto { get; set; }
         public string Motivo { get; set; }
-        public int IdTipoDeTransaccion { get; set; }
         public bool Activo { get; set; }
     
         public virtual ClavesPresupuestales ClavesPresupuestales { get; set; }
         public virtual ClavesPresupuestales ClavesPresupuestales1 { get; set; }
         public virtual Meses Meses { get; set; }
         public virtual TiposDeTransacciones TiposDeTransacciones { get; set; }
-        public virtual Meses Meses1 { get; set; }
     }
 }

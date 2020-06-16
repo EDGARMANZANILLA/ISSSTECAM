@@ -6,6 +6,9 @@
 <h3>Transacción</h3>
 
 
+
+
+
 @*//*@
 <nav class="Navigate" id="NavInitial">
     @*<br><h3 id="Inicio">Introduzca los datos para generar su reporte por quincena</h3>
@@ -363,7 +366,7 @@
 
       var actionDataReducc = "{'reduccionMonto': '"+CajaMonto.value+"','reduccionClave':'"+CajaClave.value+"','reduccionMes':'"+CajaMes.value+"','reduccionMotivo':'"+CajaMotivo.value+"'}";
              $.ajax({
-                url: '@Url.Action("ObtenerReduccionData", "ClavesPresupuestales")',
+                url: '@Url.Action("Reducciones", "ClavesPresupuestales")',
                  data: actionDataReducc,
                 dataType: "json",
                 type: "POST",
@@ -387,6 +390,21 @@
 
         document.getElementById('NavInitial').style.display = 'inline';
         }
+
+
+             @*$.ajax(
+                {
+                    url: '@Url.Action("Reducciones", "ClavesPresupuestales")',
+                   // data: actionData2,
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    succes: function (msg) { console.log("msg", msg); },
+                    error: function (result) {
+                        alert("ERROR SEVERO, VUELVA A CARGAR LA PÁGINA" + result.status);
+                    }
+
+                });*@
     }
 
     function Transferencia() {
@@ -422,7 +440,7 @@
             //
             var actionDataTransfer = "{'origenMonto': '"+CajaMontoOrigen.value+"','origenClave':'"+CajaClaveOT.value+"','origenMes':'"+CajaMesOrigen.value+"','destinoMonto':'"+CajaMontoDestino.value+"','destinoClave':'"+CajaClaveDT.value+"','destinoMes':'"+CajaMesDestino.value+"','motivoTransfer':'"+CajaMotivo.value+"'}";
              $.ajax({
-                url: '@Url.Action("ObtenerTransferenciaData", "ClavesPresupuestales")',
+                url: '@Url.Action("Transferencia", "ClavesPresupuestales")',
                  data: actionDataTransfer,
                 dataType: "json",
                 type: "POST",
@@ -451,5 +469,8 @@
         }
 
     }
+
+
+
 
 </script>

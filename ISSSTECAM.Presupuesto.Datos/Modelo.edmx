@@ -241,12 +241,11 @@
           <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Fecha" Type="datetime" Nullable="false" />
           <Property Name="IdClavePresupuestalRemitente" Type="int" Nullable="false" />
-          <Property Name="IdMesRemitente" Type="int" Nullable="false" />
           <Property Name="IdClavePresupuestalDestinataria" Type="int" />
-          <Property Name="IdMesDestinataria" Type="int" />
+          <Property Name="IdMes" Type="int" Nullable="false" />
+          <Property Name="IdTipoDeTransaccion" Type="int" Nullable="false" />
           <Property Name="Monto" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="Motivo" Type="nvarchar" MaxLength="50" />
-          <Property Name="IdTipoDeTransaccion" Type="int" Nullable="false" />
           <Property Name="Activo" Type="bit" Nullable="false" />
         </EntityType>
         <Association Name="FK_Actividades_ConfiguracionesActividades">
@@ -453,7 +452,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Transacciones_Meses1">
+        <Association Name="FK_Transacciones_Meses">
           <End Role="Meses" Type="Self.Meses" Multiplicity="1" />
           <End Role="Transacciones" Type="Self.Transacciones" Multiplicity="*" />
           <ReferentialConstraint>
@@ -461,19 +460,7 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Transacciones">
-              <PropertyRef Name="IdMesRemitente" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Transacciones_Meses2">
-          <End Role="Meses" Type="Self.Meses" Multiplicity="0..1" />
-          <End Role="Transacciones" Type="Self.Transacciones" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Meses">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Transacciones">
-              <PropertyRef Name="IdMesDestinataria" />
+              <PropertyRef Name="IdMes" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -611,11 +598,7 @@
             <End Role="ClavesPresupuestales" EntitySet="ClavesPresupuestales" />
             <End Role="Transacciones" EntitySet="Transacciones" />
           </AssociationSet>
-          <AssociationSet Name="FK_Transacciones_Meses1" Association="Self.FK_Transacciones_Meses1">
-            <End Role="Meses" EntitySet="Meses" />
-            <End Role="Transacciones" EntitySet="Transacciones" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Transacciones_Meses2" Association="Self.FK_Transacciones_Meses2">
+          <AssociationSet Name="FK_Transacciones_Meses" Association="Self.FK_Transacciones_Meses">
             <End Role="Meses" EntitySet="Meses" />
             <End Role="Transacciones" EntitySet="Transacciones" />
           </AssociationSet>
@@ -755,10 +738,6 @@
           </AssociationSet>
           <AssociationSet Name="FK_Transacciones_TiposDeTransacciones" Association="PresupuestoDBModel.FK_Transacciones_TiposDeTransacciones">
             <End Role="TiposDeTransacciones" EntitySet="TiposDeTransacciones" />
-            <End Role="Transacciones" EntitySet="Transacciones" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Transacciones_Meses2" Association="PresupuestoDBModel.FK_Transacciones_Meses2">
-            <End Role="Meses" EntitySet="Meses" />
             <End Role="Transacciones" EntitySet="Transacciones" />
           </AssociationSet>
           </EntityContainer>
@@ -952,7 +931,7 @@
           <NavigationProperty Name="Proyectos" Relationship="PresupuestoDBModel.FK_ClavesPresupuestales_Proyectos" FromRole="ClavesPresupuestales" ToRole="Proyectos" />
           <NavigationProperty Name="Transacciones" Relationship="PresupuestoDBModel.FK_Transacciones_ClavesPresupuestales" FromRole="ClavesPresupuestales" ToRole="Transacciones" />
           <NavigationProperty Name="Transacciones1" Relationship="PresupuestoDBModel.FK_Transacciones_ClavesPresupuestales1" FromRole="ClavesPresupuestales" ToRole="Transacciones" />
-          </EntityType>
+        </EntityType>
         <Association Name="FK_ClavesPresupuestales_Actividades">
           <End Type="PresupuestoDBModel.Actividades" Role="Actividades" Multiplicity="1" />
           <End Type="PresupuestoDBModel.ClavesPresupuestales" Role="ClavesPresupuestales" Multiplicity="*" />
@@ -1207,8 +1186,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Mes" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Transacciones" Relationship="PresupuestoDBModel.FK_Transacciones_Meses" FromRole="Meses" ToRole="Transacciones" />
-          <NavigationProperty Name="Transacciones1" Relationship="PresupuestoDBModel.FK_Transacciones_Meses2" FromRole="Meses" ToRole="Transacciones" />
-          </EntityType>
+        </EntityType>
         <EntityType Name="TiposDeTransacciones">
           <Key>
             <PropertyRef Name="Id" />
@@ -1224,18 +1202,16 @@
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IdClavePresupuestalRemitente" Type="Int32" Nullable="false" />
-          <Property Name="IdMesRemitente" Type="Int32" Nullable="false" />
           <Property Name="IdClavePresupuestalDestinataria" Type="Int32" />
-          <Property Name="IdMesDestinataria" Type="Int32" />
+          <Property Name="IdMes" Type="Int32" Nullable="false" />
+          <Property Name="IdTipoDeTransaccion" Type="Int32" Nullable="false" />
           <Property Name="Monto" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <Property Name="Motivo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IdTipoDeTransaccion" Type="Int32" Nullable="false" />
           <Property Name="Activo" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="ClavesPresupuestales" Relationship="PresupuestoDBModel.FK_Transacciones_ClavesPresupuestales" FromRole="Transacciones" ToRole="ClavesPresupuestales" />
           <NavigationProperty Name="ClavesPresupuestales1" Relationship="PresupuestoDBModel.FK_Transacciones_ClavesPresupuestales1" FromRole="Transacciones" ToRole="ClavesPresupuestales" />
           <NavigationProperty Name="Meses" Relationship="PresupuestoDBModel.FK_Transacciones_Meses" FromRole="Transacciones" ToRole="Meses" />
           <NavigationProperty Name="TiposDeTransacciones" Relationship="PresupuestoDBModel.FK_Transacciones_TiposDeTransacciones" FromRole="Transacciones" ToRole="TiposDeTransacciones" />
-          <NavigationProperty Name="Meses1" Relationship="PresupuestoDBModel.FK_Transacciones_Meses2" FromRole="Transacciones" ToRole="Meses" />
         </EntityType>
         <Association Name="FK_Transacciones_ClavesPresupuestales">
           <End Type="PresupuestoDBModel.ClavesPresupuestales" Role="ClavesPresupuestales" Multiplicity="1" />
@@ -1269,7 +1245,7 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Transacciones">
-              <PropertyRef Name="IdMesRemitente" />
+              <PropertyRef Name="IdMes" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1282,18 +1258,6 @@
             </Principal>
             <Dependent Role="Transacciones">
               <PropertyRef Name="IdTipoDeTransaccion" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Transacciones_Meses2">
-          <End Type="PresupuestoDBModel.Meses" Role="Meses" Multiplicity="0..1" />
-          <End Type="PresupuestoDBModel.Transacciones" Role="Transacciones" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Meses">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Transacciones">
-              <PropertyRef Name="IdMesDestinataria" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1581,12 +1545,11 @@
             <EntityTypeMapping TypeName="PresupuestoDBModel.Transacciones">
               <MappingFragment StoreEntitySet="Transacciones">
                 <ScalarProperty Name="Activo" ColumnName="Activo" />
-                <ScalarProperty Name="IdTipoDeTransaccion" ColumnName="IdTipoDeTransaccion" />
                 <ScalarProperty Name="Motivo" ColumnName="Motivo" />
                 <ScalarProperty Name="Monto" ColumnName="Monto" />
-                <ScalarProperty Name="IdMesDestinataria" ColumnName="IdMesDestinataria" />
+                <ScalarProperty Name="IdTipoDeTransaccion" ColumnName="IdTipoDeTransaccion" />
+                <ScalarProperty Name="IdMes" ColumnName="IdMes" />
                 <ScalarProperty Name="IdClavePresupuestalDestinataria" ColumnName="IdClavePresupuestalDestinataria" />
-                <ScalarProperty Name="IdMesRemitente" ColumnName="IdMesRemitente" />
                 <ScalarProperty Name="IdClavePresupuestalRemitente" ColumnName="IdClavePresupuestalRemitente" />
                 <ScalarProperty Name="Fecha" ColumnName="Fecha" />
                 <ScalarProperty Name="Id" ColumnName="Id" />

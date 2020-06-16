@@ -64,10 +64,12 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
                 Transacciones nueva = new Transacciones();
                 nueva.Fecha = DateTime.Now;
                 nueva.IdClavePresupuestalRemitente = clave.Id;
-                nueva.IdMes = mes;
-                nueva.IdTipoDeTransaccion = 1;
+                nueva.IdMesRemitente = 1;
+                nueva.IdClavePresupuestalDestinataria = null;
+                nueva.IdMesDestinataria = null;
                 nueva.Monto = monto;
                 nueva.Motivo = "";
+                nueva.IdTipoDeTransaccion = 1;
                 nueva.Activo = true;
 
 
@@ -86,9 +88,63 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
         public JsonResult Transferencia(decimal origenMonto, string origenClave, string origenMes, decimal destinoMonto, string destinoClave, string destinoMes, string motivoTransfer/*el mes debe venir en int*/)
         {
             bool bandera= false;
+            int anio = 2019;
+            //datos para reducir que se obtienen como parametros
+            decimal monto1 = 1000000;
+            string clavePresupuestal1 = "21120283626211C016000J186038910780L415A4211";
+            int mes1 = 1;
 
-           // JsonResult RespuestaJson = Reducciones();
-            
+            //datos hacia donde se va a transferir
+            decimal monto2 = 9984.03M; //no hay segundo monto
+            string clavePresupuestal2 = "21120283626311C016000J187039010790L415A4511";
+            int mes2 = 12;
+
+            string motivo = "";
+
+
+
+            //La bandera sirve como indicador para saber si fue correcta y todo salio bien en el metodo para poder seguir al siguiente paso
+            bandera = Negocios.ClavesPresupuestalesNegocios.Reducir(monto1, clavePresupuestal1, mes1, anio);
+
+            //Se procede a la transferencia si todo salio bien en la reduccion
+            if (bandera)
+            {   
+                bandera = Negocios.ClavesPresupuestalesNegocios.Transferir(monto1, clavePresupuestal2, mes2, anio); 
+            }
+            if (bandera)
+            {
+                //obtener el id de la clave remitente
+                var claveRemitente = Negocios.ClavesPresupuestalesNegocios.ObtenerPorUnicaClave(anio, clavePresupuestal1);
+
+                //obtener el id de la clave remitente
+                var claveDestino = Negocios.ClavesPresupuestalesNegocios.ObtenerPorUnicaClave(anio, clavePresupuestal2);
+
+
+                Transacciones nueva = new Transacciones();
+                nueva.Fecha = DateTime.Now;
+                nueva.IdClavePresupuestalRemitente = claveRemitente.Id;
+                nueva.IdMesRemitente = 1;
+                nueva.IdClavePresupuestalDestinataria = claveDestino.Id;
+                nueva.IdMesDestinataria = 12;
+                nueva.Monto = monto1;
+                nueva.Motivo = "Compras";
+                nueva.IdTipoDeTransaccion = 2;
+                nueva.Activo = true;
+
+
+                bandera = Negocios.ClavesPresupuestalesNegocios.GuardarTransaccion(nueva);
+
+
+            }
+            else 
+            {
+                 Negocios.ClavesPresupuestalesNegocios.Reducir(monto1, clavePresupuestal2, mes2, anio);
+                 bandera = false;
+            }
+
+
+
+
 
 
 

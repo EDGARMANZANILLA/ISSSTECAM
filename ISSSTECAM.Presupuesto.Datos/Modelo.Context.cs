@@ -48,6 +48,9 @@ namespace ISSSTECAM.Presupuesto.Datos
         public DbSet<sysdiagrams> sysdiagrams { get; set; }
         public DbSet<DetallesNomina> DetallesNomina { get; set; }
         public DbSet<TiposNominas> TiposNominas { get; set; }
+        public DbSet<Meses> Meses { get; set; }
+        public DbSet<TiposDeTransacciones> TiposDeTransacciones { get; set; }
+        public DbSet<Transacciones> Transacciones { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

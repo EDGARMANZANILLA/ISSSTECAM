@@ -77,6 +77,9 @@
     <Compile Include="DTO\ProgramaDTO.cs" />
     <Compile Include="DTO\ProyectoDTO.cs" />
     <Compile Include="Enumeraciones.cs" />
+    <Compile Include="Meses.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
     <Compile Include="Modelo.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -114,10 +117,16 @@
     <Compile Include="TiposConceptos.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
+    <Compile Include="TiposDeTransacciones.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
     <Compile Include="TiposEmpleados.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="TiposNominas.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Transacciones.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
   </ItemGroup>

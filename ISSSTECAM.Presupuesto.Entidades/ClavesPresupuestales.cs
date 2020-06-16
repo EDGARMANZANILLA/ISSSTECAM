@@ -14,6 +14,12 @@ namespace ISSSTECAM.Presupuesto.Entidades
     
     public partial class ClavesPresupuestales
     {
+        public ClavesPresupuestales()
+        {
+            this.Transacciones = new HashSet<Transacciones>();
+            this.Transacciones1 = new HashSet<Transacciones>();
+        }
+    
         public int Id { get; set; }
         public string Clave { get; set; }
         public int IdPrograma { get; set; }
@@ -41,5 +47,7 @@ namespace ISSSTECAM.Presupuesto.Entidades
         public virtual Partidas Partidas { get; set; }
         public virtual Programas Programas { get; set; }
         public virtual Proyectos Proyectos { get; set; }
+        public virtual ICollection<Transacciones> Transacciones { get; set; }
+        public virtual ICollection<Transacciones> Transacciones1 { get; set; }
     }
 }

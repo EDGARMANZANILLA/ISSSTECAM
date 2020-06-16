@@ -75,7 +75,7 @@
             <h5 class="P-Kevin">Clave Origen</h5>
             <ul>
                 <li name="claveOrigen">
-                    <textarea name="NCajaClaveOrigenTransfer" id="CajaClaveOrigenT"></textarea>
+                    <textarea name="NCajaClaveOrigenTransfer" id="CajaClaveOrigenT"> </textarea>
                 </li>
             </ul>
         </nav>
@@ -83,7 +83,7 @@
             <h5 class="P-Kevin">Mes Origen</h5>
             <ul>
                 <li name="mesOrigen">
-                    <textarea name="NCajaMesOrigen" id="CajaMesOrigen"></textarea>
+                    <textarea name="NCajaMesOrigen" id="CajaMesOrigen"> </textarea>
                 </li>
             </ul>
         </nav>
@@ -91,7 +91,7 @@
             <h5 class="P-Kevin">Monto Origen</h5>
             <ul>
                 <li name="montoOrigen">
-                    <textarea name="NCajaMontoOrigen" id="CajaMontoOrigen"></textarea>
+                    <textarea name="NCajaMontoOrigen" id="CajaMontoOrigen"> </textarea>
                 </li>
             </ul>
         </nav>
@@ -102,7 +102,7 @@
             <h5 class="P-Kevin">Clave Destino</h5>
             <ul>
                 <li name="claveDestino">
-                    <textarea name="NCajaClaveDestinoTransfer" id="CajaClaveDestinoT"></textarea>
+                    <textarea name="NCajaClaveDestinoTransfer" id="CajaClaveDestinoT"> </textarea>
                 </li>
             </ul>
         </nav>
@@ -110,7 +110,7 @@
             <h5 class="P-Kevin">Mes Destino</h5>
             <ul>
                 <li name="mesDestino">
-                    <textarea name="NCajaMesDestino" id="CajaMesDestino"></textarea>
+                    <textarea name="NCajaMesDestino" id="CajaMesDestino"> </textarea>
                 </li>
             </ul>
         </nav>
@@ -118,7 +118,7 @@
             <h5 class="P-Kevin">Monto Destino</h5>
             <ul>
                 <li name="montoDestino">
-                    <textarea name="NCajaMontoDestino" id="CajaMontoDestino"></textarea>
+                    <textarea name="NCajaMontoDestino" id="CajaMontoDestino"> </textarea>
                 </li>
             </ul>
         </nav>
@@ -129,7 +129,7 @@
             <h5 class="P-Kevin">Motivo</h5>
             <ul>
                 <li name="motivo2">
-                    <textarea name="NCajaMotivoTransferencia" id="CajaMotivoT"></textarea>
+                    <textarea name="NCajaMotivoTransferencia" id="CajaMotivoT"> </textarea>
                 </li>
             </ul>
         </nav>
@@ -361,21 +361,23 @@
         } else if (CajaMes.value == ' ') {
             alert('Por favor ingrese el mes al que se le hara la reducción')
         }else {
-            alert("Monto: " + CajaMonto.value + "  Clave: " + CajaClave.value);
-            alert("El motivo es: " + CajaMotivo.value + "  Mes: " + CajaMes.value);
+            //alert("Monto: " + CajaMonto.value + "  Clave: " + CajaClave.value);
+            //alert("El motivo es: " + CajaMotivo.value + "  Mes: " + CajaMes.value);
 
-          //  var actionData2 = "{'inicialQuincena': '" + QuincenaInicialQuincena + "','inicialMes': '" + QuincenaInicialMes.textContent + "', 'inicialAnio': '" + QuincenaInicialAño.textContent + "','finalQuincena': '" + QuincenaFinalQuincena + "','finalMes': '" + QuincenaFinalMes.textContent + "', 'finalAnio': '" + QuincenaFinalAño.textContent + "','tipoNomina':'" + QuincenaTipoNomina + "' }";
-            @*$.ajax({
-                    url: '@Url.Action("ObtenerFechaReporte", "Nomina")',
-                    data: actionData2,
-                    dataType: "json",
-                    type: "POST",
-                    contentType: "application/json; charset=utf-8",
-                    succes: function (msg) { console.log("msg", msg); },
-                    error: function (result) {
-                        alert("ERROR SEVERO, VUELVA A CARGAR LA PÁGINA" + result.status);
-                    }
-                });*@
+      var actionDataReducc = "{'reduccionMonto': '"+CajaMonto.value+"','reduccionClave':'"+CajaClave.value+"','reduccionMes':'"+CajaMes.value+"','reduccionMotivo':'"+CajaMotivo.value+"'}";
+             $.ajax({
+                url: '@Url.Action("Reducciones", "ClavesPresupuestales")',
+                 data: actionDataReducc,
+                dataType: "json",
+                type: "POST",
+                 contentType: "application/json; charset=utf-8",
+                 succes: function (msg) { console.log("msg", msg); },
+                error: function (result) {
+                    alert("ERROR SEVERO, VUELVA A CARGAR LA PÁGINA" + result.status);
+                }
+            });
+            //
+            alert(" La reducción se ha realizado con éxito :) ");
 
         document.getElementById('TxtRedu').style.display = 'none';
 
@@ -390,7 +392,7 @@
         }
 
 
-             $.ajax(
+             @*$.ajax(
                 {
                     url: '@Url.Action("Reducciones", "ClavesPresupuestales")',
                    // data: actionData2,
@@ -402,43 +404,71 @@
                         alert("ERROR SEVERO, VUELVA A CARGAR LA PÁGINA" + result.status);
                     }
 
-                });
+                });*@
     }
 
     function Transferencia() {
-        var CajaMontoOrigen = document.getElementById('CajaMontoOrigen').value;
-        var CajaClaveOT = document.getElementById('CajaClaveOrigenT').value;
-        var CajaMesOrigen = document.getElementById('CajaMesOrigen').value;
+        var CajaMontoOrigen = document.getElementById('CajaMontoOrigen');
+        var CajaClaveOT = document.getElementById('CajaClaveOrigenT');
+        var CajaMesOrigen = document.getElementById('CajaMesOrigen');
 
-        var CajaClaveDT = document.getElementById('CajaClaveDestinoT').value;
-        var CajaMontoDestino = document.getElementById('CajaMontoDestino').value;
-        var CajaMesDestino = document.getElementById('CajaMesDestino').value;
+        var CajaClaveDT = document.getElementById('CajaClaveDestinoT');
+        var CajaMontoDestino = document.getElementById('CajaMontoDestino');
+        var CajaMesDestino = document.getElementById('CajaMesDestino');
 
-        var CajaMotivo = document.getElementById('CajaMotivoT').value;
-
-        //alert("Monto: " + CajaMonto.textContent + "  Clave: " + CajaClave.textContent);
-        //alert("El motivo es: " + CajaMotivo.textContent);
-        alert("Monto Origen:  " + CajaMontoOrigen + "  Clave Origen:  " + CajaClaveOT + " Mes Origen:  " + CajaMesOrigen);
-        alert("Monto Destino: " + CajaMontoDestino + "  Clave Destino: " + CajaClaveDT + " Mes Destino: " + CajaMesDestino);
-        alert("El motivo es: " + CajaMotivo);
+        var CajaMotivo = document.getElementById('CajaMotivoT');
 
 
-        document.getElementById('IDMenuTransfer1').style.display = 'none';
-        document.getElementById('IDMenuTransfer2').style.display = 'none';
-        document.getElementById('IDMenuTransfer3').style.display = 'none';
-        document.getElementById('IDMenuTransfer4').style.display = 'none';
-        document.getElementById('IDMenuTransfer5').style.display = 'none';
-        document.getElementById('IDMenuTransfer6').style.display = 'none';
-        document.getElementById('IDMenuTransfer7').style.display = 'none';
+        if (CajaMontoOrigen.value == ' ') {
+            alert('Por favor ingrese un monto de origen')
+        } else if (CajaClaveOT.value == ' ') {
+            alert('Por favor ingrese una clave de origen')
+        } else if (CajaMesOrigen.value == ' ') {
+            alert('Por favor ingrese un mes de origen')
 
-        document.getElementById('TxtTrans').style.display = 'none';
+        } else if (CajaClaveDT.value == ' ') {
+            alert('Por favor ingrese una clave de destino')
+        } else if (CajaMontoDestino.value == ' ') {
+            alert('Por favor ingrese un monto de destino')
+        } else if (CajaMesDestino.value == ' ') {
+            alert('Por favor ingrese un mes de destino')
+        }
 
-        document.getElementById('EnviarTransfer').style.display = 'none';
+        else if (CajaMotivo.value == ' ') {
+            alert('Por favor ingrese el motivo de la transferencia')
+        } else {
+            //
+            var actionDataTransfer = "{'origenMonto': '"+CajaMontoOrigen.value+"','origenClave':'"+CajaClaveOT.value+"','origenMes':'"+CajaMesOrigen.value+"','destinoMonto':'"+CajaMontoDestino.value+"','destinoClave':'"+CajaClaveDT.value+"','destinoMes':'"+CajaMesDestino.value+"','motivoTransfer':'"+CajaMotivo.value+"'}";
+             $.ajax({
+                url: '@Url.Action("Transferencia", "ClavesPresupuestales")',
+                 data: actionDataTransfer,
+                dataType: "json",
+                type: "POST",
+                 contentType: "application/json; charset=utf-8",
+                 succes: function (msg) { console.log("msg", msg); },
+                error: function (result) {
+                    alert("ERROR SEVERO, VUELVA A CARGAR LA PÁGINA" + result.status);
+                }
+            });
+            //
+            alert(" La transferencia se ha realizado con éxito :) ");
 
-        document.getElementById('NavInitial').style.display = 'inline';
+            document.getElementById('IDMenuTransfer1').style.display = 'none';
+            document.getElementById('IDMenuTransfer2').style.display = 'none';
+            document.getElementById('IDMenuTransfer3').style.display = 'none';
+            document.getElementById('IDMenuTransfer4').style.display = 'none';
+            document.getElementById('IDMenuTransfer5').style.display = 'none';
+            document.getElementById('IDMenuTransfer6').style.display = 'none';
+            document.getElementById('IDMenuTransfer7').style.display = 'none';
+
+            document.getElementById('TxtTrans').style.display = 'none';
+
+            document.getElementById('EnviarTransfer').style.display = 'none';
+
+            document.getElementById('NavInitial').style.display = 'inline';
+        }
+
     }
-
-
 
 
 

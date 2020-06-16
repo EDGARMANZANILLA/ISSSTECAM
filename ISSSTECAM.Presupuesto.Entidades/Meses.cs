@@ -17,11 +17,13 @@ namespace ISSSTECAM.Presupuesto.Entidades
         public Meses()
         {
             this.Transacciones = new HashSet<Transacciones>();
+            this.Transacciones1 = new HashSet<Transacciones>();
         }
     
         public int Id { get; set; }
         public string Mes { get; set; }
     
         public virtual ICollection<Transacciones> Transacciones { get; set; }
+        public virtual ICollection<Transacciones> Transacciones1 { get; set; }
     }
 }

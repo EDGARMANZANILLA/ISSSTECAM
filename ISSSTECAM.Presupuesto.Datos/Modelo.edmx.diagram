@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="974f2b2adf794d248611d5615c0162b9" Name="Diagrama1">
+      <Diagram DiagramId="974f2b2adf794d248611d5615c0162b9" Name="Diagrama1" ZoomLevel="65">
         <EntityTypeShape EntityType="PresupuestoDBModel.CentrosCostos" Width="1.5" PointX="1.5147534969797141" PointY="30.956523388138283" />
         <EntityTypeShape EntityType="PresupuestoDBModel.Partidas" Width="1.5" PointX="6.375" PointY="30.375" />
         <EntityTypeShape EntityType="PresupuestoDBModel.Actividades" Width="1.5" PointX="4.782497704393462" PointY="25.746320766278693" />
@@ -41,11 +41,12 @@
         <AssociationConnector Association="PresupuestoDBModel.FK_Nomina_TiposNominas" />
         <EntityTypeShape EntityType="PresupuestoDBModel.Meses" Width="1.5" PointX="4.75" PointY="21.5" />
         <EntityTypeShape EntityType="PresupuestoDBModel.TiposDeTransacciones" Width="1.5" PointX="4.75" PointY="18.875" />
-        <EntityTypeShape EntityType="PresupuestoDBModel.Transacciones" Width="1.5" PointX="7" PointY="25.75" />
+        <EntityTypeShape EntityType="PresupuestoDBModel.Transacciones" Width="1.5" PointX="7" PointY="22.875" />
         <AssociationConnector Association="PresupuestoDBModel.FK_Transacciones_ClavesPresupuestales" />
         <AssociationConnector Association="PresupuestoDBModel.FK_Transacciones_ClavesPresupuestales1" />
         <AssociationConnector Association="PresupuestoDBModel.FK_Transacciones_Meses" />
         <AssociationConnector Association="PresupuestoDBModel.FK_Transacciones_TiposDeTransacciones" />
+        <AssociationConnector Association="PresupuestoDBModel.FK_Transacciones_Meses2" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

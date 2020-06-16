@@ -1,5 +1,8 @@
-﻿using ISSSTECAM.Presupuesto.Web.Models;
+﻿using ISSSTECAM.Presupuesto.Entidades;
+using ISSSTECAM.Presupuesto.Web.Models;
+using Microsoft.Ajax.Utilities;
 using OfficeOpenXml;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Text;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,50 +24,86 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
         {
             return PartialView();
         }
-        //Aquí es donde planeaba asignar la recepción de los datos de la vista de Transacción.
 
+        //Metodo para la autoayuda
         [HttpPost]
-        public JsonResult ObtenerTransferenciaData(int origenMonto, string origenClave, string origenMes, int destinoMonto, string destinoClave, string destinoMes, string motivoTransfer)
+        public List<string> AutoayudaDeClaves()
         {
-            string origen = origenMonto + "/" + origenClave + "/" + origenMes;
-            string destino = destinoMonto + "/" + destinoClave + "/" + destinoMes;
-            string motivo = motivoTransfer;
-            String dato;
+            List<string> claves = new List<string>();
 
-            if (origen != null && destino != null && motivo != null)
-            {
-                //Session["fechaInicial"] = fechaInicial;
-                //Session["fechaFinal"] = fechaFinal;
-                dato = "Transferencia exitosa";
-            }
-            else
-            {
-                dato = "Transferencia fallida, por favor vuelva a intentarlo";
-            }
+            var clavesEnDB = Negocios.ClavesPresupuestalesNegocios.ExistenClavesParaAnio(2019);
 
-                return Json(dato, JsonRequestBehavior.AllowGet);
+            return claves;
         }
 
-        public JsonResult ObtenerReduccionData(int reduccionMonto, string reduccionClave, string reduccionMes, string reduccionMotivo)
-        {
-            string origen = reduccionMonto + "/" + reduccionClave + "/" + reduccionMes;
-            string motivo = reduccionMotivo;
-            String dato;
+        public JsonResult Reducciones(decimal reduccionMonto, string reduccionClave, string reduccionMes, string reduccionMotivo/*el mes debe venir en int */) {
+            bool bandera;
+            int anio = 2019;
 
-            if (origen != null && motivo != null)
+            //datos que se obtienen como parametros
+            decimal monto= 9984.03M;
+            string clavePresupuestal = "21120283626211C016000J186038910780L415A4211";
+            int mes = 1;
+            string motivo = "";
+
+
+
+            //1-se realiza la transaccion y si no hay problemas se continua
+             //Transaccion nuevaTransaccion = new Transaccion();
+             //bandera = nuevaTransaccion.Reduccion(monto, clavePresupuestal, mes);
+
+            bandera = Negocios.ClavesPresupuestalesNegocios.Reducir(monto, clavePresupuestal, mes, anio);
+
+
+            if (bandera)
             {
-                //Session["fechaInicial"] = fechaInicial;
-                //Session["fechaFinal"] = fechaFinal;
-                dato = "Reducción exitosa";
-            }
-            else
-            {
-                dato = "Reducción fallida, por favor vuelva a intentarlo";
+                //obtener el id de la clave remitente
+                var clave = Negocios.ClavesPresupuestalesNegocios.ObtenerPorUnicaClave(anio, clavePresupuestal);
+
+
+                Transacciones nueva = new Transacciones();
+                nueva.Fecha = DateTime.Now;
+                nueva.IdClavePresupuestalRemitente = clave.Id;
+                nueva.IdMes = mes;
+                nueva.IdTipoDeTransaccion = 1;
+                nueva.Monto = monto;
+                nueva.Motivo = "";
+                nueva.Activo = true;
+
+
+                bandera = Negocios.ClavesPresupuestalesNegocios.GuardarTransaccion(nueva);
+
             }
 
-            return Json(dato, JsonRequestBehavior.AllowGet);
+
+
+            return Json(bandera, JsonRequestBehavior.AllowGet);
         }
+
+
+
+
+        public JsonResult Transferencia(decimal origenMonto, string origenClave, string origenMes, decimal destinoMonto, string destinoClave, string destinoMes, string motivoTransfer/*el mes debe venir en int*/)
+        {
+            bool bandera= false;
+
+           // JsonResult RespuestaJson = Reducciones();
+            
+
+
+
+
+            return Json(bandera, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+
     }
+
+
+
+
 }
 
 

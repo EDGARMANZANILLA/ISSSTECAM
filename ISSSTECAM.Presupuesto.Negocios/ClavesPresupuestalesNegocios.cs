@@ -68,5 +68,122 @@ namespace ISSSTECAM.Presupuesto.Negocios
             else
                 throw new ApplicationException("No existe dicha clave");
         }
+
+
+        //metodos para transacciones
+
+        public static ClavesPresupuestales ObtenerPorUnicaClave(int anio, string clave)
+        {
+            var transaccion = new Transaccion();
+            var repositorio = new Repositorio<ClavesPresupuestales>(transaccion);
+
+           
+            return repositorio.ObtenerPorFiltro(c => c.Anio == anio && c.Clave == clave && c.Activo == true).FirstOrDefault();
+        }
+
+        public static bool GuardarTransaccion(Transacciones nueva)
+        {
+            bool bandera;
+                var transaccion = new Transaccion();
+                try
+                {
+                    var repositorio = new Repositorio<Transacciones>(transaccion);
+                    repositorio.Agregar(nueva);
+                    transaccion.GuardarCambios();
+                    bandera = true;
+                }
+                catch (Exception ex)
+                {
+                    transaccion.Dispose();
+                    bandera = false;
+                }
+            return bandera;
+        }
+
+
+
+
+        public static bool Reducir( decimal monto, string clavePresupuestal, int mes, int anio)
+        {
+            //se ocupa para hacer los metodos en cascada
+            bool bandera = false;
+
+            var transaccion = new Transaccion();
+            var repositorio = new Repositorio<ClavesPresupuestales>(transaccion);
+
+            //Se obtiene la clave a la que se va a reducir
+            ClavesPresupuestales claves = 
+                repositorio.ObtenerPorFiltro(c => c.Anio == anio && c.Clave == clavePresupuestal && c.Activo == true).FirstOrDefault();
+
+            //Verifica que la clave que vine de la DB sea la que nos da el usuario
+            //Cambia el monto en el mes indicado de la clave 
+            if (claves.Clave == clavePresupuestal)
+            {
+
+                switch (mes)
+                {
+                    case 1:
+                        claves.PresupuestoEnero -= monto;
+                        break;
+                    case 2:
+                        claves.PresupuestoFebrero -= monto;
+                        break;
+                    case 3:
+                        claves.PresupuestoMarzo -= monto;
+                        break;
+                    case 4:
+                        claves.PresupuestoAbril -= monto;
+                        break;
+                    case 5:
+                        claves.PresupuestoMayo -= monto;
+                        break;
+                    case 6:
+                        claves.PresupuestoJunio -= monto;
+                        break;
+                    case 7:
+                        claves.PresupuestoJulio -= monto;
+                        break;
+                    case 8:
+                        claves.PresupuestoAgosto -= monto;
+                        break;
+                    case 9:
+                        claves.PresupuestoSeptiembre -= monto;
+                        break;
+                    case 10:
+                        claves.PresupuestoOctubre -= monto;
+                        break;
+                    case 11:
+                        claves.PresupuestoNoviembre -= monto;
+                        break;
+                    case 12:
+                        claves.PresupuestoDiciembre -= monto;
+                        break;
+                }
+
+
+            }
+
+
+            //Se utiliza el mismo repositorio para hacer el update por medio de (Modificar)    
+            try
+            {
+              
+                repositorio.Modificar(claves);
+                transaccion.GuardarCambios();
+                bandera = true;
+            }
+            catch (Exception ex)
+            {
+                transaccion.Dispose();
+                bandera = false;
+            }
+
+            return bandera;
+        }
+
+
+
+
+
     }
 }

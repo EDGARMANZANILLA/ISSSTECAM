@@ -239,6 +239,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\images\Banner.jpg" />
     <Content Include="Content\images\EscudoCampeche.png" />
+    <Content Include="Content\images\Escudo_palomita.png" />
     <Content Include="Content\images\issstecam_logo.png" />
     <Content Include="Content\images\issstecam_logo2.png" />
     <Content Include="Content\images\logo%282016%29.png" />

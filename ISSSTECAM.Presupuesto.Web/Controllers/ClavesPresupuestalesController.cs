@@ -36,7 +36,7 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
             return claves;
         }
 
-        public JsonResult Reducciones(decimal reduccionMonto, string reduccionClave, string reduccionMes, string reduccionMotivo/*el mes debe venir en int */) {
+        public JsonResult Reducciones(decimal reduccionMonto, string reduccionClave, int reduccionMes, string reduccionMotivo/*el mes debe venir en int */) {
             bool bandera;
             int anio = 2019;
 
@@ -85,7 +85,7 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
 
 
 
-        public JsonResult Transferencia(decimal origenMonto, string origenClave, string origenMes, decimal destinoMonto, string destinoClave, string destinoMes, string motivoTransfer/*el mes debe venir en int*/)
+        public JsonResult Transferencia(decimal origenMonto, string origenClave, int origenMes, /*decimal destinoMonto,*/ string destinoClave, string destinoMes, string motivoTransfer/*el mes debe venir en int*/)
         {
             bool bandera= false;
             int anio = 2019;

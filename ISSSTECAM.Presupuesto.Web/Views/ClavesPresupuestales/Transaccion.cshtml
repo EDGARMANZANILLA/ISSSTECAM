@@ -5,6 +5,10 @@
 
 <h3>Transacción</h3>
 
+
+
+
+
 @*//*@
 <nav class="Navigate" id="NavInitial">
     <h2 id="TxtInicial">Selecciona la opción que desea</h2>
@@ -165,14 +169,15 @@
                 </li>
             </ul>
         </nav>
-        <nav name="MenuTransfer7" id="IDMenuTransfer7" class="menu" style="display:none;">
-            <h5 class="P-Kevin">Monto Destino</h5>
-            <ul>
-                <li name="montoDestino">
-                    <textarea name="NCajaMontoDestino" id="CajaMontoDestino"> </textarea>
-                </li>
-            </ul>
-        </nav>
+        @*<nav name="MenuTransfer7" id="IDMenuTransfer7" class="menu" style="display:none;">
+                <h5 class="P-Kevin">Monto Destino</h5>
+                <ul>
+                    <li name="montoDestino">
+                        <textarea name="NCajaMontoDestino" id="CajaMontoDestino"> </textarea>
+                    </li>
+                </ul>
+            </nav>*@
+
 
         <nav name="MenuOculto2" id="MenuOculto2" class="menu" style="display:none;">
             <h5 class="P-Kevin">Oculto2</h5>
@@ -208,7 +213,8 @@
 
     </div>
     @*seccion media*@
-    <div>
+    <br>
+    <div class="col-md-6">
         <nav name="MenuTransfer4" id="IDMenuTransfer4" class="menu" style="display:none;">
             <h5 class="P-Kevin">Motivo</h5>
             <ul>
@@ -220,7 +226,7 @@
         <br>
         <br>
         <button id="EnviarTransfer" class="btn btn-success" onclick="Transferencia();" style="display:none">Transferir</button>
-        <br>
+
     </div>
 </div>
 
@@ -445,7 +451,7 @@
         document.getElementById('IDMenuTransfer4').style.display = 'inline';
         document.getElementById('IDMenuTransfer5').style.display = 'inline';
         document.getElementById('IDMenuTransfer6').style.display = 'inline';
-        document.getElementById('IDMenuTransfer7').style.display = 'inline';
+        //document.getElementById('IDMenuTransfer7').style.display = 'inline';
 
 
         document.getElementById('EnviarTransfer').style.display = 'inline';
@@ -521,7 +527,7 @@
         var CajaMesOrigen = document.getElementById('CajaOcultaMesOrigen');
 
         var CajaClaveDT = document.getElementById('CajaClaveDestinoT');
-        var CajaMontoDestino = document.getElementById('CajaMontoDestino');
+        //var CajaMontoDestino = document.getElementById('CajaMontoDestino');
         var CajaMesDestino = document.getElementById('CajaOcultaMesDestino');
         var CajaMotivo = document.getElementById('CajaMotivoT');
 
@@ -534,9 +540,11 @@
 
         } else if (CajaClaveDT.value == ' ') {
             alert('Por favor ingrese una clave de destino')
-        } else if (CajaMontoDestino.value == ' ') {
-            alert('Por favor ingrese un monto de destino')
-        } else if (CajaMesDestino.textContent == ' ') {
+        }
+        //else if (CajaMontoDestino.value == ' ') {
+        //    alert('Por favor ingrese un monto de destino')
+        //}
+        else if (CajaMesDestino.textContent == ' ') {
             alert('Por favor ingrese un mes de destino')
         }
 
@@ -544,14 +552,17 @@
             alert('Por favor ingrese el motivo de la transferencia')
         } else {
             //
-            var actionDataTransfer = "{'origenMonto': '" + CajaMontoOrigen.value + "','origenClave':'" + CajaClaveOT.value + "','origenMes':'" + CajaMesOrigen.textContent + "','destinoMonto':'" + CajaMontoDestino.value + "','destinoClave':'" + CajaClaveDT.value + "','destinoMes':'" + CajaMesDestino.textContent + "','motivoTransfer':'" + CajaMotivo.value + "'}";
+            var actionDataTransfer = "{'origenMonto': '" + CajaMontoOrigen.value + "','origenClave':'" + CajaClaveOT.value + "','origenMes':'" + CajaMesOrigen.textContent + /*"','destinoMonto':'" + CajaMontoDestino.value +*/ "','destinoClave':'" + CajaClaveDT.value + "','destinoMes':'" + CajaMesDestino.textContent + "','motivoTransfer':'" + CajaMotivo.value + "'}";
              $.ajax({
                 url: '@Url.Action("Transferencia", "ClavesPresupuestales")',
                  data: actionDataTransfer,
                 dataType: "json",
                 type: "POST",
                  contentType: "application/json; charset=utf-8",
-                 succes: function (msg) { console.log("msg", msg);},
+                 succes: function (msg) {
+                     console.log("msg", msg);
+                     
+                 },
                 error: function (result) {
                     alert("ERROR SEVERO, VUELVA A CARGAR LA PÁGINA" + result.status);
                 }
@@ -628,6 +639,9 @@
         Linea.innerHTML = "";
         ESCRIBE.insertAdjacentHTML('beforeend', Valor)
     });
+
+
+
 
 
 </script>

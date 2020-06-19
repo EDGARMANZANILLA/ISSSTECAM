@@ -23,199 +23,6 @@
         @*<input id="fileupload" type="file" name="files[]" data-url="@Url.Action("ImportarArchivo", "Calendario")" multiple>*@
     </div>
 </div>
-@*//*@
-<nav>
-    @*<br><h3 id="Inicio">Introduzca los datos para generar su reporte por quincena</h3>
-    <br><h3 id="Final" style="display:none;">Reporte Generado Exitosamente</h3>*@
-    @*<button id="CargarAño" onclick="Comienzo();">Comenzar</button>*@
-    <br>
-    <br>
-    <button title="Reducción" class="btn btn-success" id="Reduc" onclick="ProcReduc();" style="display:inline;position:center;margin-left:1%">Reduccion</button>
-    <button title="Reducción" class="btn btn-success" id="Transfer" onclick="ProcTransfer();" style="display:inline;position:center;margin-left:1%">Transferencia</button>
-</nav>
-@*/SECCION DEL MENU DE REDUCCIÓN/*@
-<div class="col-md-6">
-    <h3 id="proc1" style="display:none;">Reducción</h3>
-    <nav name="MenuReduc1" id="IDMenuReduc1" class="menu" style="display:none;">
-        <h5 class="P-Kevin">Monto</h5>
-        <ul>
-            <li name="monto1">
-                <textarea name="NCajaMontoReduccion" id="CajaMontoR"></textarea>
-            </li>
-        </ul>
-    </nav>
-    <nav name="MenuReduc2" id="IDMenuReduc2" class="menu" style="display:none;">
-        <h5 class="P-Kevin">Clave</h5>
-        <ul>
-            <li name="clave1">
-                <textarea name="NCajaClaveReduccion" id="CajaClaveR"></textarea>
-            </li>
-        </ul>
-    </nav>
-    <nav name="MenuReduc3" id="IDMenuReduc3" class="menu" style="display:none;">
-        <h5 class="P-Kevin">Motivo</h5>
-        <ul>
-            <li name="motivo1">
-                <textarea name="NCajaMotivoReduccion" id="CajaMotivoR"></textarea>
-            </li>
-        </ul>
-    </nav>
-    <br>
-    @*<br>
-        <br>
-        <br>*@
-    <br>
-    <button id="EnviarReduc" onclick="Reduccion();" style="display:none">Siguiente</button>
-    <br>
-    @*<br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>*@
-
-</div>
-@*//*@
-@*/SECCION DEL MENU DE TRANSFERENCIA/*@
-
-<div class="col-md-6">
-    <h3 id="proc2" style="display:none;">Transferencia</h3>
-    <br>
-    <nav name="MenuTransfer1" id="IDMenuTransfer1" class="menu" style="display:none;">
-
-        <h5 class="P-Kevin">Monto</h5>
-        <ul>
-            <li name="monto2">
-                <textarea name="NCajaMontoTransferencia" id="CajaMontoT"></textarea>
-            </li>
-        </ul>
-    </nav>
-    <nav name="MenuTransfer2" id="IDMenuTransfer2" class="menu" style="display:none;">
-
-        <h5 class="P-Kevin">Clave Origen</h5>
-        <ul>
-            <li name="claveOrigen">
-                <textarea name="NCajaClaveOrigenTransfer" id="CajaClaveOrigenT"></textarea>
-            </li>
-        </ul>
-    </nav>
-    <nav name="MenuTransfer3" id="IDMenuTransfer3" class="menu" style="display:none;">
-
-        <h5 class="P-Kevin">Clave Destino</h5>
-        <ul>
-            <li name="claveDestino">
-                <textarea name="NCajaClaveDestinoTransfer" id="CajaClaveDestinoT"></textarea>
-            </li>
-        </ul>
-    </nav>
-
-@*//*@
-<nav>
-    @*<br><h3 id="Inicio">Introduzca los datos para generar su reporte por quincena</h3>
-        <br><h3 id="Final" style="display:none;">Reporte Generado Exitosamente</h3>*@
-    @*<button id="CargarAño" onclick="Comienzo();">Comenzar</button>*@
-    <br>
-    <br>
-    <button title="Reducción" class="btn btn-success" id="Reduc" onclick="ProcReduc();" style="display:inline;position:center;margin-left:1%">Reduccion</button>
-    <button title="Reducción" class="btn btn-success" id="Transfer" onclick="ProcTransfer();" style="display:inline;position:center;margin-left:1%">Transferencia</button>
-</nav>
-@*/SECCION DEL MENU DE REDUCCIÓN/*@
-<div class="col-md-6">
-    <h3 id="proc1" style="display:none;">Reducción</h3>
-    <nav name="MenuReduc1" id="IDMenuReduc1" class="menu" style="display:none;">
-        <h5 class="P-Kevin">Monto</h5>
-        <ul>
-            <li name="monto1">
-                <textarea name="NCajaMontoReduccion" id="CajaMontoR"></textarea>
-            </li>
-        </ul>
-    </nav>
-    <nav name="MenuReduc2" id="IDMenuReduc2" class="menu" style="display:none;">
-        <h5 class="P-Kevin">Clave</h5>
-        <ul>
-            <li name="clave1">
-                <textarea name="NCajaClaveReduccion" id="CajaClaveR"></textarea>
-            </li>
-        </ul>
-    </nav>
-    <nav name="MenuReduc3" id="IDMenuReduc3" class="menu" style="display:none;">
-        <h5 class="P-Kevin">Motivo</h5>
-        <ul>
-            <li name="motivo1">
-                <textarea name="NCajaMotivoReduccion" id="CajaMotivoR"></textarea>
-            </li>
-        </ul>
-    </nav>
-    <br>
-    @*<br>
-        <br>
-        <br>*@
-    <br>
-    <button id="EnviarReduc" onclick="Reduccion();" style="display:none">Siguiente</button>
-    <br>
-    @*<br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>*@
-
-</div>
-@*//*@
-@*/SECCION DEL MENU DE TRANSFERENCIA/*@
-
-<div class="col-md-6">
-    <h3 id="proc2" style="display:none;">Transferencia</h3>
-    <br>
-    <nav name="MenuTransfer1" id="IDMenuTransfer1" class="menu" style="display:none;">
-
-        <h5 class="P-Kevin">Monto</h5>
-        <ul>
-            <li name="monto2">
-                <textarea name="NCajaMontoTransferencia" id="CajaMontoT"></textarea>
-            </li>
-        </ul>
-    </nav>
-    <nav name="MenuTransfer2" id="IDMenuTransfer2" class="menu" style="display:none;">
-
-        <h5 class="P-Kevin">Clave Origen</h5>
-        <ul>
-            <li name="claveOrigen">
-                <textarea name="NCajaClaveOrigenTransfer" id="CajaClaveOrigenT"></textarea>
-            </li>
-        </ul>
-    </nav>
-    <nav name="MenuTransfer3" id="IDMenuTransfer3" class="menu" style="display:none;">
-
-        <h5 class="P-Kevin">Clave Destino</h5>
-        <ul>
-            <li name="claveDestino">
-                <textarea name="NCajaClaveDestinoTransfer" id="CajaClaveDestinoT"></textarea>
-            </li>
-        </ul>
-    </nav>
-
-
-    <nav name="MenuTransfer4" id="IDMenuTransfer4" class="menu" style="display:none;">
-        <h5 class="P-Kevin">Motivo</h5>
-        <ul>
-            <li name="motivo2">
-                <textarea name="NCajaMotivoTransferencia" id="CajaMotivoT"></textarea>
-            </li>
-        </ul>
-    </nav>
-    <br>
-    <br>
-    <button id="EnviarTransfer" onclick="Transferencia();" style="display:none">Siguiente</button>
-    <br>
-</div>
-
-@*//*@
-
 <div class="row">
     <div class="col-xl-3 col-md-6">
         <span>GRAN TOTAL</span>
@@ -278,7 +85,6 @@
     <div class="col-md-6" id="graficaMensualCapitulo">
     </div>
 </div>
-
 
 
 <style>
@@ -427,11 +233,10 @@
     }
     /*//*/
     .P-Kevin {
-         text-align: left;
+        text-align: left;
     }
     /*//*/
 </style>
-
 
 <script>
 
@@ -479,7 +284,6 @@
                 {
                    // alert("Las siguientes filas del exel cargado no contienen 43 caracteres " + "\r\n" + data.errores + "\r\n");
                     alert("VERIFIQUE LOS SIGUIENTES ELEMENTOS DE LA CLAVE PRESUPUESTAL" + "\r\n" + data.elementoDeClave + "\r\n");
-
 
                 }
 
@@ -758,74 +562,4 @@
 
         });
     }
-    function ProcReduc() {
-        document.getElementById('Reduc').style.display = 'none';
-        document.getElementById('Transfer').style.display = 'none';
-
-        document.getElementById('IDMenuReduc1').style.display = 'inline';
-        document.getElementById('IDMenuReduc2').style.display = 'inline';
-        document.getElementById('IDMenuReduc3').style.display = 'inline';
-        document.getElementById('proc1').style.display = 'inline';
-
-        document.getElementById('EnviarReduc').style.display = 'inline';
-    }
-    function ProcTransfer() {
-        document.getElementById('Reduc').style.display = 'none';
-        document.getElementById('Transfer').style.display = 'none';
-
-        document.getElementById('IDMenuTransfer1').style.display = 'inline';
-        document.getElementById('IDMenuTransfer2').style.display = 'inline';
-        document.getElementById('IDMenuTransfer3').style.display = 'inline';
-        document.getElementById('IDMenuTransfer4').style.display = 'inline';
-
-         document.getElementById('proc2').style.display = 'inline';
-
-        document.getElementById('EnviarTransfer').style.display = 'inline';
-    }
-    function Reduccion() {
-        var CajaMonto = document.getElementById('CajaMontoR').value;
-        var CajaClave = document.getElementById('CajaClaveR').value;
-        var CajaMotivo = document.getElementById('CajaMotivoR').value;
-
-        //alert("Monto: " + CajaMonto.textContent + "  Clave: " + CajaClave.textContent);
-        //alert("El motivo es: " + CajaMotivo.textContent);
-        alert("Monto: " + CajaMonto + "  Clave: " + CajaClave);
-        alert("El motivo es: " + CajaMotivo);
-
-
-        alert("Reducción Exitosa(obvio es un ejemplo no se ha realizado nada xP)");
-
-         document.getElementById('IDMenuReduc1').style.display = 'none';
-        document.getElementById('IDMenuReduc2').style.display = 'none';
-        document.getElementById('IDMenuReduc3').style.display = 'none';
-        document.getElementById('proc1').style.display = 'none';
-
-        document.getElementById('EnviarReduc').style.display = 'none';
-    }
-
-    function Transferencia(){
-        var CajaMonto = document.getElementById('CajaMontoT').value;
-        var CajaClaveOT = document.getElementById('CajaClaveOrigenT').value;
-        var CajaClaveDT = document.getElementById('CajaClaveDestinoT').value;
-        var CajaMotivo = document.getElementById('CajaMotivoT').value;
-
-        //alert("Monto: " + CajaMonto.textContent + "  Clave: " + CajaClave.textContent);
-        //alert("El motivo es: " + CajaMotivo.textContent);
-        alert("Monto: " + CajaMonto + "  Clave Origen: " + CajaClaveOT + "  Clave Destino: " + CajaClaveDT);
-        alert("El motivo es: " + CajaMotivo);
-
-
-        alert("Transferencia Exitosa(obvio es un ejemplo no se ha realizado nada :v)");
-
-        document.getElementById('IDMenuTransfer1').style.display = 'none';
-        document.getElementById('IDMenuTransfer2').style.display = 'none';
-        document.getElementById('IDMenuTransfer3').style.display = 'none';
-        document.getElementById('IDMenuTransfer4').style.display = 'none';
-
-         document.getElementById('proc2').style.display = 'none';
-
-        document.getElementById('EnviarTransfer').style.display = 'none';
-    }
-
-   
 </script>

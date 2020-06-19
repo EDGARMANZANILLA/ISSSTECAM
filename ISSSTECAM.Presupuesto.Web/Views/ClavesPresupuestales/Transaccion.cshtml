@@ -11,9 +11,6 @@
 
 @*//*@
 <nav class="Navigate" id="NavInitial">
-    @*<br><h3 id="Inicio">Introduzca los datos para generar su reporte por quincena</h3>
-        <br><h3 id="Final" style="display:none;">Reporte Generado Exitosamente</h3>*@
-    @*<button id="CargarAño" onclick="Comienzo();">Comenzar</button>*@
     <h2 id="TxtInicial">Selecciona la opción que desea</h2>
     <br>
     <button title="Reducción" class="btn-T" id="Reduc" onclick="ProcReduc();" style="display:inline;position:center;margin-left:5%">Reduccion</button>
@@ -46,24 +43,65 @@
             </li>
         </ul>
     </nav>
-    <nav name="MenuReduc4" id="IDMenuReduc4" class="menu" style="display:none;">
+    <nav name="Prueba" id="Prueba" class="menu" style="display:none;">
+        <h5 class="P-Kevin">Prueba</h5>
+        <ul>
+            <li name="Prueba1">
+                <textarea name="prueba2" id="CajaMesValue" readonly="readonly"> </textarea>
+            </li>
+        </ul>
+    </nav>
+    <nav name="MenuReduc4" id="IDMenuReduc4" class="listado" style="display:none;">
         <h5 class="P-Kevin">Mes</h5>
         <ul>
             <li name="mes1">
-                <textarea name="NCajaMesReduccion" id="CajaMesR"> </textarea>
+                <textarea name="NCajaMesReduccion" id="CajaMesR" readonly="readonly"> </textarea>
+                <ul id="ListaMesesReducc">
+                    <li value="01" id="Month1"><a>Enero</a></li>
+                    <li value="02" id="Month2"><a>Febrero</a></li>
+                    <li value="03" id="Month3"><a>Marzo</a></li>
+                    <li value="04" id="Month4"><a>Abril</a></li>
+                    <li value="05" id="Month5"><a>Mayo</a></li>
+                    <li value="06" id="Month6"><a>Junio</a></li>
+                    <li value="07" id="Month7"><a>Julio</a></li>
+                    <li value="08" id="Month8"><a>Agosto</a></li>
+                    <li value="09" id="Month9"><a>Septiembre</a></li>
+                    <li value="10" id="Month10"><a>Octubre</a></li>
+                    <li value="11" id="Month11"><a>Noviembre</a></li>
+                    <li value="12" id="Month12"><a>Diciembre</a></li>
+                </ul>
             </li>
         </ul>
     </nav>
 
     <br>
-    @*<br>
-        <br>
-        <br>*@
     <br>
     <button id="EnviarReduc" class="btn btn-success" onclick="Reduccion();" style="display:none">Reducir</button>
     <br>
 </div>
-@*//*@
+@*/aqui va el modal/*@
+<div id="ModalReducc" style="display:none;height:900px;" class="modal-backdrop">
+    <div class="modal-content" style="width:400px;left:25%;margin-right:10%;margin-left:10%;margin-top:10%;height:auto;">
+        <img src="@Url.Content("~/Content/images/Escudo_palomita.png")"  class="LOGOS"/>
+        <div class="modal-header Popup" id="HeaderModal" style="height:auto;text-align:center;">
+            <h2>El proceso se ha realizado éxitosamente</h2>
+            <button title="Siguiente" class="btn btn-success" data-backdrop="false" onclick="HideModalReducc();;" style="margin-right:45%;margin-left:45%">Salir</button>
+        </div>
+
+    </div>
+</div>
+<div id="ModalTransfer" style="display:none;height:900px;" class="modal-backdrop">
+    <div class="modal-content" style="width:400px;left:25%;margin-right:10%;margin-left:10%;margin-top:10%;height:auto;">
+        <img src="@Url.Content("~/Content/images/Escudo_palomita.png")" class="LOGOS" />
+        <div class="modal-header Popup" id="HeaderModal" style="height:auto;text-align:center;">
+            <h2>El proceso se ha realizado éxitosamente</h2>
+            <button title="Siguiente" class="btn btn-success" data-backdrop="false" onclick="HideModalTransfer();;" style="margin-right:45%;margin-left:45%">Finalizar</button>
+        </div>
+
+    </div>
+</div>
+
+
 @*/SECCION DEL MENU DE TRANSFERENCIA/*@
 
 <div class="col-md-6">
@@ -79,14 +117,6 @@
                 </li>
             </ul>
         </nav>
-        <nav name="MenuTransfer5" id="IDMenuTransfer5" class="menu" style="display:none;">
-            <h5 class="P-Kevin">Mes Origen</h5>
-            <ul>
-                <li name="mesOrigen">
-                    <textarea name="NCajaMesOrigen" id="CajaMesOrigen"> </textarea>
-                </li>
-            </ul>
-        </nav>
         <nav name="MenuTransfer1" id="IDMenuTransfer1" class="menu" style="display:none;">
             <h5 class="P-Kevin">Monto Origen</h5>
             <ul>
@@ -95,6 +125,39 @@
                 </li>
             </ul>
         </nav>
+        @*///*@
+        <nav name="MenuOculto1" id="MenuOculto1" class="menu" style="display:none;">
+            <h5 class="P-Kevin">Oculto1</h5>
+            <ul>
+                <li name="MenuOculto1.1">
+                    <textarea name="CajaOculta1" id="CajaOcultaMesOrigen" readonly="readonly"> </textarea>
+                </li>
+            </ul>
+        </nav>
+        <nav name="MenuTransfer5" id="IDMenuTransfer5" class="listado" style="display:none;">
+            <h5 class="P-Kevin">Mes Origen</h5>
+            <ul>
+                <li name="mesOrigen">
+                    <textarea name="NCajaMesOrigen" id="CajaMesOrigen" readonly="readonly"> </textarea>
+                    <ul id="ListaMesesOrigen">
+                        <li value="01" id="Month1"><a>Enero</a></li>
+                        <li value="02" id="Month2"><a>Febrero</a></li>
+                        <li value="03" id="Month3"><a>Marzo</a></li>
+                        <li value="04" id="Month4"><a>Abril</a></li>
+                        <li value="05" id="Month5"><a>Mayo</a></li>
+                        <li value="06" id="Month6"><a>Junio</a></li>
+                        <li value="07" id="Month7"><a>Julio</a></li>
+                        <li value="08" id="Month8"><a>Agosto</a></li>
+                        <li value="09" id="Month9"><a>Septiembre</a></li>
+                        <li value="10" id="Month10"><a>Octubre</a></li>
+                        <li value="11" id="Month11"><a>Noviembre</a></li>
+                        <li value="12" id="Month12"><a>Diciembre</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        @*///*@
+
     </div>
     <div class="col-md-6" id="Destino">
         <nav name="MenuTransfer3" id="IDMenuTransfer3" class="menu" style="display:none;">
@@ -106,14 +169,6 @@
                 </li>
             </ul>
         </nav>
-        <nav name="MenuTransfer6" id="IDMenuTransfer6" class="menu" style="display:none;">
-            <h5 class="P-Kevin">Mes Destino</h5>
-            <ul>
-                <li name="mesDestino">
-                    <textarea name="NCajaMesDestino" id="CajaMesDestino"> </textarea>
-                </li>
-            </ul>
-        </nav>
         <nav name="MenuTransfer7" id="IDMenuTransfer7" class="menu" style="display:none;">
             <h5 class="P-Kevin">Monto Destino</h5>
             <ul>
@@ -122,6 +177,39 @@
                 </li>
             </ul>
         </nav>
+
+        <nav name="MenuOculto2" id="MenuOculto2" class="menu" style="display:none;">
+            <h5 class="P-Kevin">Oculto2</h5>
+            <ul>
+                <li name="MenuOculto1.2">
+                    <textarea name="CajaOculta2" id="CajaOcultaMesDestino" readonly="readonly"> </textarea>
+                </li>
+            </ul>
+        </nav>
+        <nav name="MenuTransfer6" id="IDMenuTransfer6" class="listado" style="display:none;">
+            <h5 class="P-Kevin">Mes Destino</h5>
+            <ul>
+                <li name="mesDestino">
+                    <textarea name="NCajaMesDestino" id="CajaMesDestino" readonly="readonly"> </textarea>
+                    <ul id="ListaMesesDestino">
+                        <li value="01" id="Month1"><a>Enero</a></li>
+                        <li value="02" id="Month2"><a>Febrero</a></li>
+                        <li value="03" id="Month3"><a>Marzo</a></li>
+                        <li value="04" id="Month4"><a>Abril</a></li>
+                        <li value="05" id="Month5"><a>Mayo</a></li>
+                        <li value="06" id="Month6"><a>Junio</a></li>
+                        <li value="07" id="Month7"><a>Julio</a></li>
+                        <li value="08" id="Month8"><a>Agosto</a></li>
+                        <li value="09" id="Month9"><a>Septiembre</a></li>
+                        <li value="10" id="Month10"><a>Octubre</a></li>
+                        <li value="11" id="Month11"><a>Noviembre</a></li>
+                        <li value="12" id="Month12"><a>Diciembre</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        @*///*@
+
     </div>
     @*seccion media*@
     <div>
@@ -146,8 +234,8 @@
 <style>
     .Navigate {
         display: inline;
-      
     }
+
     .btn-T {
         background-color: rgb(154, 154, 151);
         border-radius: 30px;
@@ -158,50 +246,25 @@
         display: inline-block;
         font-size: 30px;
     }
-        .Clase {
-            width: 100%;
-            height: 539px;
-        }
 
-    table {
-        position: center;
-        background-color: rgba(151, 202, 228, 0.85);
-        margin-left: 0%;
-        margin-right: 0%;
-        margin-top: 0%;
-        margin-bottom: 0%;
-        border: groove 4px rgba(16, 79, 155, 0.50);
+    .Clase {
         width: 100%;
+        height: 539px;
     }
-
-    #SeparaCeldasReporte {
-        background-color: rgba(151, 220, 255, 185);
-        border-color: rgba(151, 220, 255, 185);
-        color: rgba(151, 220, 255, 185);
+    /* //////////////////////////////seccion para el modal///////////////////////*/
+    .LOGOS {
+        height: 150px;
+        width: 37.5%;
+        /*float: left;*/
+        margin-left: 31.25%;
+        margin-right: 31.25%;
+       /* z-index: 9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999;*/
     }
-
-        #SeparaCeldasReporte td {
-            color: rgba(255, 255, 255, 0.00);
-            background-color: white;
-        }
-
-    td, th {
-        border: solid 3px rgba(22, 81, 152, 0.75);
-        padding: 3px;
-        text-align: left;
-        color: black;
-    }
-
-    th {
-        font-weight: bold;
-        font-size: larger;
-    }
-
     .modal-backdrop {
         background-color: rgba(00,00,00,0.5);
-        display: none;
+       /* display: none;*/
         width: 100%;
-        z-index: 99999999999999;
+        z-index: 999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999;
         height: 100%;
         position: absolute;
         top: 0%;
@@ -211,14 +274,86 @@
     .modal-content {
         font-weight: bold;
         color: black;
+       /* z-index: 999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999;*/
     }
-    /* ////////////////////////////////////////////////////////////////////*/
-    .tablainput {
-        /*border: 2px solid rgb(22, 81, 152);*/
-        /*border: solid 1px rgba(22, 81, 152, 0.75);*/
-        /*float: right;*/
+    /* /////////////////////////////////////////////////////////////////////////*/
+   
+    /* ///////////////sección para la lista de meses/////////////////////////////////////////////////////*/
+    .listado ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        width: 105px;
     }
 
+        .listado ul a {
+            display: block;
+            cursor: pointer;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 300;
+            font-size: 12px;
+            padding: 0px;
+            text-transform: uppercase;
+            letter-spacing: 0px;
+        }
+
+    .listado {
+        z-index: 9999999;
+        padding-left: 8px;
+    }
+
+        .listado ul li {
+            background-color: rgb(69, 110, 185);
+            position: relative;
+            float: left;
+            margin: 0;
+            padding: 0;
+            z-index: 9999999;
+        }
+
+            .listado ul li:hover {
+                background: rgb(11, 66, 167);
+            }
+
+        .listado ul ul {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            padding: 0;
+        }
+
+            .listado ul ul li {
+                float: none;
+                width: 100px;
+                z-index: 9999999;
+            }
+
+            .listado ul ul a {
+                line-height: 100%;
+                padding: 10px 15px;
+                padding: 10px 10px;
+                z-index: 99999999;
+            }
+
+        .listado ul li:hover > ul {
+            display: block;
+        }
+
+    textarea {
+        width: 100px;
+        font-family: Arial;
+        font-size: small;
+        background-color: transparent;
+        color: white;
+        height: 21px;
+        resize: none;
+        border: none;
+        padding-bottom: 0px;
+        padding-top: 3px;
+        padding-left: 4px;
+    }
     /*/////////////////////////////////////////////////////////////////////////////////*/
     .menu ul li {
         display: inline-block;
@@ -240,14 +375,12 @@
             font-weight: 300;
             font-size: 12px;
             padding: 0px;
-            /* font-family:"HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif; */
-            /*font-family: Arial;*/
             text-transform: uppercase;
             letter-spacing: 0px;
         }
 
     .menu {
-        z-index: 99999999999999999999;
+        z-index: 99999999999999999;
         padding-left: 8px;
     }
 
@@ -256,7 +389,7 @@
             float: left;
             margin: 0;
             padding: 0;
-            z-index: 99999999999999999999;
+            z-index: 99;
         }
 
             .menu ul li:hover {
@@ -274,7 +407,7 @@
             .menu ul ul li {
                 float: none;
                 width: 100px;
-                z-index: 99999999999999999999;
+                z-index: 9999999999999999;
             }
 
             .menu ul ul a {
@@ -288,32 +421,14 @@
             display: block;
         }
 
-    textarea {
-        width: 100px;
-        font-family: Arial;
-        font-size: small;
-        background-color: transparent;
-        color: white;
-        height: 21px;
-        resize: none;
-        border: none;
-        padding-bottom: 0px;
-        padding-top: 3px;
-        padding-left: 4px;
-    }
-    /*//*/
     .P-Kevin {
         text-align: left;
     }
-    /*//*/
 </style>
 
 <script>
     function ProcReduc() {
-        //document.getElementById('Reduc').style.display = 'none';
-        //document.getElementById('Transfer').style.display = 'none';
         document.getElementById('TxtRedu').style.display = 'inline';
-        //document.getElementById('TxtInicial').style.display = 'none';
         document.getElementById('NavInitial').style.display = 'none';
 
 
@@ -325,11 +440,8 @@
         document.getElementById('EnviarReduc').style.display = 'inline';
     }
     function ProcTransfer() {
-        //document.getElementById('Reduc').style.display = 'none';
-        //document.getElementById('Transfer').style.display = 'none';
         document.getElementById('NavInitial').style.display = 'none';
         document.getElementById('TxtTrans').style.display = 'inline';
-        //document.getElementById('TxtInicial').style.display = 'none';
 
         document.getElementById('IDMenuTransfer1').style.display = 'inline';
         document.getElementById('IDMenuTransfer2').style.display = 'inline';
@@ -346,11 +458,8 @@
         var CajaMonto = document.getElementById('CajaMontoR');
         var CajaClave = document.getElementById('CajaClaveR');
         var CajaMotivo = document.getElementById('CajaMotivoR');
-        var CajaMes = document.getElementById('CajaMesR');
-
-        //if (CajaMonto.textContent == ' ') {
-        //    alert('Por favor ingrese un monto ')
-        //} else if (CajaClave.textContent == ' ') {
+        //var CajaMes = document.getElementById('CajaMesR');
+        var ValorMes = document.getElementById('CajaMesValue');
 
         if (CajaMonto.value == ' ') {
             alert('Por favor ingrese un monto ')
@@ -358,13 +467,13 @@
             alert('Por favor ingrese una clave')
         } else if (CajaMotivo.value == ' ') {
             alert('Por favor ingrese un motivo')
-        } else if (CajaMes.value == ' ') {
-            alert('Por favor ingrese el mes al que se le hara la reducción')
-        }else {
+        } else if (ValorMes.textContent == ' ') {
+            alert('Por favor seleccione el mes al que se le hara la reducción')
+        } else {
             //alert("Monto: " + CajaMonto.value + "  Clave: " + CajaClave.value);
             //alert("El motivo es: " + CajaMotivo.value + "  Mes: " + CajaMes.value);
-
-      var actionDataReducc = "{'reduccionMonto': '"+CajaMonto.value+"','reduccionClave':'"+CajaClave.value+"','reduccionMes':'"+CajaMes.value+"','reduccionMotivo':'"+CajaMotivo.value+"'}";
+           // alert("el mes es: " + ValorMes.textContent);
+            var actionDataReducc = "{'reduccionMonto': '" + CajaMonto.value + "','reduccionClave':'" + CajaClave.value + "','reduccionMes':'" + ValorMes.textContent + "','reduccionMotivo':'" + CajaMotivo.value + "'}";
              $.ajax({
                 url: '@Url.Action("Reducciones", "ClavesPresupuestales")',
                  data: actionDataReducc,
@@ -377,7 +486,25 @@
                 }
             });
             //
-            alert(" La reducción se ha realizado con éxito :) ");
+            //Aqui colocaré la opcion del modal
+            //alert(" La reducción se ha realizado con éxito :) ");
+            document.getElementById('ModalReducc').style.display = 'inline';
+
+        //document.getElementById('TxtRedu').style.display = 'none';
+
+        //document.getElementById('IDMenuReduc1').style.display = 'none';
+        //document.getElementById('IDMenuReduc2').style.display = 'none';
+        //document.getElementById('IDMenuReduc3').style.display = 'none';
+        //document.getElementById('IDMenuReduc4').style.display = 'none';
+
+        //document.getElementById('EnviarReduc').style.display = 'none';
+
+        //document.getElementById('NavInitial').style.display = 'inline';
+        }
+
+    }
+    function HideModalReducc() {
+        document.getElementById('ModalReducc').style.display = 'none';
 
         document.getElementById('TxtRedu').style.display = 'none';
 
@@ -389,48 +516,31 @@
         document.getElementById('EnviarReduc').style.display = 'none';
 
         document.getElementById('NavInitial').style.display = 'inline';
-        }
 
-
-             @*$.ajax(
-                {
-                    url: '@Url.Action("Reducciones", "ClavesPresupuestales")',
-                   // data: actionData2,
-                    dataType: "json",
-                    type: "POST",
-                    contentType: "application/json; charset=utf-8",
-                    succes: function (msg) { console.log("msg", msg); },
-                    error: function (result) {
-                        alert("ERROR SEVERO, VUELVA A CARGAR LA PÁGINA" + result.status);
-                    }
-
-                });*@
     }
 
     function Transferencia() {
         var CajaMontoOrigen = document.getElementById('CajaMontoOrigen');
         var CajaClaveOT = document.getElementById('CajaClaveOrigenT');
-        var CajaMesOrigen = document.getElementById('CajaMesOrigen');
+        var CajaMesOrigen = document.getElementById('CajaOcultaMesOrigen');
 
         var CajaClaveDT = document.getElementById('CajaClaveDestinoT');
         var CajaMontoDestino = document.getElementById('CajaMontoDestino');
-        var CajaMesDestino = document.getElementById('CajaMesDestino');
-
+        var CajaMesDestino = document.getElementById('CajaOcultaMesDestino');
         var CajaMotivo = document.getElementById('CajaMotivoT');
-
 
         if (CajaMontoOrigen.value == ' ') {
             alert('Por favor ingrese un monto de origen')
         } else if (CajaClaveOT.value == ' ') {
             alert('Por favor ingrese una clave de origen')
-        } else if (CajaMesOrigen.value == ' ') {
+        } else if (CajaMesOrigen.textContent == ' ') {
             alert('Por favor ingrese un mes de origen')
 
         } else if (CajaClaveDT.value == ' ') {
             alert('Por favor ingrese una clave de destino')
         } else if (CajaMontoDestino.value == ' ') {
             alert('Por favor ingrese un monto de destino')
-        } else if (CajaMesDestino.value == ' ') {
+        } else if (CajaMesDestino.textContent == ' ') {
             alert('Por favor ingrese un mes de destino')
         }
 
@@ -438,37 +548,91 @@
             alert('Por favor ingrese el motivo de la transferencia')
         } else {
             //
-            var actionDataTransfer = "{'origenMonto': '"+CajaMontoOrigen.value+"','origenClave':'"+CajaClaveOT.value+"','origenMes':'"+CajaMesOrigen.value+"','destinoMonto':'"+CajaMontoDestino.value+"','destinoClave':'"+CajaClaveDT.value+"','destinoMes':'"+CajaMesDestino.value+"','motivoTransfer':'"+CajaMotivo.value+"'}";
+            var actionDataTransfer = "{'origenMonto': '" + CajaMontoOrigen.value + "','origenClave':'" + CajaClaveOT.value + "','origenMes':'" + CajaMesOrigen.textContent + "','destinoMonto':'" + CajaMontoDestino.value + "','destinoClave':'" + CajaClaveDT.value + "','destinoMes':'" + CajaMesDestino.textContent + "','motivoTransfer':'" + CajaMotivo.value + "'}";
              $.ajax({
                 url: '@Url.Action("Transferencia", "ClavesPresupuestales")',
                  data: actionDataTransfer,
                 dataType: "json",
                 type: "POST",
                  contentType: "application/json; charset=utf-8",
-                 succes: function (msg) { console.log("msg", msg); },
+                 succes: function (msg) { console.log("msg", msg);},
                 error: function (result) {
                     alert("ERROR SEVERO, VUELVA A CARGAR LA PÁGINA" + result.status);
                 }
             });
-            //
-            alert(" La transferencia se ha realizado con éxito :) ");
+            //alert(" La transferencia se ha realizado con éxito :) ");
 
-            document.getElementById('IDMenuTransfer1').style.display = 'none';
-            document.getElementById('IDMenuTransfer2').style.display = 'none';
-            document.getElementById('IDMenuTransfer3').style.display = 'none';
-            document.getElementById('IDMenuTransfer4').style.display = 'none';
-            document.getElementById('IDMenuTransfer5').style.display = 'none';
-            document.getElementById('IDMenuTransfer6').style.display = 'none';
-            document.getElementById('IDMenuTransfer7').style.display = 'none';
+            document.getElementById('ModalTransfer').style.display = 'inline';
 
-            document.getElementById('TxtTrans').style.display = 'none';
-
-            document.getElementById('EnviarTransfer').style.display = 'none';
-
-            document.getElementById('NavInitial').style.display = 'inline';
         }
-
     }
+    function HideModalTransfer() {
+        document.getElementById('ModalTransfer').style.display = 'none';
+
+        document.getElementById('IDMenuTransfer1').style.display = 'none';
+        document.getElementById('IDMenuTransfer2').style.display = 'none';
+        document.getElementById('IDMenuTransfer3').style.display = 'none';
+        document.getElementById('IDMenuTransfer4').style.display = 'none';
+        document.getElementById('IDMenuTransfer5').style.display = 'none';
+        document.getElementById('IDMenuTransfer6').style.display = 'none';
+        document.getElementById('IDMenuTransfer7').style.display = 'none';
+
+        document.getElementById('TxtTrans').style.display = 'none';
+
+        document.getElementById('EnviarTransfer').style.display = 'none';
+
+        document.getElementById('NavInitial').style.display = 'inline';
+    }
+
+
+    $('#ListaMesesReducc').click(function (e) {
+        var li = e.target.parentNode;
+        let ID = li.id;
+        var Identidad = document.getElementById(ID).textContent;
+        const WRITELINE = document.querySelector('#CajaMesR');
+        var Lista = document.getElementById('CajaMesR');
+        Lista.innerHTML = "";
+        WRITELINE.insertAdjacentHTML('beforeend', Identidad)
+
+        Valor = document.getElementById(ID).value;
+        const ESCRIBE = document.querySelector('#CajaMesValue');
+        var Linea = document.getElementById('CajaMesValue');
+        Linea.innerHTML = "";
+        ESCRIBE.insertAdjacentHTML('beforeend', Valor)
+    });
+    ////
+    $('#ListaMesesOrigen').click(function (e) {
+        var li = e.target.parentNode;
+        let ID = li.id;
+        var Identidad = document.getElementById(ID).textContent;
+        const WRITELINE = document.querySelector('#CajaMesOrigen');
+        var Lista = document.getElementById('CajaMesOrigen');
+        Lista.innerHTML = "";
+        WRITELINE.insertAdjacentHTML('beforeend', Identidad)
+
+        Valor = document.getElementById(ID).value;
+        const ESCRIBE = document.querySelector('#CajaOcultaMesOrigen');
+        var Linea = document.getElementById('CajaOcultaMesOrigen');
+        Linea.innerHTML = "";
+        ESCRIBE.insertAdjacentHTML('beforeend', Valor)
+    });
+    ////
+    $('#ListaMesesDestino').click(function (e) {
+        var li = e.target.parentNode;
+        let ID = li.id;
+        var Identidad = document.getElementById(ID).textContent;
+        const WRITELINE = document.querySelector('#CajaMesDestino');
+        var Lista = document.getElementById('CajaMesDestino');
+        Lista.innerHTML = "";
+        WRITELINE.insertAdjacentHTML('beforeend', Identidad)
+
+        Valor = document.getElementById(ID).value;
+        const ESCRIBE = document.querySelector('#CajaOcultaMesDestino');
+        var Linea = document.getElementById('CajaOcultaMesDestino');
+        Linea.innerHTML = "";
+        ESCRIBE.insertAdjacentHTML('beforeend', Valor)
+    });
+
 
 
 

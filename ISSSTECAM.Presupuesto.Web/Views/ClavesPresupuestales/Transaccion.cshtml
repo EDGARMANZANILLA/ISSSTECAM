@@ -482,7 +482,10 @@
                 dataType: "json",
                 type: "POST",
                  contentType: "application/json; charset=utf-8",
-                 succes: function (msg) { console.log("msg", msg); },
+                 success: function (msg) {
+                     console.log("msg", msg);
+                     document.getElementById('ModalReducc').style.display = 'inline';
+                 },
                 error: function (result) {
                     alert("ERROR SEVERO, VUELVA A CARGAR LA PÁGINA" + result.status);
                 }
@@ -490,7 +493,8 @@
             //
             //Aqui colocaré la opcion del modal
             //alert(" La reducción se ha realizado con éxito :) ");
-            document.getElementById('ModalReducc').style.display = 'inline';
+
+            //document.getElementById('ModalReducc').style.display = 'inline';
 
         //document.getElementById('TxtRedu').style.display = 'none';
 
@@ -559,9 +563,9 @@
                 dataType: "json",
                 type: "POST",
                  contentType: "application/json; charset=utf-8",
-                 succes: function (msg) {
+                 success: function (msg) {
                      console.log("msg", msg);
-                     
+                     document.getElementById('ModalTransfer').style.display = 'inline';
                  },
                 error: function (result) {
                     alert("ERROR SEVERO, VUELVA A CARGAR LA PÁGINA" + result.status);
@@ -569,7 +573,7 @@
             });
             //alert(" La transferencia se ha realizado con éxito :) ");
 
-            document.getElementById('ModalTransfer').style.display = 'inline';
+            //document.getElementById('ModalTransfer').style.display = 'inline';
 
         }
     }
@@ -582,7 +586,7 @@
         document.getElementById('IDMenuTransfer4').style.display = 'none';
         document.getElementById('IDMenuTransfer5').style.display = 'none';
         document.getElementById('IDMenuTransfer6').style.display = 'none';
-        document.getElementById('IDMenuTransfer7').style.display = 'none';
+        //document.getElementById('IDMenuTransfer7').style.display = 'none';
 
         document.getElementById('TxtTrans').style.display = 'none';
 

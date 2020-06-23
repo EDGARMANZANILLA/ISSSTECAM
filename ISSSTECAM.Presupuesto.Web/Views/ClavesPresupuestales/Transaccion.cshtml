@@ -465,7 +465,12 @@
 
         if (CajaMonto.value == ' ') {
             alert('Por favor ingrese un monto ')
-        } else if (CajaClave.value == ' ') {
+        }
+        //if (isNaN(formulario.edad.value)==true
+        else if (isNaN(CajaMonto.value) == true) {
+           alert('Por favor ingrese un monto valido')
+        }
+        else if (CajaClave.value == ' ') {
             alert('Por favor ingrese una clave')
         } else if (CajaMotivo.value == ' ') {
             alert('Por favor ingrese un motivo')
@@ -474,18 +479,18 @@
         } else {
             //alert("Monto: " + CajaMonto.value + "  Clave: " + CajaClave.value);
             //alert("El motivo es: " + CajaMotivo.value + "  Mes: " + CajaMes.value);
-           // alert("el mes es: " + ValorMes.textContent);
+            // alert("el mes es: " + ValorMes.textContent);
             var actionDataReducc = "{'reduccionMonto': '" + CajaMonto.value + "','reduccionClave':'" + CajaClave.value + "','reduccionMes':'" + ValorMes.textContent + "','reduccionMotivo':'" + CajaMotivo.value + "'}";
-             $.ajax({
+            $.ajax({
                 url: '@Url.Action("Reducciones", "ClavesPresupuestales")',
-                 data: actionDataReducc,
+                data: actionDataReducc,
                 dataType: "json",
                 type: "POST",
-                 contentType: "application/json; charset=utf-8",
-                 success: function (msg) {
-                     console.log("msg", msg);
-                     document.getElementById('ModalReducc').style.display = 'inline';
-                 },
+                contentType: "application/json; charset=utf-8",
+                success: function (msg) {
+                    console.log("msg", msg);
+                    document.getElementById('ModalReducc').style.display = 'inline';
+                },
                 error: function (result) {
                     alert("ERROR SEVERO, VUELVA A CARGAR LA PÁGINA" + result.status);
                 }
@@ -496,16 +501,16 @@
 
             //document.getElementById('ModalReducc').style.display = 'inline';
 
-        //document.getElementById('TxtRedu').style.display = 'none';
+            //document.getElementById('TxtRedu').style.display = 'none';
 
-        //document.getElementById('IDMenuReduc1').style.display = 'none';
-        //document.getElementById('IDMenuReduc2').style.display = 'none';
-        //document.getElementById('IDMenuReduc3').style.display = 'none';
-        //document.getElementById('IDMenuReduc4').style.display = 'none';
+            //document.getElementById('IDMenuReduc1').style.display = 'none';
+            //document.getElementById('IDMenuReduc2').style.display = 'none';
+            //document.getElementById('IDMenuReduc3').style.display = 'none';
+            //document.getElementById('IDMenuReduc4').style.display = 'none';
 
-        //document.getElementById('EnviarReduc').style.display = 'none';
+            //document.getElementById('EnviarReduc').style.display = 'none';
 
-        //document.getElementById('NavInitial').style.display = 'inline';
+            //document.getElementById('NavInitial').style.display = 'inline';
         }
 
     }
@@ -537,7 +542,10 @@
 
         if (CajaMontoOrigen.value == ' ') {
             alert('Por favor ingrese un monto de origen')
-        } else if (CajaClaveOT.value == ' ') {
+        } else if (isNaN(CajaMontoOrigen.value) == true) {
+            alert('Por favor ingrese un monto de origen valido')
+        }
+        else if (CajaClaveOT.value == ' ') {
             alert('Por favor ingrese una clave de origen')
         } else if (CajaMesOrigen.textContent == ' ') {
             alert('Por favor ingrese un mes de origen')

@@ -542,6 +542,7 @@
     </None>
     <Content Include="Views\Nomina\Reporte.cshtml" />
     <Content Include="Views\ClavesPresupuestales\Transaccion.cshtml" />
+    <Content Include="Views\ClavesPresupuestales\Calendario.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

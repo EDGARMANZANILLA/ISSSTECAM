@@ -394,6 +394,19 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
         }
         #endregion
 
+        #region Lista de Datos del calendario.
+        public JsonResult ListaCalendario()
+        {
+            //Un Array que contenga los datos de esta forma.
+    //{ clave: "21120283626211C016000J186038910780L415A4211| |3609984.03|4204215.1|3609984.03|4154484.03|3609984.03|3609984.03|3609984.03|3609984.03|3609984.03|3609984.03|3609984.03|12248063.56" }
+
+            string  listaClaves = "UnArray";
+
+            return Json(listaClaves, JsonRequestBehavior.AllowGet);
+            
+        }
+        #endregion
+
     }
 
 

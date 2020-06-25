@@ -8,35 +8,18 @@
 
 <div class="row">
     <div class="pull-right">
-        @*@if (!ViewBag.ExisteCalendario)
-                {
-                    <h5>Calendario</h5>
-        <button class="btn btn-success" id="guardarCalendario">Guardar calendario</button> }
-        else
-        {
-        <button class="btn btn-success" id="recargar">Recargar</button>}*@
+
         <button class="btn btn-success" id="recargar">Recargar</button>
-        @*<a class="btn btn-success" href="@Url.Action("ReporteConcentradoPrograma", "Calendario")" target="_blank">Reporte programa-concentrado</a>*@
-        @*<input id="fileupload" type="file" name="files[]" data-url="@Url.Action("ImportarArchivo", "Calendario")" multiple>*@
+        @*ESTE BOTON SIRVE PARA EJECUTIR LA FUNCIÓN CON LA QUE POSIBLEMENTE SE PUEDAN PINTAR LOS DATOS DEL CALENDARIO*@
+        @*<button class="btn btn-success" id="pintar" onclick="PintarCalendario();">Mostrar Calendario</button>*@
     </div>
 </div>
 
 <div class="row">
     <div class="col-xl-3 col-md-6">
-        @*<span>GRAN TOTAL</span>
-            <h2 id="granTotal">$0</h2>*@
+        <span>GRAN TOTAL</span>
+            <h2 id="granTotal">$0</h2>
 
-
-        <!-- START card-->
-        @*<div class="card flex-row align-items-center align-items-stretch border-0">
-                <div class="col-md-4">
-                    <em class="icon-cloud-upload fa-3x"></em>
-                </div>
-                <div class="col-md-8">
-                    <div class="h2 mt-0" id="granTotal">$0</div>
-                    <div class="text-uppercase">Gran total</div>
-                </div>
-            </div>*@
     </div>
     @*<div class="col-md-6 col-xl-9">
             <div id="fileuploader">Agregar archivo</div>
@@ -315,5 +298,55 @@
                 console.log(error);
             }
         });
+    }
+    //Script de prueba para pintar los datos
+
+    function PintarCalendario() {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("ImportarArchivo", "Calendario")', //Aquí ira el nombre del metodo del cual recibiremos los datos
+            multiple: false,
+            maxFileCount: 1,
+            //fileName: "calendario",
+            dataType: "json",
+            returnType: 'json',
+            //allowedTypes: 'xlsx',
+            //showDelete: true,
+            //onSubmit: function (files) {
+            //    $.blockUI({
+            //        message: 'Cargando archivo...',
+            //        css: {
+            //            border: 'none',
+            //            padding: '15px',
+            //            backgroundColor: '#000',
+            //            '-webkit-border-radius': '10px',
+            //            '-moz-border-radius': '10px',
+            //            opacity: .5,
+            //            color: '#fff'
+            //        }
+            //    });
+            //},
+            onSuccess: function (files, data, xhr, pd) {
+
+
+                console.log(data.exitoso);
+
+        $.each(data.claves, function (index, c) {
+            filaClave = tabla.row.add(c.clave.split('|')).draw();
+
+            var datos = c.clave.split('|').slice(2, c.clave.split('|').length);
+            var chart = $('<span></span>');
+            $(filaClave.nodes()[0]).children().first().next().append(chart);
+
+            chart.sparkline($.map(datos, function (i) {
+                return parseFloat(i);
+            }));
+        });
+        $('#granTotal').text('$' + numeral($.Enumerable.From(data.clavesPresupuestales).Select(function (x) { return x.PresupuestoAnual }).Sum()).format('0,0.00'));
+
+        cargarGraficaMensual();
+        cargarGraficaMensualCapitulo();
+
+        //$.unblockUI();
     }
 </script>

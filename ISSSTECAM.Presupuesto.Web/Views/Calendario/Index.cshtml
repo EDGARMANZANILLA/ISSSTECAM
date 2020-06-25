@@ -60,7 +60,7 @@
             <thead>
                 <tr>
                     <th>Clave presupuestal</th>
-                    @*<th></th>*@
+                    <th></th>
                     <th>Enero</th>
                     <th>Febrero</th>
                     <th>Marzo</th>
@@ -299,6 +299,9 @@
                 //    closeWith: ['click'],
                 //    timeout: 4000
                 //});
+
+                console.log("Datos", data.claves);//esto muestra la clave seguida por los presupuestos de cada mes.
+             
 
                 $.each(data.claves, function (index, c) {
                     filaClave = tabla.row.add(c.clave.split('|')).draw();

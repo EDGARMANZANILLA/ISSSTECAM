@@ -11,7 +11,7 @@
 
         <button class="btn btn-success" id="recargar">Recargar</button>
         @*ESTE BOTON SIRVE PARA EJECUTIR LA FUNCIÓN CON LA QUE POSIBLEMENTE SE PUEDAN PINTAR LOS DATOS DEL CALENDARIO*@
-        @*<button class="btn btn-success" id="pintar" onclick="PintarCalendario();">Mostrar Calendario</button>*@
+        <button class="btn btn-success" id="Pintar" onclick="PintarCalendario();">Mostrar Calendario</button>
     </div>
 </div>
 
@@ -32,7 +32,7 @@
             <thead>
                 <tr>
                     <th>Clave presupuestal</th>
-                    @*<th></th>*@
+                    <th></th>
                     <th>Enero</th>
                     <th>Febrero</th>
                     <th>Marzo</th>
@@ -300,53 +300,47 @@
         });
     }
     //Script de prueba para pintar los datos
-
-    function PintarCalendario() {
-        $.ajax({
+     @*$.ajax({
             type: 'POST',
-            url: '@Url.Action("ImportarArchivo", "Calendario")', //Aquí ira el nombre del metodo del cual recibiremos los datos
-            multiple: false,
-            maxFileCount: 1,
-            //fileName: "calendario",
+            url: '@Url.Action("DevolverAnio", "Nomina")',
             dataType: "json",
             returnType: 'json',
-            //allowedTypes: 'xlsx',
-            //showDelete: true,
-            //onSubmit: function (files) {
-            //    $.blockUI({
-            //        message: 'Cargando archivo...',
-            //        css: {
-            //            border: 'none',
-            //            padding: '15px',
-            //            backgroundColor: '#000',
-            //            '-webkit-border-radius': '10px',
-            //            '-moz-border-radius': '10px',
-            //            opacity: .5,
-            //            color: '#fff'
-            //        }
-            //    });
-            //},
-            onSuccess: function (files, data, xhr, pd) {
+                success: function(resultado)
+                {*@
+    //ObtenerClaves
 
+    function PintarCalendario() {
+        document.getElementById('Pintar').style.display = 'none';
 
-                console.log(data.exitoso);
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("ListaCalendario", "ClavesPresupuestales")', //Aquí ira el nombre del metodo del cual recibiremos los datos
+            dataType: "json",
+            returnType: 'json',
+            success: function (resultado) {
 
-        $.each(data.claves, function (index, c) {
-            filaClave = tabla.row.add(c.clave.split('|')).draw();
+                console.log("datos recibidos : ", resultado);
+                $.each(resultado.claves, function (index, c) {
+                    filaClave = tabla.row.add(c.clave.split('|')).draw();
 
-            var datos = c.clave.split('|').slice(2, c.clave.split('|').length);
-            var chart = $('<span></span>');
-            $(filaClave.nodes()[0]).children().first().next().append(chart);
+                    var datos = c.clave.split('|').slice(2, c.clave.split('|').length);
+                    var chart = $('<span></span>');
+                    $(filaClave.nodes()[0]).children().first().next().append(chart);
 
-            chart.sparkline($.map(datos, function (i) {
-                return parseFloat(i);
-            }));
+                    chart.sparkline($.map(datos, function (i) {
+                        return parseFloat(i);
+                    }));
+
+                });
+
+                $('#granTotal').text('$' + numeral($.Enumerable.From(resultado.clavesPresupuestales).Select(function (x) { return x.PresupuestoAnual }).Sum()).format('0,0.00'));
+
+                cargarGraficaMensual();
+                cargarGraficaMensualCapitulo();
+            },
+            error: function (error) {
+                console.error(error);
+            }
         });
-        $('#granTotal').text('$' + numeral($.Enumerable.From(data.clavesPresupuestales).Select(function (x) { return x.PresupuestoAnual }).Sum()).format('0,0.00'));
-
-        cargarGraficaMensual();
-        cargarGraficaMensualCapitulo();
-
-        //$.unblockUI();
     }
 </script>

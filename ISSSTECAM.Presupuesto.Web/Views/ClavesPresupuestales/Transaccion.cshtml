@@ -169,14 +169,15 @@
                 </li>
             </ul>
         </nav>
-        <nav name="MenuTransfer7" id="IDMenuTransfer7" class="menu" style="display:none;">
-            <h5 class="P-Kevin">Monto Destino</h5>
-            <ul>
-                <li name="montoDestino">
-                    <textarea name="NCajaMontoDestino" id="CajaMontoDestino"> </textarea>
-                </li>
-            </ul>
-        </nav>
+        @*<nav name="MenuTransfer7" id="IDMenuTransfer7" class="menu" style="display:none;">
+                <h5 class="P-Kevin">Monto Destino</h5>
+                <ul>
+                    <li name="montoDestino">
+                        <textarea name="NCajaMontoDestino" id="CajaMontoDestino"> </textarea>
+                    </li>
+                </ul>
+            </nav>*@
+
 
         <nav name="MenuOculto2" id="MenuOculto2" class="menu" style="display:none;">
             <h5 class="P-Kevin">Oculto2</h5>
@@ -212,7 +213,8 @@
 
     </div>
     @*seccion media*@
-    <div>
+    <br>
+    <div class="col-md-6">
         <nav name="MenuTransfer4" id="IDMenuTransfer4" class="menu" style="display:none;">
             <h5 class="P-Kevin">Motivo</h5>
             <ul>
@@ -224,7 +226,7 @@
         <br>
         <br>
         <button id="EnviarTransfer" class="btn btn-success" onclick="Transferencia();" style="display:none">Transferir</button>
-        <br>
+
     </div>
 </div>
 
@@ -449,7 +451,7 @@
         document.getElementById('IDMenuTransfer4').style.display = 'inline';
         document.getElementById('IDMenuTransfer5').style.display = 'inline';
         document.getElementById('IDMenuTransfer6').style.display = 'inline';
-        document.getElementById('IDMenuTransfer7').style.display = 'inline';
+        //document.getElementById('IDMenuTransfer7').style.display = 'inline';
 
 
         document.getElementById('EnviarTransfer').style.display = 'inline';
@@ -463,7 +465,12 @@
 
         if (CajaMonto.value == ' ') {
             alert('Por favor ingrese un monto ')
-        } else if (CajaClave.value == ' ') {
+        }
+        //if (isNaN(formulario.edad.value)==true
+        else if (isNaN(CajaMonto.value) == true) {
+           alert('Por favor ingrese un monto valido')
+        }
+        else if (CajaClave.value == ' ') {
             alert('Por favor ingrese una clave')
         } else if (CajaMotivo.value == ' ') {
             alert('Por favor ingrese un motivo')
@@ -472,15 +479,18 @@
         } else {
             //alert("Monto: " + CajaMonto.value + "  Clave: " + CajaClave.value);
             //alert("El motivo es: " + CajaMotivo.value + "  Mes: " + CajaMes.value);
-           // alert("el mes es: " + ValorMes.textContent);
+            // alert("el mes es: " + ValorMes.textContent);
             var actionDataReducc = "{'reduccionMonto': '" + CajaMonto.value + "','reduccionClave':'" + CajaClave.value + "','reduccionMes':'" + ValorMes.textContent + "','reduccionMotivo':'" + CajaMotivo.value + "'}";
-             $.ajax({
+            $.ajax({
                 url: '@Url.Action("Reducciones", "ClavesPresupuestales")',
-                 data: actionDataReducc,
+                data: actionDataReducc,
                 dataType: "json",
                 type: "POST",
-                 contentType: "application/json; charset=utf-8",
-                 succes: function (msg) { console.log("msg", msg); },
+                contentType: "application/json; charset=utf-8",
+                success: function (msg) {
+                    console.log("msg", msg);
+                    document.getElementById('ModalReducc').style.display = 'inline';
+                },
                 error: function (result) {
                     alert("ERROR SEVERO, VUELVA A CARGAR LA PÁGINA" + result.status);
                 }
@@ -488,18 +498,19 @@
             //
             //Aqui colocaré la opcion del modal
             //alert(" La reducción se ha realizado con éxito :) ");
-            document.getElementById('ModalReducc').style.display = 'inline';
 
-        //document.getElementById('TxtRedu').style.display = 'none';
+            //document.getElementById('ModalReducc').style.display = 'inline';
 
-        //document.getElementById('IDMenuReduc1').style.display = 'none';
-        //document.getElementById('IDMenuReduc2').style.display = 'none';
-        //document.getElementById('IDMenuReduc3').style.display = 'none';
-        //document.getElementById('IDMenuReduc4').style.display = 'none';
+            //document.getElementById('TxtRedu').style.display = 'none';
 
-        //document.getElementById('EnviarReduc').style.display = 'none';
+            //document.getElementById('IDMenuReduc1').style.display = 'none';
+            //document.getElementById('IDMenuReduc2').style.display = 'none';
+            //document.getElementById('IDMenuReduc3').style.display = 'none';
+            //document.getElementById('IDMenuReduc4').style.display = 'none';
 
-        //document.getElementById('NavInitial').style.display = 'inline';
+            //document.getElementById('EnviarReduc').style.display = 'none';
+
+            //document.getElementById('NavInitial').style.display = 'inline';
         }
 
     }
@@ -525,22 +536,27 @@
         var CajaMesOrigen = document.getElementById('CajaOcultaMesOrigen');
 
         var CajaClaveDT = document.getElementById('CajaClaveDestinoT');
-        var CajaMontoDestino = document.getElementById('CajaMontoDestino');
+        //var CajaMontoDestino = document.getElementById('CajaMontoDestino');
         var CajaMesDestino = document.getElementById('CajaOcultaMesDestino');
         var CajaMotivo = document.getElementById('CajaMotivoT');
 
         if (CajaMontoOrigen.value == ' ') {
             alert('Por favor ingrese un monto de origen')
-        } else if (CajaClaveOT.value == ' ') {
+        } else if (isNaN(CajaMontoOrigen.value) == true) {
+            alert('Por favor ingrese un monto de origen valido')
+        }
+        else if (CajaClaveOT.value == ' ') {
             alert('Por favor ingrese una clave de origen')
         } else if (CajaMesOrigen.textContent == ' ') {
             alert('Por favor ingrese un mes de origen')
 
         } else if (CajaClaveDT.value == ' ') {
             alert('Por favor ingrese una clave de destino')
-        } else if (CajaMontoDestino.value == ' ') {
-            alert('Por favor ingrese un monto de destino')
-        } else if (CajaMesDestino.textContent == ' ') {
+        }
+        //else if (CajaMontoDestino.value == ' ') {
+        //    alert('Por favor ingrese un monto de destino')
+        //}
+        else if (CajaMesDestino.textContent == ' ') {
             alert('Por favor ingrese un mes de destino')
         }
 
@@ -548,21 +564,24 @@
             alert('Por favor ingrese el motivo de la transferencia')
         } else {
             //
-            var actionDataTransfer = "{'origenMonto': '" + CajaMontoOrigen.value + "','origenClave':'" + CajaClaveOT.value + "','origenMes':'" + CajaMesOrigen.textContent + "','destinoMonto':'" + CajaMontoDestino.value + "','destinoClave':'" + CajaClaveDT.value + "','destinoMes':'" + CajaMesDestino.textContent + "','motivoTransfer':'" + CajaMotivo.value + "'}";
+            var actionDataTransfer = "{'origenMonto': '" + CajaMontoOrigen.value + "','origenClave':'" + CajaClaveOT.value + "','origenMes':'" + CajaMesOrigen.textContent + /*"','destinoMonto':'" + CajaMontoDestino.value +*/ "','destinoClave':'" + CajaClaveDT.value + "','destinoMes':'" + CajaMesDestino.textContent + "','motivoTransfer':'" + CajaMotivo.value + "'}";
              $.ajax({
                 url: '@Url.Action("Transferencia", "ClavesPresupuestales")',
                  data: actionDataTransfer,
                 dataType: "json",
                 type: "POST",
                  contentType: "application/json; charset=utf-8",
-                 succes: function (msg) { console.log("msg", msg);},
+                 success: function (msg) {
+                     console.log("msg", msg);
+                     document.getElementById('ModalTransfer').style.display = 'inline';
+                 },
                 error: function (result) {
                     alert("ERROR SEVERO, VUELVA A CARGAR LA PÁGINA" + result.status);
                 }
             });
             //alert(" La transferencia se ha realizado con éxito :) ");
 
-            document.getElementById('ModalTransfer').style.display = 'inline';
+            //document.getElementById('ModalTransfer').style.display = 'inline';
 
         }
     }
@@ -575,7 +594,7 @@
         document.getElementById('IDMenuTransfer4').style.display = 'none';
         document.getElementById('IDMenuTransfer5').style.display = 'none';
         document.getElementById('IDMenuTransfer6').style.display = 'none';
-        document.getElementById('IDMenuTransfer7').style.display = 'none';
+        //document.getElementById('IDMenuTransfer7').style.display = 'none';
 
         document.getElementById('TxtTrans').style.display = 'none';
 

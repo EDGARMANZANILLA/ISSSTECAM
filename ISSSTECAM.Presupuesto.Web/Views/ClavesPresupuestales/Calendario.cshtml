@@ -314,7 +314,7 @@
 
         $.ajax({
             type: 'POST',
-            url: '@Url.Action("ListaCalendario", "ClavesPresupuestales")', //Aquí ira el nombre del metodo del cual recibiremos los datos
+            url: '@Url.Action("ObtenerClaves", "ClavesPresupuestales")', //Aquí ira el nombre del metodo del cual recibiremos los datos
             dataType: "json",
             returnType: 'json',
             success: function (resultado) {

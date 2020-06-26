@@ -172,7 +172,7 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
                     //obtiene las claves antes guardadas y las reasigna agrupandolas por clave presupuestal y sumando los que sean iguales
                     foreach (ClavesPresupuestales clave in claves)
                     {
-                      
+                        bool a = clavesAgrupadas.Contains(clave);
                         bool b = clavesAgrupadas.Exists(x => x.Clave == clave.Clave);
                    
                         if (b)
@@ -274,7 +274,7 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
         public JsonResult ObtenerClaves()
         {
             List<ClavesPresupuestales> claves =
-                Negocios.ClavesPresupuestalesNegocios.ObtenerClavesActivasPorAnio(2019).ToList();
+                Negocios.ClavesPresupuestalesNegocios.ObtenerClavesActivasPorAnio(DateTime.Now.Year).ToList();
 
             var clavesDTO = AutoMapper.Mapper.Map<IEnumerable<ClavesPresupuestales>, IEnumerable<ClavePresupuestalDTO>>(claves);
             Session["ClavesPresupuestales"] = clavesDTO;

@@ -10,8 +10,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ISSSTECAM.Presupuesto.Entidades.DTO;
-using System.Collections;
-using Newtonsoft.Json;
 
 namespace ISSSTECAM.Presupuesto.Web.Controllers
 {
@@ -62,7 +60,7 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
              //Transaccion nuevaTransaccion = new Transaccion();
              //bandera = nuevaTransaccion.Reduccion(monto, clavePresupuestal, mes);
 
-            bandera = Negocios.ClavesPresupuestalesNegocios.Reducir( clavePresupuestal, mes, monto, anio);
+            bandera = Negocios.ClavesPresupuestalesNegocios.Reducir(monto, clavePresupuestal, mes, anio);
 
 
             if (bandera)
@@ -94,13 +92,10 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
 
 
 
-        public JsonResult Transferencia( string origenClave, int origenMes, decimal origenMonto,/*decimal destinoMonto,*/ string destinoClave, int destinoMes, string motivoTransfer/*el mes debe venir en int*/)
+        public JsonResult Transferencia(decimal origenMonto, string origenClave, int origenMes, /*decimal destinoMonto,*/ string destinoClave, string destinoMes, string motivoTransfer/*el mes debe venir en int*/)
         {
-            bool bandera= false;         
+            bool bandera= false;
             int anio = 2019;
-
-
-
             //datos para reducir que se obtienen como parametros
             decimal monto1 = 1000000;
             string clavePresupuestal1 = "21120283626211C016000J186038910780L415A4211";
@@ -111,36 +106,35 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
             string clavePresupuestal2 = "21120283626311C016000J187039010790L415A4511";
             int mes2 = 12;
 
-
             string motivo = "";
 
 
 
             //La bandera sirve como indicador para saber si fue correcta y todo salio bien en el metodo para poder seguir al siguiente paso
-            bandera = Negocios.ClavesPresupuestalesNegocios.Reducir(origenClave, origenMes, origenMonto, anio);
+            bandera = Negocios.ClavesPresupuestalesNegocios.Reducir(monto1, clavePresupuestal1, mes1, anio);
 
             //Se procede a la transferencia si todo salio bien en la reduccion
             if (bandera)
             {   
-                bandera = Negocios.ClavesPresupuestalesNegocios.Transferir(destinoClave, destinoMes, origenMonto , anio); 
+                bandera = Negocios.ClavesPresupuestalesNegocios.Transferir(monto1, clavePresupuestal2, mes2, anio); 
             }
             if (bandera)
             {
                 //obtener el id de la clave remitente
-                var claveRemitente = Negocios.ClavesPresupuestalesNegocios.ObtenerPorUnicaClave(anio, origenClave);
+                var claveRemitente = Negocios.ClavesPresupuestalesNegocios.ObtenerPorUnicaClave(anio, clavePresupuestal1);
 
                 //obtener el id de la clave remitente
-                var claveDestino = Negocios.ClavesPresupuestalesNegocios.ObtenerPorUnicaClave(anio, destinoClave);
+                var claveDestino = Negocios.ClavesPresupuestalesNegocios.ObtenerPorUnicaClave(anio, clavePresupuestal2);
 
-                //Guarda el registro de la transaccion
+
                 Transacciones nueva = new Transacciones();
                 nueva.Fecha = DateTime.Now;
                 nueva.IdClavePresupuestalRemitente = claveRemitente.Id;
-                nueva.IdMesRemitente = origenMes;
+                nueva.IdMesRemitente = 1;
                 nueva.IdClavePresupuestalDestinataria = claveDestino.Id;
-                nueva.IdMesDestinataria = destinoMes;
-                nueva.Monto = origenMonto;
-                nueva.Motivo = motivoTransfer;
+                nueva.IdMesDestinataria = 12;
+                nueva.Monto = monto1;
+                nueva.Motivo = "Compras";
                 nueva.IdTipoDeTransaccion = 2;
                 nueva.Activo = true;
 
@@ -150,7 +144,7 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
             }
             else 
             {
-                 Negocios.ClavesPresupuestalesNegocios.Reducir( destinoClave, destinoMes, origenMonto, anio);
+                 Negocios.ClavesPresupuestalesNegocios.Reducir(monto1, clavePresupuestal2, mes2, anio);
                  bandera = false;
             }
 
@@ -161,53 +155,7 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
 
 
 
-        [HttpPost]
-        public JsonResult TransferirDeMuchosAUno(List<DatosDeClaves> cuentasRemitentes, DatosDeClaves cuentaDestino, string motivo) {
-
-            bool bandera = false;
-            int anio = 2019 ;
-            JsonResult exitoDeTransferencias = null;
-            Decimal sumaAtransferir = cuentasRemitentes.Sum(x => x.monto);
-
-            try
-            {
-
-                foreach (DatosDeClaves remitente in cuentasRemitentes)
-                {
-                    //Ejecutar varias transferencias
-                    exitoDeTransferencias = Transferencia(remitente.clave, remitente.mes, remitente.monto, cuentaDestino.clave, cuentaDestino.mes, motivo);
-
-                }
-
-               
-                   
-
-
-
-            }
-            catch (Exception E) 
-            {
-                return Json("Hubo un problema intentelo de nuevo", JsonRequestBehavior.AllowGet);
-            }
-
-
-
-
-            return exitoDeTransferencias;
-        }
-
-
-
     }
-
-
-    public class DatosDeClaves
-    {
-        public string clave { get; set; }
-        public int mes { get; set; }
-        public decimal monto { get; set; }
-    }
-
 
 
 

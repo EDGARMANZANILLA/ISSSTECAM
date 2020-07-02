@@ -152,9 +152,20 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
         }
 
 
+        #region
+        [HttpPost]
+        public JsonResult ClavesPrueba()
+        {
+            //bool bandera;
+            List<string> listaClaves = new List<string>();
 
+            listaClaves.Add("21120283626211C016000J186038910780L415A4211");
+            listaClaves.Add("21120283626311C016000J187039010790L415A4511");
+            listaClaves.Add("21120283626211C016000J187039010790L415A4521");
 
-
+            return Json(listaClaves, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
     }
 
 

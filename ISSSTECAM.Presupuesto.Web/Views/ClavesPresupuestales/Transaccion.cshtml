@@ -10,14 +10,17 @@
 
 
 @*//*@
+@*<select class="js-data-example-ajax"></select>*@
+<textarea name="some" class="js-data-example-ajax"> </textarea>
 <nav class="Navigate" id="NavInitial">
     <h2 id="TxtInicial">Selecciona la opción que desea</h2>
     <br>
+
     <button title="Reducción" class="btn-T" id="Reduc" onclick="ProcReduc();" style="display:inline;position:center;margin-left:5%">Reduccion</button>
     <button title="Transferir" class="btn-T" id="Transfer" onclick="ProcTransfer();" style="display:inline;position:center;margin-left:5%">Transferencia</button>
 </nav>
 @*/SECCION DEL MENU DE REDUCCIÓN/*@
-<div class="col-md-6">
+<div class="Centrar" @*class="col-md-6"*@>
     <h3 id="TxtRedu" style="display:none;">Introduzca los siguientes datos para realizar la reducción</h3>
     <nav name="MenuReduc1" id="IDMenuReduc1" class="menu" style="display:none;">
         <h5 class="P-Kevin">Monto</h5>
@@ -82,7 +85,7 @@
 @*/aqui va el modal/*@
 <div id="ModalReducc" style="display:none;height:900px;" class="modal-backdrop">
     <div class="modal-content" style="width:400px;left:25%;margin-right:10%;margin-left:10%;margin-top:10%;height:auto;">
-        <img src="@Url.Content("~/Content/images/Escudo_palomita.png")"  class="LOGOS"/>
+        <img src="@Url.Content("~/Content/images/Escudo_palomita.png")" class="LOGOS" />
         <div class="modal-header Popup" id="HeaderModal" style="height:auto;text-align:center;">
             <h2>El proceso se ha realizado éxitosamente</h2>
             <button title="Siguiente" class="btn btn-success" data-backdrop="false" onclick="HideModalReducc();;" style="margin-right:45%;margin-left:45%">Salir</button>
@@ -104,9 +107,8 @@
 
 @*/SECCION DEL MENU DE TRANSFERENCIA/*@
 
-<div class="col-md-6">
+<div class="col-md-6" style="margin-left: 30%;">
     <h3 id="TxtTrans" style="display:none;">Introduzca los siguientes datos para realizar la transferencia</h3>
-    <br>
     <br>
     <div class="col-md-6" id="Origen">
         <nav name="MenuTransfer2" id="IDMenuTransfer2" class="menu" style="display:none;">
@@ -260,11 +262,12 @@
         /*float: left;*/
         margin-left: 31.25%;
         margin-right: 31.25%;
-       /* z-index: 9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999;*/
+        /* z-index: 9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999;*/
     }
+
     .modal-backdrop {
         background-color: rgba(00,00,00,0.5);
-       /* display: none;*/
+        /* display: none;*/
         width: 100%;
         z-index: 999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999;
         height: 100%;
@@ -276,10 +279,10 @@
     .modal-content {
         font-weight: bold;
         color: black;
-       /* z-index: 999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999;*/
+        /* z-index: 999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999;*/
     }
     /* /////////////////////////////////////////////////////////////////////////*/
-   
+
     /* ///////////////sección para la lista de meses/////////////////////////////////////////////////////*/
     .listado ul {
         list-style: none;
@@ -346,15 +349,19 @@
     textarea {
         width: 100px;
         font-family: Arial;
-        font-size: small;
+        font-size: medium;
         background-color: transparent;
         color: white;
-        height: 21px;
+        height: 28px;
         resize: none;
         border: none;
         padding-bottom: 0px;
         padding-top: 3px;
         padding-left: 4px;
+    }
+
+    .Centrar {
+        margin-left: 35%;
     }
     /*/////////////////////////////////////////////////////////////////////////////////*/
     .menu ul li {
@@ -653,7 +660,28 @@
     });
 
 
+    @*$('.js-data-example-ajax').select2({
+        //ajax: {
+        //    url: 'https://api.github.com/search/repositories',
+        //    dataType: 'json'
+        //    // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
+        //}
+        ajax:{
+                url: '@Url.Action("ClavesPrueba", "ClavesPresupuestales")',
+                  type: "POST",
+                dataType: "json"
+            }
 
-
-
+    });*@
+    $('.js-data-example-ajax').select2({
+        ajax: {
+            url:'@Url.Action("ClavesPrueba", "ClavesPresupuestales")',
+            processResults: function (data) {
+                // Transforms the top-level key of the response object from 'items' to 'results'
+                return {
+                    results: data.items
+                };
+            }
+        }
+    });
 </script>

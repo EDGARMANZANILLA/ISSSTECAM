@@ -10,8 +10,14 @@
 
 
 @*//*@
-@*<select class="js-data-example-ajax"></select>*@
-<textarea name="some" class="js-data-example-ajax"> </textarea>
+@*class="js-data-example-ajax"*@
+<select id="SelectClave1">
+    <option>mexico</option>
+    <option>belgica</option>
+    <option>japon</option>
+    <option>alemania</option>
+</select>
+@*<textarea name="some" class="select2-container"> </textarea>*@
 <nav class="Navigate" id="NavInitial">
     <h2 id="TxtInicial">Selecciona la opción que desea</h2>
     <br>
@@ -37,6 +43,21 @@
                 <textarea name="NCajaClaveReduccion" id="CajaClaveR"> </textarea>
             </li>
         </ul>
+        @*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*@
+        @*@foreach (string item in Model)
+        {
+
+    <tr>
+        <td>@item</td>
+        <td class="tablainput"><input class="single-checkbox" value="@item" id="@item" type="checkbox"></td>
+    </tr>}*@
+@*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*@
+        @*<select id="SelectClaveReducc">
+            <option>Clave1</option>
+            <option>Clave2</option>
+            <option>Clave3</option>
+            <option>Clave4</option>
+        </select>*@
     </nav>
     <nav name="MenuReduc3" id="IDMenuReduc3" class="menu" style="display:none;">
         <h5 class="P-Kevin">Motivo</h5>
@@ -673,7 +694,7 @@
             }
 
     });*@
-    $('.js-data-example-ajax').select2({
+    @*$('.js-data-example-ajax').select2({
         ajax: {
             url:'@Url.Action("ClavesPrueba", "ClavesPresupuestales")',
             processResults: function (data) {
@@ -683,5 +704,11 @@
                 };
             }
         }
+    });*@
+
+    $(document).ready(function () {
+        $('#SelectClave1').select2();
     });
+     //Solicitar a Edgar, que me mande las claves del mismo modo que me mandaba los conceptos en NominaReporte, para 
+    // pintarlos en los select usando "Select2" para la autoayuda.
 </script>

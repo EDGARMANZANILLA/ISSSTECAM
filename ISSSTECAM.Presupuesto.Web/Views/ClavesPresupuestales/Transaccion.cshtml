@@ -1,22 +1,17 @@
-﻿
+﻿@model List<string>
 @section titulo{
     <h2>Transacción</h2>
 }
 
 <h3>Transacción</h3>
 
-
-
-
-
 @*//*@
 @*class="js-data-example-ajax"*@
-<select id="SelectClave1">
-    <option>mexico</option>
-    <option>belgica</option>
-    <option>japon</option>
-    <option>alemania</option>
-</select>
+@*<select id="SelectClave1">
+    @foreach (string item in Model)
+    { <option value="@item" id="@item">@item</option>}
+</select>*@
+
 @*<textarea name="some" class="select2-container"> </textarea>*@
 <nav class="Navigate" id="NavInitial">
     <h2 id="TxtInicial">Selecciona la opción que desea</h2>
@@ -36,29 +31,23 @@
             </li>
         </ul>
     </nav>
-    <nav name="MenuReduc2" id="IDMenuReduc2" class="menu" style="display:none;">
-        <h5 class="P-Kevin">Clave</h5>
-        <ul>
-            <li name="clave1">
-                <textarea name="NCajaClaveReduccion" id="CajaClaveR"> </textarea>
-            </li>
-        </ul>
-        @*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*@
-        @*@foreach (string item in Model)
+    @*///////////////////////////////////////////////////////////////////*@
+<nav name="MenuReduc2" id="IDMenuReduc2" class="menu" style="display:none;">
+    <h5 class="P-Kevin">Clave</h5>
+    @*<ul>
+        <li name="clave1">
+            <textarea name="NCajaClaveReduccion" id="CajaClaveR"> </textarea>
+        </li>
+    </ul>*@
+    <select id="CajaClaveR">
+        @*<option></option>*@
+        @foreach (string item in Model)
         {
-
-    <tr>
-        <td>@item</td>
-        <td class="tablainput"><input class="single-checkbox" value="@item" id="@item" type="checkbox"></td>
-    </tr>}*@
-@*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*@
-        @*<select id="SelectClaveReducc">
-            <option>Clave1</option>
-            <option>Clave2</option>
-            <option>Clave3</option>
-            <option>Clave4</option>
-        </select>*@
-    </nav>
+        <option value="@item" id="@item">@item</option>
+}
+    </select>
+    @*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*@
+</nav>
     <nav name="MenuReduc3" id="IDMenuReduc3" class="menu" style="display:none;">
         <h5 class="P-Kevin">Motivo</h5>
         <ul>
@@ -132,14 +121,21 @@
     <h3 id="TxtTrans" style="display:none;">Introduzca los siguientes datos para realizar la transferencia</h3>
     <br>
     <div class="col-md-6" id="Origen">
+        @*////////////////////////////////////////////////////////////////////////////////////////////////////////////////*@
         <nav name="MenuTransfer2" id="IDMenuTransfer2" class="menu" style="display:none;">
             <h5 class="P-Kevin">Clave Origen</h5>
-            <ul>
+            @*<ul>
                 <li name="claveOrigen">
                     <textarea name="NCajaClaveOrigenTransfer" id="CajaClaveOrigenT"> </textarea>
                 </li>
-            </ul>
+            </ul>*@
+            <select id="CajaClaveOrigenT">
+                @foreach (string item in Model)
+                {
+        <option value="@item" id="@item">@item</option>}
+            </select>
         </nav>
+        @*///////////////////////////////////////////////////////////////////////////////////////////////////////////////*@
         <nav name="MenuTransfer1" id="IDMenuTransfer1" class="menu" style="display:none;">
             <h5 class="P-Kevin">Monto Origen</h5>
             <ul>
@@ -183,14 +179,20 @@
 
     </div>
     <div class="col-md-6" id="Destino">
+        @*///////////////////////////////////////////////////////////////////////////////*@
         <nav name="MenuTransfer3" id="IDMenuTransfer3" class="menu" style="display:none;">
 
             <h5 class="P-Kevin">Clave Destino</h5>
-            <ul>
+            @*<ul>
                 <li name="claveDestino">
                     <textarea name="NCajaClaveDestinoTransfer" id="CajaClaveDestinoT"> </textarea>
                 </li>
-            </ul>
+            </ul>*@
+            <select id="CajaClaveDestinoT">
+                @foreach (string item in Model)
+                {
+        <option value="@item" id="@item">@item</option>}
+            </select>
         </nav>
         @*<nav name="MenuTransfer7" id="IDMenuTransfer7" class="menu" style="display:none;">
                 <h5 class="P-Kevin">Monto Destino</h5>
@@ -385,6 +387,22 @@
         margin-left: 35%;
     }
     /*/////////////////////////////////////////////////////////////////////////////////*/
+    .menu select {
+        width: 100px;
+        font-family: Arial;
+        font-size: medium;
+        background-color: rgb(11, 66, 167);
+        color: white;
+    }
+        .menu select option {
+            width: 100px;
+            font-family: Arial;
+            font-size: medium;
+            background-color: rgb(11, 66, 167);
+            color: white;
+            text-decoration-color:red;
+        }
+
     .menu ul li {
         display: inline-block;
         background-color: rgb(69, 110, 185);
@@ -490,6 +508,8 @@
         var CajaMotivo = document.getElementById('CajaMotivoR');
         //var CajaMes = document.getElementById('CajaMesR');
         var ValorMes = document.getElementById('CajaMesValue');
+
+        //alert("El value de CajaClave es: " + CajaClave.value);
 
         if (CajaMonto.value == ' ') {
             alert('Por favor ingrese un monto ')
@@ -681,34 +701,26 @@
     });
 
 
-    @*$('.js-data-example-ajax').select2({
-        //ajax: {
-        //    url: 'https://api.github.com/search/repositories',
-        //    dataType: 'json'
-        //    // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
-        //}
-        ajax:{
-                url: '@Url.Action("ClavesPrueba", "ClavesPresupuestales")',
-                  type: "POST",
-                dataType: "json"
-            }
-
-    });*@
-    @*$('.js-data-example-ajax').select2({
-        ajax: {
-            url:'@Url.Action("ClavesPrueba", "ClavesPresupuestales")',
-            processResults: function (data) {
-                // Transforms the top-level key of the response object from 'items' to 'results'
-                return {
-                    results: data.items
-                };
-            }
-        }
-    });*@
+    //$(document).ready(function () {
+    //    $('#SelectClave1').select2();
+    //});
 
     $(document).ready(function () {
-        $('#SelectClave1').select2();
+        $('#CajaClaveR').select2();
     });
-     //Solicitar a Edgar, que me mande las claves del mismo modo que me mandaba los conceptos en NominaReporte, para 
+
+    $(document).ready(function () {
+        $('#CajaClaveOrigenT').select2();
+    });
+
+    $(document).ready(function () {
+        $('#CajaClaveDestinoT').select2();
+    });
+
+
+
+
+
+     //Solicitar a Edgar, que me mande las claves del mismo modo que me mandaba los conceptos en NominaReporte, para
     // pintarlos en los select usando "Select2" para la autoayuda.
 </script>

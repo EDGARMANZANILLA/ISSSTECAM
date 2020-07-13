@@ -23,13 +23,28 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
 
         public ActionResult Transaccion()
         {
+            //Esta lista proviene de la DB
             List<string> claves = new List<string>();
-            //Esta lista es un Ejemplo
+           
 
+            //extrae la tabla ClavesPresupuestales filtrada por anio
+            var listaDeClaves = Negocios.ClavesPresupuestalesNegocios.ObtenerClavesActivasPorAnio(2019);
+
+            //filtramos solo las claves de lo extraido
+            foreach (var item  in listaDeClaves)
+            {
+                claves.Add(item.Clave);
+
+            }
+
+            
+          
+            /*
             claves.Add("21120283626211C016000J186038910780L415A4211");
             claves.Add("21120283626311C016000J187039010790L415A4511");
             claves.Add("21120283626211C016000J187039010790L415A4521");
             claves.Add("007");
+            */
 
             return PartialView(claves);
         }

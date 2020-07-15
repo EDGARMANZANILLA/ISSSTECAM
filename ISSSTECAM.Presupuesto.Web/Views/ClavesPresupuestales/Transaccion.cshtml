@@ -31,6 +31,7 @@
             </li>
         </ul>
     </nav>
+    <br>
     @*///////////////////////////////////////////////////////////////////*@
 <nav name="MenuReduc2" id="IDMenuReduc2" class="menu" style="display:none;">
     <h5 class="P-Kevin">Clave</h5>
@@ -64,6 +65,7 @@
             </li>
         </ul>
     </nav>
+    <br>
     <nav name="MenuReduc4" id="IDMenuReduc4" class="listado" style="display:none;">
         <h5 class="P-Kevin">Mes</h5>
         <ul>
@@ -114,12 +116,11 @@
     </div>
 </div>
 
-
 @*/SECCION DEL MENU DE TRANSFERENCIA/*@
 
 <div class="col-md-6" style="margin-left: 30%;">
-    <h3 id="TxtTrans" style="display:none;">Introduzca los siguientes datos para realizar la transferencia</h3>
-    <br>
+    <h3 id="TxtTrans" style="display:none;">Introduzca los datos para la transferencia</h3>
+    @*<br>*@
     <div class="col-md-6" id="Origen">
         @*////////////////////////////////////////////////////////////////////////////////////////////////////////////////*@
         <nav name="MenuTransfer2" id="IDMenuTransfer2" class="menu" style="display:none;">
@@ -304,14 +305,15 @@
         color: black;
         /* z-index: 999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999;*/
     }
-    /* /////////////////////////////////////////////////////////////////////////*/
 
     /* ///////////////sección para la lista de meses/////////////////////////////////////////////////////*/
     .listado ul {
         list-style: none;
         margin: 0;
         padding: 0;
-        width: 105px;
+        /* width: 105px;*/
+        width: 240px;
+        background-color: rgb(69, 110, 185);
     }
 
         .listado ul a {
@@ -320,7 +322,8 @@
             color: #fff;
             text-decoration: none;
             font-weight: 300;
-            font-size: 12px;
+            /* font-size: 12px;*/
+            font-size: large;
             padding: 0px;
             text-transform: uppercase;
             letter-spacing: 0px;
@@ -332,7 +335,10 @@
     }
 
         .listado ul li {
-            background-color: rgb(69, 110, 185);
+           /* background-color: rgb(69, 110, 185);*/
+         /*   background-color: white;*/
+        /*    border-radius: 2px;
+            border-color: dimgrey;*/
             position: relative;
             float: left;
             margin: 0;
@@ -354,7 +360,8 @@
 
             .listado ul ul li {
                 float: none;
-                width: 100px;
+                /*width: 100px;*/
+                width: 240px;
                 z-index: 9999999;
             }
 
@@ -370,14 +377,22 @@
         }
 
     textarea {
-        width: 110px;
+        /*width: 110px;*/
+        width: 240px;
         font-family: Arial;
-        font-size: medium;
-        background-color: transparent;
-        color: white;
-        height: 28px;
+        /*font-size: medium;*/
+        font-size: large;
+        /*background-color: transparent;
+        color: white;*/
+        background-color: white;
+        color: black;
+        /*     height: 28px;*/
+        border-radius: 2px;
+    
+        border-color: grey;
+        /**/
+        height: 34px;
         resize: none;
-        border: none;
         padding-bottom: 0px;
         padding-top: 3px;
         padding-left: 4px;
@@ -385,35 +400,40 @@
 
     .Centrar {
         margin-left: 35%;
+        height:0;
     }
     /*/////////////////////////////////////////////////////////////////////////////////*/
     .menu select {
-        width: 110px;
+        width: 260px;
         font-family: Arial;
-        font-size: medium;
+        font-size: large;
         background-color: rgb(11, 66, 167);
-        color: red;
+        height: 34px;
     }
         .menu select option {
-            width: 110px;
+            width: 240px;
             font-family: Arial;
-            font-size: medium;
+            font-size: large;
             background-color: rgb(11, 66, 167);
-            color: red;
+            height: 34px;
         }
 
     .menu ul li {
         display: inline-block;
-        background-color: rgb(69, 110, 185);
+        /* background-color: rgb(69, 110, 185);*/
+        background-color: white;
+        border-radius:3px;
+        border-color:dimgrey;
+     
     }
 
     .menu ul {
         list-style: none;
         margin: 0;
         padding: 0;
-        width: 105px;
+         width: 105px;
+        width: 240px;
     }
-
         .menu ul a {
             display: block;
             cursor: pointer;
@@ -421,6 +441,7 @@
             text-decoration: none;
             font-weight: 300;
             font-size: 12px;
+           font-size:large;
             padding: 0px;
             text-transform: uppercase;
             letter-spacing: 0px;
@@ -430,7 +451,6 @@
         z-index: 99999999999999999;
         padding-left: 8px;
     }
-
         .menu ul li {
             position: relative;
             float: left;
@@ -438,11 +458,9 @@
             padding: 0;
             z-index: 99;
         }
-
             .menu ul li:hover {
                 background: rgb(128, 128, 128);
             }
-
         .menu ul ul {
             display: none;
             position: absolute;
@@ -453,7 +471,8 @@
 
             .menu ul ul li {
                 float: none;
-                width: 100px;
+                  width: 100px;
+                width: 240px;
                 z-index: 9999999999999999;
             }
 

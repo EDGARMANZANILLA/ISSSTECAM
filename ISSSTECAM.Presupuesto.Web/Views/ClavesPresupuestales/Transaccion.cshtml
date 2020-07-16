@@ -41,7 +41,7 @@
         </li>
     </ul>*@
     <select id="CajaClaveR">
-        @*<option></option>*@
+        <option></option>
         @foreach (string item in Model)
         {
         <option value="@item" id="@item">@item</option>
@@ -130,11 +130,13 @@
                     <textarea name="NCajaClaveOrigenTransfer" id="CajaClaveOrigenT"> </textarea>
                 </li>
             </ul>*@
-            <select id="CajaClaveOrigenT">
-                @foreach (string item in Model)
-                {
-        <option value="@item" id="@item">@item</option>}
-            </select>
+        <select id="CajaClaveOrigenT">
+            <option></option>
+            @foreach (string item in Model)
+            {
+        <option value="@item" id="@item">@item</option>
+}
+        </select>
         </nav>
         @*///////////////////////////////////////////////////////////////////////////////////////////////////////////////*@
         <nav name="MenuTransfer1" id="IDMenuTransfer1" class="menu" style="display:none;">
@@ -189,11 +191,13 @@
                     <textarea name="NCajaClaveDestinoTransfer" id="CajaClaveDestinoT"> </textarea>
                 </li>
             </ul>*@
-            <select id="CajaClaveDestinoT">
-                @foreach (string item in Model)
-                {
-        <option value="@item" id="@item">@item</option>}
-            </select>
+        <select id="CajaClaveDestinoT">
+            <option></option>
+            @foreach (string item in Model)
+            {
+        <option value="@item" id="@item">@item</option>
+}
+        </select>
         </nav>
         @*<nav name="MenuTransfer7" id="IDMenuTransfer7" class="menu" style="display:none;">
                 <h5 class="P-Kevin">Monto Destino</h5>
@@ -724,15 +728,27 @@
     //});
 
     $(document).ready(function () {
-        $('#CajaClaveR').select2();
+        $('#CajaClaveR').select2({
+            placeholder: "Ingrese la clave",
+            allowClear: true,
+            minimumInputLength: 4
+        });
     });
 
     $(document).ready(function () {
-        $('#CajaClaveOrigenT').select2();
+        $('#CajaClaveOrigenT').select2({
+            placeholder: "Ingrese la clave",
+            allowClear: true,
+            minimumInputLength: 4
+        });
     });
 
     $(document).ready(function () {
-        $('#CajaClaveDestinoT').select2();
+        $('#CajaClaveDestinoT').select2({
+            placeholder: "Ingrese la clave",
+            allowClear: true,
+            minimumInputLength: 4
+        });
     });
 
 

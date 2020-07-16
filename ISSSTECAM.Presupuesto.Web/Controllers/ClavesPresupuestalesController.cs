@@ -24,7 +24,7 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
         public ActionResult Transaccion()
         {
             //Esta lista proviene de la DB
-            List<string> claves = new List<string>();
+            List<string> clavesT = new List<string>();
            
 
             //extrae la tabla ClavesPresupuestales filtrada por anio
@@ -33,12 +33,9 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
             //filtramos solo las claves de lo extraido
             foreach (var item  in listaDeClaves)
             {
-                claves.Add(item.Clave);
+                clavesT.Add(item.Clave);
 
             }
-
-            
-          
             /*
             claves.Add("21120283626211C016000J186038910780L415A4211");
             claves.Add("21120283626311C016000J187039010790L415A4511");
@@ -46,13 +43,23 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
             claves.Add("007");
             */
 
-            return PartialView(claves);
+            return PartialView(clavesT);
         }
 
         public ActionResult Calendario()
         {
-    
-            return PartialView();
+            List<string> claves = new List<string>();
+
+            claves.Add("14470459");
+            claves.Add("14470458");
+            claves.Add("14470457");
+            claves.Add("14470456");
+            claves.Add("14470455");
+            claves.Add("14470454");
+            claves.Add("14470453");
+
+            return PartialView(claves);
+            //return PartialView();
         }
 
 
@@ -175,20 +182,21 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
         }
 
 
-        #region
+        //#region
         //[HttpPost]
-        //public JsonResult ClavesPrueba()
+        //public JsonResult Probando()
         //{
         //    //bool bandera;
         //    List<string> listaClaves = new List<string>();
 
-        //    listaClaves.Add("21120283626211C016000J186038910780L415A4211");
-        //    listaClaves.Add("21120283626311C016000J187039010790L415A4511");
-        //    listaClaves.Add("21120283626211C016000J187039010790L415A4521");
+        //    listaClaves.Add("1996");
+        //    listaClaves.Add("00435");
+        //    listaClaves.Add("1447");
+        //    listaClaves.Add("007");
 
         //    return Json(listaClaves, JsonRequestBehavior.AllowGet);
         //}
-        #endregion
+        //#endregion
     }
 
 

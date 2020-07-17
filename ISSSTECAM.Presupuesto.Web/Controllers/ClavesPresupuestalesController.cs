@@ -24,7 +24,7 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
         public ActionResult Transaccion()
         {
             //Esta lista proviene de la DB
-            List<string> clavesT = new List<string>();
+            List<string> claves = new List<string>();
            
 
             //extrae la tabla ClavesPresupuestales filtrada por anio
@@ -33,7 +33,7 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
             //filtramos solo las claves de lo extraido
             foreach (var item  in listaDeClaves)
             {
-                clavesT.Add(item.Clave);
+                claves.Add(item.Clave);
 
             }
             /*
@@ -43,22 +43,22 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
             claves.Add("007");
             */
 
-            return PartialView(clavesT);
+            return PartialView(claves);
         }
 
         public ActionResult Calendario()
         {
-            List<string> claves = new List<string>();
+            List<string> clavesC = new List<string>();
 
-            claves.Add("14470459");
-            claves.Add("14470458");
-            claves.Add("14470457");
-            claves.Add("14470456");
-            claves.Add("14470455");
-            claves.Add("14470454");
-            claves.Add("14470453");
+            clavesC.Add("14470459");
+            clavesC.Add("14470458");
+            clavesC.Add("14470457");
+            clavesC.Add("14470456");
+            clavesC.Add("14470455");
+            clavesC.Add("14470454");
+            clavesC.Add("14470453");
 
-            return PartialView(claves);
+            return PartialView(clavesC);
             //return PartialView();
         }
 

@@ -10,7 +10,7 @@
     <div class="pull-right">
 
         <!-- <button class="btn btn-success" id="recargar">Recargar</button> -->
-        @*ESTE BOTON SIRVE PARA EJECUTIR LA FUNCIÓN CON LA QUE POSIBLEMENTE SE PUEDAN PINTAR LOS DATOS DEL CALENDARIO*@
+        @*ESTE BOTON SIRVE PARA EJECUTAR LA FUNCIÓN CON LA QUE POSIBLEMENTE SE PUEDAN PINTAR LOS DATOS DEL CALENDARIO*@
         <button class="btn btn-success" id="Pintar" onclick="PintarCalendario();">MOSTRAR CALENDARIO</button>
     </div>
 </div>
@@ -40,7 +40,6 @@
         Seleccione para buscar por partida.
         <input id="Check" type="checkbox" onclick="ShowSelect2()">
     </div>
-
     @*@foreach (string item in Model)
     {<option value="@item" id="@item">@item</option>
         }*@
@@ -101,7 +100,7 @@
     }
 
     select {
-        width: 260px;
+        width: 300px;
         font-family: Arial;
         font-size: large;
         background-color: rgb(11, 66, 167);
@@ -109,7 +108,7 @@
     }
 
         select option {
-            width: 240px;
+            width: 280px;
             font-family: Arial;
             font-size: large;
             background-color: rgb(11, 66, 167);
@@ -386,9 +385,17 @@
 
     $(document).ready(function () {
         $('#CajaClaveSearch').select2({
-            placeholder: "Ingrese la partida...",
+            placeholder: "Ingrese los ultimos 4 digitos de la clave",
             allowClear: true,
-            minimumInputLength: 3
+            minimumInputLength: 4
+            //,
+            //language: {
+            //    "Please": "Por favor",
+            //    "enter": "ingrese",
+            //    "or": "o",
+            //    "more": "más",
+            //    "characters": "carácteres"
+            //}
         });
     });
 
@@ -397,15 +404,4 @@
         document.getElementById('Check').style.display = 'none';
     }
 
-    @*$('#CajaClaveR').select2({
-        ajax: {
-            url:  '@Url.Action("Probando", "ClavesPresupuestales")',
-            processResults: function (data) {
-                // Transforms the top-level key of the response object from 'items' to 'results'
-                return {
-                    results: data.items
-                };
-            }
-        }
-    });*@
 </script>

@@ -23,49 +23,21 @@
 @*/SECCION DEL MENU DE REDUCCIÓN/*@
 <div class="Centrar" @*class="col-md-6"*@>
     <h3 id="TxtRedu" style="display:none;">Introduzca los siguientes datos para realizar la reducción</h3>
-    <nav name="MenuReduc1" id="IDMenuReduc1" class="menu" style="display:none;">
-        <h5 class="P-Kevin">Monto</h5>
-        <ul>
-            <li name="monto1">
-                <textarea name="NCajaMontoReduccion" id="CajaMontoR"> </textarea>
-            </li>
-        </ul>
+    <nav name="MenuReduc2" id="IDMenuReduc2" class="menu" style="display:none;">
+        <h5 class="P-Kevin">Clave</h5>
+        @*<ul>
+                <li name="clave1">
+                    <textarea name="NCajaClaveReduccion" id="CajaClaveR"> </textarea>
+                </li>
+            </ul>*@
+        <select id="CajaClaveR">
+            <option></option>
+            @foreach (string item in Model)
+            {<option value="@item" id="@item">@item</option>}
+        </select>
     </nav>
-    <br>
+    @*<br>*@
     @*///////////////////////////////////////////////////////////////////*@
-<nav name="MenuReduc2" id="IDMenuReduc2" class="menu" style="display:none;">
-    <h5 class="P-Kevin">Clave</h5>
-    @*<ul>
-        <li name="clave1">
-            <textarea name="NCajaClaveReduccion" id="CajaClaveR"> </textarea>
-        </li>
-    </ul>*@
-    <select id="CajaClaveR">
-        <option></option>
-        @foreach (string item in Model)
-        {
-        <option value="@item" id="@item">@item</option>
-}
-    </select>
-    @*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*@
-</nav>
-    <nav name="MenuReduc3" id="IDMenuReduc3" class="menu" style="display:none;">
-        <h5 class="P-Kevin">Motivo</h5>
-        <ul>
-            <li name="motivo1">
-                <textarea name="NCajaMotivoReduccion" id="CajaMotivoR"> </textarea>
-            </li>
-        </ul>
-    </nav>
-    <nav name="Prueba" id="Prueba" class="menu" style="display:none;">
-        <h5 class="P-Kevin">Prueba</h5>
-        <ul>
-            <li name="Prueba1">
-                <textarea name="prueba2" id="CajaMesValue" readonly="readonly"> </textarea>
-            </li>
-        </ul>
-    </nav>
-    <br>
     <nav name="MenuReduc4" id="IDMenuReduc4" class="listado" style="display:none;">
         <h5 class="P-Kevin">Mes</h5>
         <ul>
@@ -88,6 +60,34 @@
             </li>
         </ul>
     </nav>
+    <br>
+    <nav name="MenuReduc1" id="IDMenuReduc1" class="menu" style="display:none;">
+        <h5 class="P-Kevin">Monto</h5>
+        <ul>
+            <li name="monto1">
+                <textarea name="NCajaMontoReduccion" maxlength="5" id="CajaMontoR"> </textarea>
+            </li>
+        </ul>
+    </nav>
+    <br>
+    <nav name="MenuReduc3" id="IDMenuReduc3" class="menu" style="display:none;">
+        <h5 class="P-Kevin">Motivo</h5>
+        <ul>
+            <li name="motivo1">
+                <textarea name="NCajaMotivoReduccion" id="CajaMotivoR"> </textarea>
+            </li>
+        </ul>
+    </nav>
+    <nav name="Prueba" id="Prueba" class="menu" style="display:none;">
+        <h5 class="P-Kevin">Prueba</h5>
+        <ul>
+            <li name="Prueba1">
+                <textarea name="prueba2" id="CajaMesValue" readonly="readonly"> </textarea>
+            </li>
+        </ul>
+    </nav>
+
+
 
     <br>
     <br>
@@ -118,14 +118,14 @@
 
 @*/SECCION DEL MENU DE TRANSFERENCIA/*@
 
-<div class="col-md-6" style="margin-left: 30%;">
-    <h3 id="TxtTrans" style="display:none;">Introduzca los datos para la transferencia</h3>
+<div class="col-md-6" style="margin-left: 10%; width: 90%;">
+    <h3 id="TxtTrans" style="display:none;margin-right:0%;margin-left: 20%;">Introduzca los datos para la transferencia</h3>
     @*<br>*@
-    <div class="col-md-6" id="Origen">
-        @*////////////////////////////////////////////////////////////////////////////////////////////////////////////////*@
-        <nav name="MenuTransfer2" id="IDMenuTransfer2" class="menu" style="display:none;">
-            <h5 class="P-Kevin">Clave Origen</h5>
-            @*<ul>
+<div class="col-md-6" id="Origen">
+    @*////////////////////////////////////////////////////////////////////////////////////////////////////////////////*@
+    <nav name="MenuTransfer2" id="IDMenuTransfer2" class="menu" style="display:none;">
+        <h5 class="P-Kevin">Clave Origen</h5>
+        @*<ul>
                 <li name="claveOrigen">
                     <textarea name="NCajaClaveOrigenTransfer" id="CajaClaveOrigenT"> </textarea>
                 </li>
@@ -134,59 +134,58 @@
             <option></option>
             @foreach (string item in Model)
             {
-        <option value="@item" id="@item">@item</option>
+<option value="@item" id="@item">@item</option>
 }
         </select>
-        </nav>
-        @*///////////////////////////////////////////////////////////////////////////////////////////////////////////////*@
-        <nav name="MenuTransfer1" id="IDMenuTransfer1" class="menu" style="display:none;">
-            <h5 class="P-Kevin">Monto Origen</h5>
-            <ul>
-                <li name="montoOrigen">
-                    <textarea name="NCajaMontoOrigen" id="CajaMontoOrigen"> </textarea>
-                </li>
-            </ul>
-        </nav>
-        @*///*@
-        <nav name="MenuOculto1" id="MenuOculto1" class="menu" style="display:none;">
-            <h5 class="P-Kevin">Oculto1</h5>
-            <ul>
-                <li name="MenuOculto1.1">
-                    <textarea name="CajaOculta1" id="CajaOcultaMesOrigen" readonly="readonly"> </textarea>
-                </li>
-            </ul>
-        </nav>
-        <nav name="MenuTransfer5" id="IDMenuTransfer5" class="listado" style="display:none;">
-            <h5 class="P-Kevin">Mes Origen</h5>
-            <ul>
-                <li name="mesOrigen">
-                    <textarea name="NCajaMesOrigen" id="CajaMesOrigen" readonly="readonly"> </textarea>
-                    <ul id="ListaMesesOrigen">
-                        <li value="01" id="Month1"><a>Enero</a></li>
-                        <li value="02" id="Month2"><a>Febrero</a></li>
-                        <li value="03" id="Month3"><a>Marzo</a></li>
-                        <li value="04" id="Month4"><a>Abril</a></li>
-                        <li value="05" id="Month5"><a>Mayo</a></li>
-                        <li value="06" id="Month6"><a>Junio</a></li>
-                        <li value="07" id="Month7"><a>Julio</a></li>
-                        <li value="08" id="Month8"><a>Agosto</a></li>
-                        <li value="09" id="Month9"><a>Septiembre</a></li>
-                        <li value="10" id="Month10"><a>Octubre</a></li>
-                        <li value="11" id="Month11"><a>Noviembre</a></li>
-                        <li value="12" id="Month12"><a>Diciembre</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
-        @*///*@
+    </nav>
+    @*///////////////////////////////////////////////////////////////////////////////////////////////////////////////*@
+    <nav name="MenuOculto1" id="MenuOculto1" class="menu" style="display:none;">
+        <h5 class="P-Kevin">Oculto1</h5>
+        <ul>
+            <li name="MenuOculto1.1">
+                <textarea name="CajaOculta1" id="CajaOcultaMesOrigen" readonly="readonly"> </textarea>
+            </li>
+        </ul>
+    </nav>
+    <nav name="MenuTransfer5" id="IDMenuTransfer5" class="listado" style="display:none;">
+        <h5 class="P-Kevin">Mes Origen</h5>
+        <ul>
+            <li name="mesOrigen">
+                <textarea name="NCajaMesOrigen" id="CajaMesOrigen" readonly="readonly"> </textarea>
+                <ul id="ListaMesesOrigen">
+                    <li value="01" id="Month1"><a>Enero</a></li>
+                    <li value="02" id="Month2"><a>Febrero</a></li>
+                    <li value="03" id="Month3"><a>Marzo</a></li>
+                    <li value="04" id="Month4"><a>Abril</a></li>
+                    <li value="05" id="Month5"><a>Mayo</a></li>
+                    <li value="06" id="Month6"><a>Junio</a></li>
+                    <li value="07" id="Month7"><a>Julio</a></li>
+                    <li value="08" id="Month8"><a>Agosto</a></li>
+                    <li value="09" id="Month9"><a>Septiembre</a></li>
+                    <li value="10" id="Month10"><a>Octubre</a></li>
+                    <li value="11" id="Month11"><a>Noviembre</a></li>
+                    <li value="12" id="Month12"><a>Diciembre</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <br>
+    @*///*@
+    <nav name="MenuTransfer1" id="IDMenuTransfer1" class="menu" style="display:none;">
+        <h5 class="P-Kevin">Monto Origen</h5>
+        <ul>
+            <li name="montoOrigen">
+                <textarea name="NCajaMontoOrigen" id="CajaMontoOrigen"> </textarea>
+            </li>
+        </ul>
+    </nav>
+</div>
+<div class="col-md-6" @*style="margin-left: 1%;"*@ id="Destino">
+    @*///////////////////////////////////////////////////////////////////////////////*@
+    <nav name="MenuTransfer3" id="IDMenuTransfer3" class="menu" style="display:none;">
 
-    </div>
-    <div class="col-md-6" id="Destino">
-        @*///////////////////////////////////////////////////////////////////////////////*@
-        <nav name="MenuTransfer3" id="IDMenuTransfer3" class="menu" style="display:none;">
-
-            <h5 class="P-Kevin">Clave Destino</h5>
-            @*<ul>
+        <h5 class="P-Kevin">Clave Destino</h5>
+        @*<ul>
                 <li name="claveDestino">
                     <textarea name="NCajaClaveDestinoTransfer" id="CajaClaveDestinoT"> </textarea>
                 </li>
@@ -195,64 +194,64 @@
             <option></option>
             @foreach (string item in Model)
             {
-        <option value="@item" id="@item">@item</option>
-}
+<option value="@item" id="@item">@item</option>}
         </select>
-        </nav>
-        @*<nav name="MenuTransfer7" id="IDMenuTransfer7" class="menu" style="display:none;">
-                <h5 class="P-Kevin">Monto Destino</h5>
-                <ul>
-                    <li name="montoDestino">
-                        <textarea name="NCajaMontoDestino" id="CajaMontoDestino"> </textarea>
-                    </li>
+    </nav>
+    @*<nav name="MenuTransfer7" id="IDMenuTransfer7" class="menu" style="display:none;">
+            <h5 class="P-Kevin">Monto Destino</h5>
+            <ul>
+                <li name="montoDestino">
+                    <textarea name="NCajaMontoDestino" id="CajaMontoDestino"> </textarea>
+                </li>
+            </ul>
+        </nav>*@
+
+
+    <nav name="MenuOculto2" id="MenuOculto2" class="menu" style="display:none;">
+        <h5 class="P-Kevin">Oculto2</h5>
+        <ul>
+            <li name="MenuOculto1.2">
+                <textarea name="CajaOculta2" id="CajaOcultaMesDestino" readonly="readonly"> </textarea>
+            </li>
+        </ul>
+    </nav>
+    <nav name="MenuTransfer6" id="IDMenuTransfer6" class="listado" style="display:none;">
+        <h5 class="P-Kevin">Mes Destino</h5>
+        <ul>
+            <li name="mesDestino">
+                <textarea name="NCajaMesDestino" id="CajaMesDestino" readonly="readonly"> </textarea>
+                <ul id="ListaMesesDestino">
+                    <li value="01" id="Month1"><a>Enero</a></li>
+                    <li value="02" id="Month2"><a>Febrero</a></li>
+                    <li value="03" id="Month3"><a>Marzo</a></li>
+                    <li value="04" id="Month4"><a>Abril</a></li>
+                    <li value="05" id="Month5"><a>Mayo</a></li>
+                    <li value="06" id="Month6"><a>Junio</a></li>
+                    <li value="07" id="Month7"><a>Julio</a></li>
+                    <li value="08" id="Month8"><a>Agosto</a></li>
+                    <li value="09" id="Month9"><a>Septiembre</a></li>
+                    <li value="10" id="Month10"><a>Octubre</a></li>
+                    <li value="11" id="Month11"><a>Noviembre</a></li>
+                    <li value="12" id="Month12"><a>Diciembre</a></li>
                 </ul>
-            </nav>*@
-
-
-        <nav name="MenuOculto2" id="MenuOculto2" class="menu" style="display:none;">
-            <h5 class="P-Kevin">Oculto2</h5>
-            <ul>
-                <li name="MenuOculto1.2">
-                    <textarea name="CajaOculta2" id="CajaOcultaMesDestino" readonly="readonly"> </textarea>
-                </li>
-            </ul>
-        </nav>
-        <nav name="MenuTransfer6" id="IDMenuTransfer6" class="listado" style="display:none;">
-            <h5 class="P-Kevin">Mes Destino</h5>
-            <ul>
-                <li name="mesDestino">
-                    <textarea name="NCajaMesDestino" id="CajaMesDestino" readonly="readonly"> </textarea>
-                    <ul id="ListaMesesDestino">
-                        <li value="01" id="Month1"><a>Enero</a></li>
-                        <li value="02" id="Month2"><a>Febrero</a></li>
-                        <li value="03" id="Month3"><a>Marzo</a></li>
-                        <li value="04" id="Month4"><a>Abril</a></li>
-                        <li value="05" id="Month5"><a>Mayo</a></li>
-                        <li value="06" id="Month6"><a>Junio</a></li>
-                        <li value="07" id="Month7"><a>Julio</a></li>
-                        <li value="08" id="Month8"><a>Agosto</a></li>
-                        <li value="09" id="Month9"><a>Septiembre</a></li>
-                        <li value="10" id="Month10"><a>Octubre</a></li>
-                        <li value="11" id="Month11"><a>Noviembre</a></li>
-                        <li value="12" id="Month12"><a>Diciembre</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
-        @*///*@
-
-    </div>
+            </li>
+        </ul>
+    </nav>
+    <br>
+    @*///*@
+    <nav name="MenuTransfer4" id="IDMenuTransfer4" class="menu" style="display:none;">
+        <h5 class="P-Kevin">Motivo</h5>
+        <ul>
+            <li name="motivo2">
+                <textarea name="NCajaMotivoTransferencia" id="CajaMotivoT"> </textarea>
+            </li>
+        </ul>
+    </nav>
+</div>
     @*seccion media*@
     <br>
-    <div class="col-md-6">
-        <nav name="MenuTransfer4" id="IDMenuTransfer4" class="menu" style="display:none;">
-            <h5 class="P-Kevin">Motivo</h5>
-            <ul>
-                <li name="motivo2">
-                    <textarea name="NCajaMotivoTransferencia" id="CajaMotivoT"> </textarea>
-                </li>
-            </ul>
-        </nav>
+    <div class="col-md-6" style="margin-left:35%;">
+
         <br>
         <br>
         <button id="EnviarTransfer" class="btn btn-success" onclick="Transferencia();" style="display:none">Transferir</button>
@@ -408,14 +407,14 @@
     }
     /*/////////////////////////////////////////////////////////////////////////////////*/
     .menu select {
-        width: 260px;
+        width: 440px;
         font-family: Arial;
-        font-size: large;
+        font-size: medium;
         background-color: rgb(11, 66, 167);
         height: 34px;
     }
         .menu select option {
-            width: 240px;
+            width: 330px;
             font-family: Arial;
             font-size: large;
             background-color: rgb(11, 66, 167);

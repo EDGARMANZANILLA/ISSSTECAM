@@ -16,6 +16,11 @@
 <nav class="Navigate" id="NavInitial">
     <h2 id="TxtInicial">Selecciona la opción que desea</h2>
     <br>
+    @*H1<input type="text" name="dato1" id="dato1" /><br>
+
+        H2<input type="text" name="dato2" id="dato2" /><br>
+
+        Result<input type="text" name="resultado" id="resultado" />*@
 
     <button title="Reducción" class="btn-T" id="Reduc" onclick="ProcReduc();" style="display:inline;position:center;margin-left:5%">Reduccion</button>
     <button title="Transferir" class="btn-T" id="Transfer" onclick="ProcTransfer();" style="display:inline;position:center;margin-left:5%">Transferencia</button>
@@ -33,7 +38,8 @@
         <select id="CajaClaveR">
             <option></option>
             @foreach (string item in Model)
-            {<option value="@item" id="@item">@item</option>}
+            {
+<option value="@item" id="@item">@item</option>}
         </select>
     </nav>
     @*<br>*@
@@ -65,7 +71,7 @@
         <h5 class="P-Kevin">Monto</h5>
         <ul>
             <li name="monto1">
-                <textarea name="NCajaMontoReduccion" maxlength="5" id="CajaMontoR"> </textarea>
+                <textarea name="NCajaMontoReduccion" maxlength="6" id="CajaMontoR"></textarea>
             </li>
         </ul>
     </nav>
@@ -74,10 +80,21 @@
         <h5 class="P-Kevin">Motivo</h5>
         <ul>
             <li name="motivo1">
-                <textarea name="NCajaMotivoReduccion" id="CajaMotivoR"> </textarea>
+                <textarea name="NCajaMotivoReduccion" id="CajaMotivoR"></textarea>
             </li>
         </ul>
     </nav>
+    <br>
+    <br>
+    <button id="EnviarReduc" class="btn btn-success" onclick="Reduccion();" style="display:none">Reducir</button>
+    @*<br>
+    <br>*@
+    @*<div class="col-md-6" style="margin-left:0%;">
+            <br>
+            <button id="EnviarReduc" class="btn btn-success" onclick="Reduccion();" style="display:none">Reducir</button>
+        </div>*@
+    @*<br>
+        <br>*@
     <nav name="Prueba" id="Prueba" class="menu" style="display:none;">
         <h5 class="P-Kevin">Prueba</h5>
         <ul>
@@ -86,13 +103,12 @@
             </li>
         </ul>
     </nav>
-
-
-
-    <br>
-    <br>
-    <button id="EnviarReduc" class="btn btn-success" onclick="Reduccion();" style="display:none">Reducir</button>
-    <br>
+    @*<button id="EnviarReduc" class="btn btn-success" onclick="Reduccion();" style="display:none">Reducir</button>*@
+</div>
+<div id="MontoDisponible" class="Monto" style="display:none;">
+    <div id="Espacio" style="height:200px;width:5px">
+    </div>
+    <h5 id="ElMonto">Monto disponible: 12000</h5>
 </div>
 @*/aqui va el modal/*@
 <div id="ModalReducc" style="display:none;height:900px;" class="modal-backdrop">
@@ -118,7 +134,7 @@
 
 @*/SECCION DEL MENU DE TRANSFERENCIA/*@
 
-<div class="col-md-6" style="margin-left: 10%; width: 90%;">
+<div class="col-md-6" id="Transferencia" style="margin-left: 10%; width: 90%;display:none;">
     <h3 id="TxtTrans" style="display:none;margin-right:0%;margin-left: 20%;">Introduzca los datos para la transferencia</h3>
     @*<br>*@
 <div class="col-md-6" id="Origen">
@@ -255,6 +271,7 @@
         <br>
         <br>
         <button id="EnviarTransfer" class="btn btn-success" onclick="Transferencia();" style="display:none">Transferir</button>
+       
 
     </div>
 </div>
@@ -405,6 +422,29 @@
         margin-left: 35%;
         height:0;
     }
+
+    .Monto {
+        margin-left: 0%;
+        height: 0;
+        width: 10%;
+       
+    }
+        .Monto h5 {
+            width: 10%;
+            height: 0;
+            margin-bottom: 0;
+            margin-top: 0;
+        }
+
+    /*  #MontoDisponible {
+        width: 6%;
+        margin-top: 70%;
+    }
+
+    #MontoDisponible p {
+        width: 6%;
+        
+    }*/
     /*/////////////////////////////////////////////////////////////////////////////////*/
     .menu select {
         width: 440px;
@@ -493,6 +533,7 @@
     .P-Kevin {
         text-align: left;
     }
+
 </style>
 
 <script>
@@ -509,6 +550,8 @@
         document.getElementById('EnviarReduc').style.display = 'inline';
     }
     function ProcTransfer() {
+        document.getElementById('Transferencia').style.display = 'inline';
+
         document.getElementById('NavInitial').style.display = 'none';
         document.getElementById('TxtTrans').style.display = 'inline';
 
@@ -532,7 +575,7 @@
 
         //alert("El value de CajaClave es: " + CajaClave.value);
 
-        if (CajaMonto.value == ' ') {
+        if (CajaMonto.value == '') {
             alert('Por favor ingrese un monto ')
         }
         //if (isNaN(formulario.edad.value)==true
@@ -541,7 +584,7 @@
         }
         else if (CajaClave.value == ' ') {
             alert('Por favor ingrese una clave')
-        } else if (CajaMotivo.value == ' ') {
+        } else if (CajaMotivo.value == '') {
             alert('Por favor ingrese un motivo')
         } else if (ValorMes.textContent == ' ') {
             alert('Por favor seleccione el mes al que se le hara la reducción')
@@ -669,7 +712,10 @@
 
         document.getElementById('EnviarTransfer').style.display = 'none';
 
+        document.getElementById('Transferencia').style.display = 'none';
+
         document.getElementById('NavInitial').style.display = 'inline';
+
     }
 
 
@@ -687,6 +733,10 @@
         var Linea = document.getElementById('CajaMesValue');
         Linea.innerHTML = "";
         ESCRIBE.insertAdjacentHTML('beforeend', Valor)
+
+        //var mes = document.getElementById("CajaMesR");
+        //var mesRV = mes.value;
+        //console.log(mesRV);
     });
     ////
     $('#ListaMesesOrigen').click(function (e) {
@@ -750,5 +800,61 @@
         });
     });
 
+    var flujoCajaMontoReduc = Rx.Observable.fromEvent(document.getElementById("CajaMontoR"), 'click');
+    //var flujoCaja2 = Rx.Observable.fromEvent(document.getElementById("CajaMesR"), 'keyup');
 
+    flujoCajaMontoReduc.subscribe(function (elemento) {
+        //Obtengo la clave
+        var clave = document.getElementById("CajaClaveR");
+        var claveRV = clave.value;
+        //Obtengo el mes
+        var mes = document.getElementById("CajaMesR");
+        var mesRV = mes.value;
+        //Muestro la clave, el mes y el monto que escribe el usuario.
+        console.log(mesRV);
+        console.log(claveRV);
+        console.log(elemento.srcElement.value);
+        //Aqui es la parte donde debo enviar estos datos al controlador para obtener el monto disponible de la DB.
+        document.getElementById('MontoDisponible').style.display = 'inline';
+
+
+
+    });
+
+    var flujoCajaMontoTrans = Rx.Observable.fromEvent(document.getElementById("CajaMontoOrigen"), 'click');
+    //var flujoCaja2 = Rx.Observable.fromEvent(document.getElementById("CajaMesR"), 'keyup');
+
+    flujoCajaMontoTrans.subscribe(function (elemento) {
+        //Obtengo la clave
+        var clave = document.getElementById("CajaClaveOrigenT");
+        var claveTransValue = clave.value;
+        //Obtengo el mes
+        var mes = document.getElementById("CajaOcultaMesOrigen");
+        var mesTransValue = mes.value;
+        //Muestro la clave, el mes y el monto que escribe el usuario.
+        console.log(mesTransValue);
+        console.log(claveTransValue);
+        console.log(elemento.srcElement.value);
+        //Aqui es la parte donde debo enviar estos datos al controlador para obtener el monto disponible de la DB.
+
+
+    });
+
+
+    //flujoCaja2.subscribe(function (elemento) {
+
+    //    console.log(elemento.srcElement.value);
+
+    //});
+
+    //$("#CajaClaveR").on("change", function () {
+    //    var clave = document.getElementById("CajaClaveR");
+    //    if (clave.value == '') {
+    //    } else {
+    //        var claveRV = clave.value;
+    //        //var res = ClaveRV.substr(-4);
+    //        console.log(claveRV);
+    //    }
+    //});
+   
 </script>

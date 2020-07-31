@@ -10,6 +10,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ISSSTECAM.Presupuesto.Entidades.DTO;
+using System.Runtime;
 
 namespace ISSSTECAM.Presupuesto.Web.Controllers
 {
@@ -193,22 +194,37 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
             return Json(bandera, JsonRequestBehavior.AllowGet);
         }
 
+  
+        #region ObtenerMontoDelaDB aquí se supone q debo recibir el mes y la clave para obtener el monto y mostrarlo.
+        public JsonResult MostrarMonto(string clave, int mes)
+        {
+            string claveM = clave;
+            int mesM = mes;
 
-        //#region
-        //[HttpPost]
-        //public JsonResult Probando()
-        //{
-        //    //bool bandera;
-        //    List<string> listaClaves = new List<string>();
+            int Respuesta = 12000;
 
-        //    listaClaves.Add("1996");
-        //    listaClaves.Add("00435");
-        //    listaClaves.Add("1447");
-        //    listaClaves.Add("007");
+            //bandera = Negocios.ClavesPresupuestalesNegocios.Reducir(monto, clavePresupuestal, mes, anio);
+            //if (bandera)
+            //{
+            //    //obtener el id de la clave remitente
+            //    var clave = Negocios.ClavesPresupuestalesNegocios.ObtenerPorUnicaClave(anio, clavePresupuestal);
+            //    Transacciones nueva = new Transacciones();
+            //    nueva.Fecha = DateTime.Now;
+            //    nueva.IdClavePresupuestalRemitente = clave.Id;
+            //    nueva.IdMesRemitente = 1;
+            //    nueva.IdClavePresupuestalDestinataria = null;
+            //    nueva.IdMesDestinataria = null;
+            //    nueva.Monto = monto;
+            //    nueva.Motivo = "";
+            //    nueva.IdTipoDeTransaccion = 1;
+            //    nueva.Activo = true;
+            //    bandera = Negocios.ClavesPresupuestalesNegocios.GuardarTransaccion(nueva);
+            //}
+            return Json(Respuesta, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
 
-        //    return Json(listaClaves, JsonRequestBehavior.AllowGet);
-        //}
-        //#endregion
+
     }
 
 

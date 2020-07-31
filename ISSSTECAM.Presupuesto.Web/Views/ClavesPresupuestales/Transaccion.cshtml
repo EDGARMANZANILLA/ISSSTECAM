@@ -108,7 +108,8 @@
 <div id="MontoDisponible" class="Monto" style="display:none;">
     <div id="Espacio" style="height:200px;width:5px">
     </div>
-    <h5 id="ElMonto">Monto disponible: 12000</h5>
+    <h5 >Monto disponible:</h5>
+    <h5 id="ElMonto"></h5>
 </div>
 @*/aqui va el modal/*@
 <div id="ModalReducc" style="display:none;height:900px;" class="modal-backdrop">
@@ -808,18 +809,54 @@
         var clave = document.getElementById("CajaClaveR");
         var claveRV = clave.value;
         //Obtengo el mes
-        var mes = document.getElementById("CajaMesR");
-        var mesRV = mes.value;
+        //var ValorMes = document.getElementById('CajaMesValue');
+        var mes = document.getElementById("CajaMesValue");
+        var mesRV = mes.textContent;
         //Muestro la clave, el mes y el monto que escribe el usuario.
         console.log(mesRV);
         console.log(claveRV);
         console.log(elemento.srcElement.value);
         //Aqui es la parte donde debo enviar estos datos al controlador para obtener el monto disponible de la DB.
+        ///////////////////////////////////////////////////////////////
+
+        var actionDataMR = "{'clave':" + claveRV + "','mes':'" + mesRV + "'}";
+
+        $.ajax({
+            url: '@Url.Action("MostrarMonto", "ClavesPresupuestales")',
+            data: actionDataMR,
+            dataType: "json",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            success: function (msg) {
+                console.log("msg", msg);
+                document.getElementById('ModalReducc').style.display = 'inline';
+
+            },
+            error: function (result) {
+                alert("ERROR SEVERO, VUELVA A CARGAR LA PÁGINA" + result.status);
+            }
+        });
+
+        // <h5 id="ElMonto"></h5>
+        //var li = e.target.parentNode;
+        //let ID = li.id;
+        //var Identidad = document.getElementById('#ElMonto').textContent;
+
+        const WRITELINE = document.querySelector('#ElMonto');
+        var Monto = document.getElementById('ElMonto');
+        Monto.innerHTML = "";
+        WRITELINE.insertAdjacentHTML('beforeend', msg)
+
+
+
         document.getElementById('MontoDisponible').style.display = 'inline';
-
-
-
     });
+        //////////////////////////////////////////////////////////////
+
+    
+
+
+
 
     var flujoCajaMontoTrans = Rx.Observable.fromEvent(document.getElementById("CajaMontoOrigen"), 'click');
     //var flujoCaja2 = Rx.Observable.fromEvent(document.getElementById("CajaMesR"), 'keyup');
@@ -836,10 +873,9 @@
         console.log(claveTransValue);
         console.log(elemento.srcElement.value);
         //Aqui es la parte donde debo enviar estos datos al controlador para obtener el monto disponible de la DB.
-
-
     });
 
+  
 
     //flujoCaja2.subscribe(function (elemento) {
 
@@ -856,5 +892,5 @@
     //        console.log(claveRV);
     //    }
     //});
-   
+
 </script>

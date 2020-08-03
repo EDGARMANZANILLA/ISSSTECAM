@@ -15,6 +15,7 @@
     <br>
     <button title="Reducción" class="btn-T" id="Reduc" onclick="ProcReduc();" style="display:inline;position:center;margin-left:5%">Reduccion</button>
     <button title="Transferir" class="btn-T" id="Transfer" onclick="ProcTransfer();" style="display:inline;position:center;margin-left:5%">Transferencia</button>
+    <button title="Transfer" class="btn-T"  onclick="TDM();" style="display:inline;position:center;margin-left:25%">Transferencia de Muchas claves a una</button>
 </nav>
 @*/SECCION DEL MENU DE REDUCCIÓN/*@
 <div class="col-md-6">
@@ -564,7 +565,7 @@
             alert('Por favor ingrese el motivo de la transferencia')
         } else {
             //
-            var actionDataTransfer = "{'origenMonto': '" + CajaMontoOrigen.value + "','origenClave':'" + CajaClaveOT.value + "','origenMes':'" + CajaMesOrigen.textContent + /*"','destinoMonto':'" + CajaMontoDestino.value +*/ "','destinoClave':'" + CajaClaveDT.value + "','destinoMes':'" + CajaMesDestino.textContent + "','motivoTransfer':'" + CajaMotivo.value + "'}";
+            var actionDataTransfer = "{'origenClave': '" + CajaClaveOT.value + "','origenMes ':'" + CajaMesOrigen.textContent + "','origenMonto':'" + CajaMontoOrigen.value + /*"','destinoMonto':'" + CajaMontoDestino.value +*/ "','destinoClave':'" + CajaClaveDT.value + "','destinoMes':'" + CajaMesDestino.textContent + "','motivoTransfer':'" + CajaMotivo.value + "'}";
              $.ajax({
                 url: '@Url.Action("Transferencia", "ClavesPresupuestales")',
                  data: actionDataTransfer,
@@ -653,6 +654,65 @@
     });
 
 
+
+
+
+
+
+
+    // prueba de transferencia de muchos a uno
+
+    function TDM() {
+
+        console.log('entre');
+
+
+
+        var cuentasRemitentes =
+            [
+                { clave: '21120283626211C016000J186038910780L415A4211', mes: 2, monto: 4204215.10 },
+                { clave: '21120283626311C016000J187039010790L415A4511', mes: 2, monto: 1290006.60 },
+                { clave: '21120283626211C016000J187039010790L415A4521', mes: 2, monto: 33738637.36 },
+            ];
+
+
+        var cuentaDestino = { clave: '21120283626211C016000J187039010790L414A4521', mes: 2, monto: 000 };
+      
+
+
+       // NuevasCuentas.push({ clave: 'ocho', mes: 8, monto: 8888.8 });
+
+       // NuevasCuentas.push({ motivo: 'compra2x' });
+
+
+
+
+        console.log(cuentaDestino);
+
+
+
+          $.ajax({
+            url: '@Url.Action("TransferirDeMuchosAUno", "ClavesPresupuestales")',
+              data: JSON.stringify({ cuentasRemitentes, cuentaDestino, motivo: 'compra3x' }),
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+
+            success: function (msg) {
+                console.log("msg", msg);
+                if (msg) {
+                    alert("Se realizo con exito");
+                }
+
+            },
+
+        });
+
+
+
+
+
+
+    }
 
 
 

@@ -99,7 +99,7 @@
         <h5 class="P-Kevin">Prueba</h5>
         <ul>
             <li name="Prueba1">
-                <textarea name="prueba2" id="CajaMesValue" readonly="readonly"> </textarea>
+                <textarea name="prueba2" id="CajaMesValue" readonly="readonly">0</textarea>
             </li>
         </ul>
     </nav>
@@ -108,8 +108,9 @@
 <div id="MontoDisponible" class="Monto" style="display:none;">
     <div id="Espacio" style="height:200px;width:5px">
     </div>
-    <h5 >Monto disponible:</h5>
-    <h5 id="ElMonto"></h5>
+    <h4 >Monto disponible:</h4>
+    @*<br>*@
+    <h4 id="ElMonto"></h4>
 </div>
 @*/aqui va el modal/*@
 <div id="ModalReducc" style="display:none;height:900px;" class="modal-backdrop">
@@ -427,13 +428,13 @@
     .Monto {
         margin-left: 0%;
         height: 0;
-        width: 10%;
+        width: 15%;
        
     }
-        .Monto h5 {
-            width: 10%;
+        .Monto h4 {
+            width: 15%;
             height: 0;
-            margin-bottom: 0;
+            margin-bottom: 5%;
             margin-top: 0;
         }
 
@@ -587,7 +588,7 @@
             alert('Por favor ingrese una clave')
         } else if (CajaMotivo.value == '') {
             alert('Por favor ingrese un motivo')
-        } else if (ValorMes.textContent == ' ') {
+        } else if (ValorMes.textContent == '0') {
             alert('Por favor seleccione el mes al que se le hara la reducción')
         } else {
             //alert("Monto: " + CajaMonto.value + "  Clave: " + CajaClave.value);
@@ -640,6 +641,8 @@
         document.getElementById('EnviarReduc').style.display = 'none';
 
         document.getElementById('NavInitial').style.display = 'inline';
+
+        document.getElementById('MontoDisponible').style.display = 'none';
 
     }
 
@@ -716,6 +719,8 @@
         document.getElementById('Transferencia').style.display = 'none';
 
         document.getElementById('NavInitial').style.display = 'inline';
+
+        document.getElementById('MontoDisponible').style.display = 'none';
 
     }
 
@@ -807,29 +812,40 @@
     flujoCajaMontoReduc.subscribe(function (elemento) {
         //Obtengo la clave
         var clave = document.getElementById("CajaClaveR");
-        var claveRV = clave.value;
+        var claveReduccValue = clave.value;
         //Obtengo el mes
         //var ValorMes = document.getElementById('CajaMesValue');
         var mes = document.getElementById("CajaMesValue");
-        var mesRV = mes.textContent;
+        var mesReduccValue = mes.textContent;
         //Muestro la clave, el mes y el monto que escribe el usuario.
-        console.log(mesRV);
-        console.log(claveRV);
+        console.log(mesReduccValue);
+        console.log(claveReduccValue);
         console.log(elemento.srcElement.value);
         //Aqui es la parte donde debo enviar estos datos al controlador para obtener el monto disponible de la DB.
         ///////////////////////////////////////////////////////////////
-
-        var actionDataMR = "{'clave':" + claveRV + "','mes':'" + mesRV + "'}";
+ //var actionData = "{'guardaQuincena': '" + ValActionData + "','guardaMes': '" + CajaM.textContent + "', 'guardaAnio': '" + CajaA.textContent + "','tipoNomina': '" + QuincenaTipoNomina + "' }";
+        var actionDataMR = "{'clave':'" + claveReduccValue + "','mes':'" + mes.textContent + "'}";
 
         $.ajax({
             url: '@Url.Action("MostrarMonto", "ClavesPresupuestales")',
             data: actionDataMR,
             dataType: "json",
+            returnType: 'json',
             type: "POST",
             contentType: "application/json; charset=utf-8",
-            success: function (msg) {
-                console.log("msg", msg);
-                document.getElementById('ModalReducc').style.display = 'inline';
+            //contentType: "application/json; charset=utf-8",
+            success: function (resultado) {
+                console.log("Monto" + resultado);
+                var montoObtenido = null;
+                if (montoObtenido == null) {
+                    montoObtenido = resultado;
+                    console.log("Es el hijo más mayor de Cronos...", montoObtenido);
+                    document.getElementById('MontoDisponible').style.display = 'inline';
+                }
+                const WRITELINE = document.querySelector('#ElMonto');
+                var Monto = document.getElementById('ElMonto');
+                Monto.innerHTML = "";
+                WRITELINE.insertAdjacentHTML('beforeend', montoObtenido)
 
             },
             error: function (result) {
@@ -842,18 +858,18 @@
         //let ID = li.id;
         //var Identidad = document.getElementById('#ElMonto').textContent;
 
-        const WRITELINE = document.querySelector('#ElMonto');
-        var Monto = document.getElementById('ElMonto');
-        Monto.innerHTML = "";
-        WRITELINE.insertAdjacentHTML('beforeend', msg)
+        //const WRITELINE = document.querySelector('#ElMonto');
+        //var Monto = document.getElementById('ElMonto');
+        //Monto.innerHTML = "";
+        //WRITELINE.insertAdjacentHTML('beforeend', msg)
 
 
 
-        document.getElementById('MontoDisponible').style.display = 'inline';
+        //document.getElementById('MontoDisponible').style.display = 'inline';
     });
         //////////////////////////////////////////////////////////////
 
-    
+
 
 
 
@@ -875,7 +891,10 @@
         //Aqui es la parte donde debo enviar estos datos al controlador para obtener el monto disponible de la DB.
     });
 
-  
+
+
+
+
 
     //flujoCaja2.subscribe(function (elemento) {
 
@@ -892,5 +911,11 @@
     //        console.log(claveRV);
     //    }
     //});
+
+  
+
+
+
+
 
 </script>

@@ -201,25 +201,8 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
             string claveM = clave;
             int mesM = mes;
 
-            int Respuesta = 12000;
+            int Respuesta = 4444;
 
-            //bandera = Negocios.ClavesPresupuestalesNegocios.Reducir(monto, clavePresupuestal, mes, anio);
-            //if (bandera)
-            //{
-            //    //obtener el id de la clave remitente
-            //    var clave = Negocios.ClavesPresupuestalesNegocios.ObtenerPorUnicaClave(anio, clavePresupuestal);
-            //    Transacciones nueva = new Transacciones();
-            //    nueva.Fecha = DateTime.Now;
-            //    nueva.IdClavePresupuestalRemitente = clave.Id;
-            //    nueva.IdMesRemitente = 1;
-            //    nueva.IdClavePresupuestalDestinataria = null;
-            //    nueva.IdMesDestinataria = null;
-            //    nueva.Monto = monto;
-            //    nueva.Motivo = "";
-            //    nueva.IdTipoDeTransaccion = 1;
-            //    nueva.Activo = true;
-            //    bandera = Negocios.ClavesPresupuestalesNegocios.GuardarTransaccion(nueva);
-            //}
             return Json(Respuesta, JsonRequestBehavior.AllowGet);
         }
         #endregion

@@ -152,8 +152,7 @@
             <option></option>
             @foreach (string item in Model)
             {
-<option value="@item" id="@item">@item</option>
-}
+<option value="@item" id="@item">@item</option>}
         </select>
     </nav>
     @*///////////////////////////////////////////////////////////////////////////////////////////////////////////////*@
@@ -161,7 +160,7 @@
         <h5 class="P-Kevin">Oculto1</h5>
         <ul>
             <li name="MenuOculto1.1">
-                <textarea name="CajaOculta1" id="CajaOcultaMesOrigen" readonly="readonly"> </textarea>
+                <textarea name="CajaOculta1" id="CajaOcultaMesOrigen" readonly="readonly">0</textarea>
             </li>
         </ul>
     </nav>
@@ -171,15 +170,15 @@
             <li name="mesOrigen">
                 <textarea name="NCajaMesOrigen" id="CajaMesOrigen" readonly="readonly"> </textarea>
                 <ul id="ListaMesesOrigen">
-                    <li value="01" id="Month1"><a>Enero</a></li>
-                    <li value="02" id="Month2"><a>Febrero</a></li>
-                    <li value="03" id="Month3"><a>Marzo</a></li>
-                    <li value="04" id="Month4"><a>Abril</a></li>
-                    <li value="05" id="Month5"><a>Mayo</a></li>
-                    <li value="06" id="Month6"><a>Junio</a></li>
-                    <li value="07" id="Month7"><a>Julio</a></li>
-                    <li value="08" id="Month8"><a>Agosto</a></li>
-                    <li value="09" id="Month9"><a>Septiembre</a></li>
+                    <li value="1" id="Month1"><a>Enero</a></li>
+                    <li value="2" id="Month2"><a>Febrero</a></li>
+                    <li value="3" id="Month3"><a>Marzo</a></li>
+                    <li value="4" id="Month4"><a>Abril</a></li>
+                    <li value="5" id="Month5"><a>Mayo</a></li>
+                    <li value="6" id="Month6"><a>Junio</a></li>
+                    <li value="7" id="Month7"><a>Julio</a></li>
+                    <li value="8" id="Month8"><a>Agosto</a></li>
+                    <li value="9" id="Month9"><a>Septiembre</a></li>
                     <li value="10" id="Month10"><a>Octubre</a></li>
                     <li value="11" id="Month11"><a>Noviembre</a></li>
                     <li value="12" id="Month12"><a>Diciembre</a></li>
@@ -193,9 +192,16 @@
         <h5 class="P-Kevin">Monto Origen</h5>
         <ul>
             <li name="montoOrigen">
-                <textarea name="NCajaMontoOrigen" id="CajaMontoOrigen"> </textarea>
+                <textarea name="NCajaMontoOrigen" id="CajaMontoOrigen" style="margin-right:5px;"> </textarea>
             </li>
         </ul>
+    </nav>
+    <nav id="MontoDisponible2" @*class="Monto"*@ style="display:none;">
+        @*<div id="Espacio2" style="height:200px;width:5px">
+        </div>*@
+        <h4>Monto disponible:</h4>
+        @*<br>*@
+        <h4 id="ElMonto2"></h4>
     </nav>
 </div>
 <div class="col-md-6" @*style="margin-left: 1%;"*@ id="Destino">
@@ -212,7 +218,8 @@
             <option></option>
             @foreach (string item in Model)
             {
-<option value="@item" id="@item">@item</option>}
+<option value="@item" id="@item">@item</option>
+}
         </select>
     </nav>
     @*<nav name="MenuTransfer7" id="IDMenuTransfer7" class="menu" style="display:none;">
@@ -265,6 +272,7 @@
             </li>
         </ul>
     </nav>
+   
 </div>
     @*seccion media*@
     <br>
@@ -312,7 +320,8 @@
     }
 
     .modal-backdrop {
-        background-color: rgba(00,00,00,0.5);
+         background-color: rgba(0, 0, 0, 0.50);
+       /* background-color: rgba(0, 0, 0, 0.00);*/
         /* display: none;*/
         width: 100%;
         z-index: 999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999;
@@ -504,7 +513,8 @@
             z-index: 99;
         }
             .menu ul li:hover {
-                background: rgb(128, 128, 128);
+                /*background: rgb(128, 128, 128);*/
+                background: rgba(128, 128, 128, 0.00);
             }
         .menu ul ul {
             display: none;
@@ -663,7 +673,7 @@
         }
         else if (CajaClaveOT.value == ' ') {
             alert('Por favor ingrese una clave de origen')
-        } else if (CajaMesOrigen.textContent == ' ') {
+        } else if (CajaMesOrigen.textContent == '0') {
             alert('Por favor ingrese un mes de origen')
 
         } else if (CajaClaveDT.value == ' ') {
@@ -720,7 +730,7 @@
 
         document.getElementById('NavInitial').style.display = 'inline';
 
-        document.getElementById('MontoDisponible').style.display = 'none';
+        document.getElementById('MontoDisponible2').style.display = 'none';
 
     }
 
@@ -806,6 +816,8 @@
         });
     });
 
+ //////////////////////////////Aquí se maneja el observable para Reducción///////////////////////////////
+
     var flujoCajaMontoReduc = Rx.Observable.fromEvent(document.getElementById("CajaMontoR"), 'click');
     //var flujoCaja2 = Rx.Observable.fromEvent(document.getElementById("CajaMesR"), 'keyup');
 
@@ -816,19 +828,20 @@
         //Obtengo el mes
         //var ValorMes = document.getElementById('CajaMesValue');
         var mes = document.getElementById("CajaMesValue");
-        var mesReduccValue = mes.textContent;
+        var mesReduccTextContent = mes.textContent;
         //Muestro la clave, el mes y el monto que escribe el usuario.
-        console.log(mesReduccValue);
+        console.log(mesReduccTextContent);
         console.log(claveReduccValue);
         console.log(elemento.srcElement.value);
         //Aqui es la parte donde debo enviar estos datos al controlador para obtener el monto disponible de la DB.
         ///////////////////////////////////////////////////////////////
  //var actionData = "{'guardaQuincena': '" + ValActionData + "','guardaMes': '" + CajaM.textContent + "', 'guardaAnio': '" + CajaA.textContent + "','tipoNomina': '" + QuincenaTipoNomina + "' }";
-        var actionDataMR = "{'clave':'" + claveReduccValue + "','mes':'" + mes.textContent + "'}";
+        //var actionDataMR = "{'clave':'" + claveReduccValue + "','mes':'" + mes.textContent + "'}";
+        var actionDataMontoReduccion = "{'clave':'" + claveReduccValue + "','mes':'" + mesReduccTextContent + "'}";
 
         $.ajax({
             url: '@Url.Action("MostrarMonto", "ClavesPresupuestales")',
-            data: actionDataMR,
+            data: actionDataMontoReduccion,
             dataType: "json",
             returnType: 'json',
             type: "POST",
@@ -839,7 +852,7 @@
                 var montoObtenido = null;
                 if (montoObtenido == null) {
                     montoObtenido = resultado;
-                    console.log("Es el hijo más mayor de Cronos...", montoObtenido);
+                    //console.log("Es el hijo más mayor de Cronos...", montoObtenido);
                     document.getElementById('MontoDisponible').style.display = 'inline';
                 }
                 const WRITELINE = document.querySelector('#ElMonto');
@@ -852,7 +865,6 @@
                 alert("ERROR SEVERO, VUELVA A CARGAR LA PÁGINA" + result.status);
             }
         });
-
         // <h5 id="ElMonto"></h5>
         //var li = e.target.parentNode;
         //let ID = li.id;
@@ -862,16 +874,11 @@
         //var Monto = document.getElementById('ElMonto');
         //Monto.innerHTML = "";
         //WRITELINE.insertAdjacentHTML('beforeend', msg)
-
-
-
         //document.getElementById('MontoDisponible').style.display = 'inline';
+
     });
-        //////////////////////////////////////////////////////////////
 
-
-
-
+ //////////////////////////////Aquí se maneja el observable para Transacción///////////////////////////////
 
 
     var flujoCajaMontoTrans = Rx.Observable.fromEvent(document.getElementById("CajaMontoOrigen"), 'click');
@@ -883,12 +890,54 @@
         var claveTransValue = clave.value;
         //Obtengo el mes
         var mes = document.getElementById("CajaOcultaMesOrigen");
-        var mesTransValue = mes.value;
+        var mesTransTextContent = mes.textContent;
         //Muestro la clave, el mes y el monto que escribe el usuario.
-        console.log(mesTransValue);
+        console.log(mesTransTextContent);
         console.log(claveTransValue);
         console.log(elemento.srcElement.value);
         //Aqui es la parte donde debo enviar estos datos al controlador para obtener el monto disponible de la DB.
+
+
+
+        var actionDataMontoTransferencia = "{'clave':'" + claveTransValue + "','mes':'" + mesTransTextContent + "'}";
+
+        $.ajax({
+            url: '@Url.Action("MostrarMonto", "ClavesPresupuestales")',
+            data: actionDataMontoTransferencia,
+            dataType: "json",
+            returnType: 'json',
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            //contentType: "application/json; charset=utf-8",
+            success: function (resultado) {
+                console.log("Monto" + resultado);
+                var montoObtenido = null;
+                if (montoObtenido == null) {
+                    montoObtenido = resultado;
+                    //console.log("Es el hijo más mayor de Cronos...", montoObtenido);
+                    document.getElementById('MontoDisponible2').style.display = 'inline';
+                }
+                const WRITELINE = document.querySelector('#ElMonto2');
+                var Monto = document.getElementById('ElMonto2');
+                Monto.innerHTML = "";
+                WRITELINE.insertAdjacentHTML('beforeend', montoObtenido)
+
+            },
+            error: function (result) {
+                alert("ERROR SEVERO, VUELVA A CARGAR LA PÁGINA" + result.status);
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
     });
 
 
@@ -912,7 +961,7 @@
     //    }
     //});
 
-  
+
 
 
 

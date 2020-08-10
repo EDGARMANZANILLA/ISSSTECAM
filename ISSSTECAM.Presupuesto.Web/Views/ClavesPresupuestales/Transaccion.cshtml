@@ -588,15 +588,14 @@
 
         //alert("El value de CajaClave es: " + CajaClave.value);
 
-        if (CajaMonto.value == '') {
+         if (CajaClave.value == '') {
+            alert('Por favor ingrese una clave')
+        } else if (CajaMonto.value == '') {
             alert('Por favor ingrese un monto ')
         }
         //if (isNaN(formulario.edad.value)==true
         else if (isNaN(CajaMonto.value) == true) {
            alert('Por favor ingrese un monto valido')
-        }
-        else if (CajaClave.value == ' ') {
-            alert('Por favor ingrese una clave')
         } else if (CajaMotivo.value == '') {
             alert('Por favor ingrese un motivo')
         } else if (ValorMes.textContent == '0') {
@@ -672,12 +671,12 @@
         } else if (isNaN(CajaMontoOrigen.value) == true) {
             alert('Por favor ingrese un monto de origen valido')
         }
-        else if (CajaClaveOT.value == ' ') {
+        else if (CajaClaveOT.value == '') {
             alert('Por favor ingrese una clave de origen')
         } else if (CajaMesOrigen.textContent == '0') {
             alert('Por favor ingrese un mes de origen')
 
-        } else if (CajaClaveDT.value == ' ') {
+        } else if (CajaClaveDT.value == '') {
             alert('Por favor ingrese una clave de destino')
         }
         //else if (CajaMontoDestino.value == ' ') {
@@ -835,10 +834,14 @@
         console.log(mesReduccTextContent);
         console.log(claveReduccValue);
         console.log(elemento.srcElement.value);
+
+        if (clave.value == '') {
+            alert('Por favor ingrese una clave antes del monto')
+        } else if (mes.textContent == '0') {
+            alert('Por favor seleccione un mes antes de ingresar el monto')
+        } else { 
         //Aqui es la parte donde debo enviar estos datos al controlador para obtener el monto disponible de la DB.
         ///////////////////////////////////////////////////////////////
- //var actionData = "{'guardaQuincena': '" + ValActionData + "','guardaMes': '" + CajaM.textContent + "', 'guardaAnio': '" + CajaA.textContent + "','tipoNomina': '" + QuincenaTipoNomina + "' }";
-        //var actionDataMR = "{'clave':'" + claveReduccValue + "','mes':'" + mes.textContent + "'}";
         var actionDataMontoReduccion = "{'clave':'" + claveReduccValue + "','mes':'" + mesReduccTextContent + "'}";
 
         $.ajax({
@@ -877,6 +880,7 @@
         //Monto.innerHTML = "";
         //WRITELINE.insertAdjacentHTML('beforeend', msg)
         //document.getElementById('MontoDisponible').style.display = 'inline';
+    }
 
     });
 
@@ -897,40 +901,46 @@
         console.log(mesTransTextContent);
         console.log(claveTransValue);
         console.log(elemento.srcElement.value);
-        //Aqui es la parte donde debo enviar estos datos al controlador para obtener el monto disponible de la DB.
+
+        if (clave.value == '') {
+            alert('Por favor ingrese una clave antes del monto')
+        } else if (mes.textContent == '0') {
+            alert('Por favor seleccione un mes antes de ingresar el monto')
+        } else {
+            //Aqui es la parte donde debo enviar estos datos al controlador para obtener el monto disponible de la DB.
 
 
 
-        var actionDataMontoTransferencia = "{'clave':'" + claveTransValue + "','mes':'" + mesTransTextContent + "'}";
+            var actionDataMontoTransferencia = "{'clave':'" + claveTransValue + "','mes':'" + mesTransTextContent + "'}";
 
-        $.ajax({
-            url: '@Url.Action("MostrarMonto", "ClavesPresupuestales")',
-            data: actionDataMontoTransferencia,
-            dataType: "json",
-            returnType: 'json',
-            type: "POST",
-            contentType: "application/json; charset=utf-8",
-            //contentType: "application/json; charset=utf-8",
-            success: function (resultado) {
-                console.log("Monto" + resultado);
-                var montoObtenido = null;
-                if (montoObtenido == null) {
-                    montoObtenido = resultado;
-                    //console.log("Es el hijo más mayor de Cronos...", montoObtenido);
-                    document.getElementById('MontoDisponible2').style.display = 'inline';
+            $.ajax({
+                url: '@Url.Action("MostrarMonto", "ClavesPresupuestales")',
+                data: actionDataMontoTransferencia,
+                dataType: "json",
+                returnType: 'json',
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                //contentType: "application/json; charset=utf-8",
+                success: function (resultado) {
+                    console.log("Monto" + resultado);
+                    var montoObtenido = null;
+                    if (montoObtenido == null) {
+                        montoObtenido = resultado;
+                        //console.log("Es el hijo más mayor de Cronos...", montoObtenido);
+                        document.getElementById('MontoDisponible2').style.display = 'inline';
+                    }
+                    const WRITELINE = document.querySelector('#ElMonto2');
+                    var Monto = document.getElementById('ElMonto2');
+                    Monto.innerHTML = "";
+                    WRITELINE.insertAdjacentHTML('beforeend', montoObtenido)
+
+                },
+                error: function (result) {
+                    alert("ERROR SEVERO, VUELVA A CARGAR LA PÁGINA" + result.status);
                 }
-                const WRITELINE = document.querySelector('#ElMonto2');
-                var Monto = document.getElementById('ElMonto2');
-                Monto.innerHTML = "";
-                WRITELINE.insertAdjacentHTML('beforeend', montoObtenido)
+            });
 
-            },
-            error: function (result) {
-                alert("ERROR SEVERO, VUELVA A CARGAR LA PÁGINA" + result.status);
-            }
-        });
-
-
+        }
 
 
 

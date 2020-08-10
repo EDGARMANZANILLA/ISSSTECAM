@@ -691,8 +691,9 @@
             alert('Por favor ingrese el motivo de la transferencia')
         } else {
             //
-            var actionDataTransfer = "{'origenClave': '" + CajaClaveOT.value + "','origenMes ':'" + CajaMesOrigen.textContent + "','origenMonto':'" + CajaMontoOrigen.value + /*"','destinoMonto':'" + CajaMontoDestino.value +*/ "','destinoClave':'" + CajaClaveDT.value + "','destinoMes':'" + CajaMesDestino.textContent + "','motivoTransfer':'" + CajaMotivo.value + "'}";
-             $.ajax({
+            var actionDataTransfer = "{'origenClave': '" + CajaClaveOT.value + "','origenMes':'" + CajaMesOrigen.textContent + "','origenMonto':'" + CajaMontoOrigen.value + /*"','destinoMonto':'" + CajaMontoDestino.value +*/ "','destinoClave':'" + CajaClaveDT.value + "','destinoMes':'" + CajaMesDestino.textContent + "','motivoTransfer':'" + CajaMotivo.value + "'}";
+            console.log(actionDataTransfer);
+            $.ajax({
                 url: '@Url.Action("Transferencia", "ClavesPresupuestales")',
                  data: actionDataTransfer,
                 dataType: "json",

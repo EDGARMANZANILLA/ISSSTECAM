@@ -50,8 +50,30 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
 
         public ActionResult Calendario()
         {
-    
-            return PartialView();
+            List<string> clavesC = new List<string>();
+
+            //clavesC.Add("14470459");
+            //clavesC.Add("14470458");
+            //clavesC.Add("14470457");
+            //clavesC.Add("14470456");
+            //clavesC.Add("14470455");
+            //clavesC.Add("14470454");
+            //clavesC.Add("14470453");
+            //Esta lista proviene de la DB
+
+
+            //extrae la tabla ClavesPresupuestales filtrada por anio
+            var listaDeClaves = Negocios.ClavesPresupuestalesNegocios.ObtenerClavesActivasPorAnio(2019);
+
+            //filtramos solo las claves de lo extraido
+            foreach (var item in listaDeClaves)
+            {
+                clavesC.Add(item.Clave);
+
+            }
+
+            return PartialView(clavesC);
+            //return PartialView();
         }
 
 

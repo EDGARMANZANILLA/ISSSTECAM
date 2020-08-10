@@ -93,7 +93,7 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
             int anio = 2019;
 
             //datos que se obtienen como parametros
-            decimal monto= 9984.03M;
+            decimal monto= 192043.00M;
             string clavePresupuestal = "21120283626211C016000J186038910780L415A4211";
             int mes = 1;
             string motivo = "";
@@ -238,6 +238,71 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
             return exitoDeTransferencias;
         }
 
+
+
+
+
+        #region ObtenerMontoDelaDB aquí se supone q debo recibir el mes y la clave para obtener el monto y mostrarlo.
+        public JsonResult MostrarMonto(string clave, int mes)
+        {
+
+            decimal montoDisponible= 0;
+
+            var claveObtenida = Negocios.ClavesPresupuestalesNegocios.ObtenerPorUnicaClave(2019, clave);
+
+
+            switch (mes)
+            {
+                case 1:
+                    montoDisponible = claveObtenida.PresupuestoEnero;
+                    break;
+                case 2:
+                    montoDisponible = claveObtenida.PresupuestoFebrero;
+                    break;
+                case 3:
+                    montoDisponible = claveObtenida.PresupuestoMarzo;
+                    break;
+                case 4:
+                    montoDisponible = claveObtenida.PresupuestoAbril;
+                    break;
+                case 5:
+                    montoDisponible = claveObtenida.PresupuestoMayo;
+                    break;
+                case 6:
+                    montoDisponible = claveObtenida.PresupuestoJunio;
+                    break;
+
+                case 7:
+                    montoDisponible = claveObtenida.PresupuestoJulio;
+                    break;
+                case 8:
+                    montoDisponible = claveObtenida.PresupuestoAgosto;
+                    break;
+                case 9:
+                    montoDisponible = claveObtenida.PresupuestoSeptiembre;
+                    break;
+                case 10:
+                    montoDisponible = claveObtenida.PresupuestoOctubre;
+                    break;
+                case 11:
+                    montoDisponible = claveObtenida.PresupuestoNoviembre;
+                    break;
+                case 12:
+                    montoDisponible = claveObtenida.PresupuestoDiciembre;
+                    break;
+
+                default:
+                    montoDisponible = 0.0m;
+                    break;
+            }
+
+
+
+
+
+            return Json(montoDisponible, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
 
 
     }

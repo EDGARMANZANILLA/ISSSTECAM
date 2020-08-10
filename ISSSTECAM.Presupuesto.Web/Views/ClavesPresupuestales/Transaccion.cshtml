@@ -1,57 +1,50 @@
-﻿
+﻿@model List<string>
 @section titulo{
     <h2>Transacción</h2>
 }
 
 <h3>Transacción</h3>
 
-
-
-
-
 @*//*@
+@*class="js-data-example-ajax"*@
+@*<select id="SelectClave1">
+    @foreach (string item in Model)
+    { <option value="@item" id="@item">@item</option>}
+</select>*@
+
+@*<textarea name="some" class="select2-container"> </textarea>*@
 <nav class="Navigate" id="NavInitial">
     <h2 id="TxtInicial">Selecciona la opción que desea</h2>
     <br>
+    @*H1<input type="text" name="dato1" id="dato1" /><br>
+
+        H2<input type="text" name="dato2" id="dato2" /><br>
+
+        Result<input type="text" name="resultado" id="resultado" />*@
+
     <button title="Reducción" class="btn-T" id="Reduc" onclick="ProcReduc();" style="display:inline;position:center;margin-left:5%">Reduccion</button>
     <button title="Transferir" class="btn-T" id="Transfer" onclick="ProcTransfer();" style="display:inline;position:center;margin-left:5%">Transferencia</button>
     <button title="Transfer" class="btn-T"  onclick="TDM();" style="display:inline;position:center;margin-left:25%">Transferencia de Muchas claves a una</button>
 </nav>
 @*/SECCION DEL MENU DE REDUCCIÓN/*@
-<div class="col-md-6">
+<div class="Centrar" @*class="col-md-6"*@>
     <h3 id="TxtRedu" style="display:none;">Introduzca los siguientes datos para realizar la reducción</h3>
-    <nav name="MenuReduc1" id="IDMenuReduc1" class="menu" style="display:none;">
-        <h5 class="P-Kevin">Monto</h5>
-        <ul>
-            <li name="monto1">
-                <textarea name="NCajaMontoReduccion" id="CajaMontoR"> </textarea>
-            </li>
-        </ul>
-    </nav>
     <nav name="MenuReduc2" id="IDMenuReduc2" class="menu" style="display:none;">
         <h5 class="P-Kevin">Clave</h5>
-        <ul>
-            <li name="clave1">
-                <textarea name="NCajaClaveReduccion" id="CajaClaveR"> </textarea>
-            </li>
-        </ul>
+        @*<ul>
+                <li name="clave1">
+                    <textarea name="NCajaClaveReduccion" id="CajaClaveR"> </textarea>
+                </li>
+            </ul>*@
+        <select id="CajaClaveR">
+            <option></option>
+            @foreach (string item in Model)
+            {
+<option value="@item" id="@item">@item</option>}
+        </select>
     </nav>
-    <nav name="MenuReduc3" id="IDMenuReduc3" class="menu" style="display:none;">
-        <h5 class="P-Kevin">Motivo</h5>
-        <ul>
-            <li name="motivo1">
-                <textarea name="NCajaMotivoReduccion" id="CajaMotivoR"> </textarea>
-            </li>
-        </ul>
-    </nav>
-    <nav name="Prueba" id="Prueba" class="menu" style="display:none;">
-        <h5 class="P-Kevin">Prueba</h5>
-        <ul>
-            <li name="Prueba1">
-                <textarea name="prueba2" id="CajaMesValue" readonly="readonly"> </textarea>
-            </li>
-        </ul>
-    </nav>
+    @*<br>*@
+    @*///////////////////////////////////////////////////////////////////*@
     <nav name="MenuReduc4" id="IDMenuReduc4" class="listado" style="display:none;">
         <h5 class="P-Kevin">Mes</h5>
         <ul>
@@ -74,16 +67,56 @@
             </li>
         </ul>
     </nav>
-
+    <br>
+    <nav name="MenuReduc1" id="IDMenuReduc1" class="menu" style="display:none;">
+        <h5 class="P-Kevin">Monto</h5>
+        <ul>
+            <li name="monto1">
+                <textarea name="NCajaMontoReduccion" maxlength="6" id="CajaMontoR"></textarea>
+            </li>
+        </ul>
+    </nav>
+    <br>
+    <nav name="MenuReduc3" id="IDMenuReduc3" class="menu" style="display:none;">
+        <h5 class="P-Kevin">Motivo</h5>
+        <ul>
+            <li name="motivo1">
+                <textarea name="NCajaMotivoReduccion" id="CajaMotivoR"></textarea>
+            </li>
+        </ul>
+    </nav>
     <br>
     <br>
     <button id="EnviarReduc" class="btn btn-success" onclick="Reduccion();" style="display:none">Reducir</button>
-    <br>
+    @*<br>
+    <br>*@
+    @*<div class="col-md-6" style="margin-left:0%;">
+            <br>
+            <button id="EnviarReduc" class="btn btn-success" onclick="Reduccion();" style="display:none">Reducir</button>
+        </div>*@
+    @*<br>
+        <br>*@
+    <nav name="Prueba" id="Prueba" class="menu" style="display:none;">
+        <h5 class="P-Kevin">Prueba</h5>
+        <ul>
+            <li name="Prueba1">
+                <textarea name="prueba2" id="CajaMesValue" readonly="readonly">0</textarea>
+            </li>
+        </ul>
+    </nav>
+    @*<button id="EnviarReduc" class="btn btn-success" onclick="Reduccion();" style="display:none">Reducir</button>*@
+</div>
+<div id="MontoDisponible" class="Monto" style="display:none;">
+    <div id="Espacio" style="height:200px;width:5px">
+    </div>
+    <h4 >Monto disponible:</h4>
+    @*<br>*@
+    <h4 id="ElMonto"></h4>
 </div>
 @*/aqui va el modal/*@
 <div id="ModalReducc" style="display:none;height:900px;" class="modal-backdrop">
     <div class="modal-content" style="width:400px;left:25%;margin-right:10%;margin-left:10%;margin-top:10%;height:auto;">
-        <img src="@Url.Content("~/Content/images/Escudo_palomita.png")"  class="LOGOS"/>
+        <img src="@Url.Content("~/Content/images/Escudo_palomita.png")" class="LOGOS" />
         <div class="modal-header Popup" id="HeaderModal" style="height:auto;text-align:center;">
             <h2>El proceso se ha realizado éxitosamente</h2>
             <button title="Siguiente" class="btn btn-success" data-backdrop="false" onclick="HideModalReducc();;" style="margin-right:45%;margin-left:45%">Salir</button>
@@ -102,131 +135,154 @@
     </div>
 </div>
 
-
 @*/SECCION DEL MENU DE TRANSFERENCIA/*@
 
-<div class="col-md-6">
-    <h3 id="TxtTrans" style="display:none;">Introduzca los siguientes datos para realizar la transferencia</h3>
-    <br>
-    <br>
-    <div class="col-md-6" id="Origen">
-        <nav name="MenuTransfer2" id="IDMenuTransfer2" class="menu" style="display:none;">
-            <h5 class="P-Kevin">Clave Origen</h5>
-            <ul>
+<div class="col-md-6" id="Transferencia" style="margin-left: 10%; width: 90%;display:none;">
+    <h3 id="TxtTrans" style="display:none;margin-right:0%;margin-left: 20%;">Introduzca los datos para la transferencia</h3>
+    @*<br>*@
+<div class="col-md-6" id="Origen">
+    @*////////////////////////////////////////////////////////////////////////////////////////////////////////////////*@
+    <nav name="MenuTransfer2" id="IDMenuTransfer2" class="menu" style="display:none;">
+        <h5 class="P-Kevin">Clave Origen</h5>
+        @*<ul>
                 <li name="claveOrigen">
                     <textarea name="NCajaClaveOrigenTransfer" id="CajaClaveOrigenT"> </textarea>
                 </li>
-            </ul>
-        </nav>
-        <nav name="MenuTransfer1" id="IDMenuTransfer1" class="menu" style="display:none;">
-            <h5 class="P-Kevin">Monto Origen</h5>
-            <ul>
-                <li name="montoOrigen">
-                    <textarea name="NCajaMontoOrigen" id="CajaMontoOrigen"> </textarea>
-                </li>
-            </ul>
-        </nav>
-        @*///*@
-        <nav name="MenuOculto1" id="MenuOculto1" class="menu" style="display:none;">
-            <h5 class="P-Kevin">Oculto1</h5>
-            <ul>
-                <li name="MenuOculto1.1">
-                    <textarea name="CajaOculta1" id="CajaOcultaMesOrigen" readonly="readonly"> </textarea>
-                </li>
-            </ul>
-        </nav>
-        <nav name="MenuTransfer5" id="IDMenuTransfer5" class="listado" style="display:none;">
-            <h5 class="P-Kevin">Mes Origen</h5>
-            <ul>
-                <li name="mesOrigen">
-                    <textarea name="NCajaMesOrigen" id="CajaMesOrigen" readonly="readonly"> </textarea>
-                    <ul id="ListaMesesOrigen">
-                        <li value="01" id="Month1"><a>Enero</a></li>
-                        <li value="02" id="Month2"><a>Febrero</a></li>
-                        <li value="03" id="Month3"><a>Marzo</a></li>
-                        <li value="04" id="Month4"><a>Abril</a></li>
-                        <li value="05" id="Month5"><a>Mayo</a></li>
-                        <li value="06" id="Month6"><a>Junio</a></li>
-                        <li value="07" id="Month7"><a>Julio</a></li>
-                        <li value="08" id="Month8"><a>Agosto</a></li>
-                        <li value="09" id="Month9"><a>Septiembre</a></li>
-                        <li value="10" id="Month10"><a>Octubre</a></li>
-                        <li value="11" id="Month11"><a>Noviembre</a></li>
-                        <li value="12" id="Month12"><a>Diciembre</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
-        @*///*@
+            </ul>*@
+        <select id="CajaClaveOrigenT">
+            <option></option>
+            @foreach (string item in Model)
+            {
+<option value="@item" id="@item">@item</option>}
+        </select>
+    </nav>
+    @*///////////////////////////////////////////////////////////////////////////////////////////////////////////////*@
+    <nav name="MenuOculto1" id="MenuOculto1" class="menu" style="display:none;">
+        <h5 class="P-Kevin">Oculto1</h5>
+        <ul>
+            <li name="MenuOculto1.1">
+                <textarea name="CajaOculta1" id="CajaOcultaMesOrigen" readonly="readonly">0</textarea>
+            </li>
+        </ul>
+    </nav>
+    <nav name="MenuTransfer5" id="IDMenuTransfer5" class="listado" style="display:none;">
+        <h5 class="P-Kevin">Mes Origen</h5>
+        <ul>
+            <li name="mesOrigen">
+                <textarea name="NCajaMesOrigen" id="CajaMesOrigen" readonly="readonly"> </textarea>
+                <ul id="ListaMesesOrigen">
+                    <li value="1" id="Month1"><a>Enero</a></li>
+                    <li value="2" id="Month2"><a>Febrero</a></li>
+                    <li value="3" id="Month3"><a>Marzo</a></li>
+                    <li value="4" id="Month4"><a>Abril</a></li>
+                    <li value="5" id="Month5"><a>Mayo</a></li>
+                    <li value="6" id="Month6"><a>Junio</a></li>
+                    <li value="7" id="Month7"><a>Julio</a></li>
+                    <li value="8" id="Month8"><a>Agosto</a></li>
+                    <li value="9" id="Month9"><a>Septiembre</a></li>
+                    <li value="10" id="Month10"><a>Octubre</a></li>
+                    <li value="11" id="Month11"><a>Noviembre</a></li>
+                    <li value="12" id="Month12"><a>Diciembre</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <br>
+    @*///*@
+    <nav name="MenuTransfer1" id="IDMenuTransfer1" class="menu" style="display:none;">
+        <h5 class="P-Kevin">Monto Origen</h5>
+        <ul>
+            <li name="montoOrigen">
+                <textarea name="NCajaMontoOrigen" id="CajaMontoOrigen" style="margin-right:5px;"> </textarea>
+            </li>
+        </ul>
+    </nav>
+    <nav id="MontoDisponible2" @*class="Monto"*@ style="display:none;">
+        @*<div id="Espacio2" style="height:200px;width:5px">
+        </div>*@
+        <h4>Monto disponible:</h4>
+        @*<br>*@
+        <h4 id="ElMonto2"></h4>
+    </nav>
+</div>
+<div class="col-md-6" @*style="margin-left: 1%;"*@ id="Destino">
+    @*///////////////////////////////////////////////////////////////////////////////*@
+    <nav name="MenuTransfer3" id="IDMenuTransfer3" class="menu" style="display:none;">
 
-    </div>
-    <div class="col-md-6" id="Destino">
-        <nav name="MenuTransfer3" id="IDMenuTransfer3" class="menu" style="display:none;">
-
-            <h5 class="P-Kevin">Clave Destino</h5>
-            <ul>
+        <h5 class="P-Kevin">Clave Destino</h5>
+        @*<ul>
                 <li name="claveDestino">
                     <textarea name="NCajaClaveDestinoTransfer" id="CajaClaveDestinoT"> </textarea>
                 </li>
+            </ul>*@
+        <select id="CajaClaveDestinoT">
+            <option></option>
+            @foreach (string item in Model)
+            {
+<option value="@item" id="@item">@item</option>
+}
+        </select>
+    </nav>
+    @*<nav name="MenuTransfer7" id="IDMenuTransfer7" class="menu" style="display:none;">
+            <h5 class="P-Kevin">Monto Destino</h5>
+            <ul>
+                <li name="montoDestino">
+                    <textarea name="NCajaMontoDestino" id="CajaMontoDestino"> </textarea>
+                </li>
             </ul>
-        </nav>
-        @*<nav name="MenuTransfer7" id="IDMenuTransfer7" class="menu" style="display:none;">
-                <h5 class="P-Kevin">Monto Destino</h5>
-                <ul>
-                    <li name="montoDestino">
-                        <textarea name="NCajaMontoDestino" id="CajaMontoDestino"> </textarea>
-                    </li>
+        </nav>*@
+
+
+    <nav name="MenuOculto2" id="MenuOculto2" class="menu" style="display:none;">
+        <h5 class="P-Kevin">Oculto2</h5>
+        <ul>
+            <li name="MenuOculto1.2">
+                <textarea name="CajaOculta2" id="CajaOcultaMesDestino" readonly="readonly"> </textarea>
+            </li>
+        </ul>
+    </nav>
+    <nav name="MenuTransfer6" id="IDMenuTransfer6" class="listado" style="display:none;">
+        <h5 class="P-Kevin">Mes Destino</h5>
+        <ul>
+            <li name="mesDestino">
+                <textarea name="NCajaMesDestino" id="CajaMesDestino" readonly="readonly"> </textarea>
+                <ul id="ListaMesesDestino">
+                    <li value="01" id="Month1"><a>Enero</a></li>
+                    <li value="02" id="Month2"><a>Febrero</a></li>
+                    <li value="03" id="Month3"><a>Marzo</a></li>
+                    <li value="04" id="Month4"><a>Abril</a></li>
+                    <li value="05" id="Month5"><a>Mayo</a></li>
+                    <li value="06" id="Month6"><a>Junio</a></li>
+                    <li value="07" id="Month7"><a>Julio</a></li>
+                    <li value="08" id="Month8"><a>Agosto</a></li>
+                    <li value="09" id="Month9"><a>Septiembre</a></li>
+                    <li value="10" id="Month10"><a>Octubre</a></li>
+                    <li value="11" id="Month11"><a>Noviembre</a></li>
+                    <li value="12" id="Month12"><a>Diciembre</a></li>
                 </ul>
-            </nav>*@
-
-
-        <nav name="MenuOculto2" id="MenuOculto2" class="menu" style="display:none;">
-            <h5 class="P-Kevin">Oculto2</h5>
-            <ul>
-                <li name="MenuOculto1.2">
-                    <textarea name="CajaOculta2" id="CajaOcultaMesDestino" readonly="readonly"> </textarea>
-                </li>
-            </ul>
-        </nav>
-        <nav name="MenuTransfer6" id="IDMenuTransfer6" class="listado" style="display:none;">
-            <h5 class="P-Kevin">Mes Destino</h5>
-            <ul>
-                <li name="mesDestino">
-                    <textarea name="NCajaMesDestino" id="CajaMesDestino" readonly="readonly"> </textarea>
-                    <ul id="ListaMesesDestino">
-                        <li value="01" id="Month1"><a>Enero</a></li>
-                        <li value="02" id="Month2"><a>Febrero</a></li>
-                        <li value="03" id="Month3"><a>Marzo</a></li>
-                        <li value="04" id="Month4"><a>Abril</a></li>
-                        <li value="05" id="Month5"><a>Mayo</a></li>
-                        <li value="06" id="Month6"><a>Junio</a></li>
-                        <li value="07" id="Month7"><a>Julio</a></li>
-                        <li value="08" id="Month8"><a>Agosto</a></li>
-                        <li value="09" id="Month9"><a>Septiembre</a></li>
-                        <li value="10" id="Month10"><a>Octubre</a></li>
-                        <li value="11" id="Month11"><a>Noviembre</a></li>
-                        <li value="12" id="Month12"><a>Diciembre</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
-        @*///*@
-
-    </div>
+            </li>
+        </ul>
+    </nav>
+    <br>
+    @*///*@
+    <nav name="MenuTransfer4" id="IDMenuTransfer4" class="menu" style="display:none;">
+        <h5 class="P-Kevin">Motivo</h5>
+        <ul>
+            <li name="motivo2">
+                <textarea name="NCajaMotivoTransferencia" id="CajaMotivoT"> </textarea>
+            </li>
+        </ul>
+    </nav>
+   
+</div>
     @*seccion media*@
     <br>
-    <div class="col-md-6">
-        <nav name="MenuTransfer4" id="IDMenuTransfer4" class="menu" style="display:none;">
-            <h5 class="P-Kevin">Motivo</h5>
-            <ul>
-                <li name="motivo2">
-                    <textarea name="NCajaMotivoTransferencia" id="CajaMotivoT"> </textarea>
-                </li>
-            </ul>
-        </nav>
+    <div class="col-md-6" style="margin-left:35%;">
+
         <br>
         <br>
         <button id="EnviarTransfer" class="btn btn-success" onclick="Transferencia();" style="display:none">Transferir</button>
+       
 
     </div>
 </div>
@@ -261,11 +317,13 @@
         /*float: left;*/
         margin-left: 31.25%;
         margin-right: 31.25%;
-       /* z-index: 9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999;*/
+        /* z-index: 9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999;*/
     }
+
     .modal-backdrop {
-        background-color: rgba(00,00,00,0.5);
-       /* display: none;*/
+         background-color: rgba(0, 0, 0, 0.50);
+       /* background-color: rgba(0, 0, 0, 0.00);*/
+        /* display: none;*/
         width: 100%;
         z-index: 999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999;
         height: 100%;
@@ -277,16 +335,17 @@
     .modal-content {
         font-weight: bold;
         color: black;
-       /* z-index: 999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999;*/
+        /* z-index: 999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999;*/
     }
-    /* /////////////////////////////////////////////////////////////////////////*/
-   
+
     /* ///////////////sección para la lista de meses/////////////////////////////////////////////////////*/
     .listado ul {
         list-style: none;
         margin: 0;
         padding: 0;
-        width: 105px;
+        /* width: 105px;*/
+        width: 240px;
+        background-color: rgb(69, 110, 185);
     }
 
         .listado ul a {
@@ -295,7 +354,8 @@
             color: #fff;
             text-decoration: none;
             font-weight: 300;
-            font-size: 12px;
+            /* font-size: 12px;*/
+            font-size: large;
             padding: 0px;
             text-transform: uppercase;
             letter-spacing: 0px;
@@ -307,7 +367,10 @@
     }
 
         .listado ul li {
-            background-color: rgb(69, 110, 185);
+           /* background-color: rgb(69, 110, 185);*/
+         /*   background-color: white;*/
+        /*    border-radius: 2px;
+            border-color: dimgrey;*/
             position: relative;
             float: left;
             margin: 0;
@@ -329,7 +392,8 @@
 
             .listado ul ul li {
                 float: none;
-                width: 100px;
+                /*width: 100px;*/
+                width: 240px;
                 z-index: 9999999;
             }
 
@@ -345,31 +409,86 @@
         }
 
     textarea {
-        width: 100px;
+        /*width: 110px;*/
+        width: 240px;
         font-family: Arial;
-        font-size: small;
-        background-color: transparent;
-        color: white;
-        height: 21px;
+        /*font-size: medium;*/
+        font-size: large;
+        /*background-color: transparent;
+        color: white;*/
+        background-color: white;
+        color: black;
+        /*     height: 28px;*/
+        border-radius: 2px;
+    
+        border-color: grey;
+        /**/
+        height: 34px;
         resize: none;
-        border: none;
         padding-bottom: 0px;
         padding-top: 3px;
         padding-left: 4px;
     }
+
+    .Centrar {
+        margin-left: 35%;
+        height:0;
+    }
+
+    .Monto {
+        margin-left: 0%;
+        height: 0;
+        width: 15%;
+       
+    }
+        .Monto h4 {
+            width: 15%;
+            height: 0;
+            margin-bottom: 5%;
+            margin-top: 0;
+        }
+
+    /*  #MontoDisponible {
+        width: 6%;
+        margin-top: 70%;
+    }
+
+    #MontoDisponible p {
+        width: 6%;
+        
+    }*/
     /*/////////////////////////////////////////////////////////////////////////////////*/
+    .menu select {
+        width: 440px;
+        font-family: Arial;
+        font-size: medium;
+        background-color: rgb(11, 66, 167);
+        height: 34px;
+    }
+        .menu select option {
+            width: 330px;
+            font-family: Arial;
+            font-size: large;
+            background-color: rgb(11, 66, 167);
+            height: 34px;
+        }
+
     .menu ul li {
         display: inline-block;
-        background-color: rgb(69, 110, 185);
+        /* background-color: rgb(69, 110, 185);*/
+        background-color: white;
+        border-radius:3px;
+        border-color:dimgrey;
+     
     }
 
     .menu ul {
         list-style: none;
         margin: 0;
         padding: 0;
-        width: 105px;
+         width: 105px;
+        width: 240px;
     }
-
         .menu ul a {
             display: block;
             cursor: pointer;
@@ -377,6 +496,7 @@
             text-decoration: none;
             font-weight: 300;
             font-size: 12px;
+           font-size:large;
             padding: 0px;
             text-transform: uppercase;
             letter-spacing: 0px;
@@ -386,7 +506,6 @@
         z-index: 99999999999999999;
         padding-left: 8px;
     }
-
         .menu ul li {
             position: relative;
             float: left;
@@ -394,11 +513,10 @@
             padding: 0;
             z-index: 99;
         }
-
             .menu ul li:hover {
-                background: rgb(128, 128, 128);
+                /*background: rgb(128, 128, 128);*/
+                background: rgba(128, 128, 128, 0.00);
             }
-
         .menu ul ul {
             display: none;
             position: absolute;
@@ -409,7 +527,8 @@
 
             .menu ul ul li {
                 float: none;
-                width: 100px;
+                  width: 100px;
+                width: 240px;
                 z-index: 9999999999999999;
             }
 
@@ -427,6 +546,7 @@
     .P-Kevin {
         text-align: left;
     }
+
 </style>
 
 <script>
@@ -443,6 +563,8 @@
         document.getElementById('EnviarReduc').style.display = 'inline';
     }
     function ProcTransfer() {
+        document.getElementById('Transferencia').style.display = 'inline';
+
         document.getElementById('NavInitial').style.display = 'none';
         document.getElementById('TxtTrans').style.display = 'inline';
 
@@ -464,7 +586,9 @@
         //var CajaMes = document.getElementById('CajaMesR');
         var ValorMes = document.getElementById('CajaMesValue');
 
-        if (CajaMonto.value == ' ') {
+        //alert("El value de CajaClave es: " + CajaClave.value);
+
+        if (CajaMonto.value == '') {
             alert('Por favor ingrese un monto ')
         }
         //if (isNaN(formulario.edad.value)==true
@@ -473,9 +597,9 @@
         }
         else if (CajaClave.value == ' ') {
             alert('Por favor ingrese una clave')
-        } else if (CajaMotivo.value == ' ') {
+        } else if (CajaMotivo.value == '') {
             alert('Por favor ingrese un motivo')
-        } else if (ValorMes.textContent == ' ') {
+        } else if (ValorMes.textContent == '0') {
             alert('Por favor seleccione el mes al que se le hara la reducción')
         } else {
             //alert("Monto: " + CajaMonto.value + "  Clave: " + CajaClave.value);
@@ -529,6 +653,8 @@
 
         document.getElementById('NavInitial').style.display = 'inline';
 
+        document.getElementById('MontoDisponible').style.display = 'none';
+
     }
 
     function Transferencia() {
@@ -548,7 +674,7 @@
         }
         else if (CajaClaveOT.value == ' ') {
             alert('Por favor ingrese una clave de origen')
-        } else if (CajaMesOrigen.textContent == ' ') {
+        } else if (CajaMesOrigen.textContent == '0') {
             alert('Por favor ingrese un mes de origen')
 
         } else if (CajaClaveDT.value == ' ') {
@@ -601,7 +727,12 @@
 
         document.getElementById('EnviarTransfer').style.display = 'none';
 
+        document.getElementById('Transferencia').style.display = 'none';
+
         document.getElementById('NavInitial').style.display = 'inline';
+
+        document.getElementById('MontoDisponible2').style.display = 'none';
+
     }
 
 
@@ -619,6 +750,10 @@
         var Linea = document.getElementById('CajaMesValue');
         Linea.innerHTML = "";
         ESCRIBE.insertAdjacentHTML('beforeend', Valor)
+
+        //var mes = document.getElementById("CajaMesR");
+        //var mesRV = mes.value;
+        //console.log(mesRV);
     });
     ////
     $('#ListaMesesOrigen').click(function (e) {
@@ -652,6 +787,182 @@
         Linea.innerHTML = "";
         ESCRIBE.insertAdjacentHTML('beforeend', Valor)
     });
+
+
+    //$(document).ready(function () {
+    //    $('#SelectClave1').select2();
+    //});
+
+    $(document).ready(function () {
+        $('#CajaClaveR').select2({
+            placeholder: "Ingrese la clave",
+            allowClear: true,
+            minimumInputLength: 3
+        });
+    });
+
+    $(document).ready(function () {
+        $('#CajaClaveOrigenT').select2({
+            placeholder: "Ingrese la clave",
+            allowClear: true,
+            minimumInputLength: 3
+        });
+    });
+
+    $(document).ready(function () {
+        $('#CajaClaveDestinoT').select2({
+            placeholder: "Ingrese la clave",
+            allowClear: true,
+            minimumInputLength: 3
+        });
+    });
+
+ //////////////////////////////Aquí se maneja el observable para Reducción///////////////////////////////
+
+    var flujoCajaMontoReduc = Rx.Observable.fromEvent(document.getElementById("CajaMontoR"), 'click');
+    //var flujoCaja2 = Rx.Observable.fromEvent(document.getElementById("CajaMesR"), 'keyup');
+
+    flujoCajaMontoReduc.subscribe(function (elemento) {
+        //Obtengo la clave
+        var clave = document.getElementById("CajaClaveR");
+        var claveReduccValue = clave.value;
+        //Obtengo el mes
+        //var ValorMes = document.getElementById('CajaMesValue');
+        var mes = document.getElementById("CajaMesValue");
+        var mesReduccTextContent = mes.textContent;
+        //Muestro la clave, el mes y el monto que escribe el usuario.
+        console.log(mesReduccTextContent);
+        console.log(claveReduccValue);
+        console.log(elemento.srcElement.value);
+        //Aqui es la parte donde debo enviar estos datos al controlador para obtener el monto disponible de la DB.
+        ///////////////////////////////////////////////////////////////
+ //var actionData = "{'guardaQuincena': '" + ValActionData + "','guardaMes': '" + CajaM.textContent + "', 'guardaAnio': '" + CajaA.textContent + "','tipoNomina': '" + QuincenaTipoNomina + "' }";
+        //var actionDataMR = "{'clave':'" + claveReduccValue + "','mes':'" + mes.textContent + "'}";
+        var actionDataMontoReduccion = "{'clave':'" + claveReduccValue + "','mes':'" + mesReduccTextContent + "'}";
+
+        $.ajax({
+            url: '@Url.Action("MostrarMonto", "ClavesPresupuestales")',
+            data: actionDataMontoReduccion,
+            dataType: "json",
+            returnType: 'json',
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            //contentType: "application/json; charset=utf-8",
+            success: function (resultado) {
+                console.log("Monto" + resultado);
+                var montoObtenido = null;
+                if (montoObtenido == null) {
+                    montoObtenido = resultado;
+                    //console.log("Es el hijo más mayor de Cronos...", montoObtenido);
+                    document.getElementById('MontoDisponible').style.display = 'inline';
+                }
+                const WRITELINE = document.querySelector('#ElMonto');
+                var Monto = document.getElementById('ElMonto');
+                Monto.innerHTML = "";
+                WRITELINE.insertAdjacentHTML('beforeend', montoObtenido)
+
+            },
+            error: function (result) {
+                alert("ERROR SEVERO, VUELVA A CARGAR LA PÁGINA" + result.status);
+            }
+        });
+        // <h5 id="ElMonto"></h5>
+        //var li = e.target.parentNode;
+        //let ID = li.id;
+        //var Identidad = document.getElementById('#ElMonto').textContent;
+
+        //const WRITELINE = document.querySelector('#ElMonto');
+        //var Monto = document.getElementById('ElMonto');
+        //Monto.innerHTML = "";
+        //WRITELINE.insertAdjacentHTML('beforeend', msg)
+        //document.getElementById('MontoDisponible').style.display = 'inline';
+
+    });
+
+ //////////////////////////////Aquí se maneja el observable para Transacción///////////////////////////////
+
+
+    var flujoCajaMontoTrans = Rx.Observable.fromEvent(document.getElementById("CajaMontoOrigen"), 'click');
+    //var flujoCaja2 = Rx.Observable.fromEvent(document.getElementById("CajaMesR"), 'keyup');
+
+    flujoCajaMontoTrans.subscribe(function (elemento) {
+        //Obtengo la clave
+        var clave = document.getElementById("CajaClaveOrigenT");
+        var claveTransValue = clave.value;
+        //Obtengo el mes
+        var mes = document.getElementById("CajaOcultaMesOrigen");
+        var mesTransTextContent = mes.textContent;
+        //Muestro la clave, el mes y el monto que escribe el usuario.
+        console.log(mesTransTextContent);
+        console.log(claveTransValue);
+        console.log(elemento.srcElement.value);
+        //Aqui es la parte donde debo enviar estos datos al controlador para obtener el monto disponible de la DB.
+
+
+
+        var actionDataMontoTransferencia = "{'clave':'" + claveTransValue + "','mes':'" + mesTransTextContent + "'}";
+
+        $.ajax({
+            url: '@Url.Action("MostrarMonto", "ClavesPresupuestales")',
+            data: actionDataMontoTransferencia,
+            dataType: "json",
+            returnType: 'json',
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            //contentType: "application/json; charset=utf-8",
+            success: function (resultado) {
+                console.log("Monto" + resultado);
+                var montoObtenido = null;
+                if (montoObtenido == null) {
+                    montoObtenido = resultado;
+                    //console.log("Es el hijo más mayor de Cronos...", montoObtenido);
+                    document.getElementById('MontoDisponible2').style.display = 'inline';
+                }
+                const WRITELINE = document.querySelector('#ElMonto2');
+                var Monto = document.getElementById('ElMonto2');
+                Monto.innerHTML = "";
+                WRITELINE.insertAdjacentHTML('beforeend', montoObtenido)
+
+            },
+            error: function (result) {
+                alert("ERROR SEVERO, VUELVA A CARGAR LA PÁGINA" + result.status);
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
+    });
+
+
+
+
+
+
+    //flujoCaja2.subscribe(function (elemento) {
+
+    //    console.log(elemento.srcElement.value);
+
+    //});
+
+    //$("#CajaClaveR").on("change", function () {
+    //    var clave = document.getElementById("CajaClaveR");
+    //    if (clave.value == '') {
+    //    } else {
+    //        var claveRV = clave.value;
+    //        //var res = ClaveRV.substr(-4);
+    //        console.log(claveRV);
+    //    }
+    //});
+
+
 
 
 

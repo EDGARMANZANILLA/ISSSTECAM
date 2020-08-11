@@ -106,13 +106,20 @@
     </nav>
     @*<button id="EnviarReduc" class="btn btn-success" onclick="Reduccion();" style="display:none">Reducir</button>*@
 </div>
-<div id="MontoDisponible" class="Monto" style="display:none;">
-    <div id="Espacio" style="height:200px;width:5px">
-    </div>
-    <h4 >Monto disponible:</h4>
+<nav id="MontoDisponible" class="listado" style="display:none;">
+    @*<div id="Espacio" style="height:0;width:5px">
+    </div>*@
+    @*<h4>Monto disponible:</h4>*@
     @*<br>*@
-    <h4 id="ElMonto"></h4>
-</div>
+    @*<h4 id="ElMonto"></h4>*@
+        <ul >
+            <li name="monto" style="margin-top:-110px;">
+                <textarea name="cajaMontoDisponible" id="cajaMontoDisponible" readonly="readonly">Monto Disponible</textarea>
+                <ul id="ElMonto">
+                </ul>
+            </li>
+        </ul>
+</nav>
 @*/aqui va el modal/*@
 <div id="ModalReducc" style="display:none;height:900px;" class="modal-backdrop">
     <div class="modal-content" style="width:400px;left:25%;margin-right:10%;margin-left:10%;margin-top:10%;height:auto;">
@@ -197,12 +204,19 @@
             </li>
         </ul>
     </nav>
-    <nav id="MontoDisponible2" @*class="Monto"*@ style="display:none;">
+    <nav id="MontoDisponible2" class="listado" style="display:none;">
         @*<div id="Espacio2" style="height:200px;width:5px">
         </div>*@
-        <h4>Monto disponible:</h4>
-        @*<br>*@
-        <h4 id="ElMonto2"></h4>
+        @*<h4>Monto disponible:</h4>
+        <h4 id="ElMonto2"></h4>*@
+        <ul>
+            <li name="monto" style="margin-left:240px;">
+                <textarea name="cajaMontoDisponible2" id="cajaMontoDisponible2" readonly="readonly">Monto Disponible</textarea>
+                <ul id="ElMonto2">
+                </ul>
+            </li>
+        </ul>
+
     </nav>
 </div>
 <div class="col-md-6" @*style="margin-left: 1%;"*@ id="Destino">
@@ -860,10 +874,28 @@
                     //console.log("Es el hijo más mayor de Cronos...", montoObtenido);
                     document.getElementById('MontoDisponible').style.display = 'inline';
                 }
+                //const WRITELINE = document.querySelector('#ElMonto');
+                //var Monto = document.getElementById('ElMonto');
+                //Monto.innerHTML = "";
+                //WRITELINE.insertAdjacentHTML('beforeend', montoObtenido)
+
                 const WRITELINE = document.querySelector('#ElMonto');
                 var Monto = document.getElementById('ElMonto');
+                i = 0;
                 Monto.innerHTML = "";
-                WRITELINE.insertAdjacentHTML('beforeend', montoObtenido)
+                WRITELINE.insertAdjacentHTML('beforeend', '<li><a id="MontoDisponibleValidar>' + montoObtenido + '</a></li>')
+
+
+                //const OPTIONS = document.querySelector('#ElMonto');
+                //    i = 0;
+                //    //arrayAños.forEach(Element => {
+                //montoObtenido.forEach(Element => {
+                //        // OPTIONS.insertAdjacentHTML('beforeend', '<option value="' + i + '">' + Element + '</option>');
+                //        OPTIONS.insertAdjacentHTML('beforeend', '<li value="' + i + '" id="MontoDisp-' + i + '"><a>' + Element + '</a></li>')
+                //        i++;
+                //    });
+
+
 
             },
             error: function (result) {
@@ -929,10 +961,35 @@
                         //console.log("Es el hijo más mayor de Cronos...", montoObtenido);
                         document.getElementById('MontoDisponible2').style.display = 'inline';
                     }
+                    //const WRITELINE = document.querySelector('#ElMonto2');
+                    //var Monto = document.getElementById('ElMonto2');
+                    //Monto.innerHTML = "";
+                    //WRITELINE.insertAdjacentHTML('beforeend', montoObtenido)
+
                     const WRITELINE = document.querySelector('#ElMonto2');
                     var Monto = document.getElementById('ElMonto2');
+                    i = 0;
                     Monto.innerHTML = "";
-                    WRITELINE.insertAdjacentHTML('beforeend', montoObtenido)
+                    WRITELINE.insertAdjacentHTML('beforeend', '<li><a id="MontoDisponibleValidar2">' + montoObtenido + '</a></li>')
+
+
+
+                    //console.log("Resultado " + resultado);
+                    //var añoNuevo = null;
+                    //if (añoNuevo == null) {
+                    //    añoNuevo = resultado;
+                    //    console.log("Es el hijo más mayor de Cronos...", añoNuevo);
+                       
+                    //}
+                   
+                    //const OPTIONS = document.querySelector('#ListaAños');
+                    //i = 0;
+                    ////arrayAños.forEach(Element => {
+                    //añoNuevo.forEach(Element => {
+                    //    // OPTIONS.insertAdjacentHTML('beforeend', '<option value="' + i + '">' + Element + '</option>');
+                    //    OPTIONS.insertAdjacentHTML('beforeend', '<li value="' + i + '" id="Año-' + i + '"><a>' + Element + '</a></li>')
+                    //    i++;
+                    //});
 
                 },
                 error: function (result) {
@@ -943,17 +1000,24 @@
         }
 
 
-
-
-
-
-
-
-
     });
 
 
 
+    //$('#ElMonto').click(function (e) {
+    //    var li = e.target.parentNode;
+    //    // alert(li.id);
+    //    let ID = li.id;
+    //    //alert("Ver " + ID)
+    //    // var Ident = li.id;
+    //    var Identidad = document.getElementById(ID).textContent;
+    //    //alert("Has invocado a " + Summon)
+    //    const WRITELINE = document.querySelector('#cajaMontoDisponible');
+    //    var Lista = document.getElementById('cajaMontoDisponible');
+    //    Lista.innerHTML = "";
+    //    // WRITELINE.insertAdjacentHTML('beforeend','<p>Has invocado a '+Summon+'</p>')
+    //    WRITELINE.insertAdjacentHTML('beforeend', Identidad)
+    //});
 
 
 

@@ -200,7 +200,7 @@
         <h5 class="P-Kevin">Monto Origen</h5>
         <ul>
             <li name="montoOrigen">
-                <textarea name="NCajaMontoOrigen" id="CajaMontoOrigen" style="margin-right:5px;"> </textarea>
+                <textarea name="NCajaMontoOrigen" id="CajaMontoOrigen" style="margin-right:5px;"></textarea>
             </li>
         </ul>
     </nav>
@@ -599,6 +599,7 @@
         var CajaMotivo = document.getElementById('CajaMotivoR');
         //var CajaMes = document.getElementById('CajaMesR');
         var ValorMes = document.getElementById('CajaMesValue');
+        var MontoDisponible = document.getElementById('MontoDisponibleValidar');
 
         //alert("El value de CajaClave es: " + CajaClave.value);
 
@@ -606,15 +607,18 @@
             alert('Por favor ingrese una clave')
         } else if (CajaMonto.value == '') {
             alert('Por favor ingrese un monto ')
-        }
+         }
+        //MontoDisponibleValidar
         //if (isNaN(formulario.edad.value)==true
         else if (isNaN(CajaMonto.value) == true) {
            alert('Por favor ingrese un monto valido')
         } else if (CajaMotivo.value == '') {
             alert('Por favor ingrese un motivo')
         } else if (ValorMes.textContent == '0') {
-            alert('Por favor seleccione el mes al que se le hara la reducción')
-        } else {
+             alert('Por favor seleccione el mes al que se le hara la reducción')
+         } else if (CajaMonto.value > MontoDisponible.textContent) {
+             alert('Por favor ingrese un monto igual o menor al disponible')
+         } else {
             //alert("Monto: " + CajaMonto.value + "  Clave: " + CajaClave.value);
             //alert("El motivo es: " + CajaMotivo.value + "  Mes: " + CajaMes.value);
             // alert("el mes es: " + ValorMes.textContent);
@@ -679,8 +683,9 @@
         //var CajaMontoDestino = document.getElementById('CajaMontoDestino');
         var CajaMesDestino = document.getElementById('CajaOcultaMesDestino');
         var CajaMotivo = document.getElementById('CajaMotivoT');
+        var MontoDisponible = document.getElementById('MontoDisponibleValidar2');
 
-        if (CajaMontoOrigen.value == ' ') {
+        if (CajaMontoOrigen.value == '') {
             alert('Por favor ingrese un monto de origen')
         } else if (isNaN(CajaMontoOrigen.value) == true) {
             alert('Por favor ingrese un monto de origen valido')
@@ -699,9 +704,10 @@
         else if (CajaMesDestino.textContent == ' ') {
             alert('Por favor ingrese un mes de destino')
         }
-
         else if (CajaMotivo.value == ' ') {
             alert('Por favor ingrese el motivo de la transferencia')
+        } else if (CajaMontoOrigen.value > MontoDisponible.textContent) {
+            alert('Por favor ingrese un monto igual o menor al disponible')
         } else {
             //
             var actionDataTransfer = "{'origenClave': '" + CajaClaveOT.value + "','origenMes':'" + CajaMesOrigen.textContent + "','origenMonto':'" + CajaMontoOrigen.value + /*"','destinoMonto':'" + CajaMontoDestino.value +*/ "','destinoClave':'" + CajaClaveDT.value + "','destinoMes':'" + CajaMesDestino.textContent + "','motivoTransfer':'" + CajaMotivo.value + "'}";
@@ -879,12 +885,12 @@
                 //Monto.innerHTML = "";
                 //WRITELINE.insertAdjacentHTML('beforeend', montoObtenido)
 
+
                 const WRITELINE = document.querySelector('#ElMonto');
                 var Monto = document.getElementById('ElMonto');
                 i = 0;
                 Monto.innerHTML = "";
-                WRITELINE.insertAdjacentHTML('beforeend', '<li><a id="MontoDisponibleValidar>' + montoObtenido + '</a></li>')
-
+                WRITELINE.insertAdjacentHTML('beforeend', '<li><a id="MontoDisponibleValidar">' + montoObtenido + '</a></li>')
 
                 //const OPTIONS = document.querySelector('#ElMonto');
                 //    i = 0;

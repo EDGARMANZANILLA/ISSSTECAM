@@ -29,7 +29,7 @@
 </div>
 
 <div class="row">
-    <div id="BuscarConSelect2" class="col-md-12" style="display:none">
+    <div id="BuscarConSelect2" class="col-md-12" style="display:none; @*margin-left:100px;*@">
         <select id="CajaClaveSearch">
             <option> </option>
             @foreach (string item in Model)
@@ -116,7 +116,7 @@
         }
 
     #BuscarConSelect2 {
-        margin-left: 35%;
+        margin-left: 59%;
         height: 10%;
     }
 </style>
@@ -440,9 +440,9 @@
 
         $(document).ready(function () {
             $('#CajaClaveSearch').select2({
-                placeholder: "Ingrese los ultimos 4 digitos de la clave",
+                placeholder: "Ingrese los ultimos 5 digitos de la clave",
                 allowClear: true,
-                minimumInputLength: 4
+                minimumInputLength: 5
                 //,
                 //language: {
                 //    "Please": "Por favor",

@@ -71,7 +71,6 @@ namespace ISSSTECAM.Presupuesto.Negocios
 
 
         //metodos para transacciones
-
         public static ClavesPresupuestales ObtenerPorUnicaClave(int anio, string clave)
         {
             var transaccion = new Transaccion();
@@ -103,7 +102,7 @@ namespace ISSSTECAM.Presupuesto.Negocios
 
 
 
-        public static bool Reducir( decimal monto, string clavePresupuestal, int mes, int anio)
+        public static bool Reducir(string clavePresupuestal, int mes, decimal monto, int anio)
         {
             //se ocupa para hacer los metodos en cascada
             bool bandera = false;
@@ -181,9 +180,7 @@ namespace ISSSTECAM.Presupuesto.Negocios
             return bandera;
         }
 
-
-
-        public static  bool Transferir(decimal monto, string clavePresupuestal, int mes, int anio)
+        public static  bool Transferir(string clavePresupuestal, int mes, decimal monto, int anio)
         {
             bool bandera= false;
 

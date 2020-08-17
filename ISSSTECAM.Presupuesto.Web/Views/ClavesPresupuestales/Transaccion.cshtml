@@ -24,6 +24,7 @@
 
     <button title="Reducción" class="btn-T" id="Reduc" onclick="ProcReduc();" style="display:inline;position:center;margin-left:5%">Reduccion</button>
     <button title="Transferir" class="btn-T" id="Transfer" onclick="ProcTransfer();" style="display:inline;position:center;margin-left:5%">Transferencia</button>
+    <button title="Transfer" class="btn-T"  onclick="TDM();" style="display:inline;position:center;margin-left:5%">Transferencia de Muchas claves a una</button>
 </nav>
 @*/SECCION DEL MENU DE REDUCCIÓN/*@
 <div class="Centrar" @*class="col-md-6"*@>
@@ -105,13 +106,20 @@
     </nav>
     @*<button id="EnviarReduc" class="btn btn-success" onclick="Reduccion();" style="display:none">Reducir</button>*@
 </div>
-<div id="MontoDisponible" class="Monto" style="display:none;">
-    <div id="Espacio" style="height:200px;width:5px">
-    </div>
-    <h4 >Monto disponible:</h4>
+<nav id="MontoDisponible" class="listado" style="display:none;">
+    @*<div id="Espacio" style="height:0;width:5px">
+    </div>*@
+    @*<h4>Monto disponible:</h4>*@
     @*<br>*@
-    <h4 id="ElMonto"></h4>
-</div>
+    @*<h4 id="ElMonto"></h4>*@
+        <ul >
+            <li name="monto" style="margin-top:-110px;">
+                <textarea name="cajaMontoDisponible" id="cajaMontoDisponible" readonly="readonly">Monto Disponible</textarea>
+                <ul id="ElMonto">
+                </ul>
+            </li>
+        </ul>
+</nav>
 @*/aqui va el modal/*@
 <div id="ModalReducc" style="display:none;height:900px;" class="modal-backdrop">
     <div class="modal-content" style="width:400px;left:25%;margin-right:10%;margin-left:10%;margin-top:10%;height:auto;">
@@ -192,16 +200,23 @@
         <h5 class="P-Kevin">Monto Origen</h5>
         <ul>
             <li name="montoOrigen">
-                <textarea name="NCajaMontoOrigen" id="CajaMontoOrigen" style="margin-right:5px;"> </textarea>
+                <textarea name="NCajaMontoOrigen" id="CajaMontoOrigen" style="margin-right:5px;"></textarea>
             </li>
         </ul>
     </nav>
-    <nav id="MontoDisponible2" @*class="Monto"*@ style="display:none;">
+    <nav id="MontoDisponible2" class="listado" style="display:none;">
         @*<div id="Espacio2" style="height:200px;width:5px">
         </div>*@
-        <h4>Monto disponible:</h4>
-        @*<br>*@
-        <h4 id="ElMonto2"></h4>
+        @*<h4>Monto disponible:</h4>
+        <h4 id="ElMonto2"></h4>*@
+        <ul>
+            <li name="monto" style="margin-left:240px;">
+                <textarea name="cajaMontoDisponible2" id="cajaMontoDisponible2" readonly="readonly">Monto Disponible</textarea>
+                <ul id="ElMonto2">
+                </ul>
+            </li>
+        </ul>
+
     </nav>
 </div>
 <div class="col-md-6" @*style="margin-left: 1%;"*@ id="Destino">
@@ -584,23 +599,26 @@
         var CajaMotivo = document.getElementById('CajaMotivoR');
         //var CajaMes = document.getElementById('CajaMesR');
         var ValorMes = document.getElementById('CajaMesValue');
+        var MontoDisponible = document.getElementById('MontoDisponibleValidar');
 
         //alert("El value de CajaClave es: " + CajaClave.value);
 
-        if (CajaMonto.value == '') {
+         if (CajaClave.value == '') {
+            alert('Por favor ingrese una clave')
+        } else if (CajaMonto.value == '') {
             alert('Por favor ingrese un monto ')
-        }
+         }
+        //MontoDisponibleValidar
         //if (isNaN(formulario.edad.value)==true
         else if (isNaN(CajaMonto.value) == true) {
            alert('Por favor ingrese un monto valido')
-        }
-        else if (CajaClave.value == ' ') {
-            alert('Por favor ingrese una clave')
         } else if (CajaMotivo.value == '') {
             alert('Por favor ingrese un motivo')
         } else if (ValorMes.textContent == '0') {
-            alert('Por favor seleccione el mes al que se le hara la reducción')
-        } else {
+             alert('Por favor seleccione el mes al que se le hara la reducción')
+         } else if (CajaMonto.value > MontoDisponible.textContent) {
+             alert('Por favor ingrese un monto igual o menor al disponible')
+         } else {
             //alert("Monto: " + CajaMonto.value + "  Clave: " + CajaClave.value);
             //alert("El motivo es: " + CajaMotivo.value + "  Mes: " + CajaMes.value);
             // alert("el mes es: " + ValorMes.textContent);
@@ -665,18 +683,19 @@
         //var CajaMontoDestino = document.getElementById('CajaMontoDestino');
         var CajaMesDestino = document.getElementById('CajaOcultaMesDestino');
         var CajaMotivo = document.getElementById('CajaMotivoT');
+        var MontoDisponible = document.getElementById('MontoDisponibleValidar2');
 
-        if (CajaMontoOrigen.value == ' ') {
+        if (CajaMontoOrigen.value == '') {
             alert('Por favor ingrese un monto de origen')
         } else if (isNaN(CajaMontoOrigen.value) == true) {
             alert('Por favor ingrese un monto de origen valido')
         }
-        else if (CajaClaveOT.value == ' ') {
+        else if (CajaClaveOT.value == '') {
             alert('Por favor ingrese una clave de origen')
         } else if (CajaMesOrigen.textContent == '0') {
             alert('Por favor ingrese un mes de origen')
 
-        } else if (CajaClaveDT.value == ' ') {
+        } else if (CajaClaveDT.value == '') {
             alert('Por favor ingrese una clave de destino')
         }
         //else if (CajaMontoDestino.value == ' ') {
@@ -685,13 +704,15 @@
         else if (CajaMesDestino.textContent == ' ') {
             alert('Por favor ingrese un mes de destino')
         }
-
         else if (CajaMotivo.value == ' ') {
             alert('Por favor ingrese el motivo de la transferencia')
+        } else if (CajaMontoOrigen.value > MontoDisponible.textContent) {
+            alert('Por favor ingrese un monto igual o menor al disponible')
         } else {
             //
-            var actionDataTransfer = "{'origenMonto': '" + CajaMontoOrigen.value + "','origenClave':'" + CajaClaveOT.value + "','origenMes':'" + CajaMesOrigen.textContent + /*"','destinoMonto':'" + CajaMontoDestino.value +*/ "','destinoClave':'" + CajaClaveDT.value + "','destinoMes':'" + CajaMesDestino.textContent + "','motivoTransfer':'" + CajaMotivo.value + "'}";
-             $.ajax({
+            var actionDataTransfer = "{'origenClave': '" + CajaClaveOT.value + "','origenMes':'" + CajaMesOrigen.textContent + "','origenMonto':'" + CajaMontoOrigen.value + /*"','destinoMonto':'" + CajaMontoDestino.value +*/ "','destinoClave':'" + CajaClaveDT.value + "','destinoMes':'" + CajaMesDestino.textContent + "','motivoTransfer':'" + CajaMotivo.value + "'}";
+            console.log(actionDataTransfer);
+            $.ajax({
                 url: '@Url.Action("Transferencia", "ClavesPresupuestales")',
                  data: actionDataTransfer,
                 dataType: "json",
@@ -833,10 +854,14 @@
         console.log(mesReduccTextContent);
         console.log(claveReduccValue);
         console.log(elemento.srcElement.value);
+
+        if (clave.value == '') {
+            alert('Por favor ingrese una clave antes del monto')
+        } else if (mes.textContent == '0') {
+            alert('Por favor seleccione un mes antes de ingresar el monto')
+        } else { 
         //Aqui es la parte donde debo enviar estos datos al controlador para obtener el monto disponible de la DB.
         ///////////////////////////////////////////////////////////////
- //var actionData = "{'guardaQuincena': '" + ValActionData + "','guardaMes': '" + CajaM.textContent + "', 'guardaAnio': '" + CajaA.textContent + "','tipoNomina': '" + QuincenaTipoNomina + "' }";
-        //var actionDataMR = "{'clave':'" + claveReduccValue + "','mes':'" + mes.textContent + "'}";
         var actionDataMontoReduccion = "{'clave':'" + claveReduccValue + "','mes':'" + mesReduccTextContent + "'}";
 
         $.ajax({
@@ -855,10 +880,28 @@
                     //console.log("Es el hijo más mayor de Cronos...", montoObtenido);
                     document.getElementById('MontoDisponible').style.display = 'inline';
                 }
+                //const WRITELINE = document.querySelector('#ElMonto');
+                //var Monto = document.getElementById('ElMonto');
+                //Monto.innerHTML = "";
+                //WRITELINE.insertAdjacentHTML('beforeend', montoObtenido)
+
+
                 const WRITELINE = document.querySelector('#ElMonto');
                 var Monto = document.getElementById('ElMonto');
+                i = 0;
                 Monto.innerHTML = "";
-                WRITELINE.insertAdjacentHTML('beforeend', montoObtenido)
+                WRITELINE.insertAdjacentHTML('beforeend', '<li><a id="MontoDisponibleValidar">' + montoObtenido + '</a></li>')
+
+                //const OPTIONS = document.querySelector('#ElMonto');
+                //    i = 0;
+                //    //arrayAños.forEach(Element => {
+                //montoObtenido.forEach(Element => {
+                //        // OPTIONS.insertAdjacentHTML('beforeend', '<option value="' + i + '">' + Element + '</option>');
+                //        OPTIONS.insertAdjacentHTML('beforeend', '<li value="' + i + '" id="MontoDisp-' + i + '"><a>' + Element + '</a></li>')
+                //        i++;
+                //    });
+
+
 
             },
             error: function (result) {
@@ -875,6 +918,7 @@
         //Monto.innerHTML = "";
         //WRITELINE.insertAdjacentHTML('beforeend', msg)
         //document.getElementById('MontoDisponible').style.display = 'inline';
+    }
 
     });
 
@@ -895,53 +939,91 @@
         console.log(mesTransTextContent);
         console.log(claveTransValue);
         console.log(elemento.srcElement.value);
-        //Aqui es la parte donde debo enviar estos datos al controlador para obtener el monto disponible de la DB.
+
+        if (clave.value == '') {
+            alert('Por favor ingrese una clave antes del monto')
+        } else if (mes.textContent == '0') {
+            alert('Por favor seleccione un mes antes de ingresar el monto')
+        } else {
+            //Aqui es la parte donde debo enviar estos datos al controlador para obtener el monto disponible de la DB.
 
 
 
-        var actionDataMontoTransferencia = "{'clave':'" + claveTransValue + "','mes':'" + mesTransTextContent + "'}";
+            var actionDataMontoTransferencia = "{'clave':'" + claveTransValue + "','mes':'" + mesTransTextContent + "'}";
 
-        $.ajax({
-            url: '@Url.Action("MostrarMonto", "ClavesPresupuestales")',
-            data: actionDataMontoTransferencia,
-            dataType: "json",
-            returnType: 'json',
-            type: "POST",
-            contentType: "application/json; charset=utf-8",
-            //contentType: "application/json; charset=utf-8",
-            success: function (resultado) {
-                console.log("Monto" + resultado);
-                var montoObtenido = null;
-                if (montoObtenido == null) {
-                    montoObtenido = resultado;
-                    //console.log("Es el hijo más mayor de Cronos...", montoObtenido);
-                    document.getElementById('MontoDisponible2').style.display = 'inline';
+            $.ajax({
+                url: '@Url.Action("MostrarMonto", "ClavesPresupuestales")',
+                data: actionDataMontoTransferencia,
+                dataType: "json",
+                returnType: 'json',
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                //contentType: "application/json; charset=utf-8",
+                success: function (resultado) {
+                    console.log("Monto" + resultado);
+                    var montoObtenido = null;
+                    if (montoObtenido == null) {
+                        montoObtenido = resultado;
+                        //console.log("Es el hijo más mayor de Cronos...", montoObtenido);
+                        document.getElementById('MontoDisponible2').style.display = 'inline';
+                    }
+                    //const WRITELINE = document.querySelector('#ElMonto2');
+                    //var Monto = document.getElementById('ElMonto2');
+                    //Monto.innerHTML = "";
+                    //WRITELINE.insertAdjacentHTML('beforeend', montoObtenido)
+
+                    const WRITELINE = document.querySelector('#ElMonto2');
+                    var Monto = document.getElementById('ElMonto2');
+                    i = 0;
+                    Monto.innerHTML = "";
+                    WRITELINE.insertAdjacentHTML('beforeend', '<li><a id="MontoDisponibleValidar2">' + montoObtenido + '</a></li>')
+
+
+
+                    //console.log("Resultado " + resultado);
+                    //var añoNuevo = null;
+                    //if (añoNuevo == null) {
+                    //    añoNuevo = resultado;
+                    //    console.log("Es el hijo más mayor de Cronos...", añoNuevo);
+                       
+                    //}
+                   
+                    //const OPTIONS = document.querySelector('#ListaAños');
+                    //i = 0;
+                    ////arrayAños.forEach(Element => {
+                    //añoNuevo.forEach(Element => {
+                    //    // OPTIONS.insertAdjacentHTML('beforeend', '<option value="' + i + '">' + Element + '</option>');
+                    //    OPTIONS.insertAdjacentHTML('beforeend', '<li value="' + i + '" id="Año-' + i + '"><a>' + Element + '</a></li>')
+                    //    i++;
+                    //});
+
+                },
+                error: function (result) {
+                    alert("ERROR SEVERO, VUELVA A CARGAR LA PÁGINA" + result.status);
                 }
-                const WRITELINE = document.querySelector('#ElMonto2');
-                var Monto = document.getElementById('ElMonto2');
-                Monto.innerHTML = "";
-                WRITELINE.insertAdjacentHTML('beforeend', montoObtenido)
+            });
 
-            },
-            error: function (result) {
-                alert("ERROR SEVERO, VUELVA A CARGAR LA PÁGINA" + result.status);
-            }
-        });
-
-
-
-
-
-
-
-
-
+        }
 
 
     });
 
 
 
+    //$('#ElMonto').click(function (e) {
+    //    var li = e.target.parentNode;
+    //    // alert(li.id);
+    //    let ID = li.id;
+    //    //alert("Ver " + ID)
+    //    // var Ident = li.id;
+    //    var Identidad = document.getElementById(ID).textContent;
+    //    //alert("Has invocado a " + Summon)
+    //    const WRITELINE = document.querySelector('#cajaMontoDisponible');
+    //    var Lista = document.getElementById('cajaMontoDisponible');
+    //    Lista.innerHTML = "";
+    //    // WRITELINE.insertAdjacentHTML('beforeend','<p>Has invocado a '+Summon+'</p>')
+    //    WRITELINE.insertAdjacentHTML('beforeend', Identidad)
+    //});
 
 
 
@@ -964,6 +1046,65 @@
 
 
 
+
+
+
+
+
+
+    // prueba de transferencia de muchos a uno
+
+    function TDM() {
+
+        console.log('entre');
+
+
+
+        var cuentasRemitentes =
+            [
+                { clave: '21120283626211C016000J186038910780L415A4211', mes: 2, monto: 4204215.10 },
+                { clave: '21120283626311C016000J187039010790L415A4511', mes: 2, monto: 1290006.60 },
+                { clave: '21120283626211C016000J187039010790L415A4521', mes: 2, monto: 33738637.36 },
+            ];
+
+
+        var cuentaDestino = { clave: '21120283626211C016000J187039010790L414A4521', mes: 2, monto: 000 };
+      
+
+
+       // NuevasCuentas.push({ clave: 'ocho', mes: 8, monto: 8888.8 });
+
+       // NuevasCuentas.push({ motivo: 'compra2x' });
+
+
+
+
+        console.log(cuentaDestino);
+
+
+
+          $.ajax({
+            url: '@Url.Action("TransferirDeMuchosAUno", "ClavesPresupuestales")',
+              data: JSON.stringify({ cuentasRemitentes, cuentaDestino, motivo: 'compra3x' }),
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+
+            success: function (msg) {
+                console.log("msg", msg);
+                if (msg) {
+                    alert("Se realizo con exito");
+                }
+
+            },
+
+        });
+
+
+
+
+
+
+    }
 
 
 

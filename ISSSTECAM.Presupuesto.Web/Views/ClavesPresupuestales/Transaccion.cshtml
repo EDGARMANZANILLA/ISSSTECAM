@@ -40,7 +40,8 @@
             <option></option>
             @foreach (string item in Model)
             {
-<option value="@item" id="@item">@item</option>}
+                <option value="@item" id="@item">@item</option>
+}
         </select>
     </nav>
     @*<br>*@
@@ -68,15 +69,29 @@
         </ul>
     </nav>
     <br>
-    <nav name="MenuReduc1" id="IDMenuReduc1" class="menu" style="display:none;">
+    <nav name="MenuReduc1" id="IDMenuReduc1" class="listado2" style="display:none;">
         <h5 class="P-Kevin">Monto</h5>
         <ul>
             <li name="monto1">
-                <textarea name="NCajaMontoReduccion" maxlength="6" id="CajaMontoR"></textarea>
+                <textarea name="NCajaMontoReduccion" id="CajaMontoR"></textarea>
+                <ul id="ElMonto">
+                </ul>
             </li>
         </ul>
     </nav>
+    @*<nav id="MontoDisponible" class="listado" style="display:none;">
+        <ul>
+            <li name="monto" style="margin-top:-110px;">
+                <textarea name="cajaMontoDisponible" id="cajaMontoDisponible" readonly="readonly">Monto Disponible</textarea>
+                <ul id="ElMonto">
+                </ul>
+            </li>
+        </ul>
+    </nav>*@
     <br>
+
+
+
     <nav name="MenuReduc3" id="IDMenuReduc3" class="menu" style="display:none;">
         <h5 class="P-Kevin">Motivo</h5>
         <ul>
@@ -89,7 +104,7 @@
     <br>
     <button id="EnviarReduc" class="btn btn-success" onclick="Reduccion();" style="display:none">Reducir</button>
     @*<br>
-    <br>*@
+        <br>*@
     @*<div class="col-md-6" style="margin-left:0%;">
             <br>
             <button id="EnviarReduc" class="btn btn-success" onclick="Reduccion();" style="display:none">Reducir</button>
@@ -106,12 +121,7 @@
     </nav>
     @*<button id="EnviarReduc" class="btn btn-success" onclick="Reduccion();" style="display:none">Reducir</button>*@
 </div>
-<nav id="MontoDisponible" class="listado" style="display:none;">
-    @*<div id="Espacio" style="height:0;width:5px">
-    </div>*@
-    @*<h4>Monto disponible:</h4>*@
-    @*<br>*@
-    @*<h4 id="ElMonto"></h4>*@
+@*<nav id="MontoDisponible" class="listado" style="display:none;">
         <ul >
             <li name="monto" style="margin-top:-110px;">
                 <textarea name="cajaMontoDisponible" id="cajaMontoDisponible" readonly="readonly">Monto Disponible</textarea>
@@ -119,7 +129,7 @@
                 </ul>
             </li>
         </ul>
-</nav>
+</nav>*@
 @*/aqui va el modal/*@
 <div id="ModalReducc" style="display:none;height:900px;" class="modal-backdrop">
     <div class="modal-content" style="width:400px;left:25%;margin-right:10%;margin-left:10%;margin-top:10%;height:auto;">
@@ -160,7 +170,8 @@
             <option></option>
             @foreach (string item in Model)
             {
-<option value="@item" id="@item">@item</option>}
+                <option value="@item" id="@item">@item</option>
+}
         </select>
     </nav>
     @*///////////////////////////////////////////////////////////////////////////////////////////////////////////////*@
@@ -196,19 +207,18 @@
     </nav>
     <br>
     @*///*@
-    <nav name="MenuTransfer1" id="IDMenuTransfer1" class="menu" style="display:none;">
+    <nav name="MenuTransfer1" id="IDMenuTransfer1" class="listado2" style="display:none;">
         <h5 class="P-Kevin">Monto Origen</h5>
         <ul>
             <li name="montoOrigen">
                 <textarea name="NCajaMontoOrigen" id="CajaMontoOrigen" style="margin-right:5px;"></textarea>
+                <ul id="ElMonto2">
+                </ul>
             </li>
         </ul>
     </nav>
-    <nav id="MontoDisponible2" class="listado" style="display:none;">
-        @*<div id="Espacio2" style="height:200px;width:5px">
-        </div>*@
-        @*<h4>Monto disponible:</h4>
-        <h4 id="ElMonto2"></h4>*@
+    @*/////////////////////////////////*@
+    @*<nav id="MontoDisponible2" class="listado" style="display:none;">
         <ul>
             <li name="monto" style="margin-left:240px;">
                 <textarea name="cajaMontoDisponible2" id="cajaMontoDisponible2" readonly="readonly">Monto Disponible</textarea>
@@ -217,7 +227,7 @@
             </li>
         </ul>
 
-    </nav>
+    </nav>*@
 </div>
 <div class="col-md-6" @*style="margin-left: 1%;"*@ id="Destino">
     @*///////////////////////////////////////////////////////////////////////////////*@
@@ -351,7 +361,50 @@
         color: black;
         /* z-index: 999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999;*/
     }
-
+   /* ///////////////////////////////////listado de monto///////////////////////////////////////////////////////////////*/
+    .listado2 ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        width: 240px;
+        background-color: rgb(69, 110, 185);}
+        .listado2 ul a {
+            display: block;
+            cursor: pointer;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 300;
+            font-size: large;
+            padding: 0px;
+            text-transform: uppercase;
+            letter-spacing: 0px;}
+    .listado2 {z-index: 0; padding-left: 8px;}
+        .listado2 ul li {
+            position: relative;
+            float: left;
+            margin: 0;
+            padding: 0;
+            z-index: 9; }
+            .listado2 ul li textarea {z-index: 0;}
+            .listado2 ul li:hover {background: rgb(11, 66, 167);}
+        .listado2 ul ul {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            padding: 0;}
+            .listado2 ul ul li {
+                float: none;
+                /*width: 100px;*/
+                width: 240px;
+                z-index: 99;}
+            .listado2 ul ul a {
+                line-height: 100%;
+                padding: 10px 15px;
+                padding: 10px 10px;
+                z-index: 9;}
+        .listado2 ul li:hover > ul {display: block;}
+   
     /* ///////////////sección para la lista de meses/////////////////////////////////////////////////////*/
     .listado ul {
         list-style: none;
@@ -376,7 +429,7 @@
         }
 
     .listado {
-        z-index: 9999999;
+        z-index: 0;
         padding-left: 8px;
     }
 
@@ -389,8 +442,11 @@
             float: left;
             margin: 0;
             padding: 0;
-            z-index: 9999999;
+            z-index: 999999999;
         }
+            .listado ul li textarea {
+                z-index: 0;
+            }
 
             .listado ul li:hover {
                 background: rgb(11, 66, 167);
@@ -408,18 +464,19 @@
                 float: none;
                 /*width: 100px;*/
                 width: 240px;
-                z-index: 9999999;
+                z-index: 9999999999999;
             }
 
             .listado ul ul a {
                 line-height: 100%;
                 padding: 10px 15px;
                 padding: 10px 10px;
-                z-index: 99999999;
+                z-index: 9999999999999999;
             }
 
         .listado ul li:hover > ul {
             display: block;
+       
         }
 
     textarea {
@@ -434,7 +491,6 @@
         color: black;
         /*     height: 28px;*/
         border-radius: 2px;
-    
         border-color: grey;
         /**/
         height: 34px;
@@ -601,7 +657,10 @@
         var ValorMes = document.getElementById('CajaMesValue');
         var MontoDisponible = document.getElementById('MontoDisponibleValidar');
 
-        //alert("El value de CajaClave es: " + CajaClave.value);
+        //console.log('Caja Monto ', CajaMonto.value);
+        //console.log('Monto Disponible ', MontoDisponible.textContent);
+        //console.log('Monto Disponible con parseFloat', parseFloat(MontoDisponible.textContent));
+        //console.log('Caja Monto con parseFloat', parseFloat(CajaMonto.value));
 
          if (CajaClave.value == '') {
             alert('Por favor ingrese una clave')
@@ -616,13 +675,15 @@
             alert('Por favor ingrese un motivo')
         } else if (ValorMes.textContent == '0') {
              alert('Por favor seleccione el mes al que se le hara la reducción')
-         } else if (CajaMonto.value > MontoDisponible.textContent) {
+             //(CajaMonto.value > MontoDisponible.textContent)
+             //1157541.55
+         } else if (parseFloat(CajaMonto.value) > MontoDisponible.textContent) {
              alert('Por favor ingrese un monto igual o menor al disponible')
          } else {
-            //alert("Monto: " + CajaMonto.value + "  Clave: " + CajaClave.value);
-            //alert("El motivo es: " + CajaMotivo.value + "  Mes: " + CajaMes.value);
-            // alert("el mes es: " + ValorMes.textContent);
-            var actionDataReducc = "{'reduccionMonto': '" + CajaMonto.value + "','reduccionClave':'" + CajaClave.value + "','reduccionMes':'" + ValorMes.textContent + "','reduccionMotivo':'" + CajaMotivo.value + "'}";
+             var MontoCorrectoReducc = parseFloat(CajaMonto.value);
+             console.log('Monto a Enviar ', MontoCorrectoReducc);
+
+             var actionDataReducc = "{'reduccionMonto': '" + MontoCorrectoReducc + "','reduccionClave':'" + CajaClave.value + "','reduccionMes':'" + ValorMes.textContent + "','reduccionMotivo':'" + CajaMotivo.value + "'}";
             $.ajax({
                 url: '@Url.Action("Reducciones", "ClavesPresupuestales")',
                 data: actionDataReducc,
@@ -637,22 +698,10 @@
                     alert("ERROR SEVERO, VUELVA A CARGAR LA PÁGINA" + result.status);
                 }
             });
-            //
-            //Aqui colocaré la opcion del modal
-            //alert(" La reducción se ha realizado con éxito :) ");
 
-            //document.getElementById('ModalReducc').style.display = 'inline';
+             //document.getElementById('ModalReducc').style.display = 'inline';
 
-            //document.getElementById('TxtRedu').style.display = 'none';
-
-            //document.getElementById('IDMenuReduc1').style.display = 'none';
-            //document.getElementById('IDMenuReduc2').style.display = 'none';
-            //document.getElementById('IDMenuReduc3').style.display = 'none';
-            //document.getElementById('IDMenuReduc4').style.display = 'none';
-
-            //document.getElementById('EnviarReduc').style.display = 'none';
-
-            //document.getElementById('NavInitial').style.display = 'inline';
+          
         }
 
     }
@@ -670,7 +719,7 @@
 
         document.getElementById('NavInitial').style.display = 'inline';
 
-        document.getElementById('MontoDisponible').style.display = 'none';
+        //document.getElementById('MontoDisponible').style.display = 'none';
 
     }
 
@@ -683,7 +732,7 @@
         //var CajaMontoDestino = document.getElementById('CajaMontoDestino');
         var CajaMesDestino = document.getElementById('CajaOcultaMesDestino');
         var CajaMotivo = document.getElementById('CajaMotivoT');
-        var MontoDisponible = document.getElementById('MontoDisponibleValidar2');
+        var MontoDisponible2 = document.getElementById('MontoDisponibleValidar2');
 
         console.log('Monto Origen ',CajaMontoOrigen.value)
 
@@ -709,11 +758,13 @@
         }
         else if (CajaMotivo.value == ' ') {
             alert('Por favor ingrese el motivo de la transferencia')
-        } else if (CajaMontoOrigen.value > MontoDisponible.textContent) {
+        } else if (parseFloat(CajaMontoOrigen.value) > MontoDisponible2.textContent) {
             alert('Por favor ingrese un monto igual o menor al disponible')
         } else {
+            var MontoCorrectoTransfer = parseFloat(CajaMontoOrigen.value);
+            console.log('Monto a Enviar ', MontoCorrectoTransfer);
             //
-            var actionDataTransfer = "{'origenClave': '" + CajaClaveOT.value + "','origenMes':'" + CajaMesOrigen.textContent + "','origenMonto':'" + CajaMontoOrigen.value + /*"','destinoMonto':'" + CajaMontoDestino.value +*/ "','destinoClave':'" + CajaClaveDT.value + "','destinoMes':'" + CajaMesDestino.textContent + "','motivoTransfer':'" + CajaMotivo.value + "'}";
+            var actionDataTransfer = "{'origenClave': '" + CajaClaveOT.value + "','origenMes':'" + CajaMesOrigen.textContent + "','origenMonto':'" + MontoCorrectoTransfer + /*"','destinoMonto':'" + CajaMontoDestino.value +*/ "','destinoClave':'" + CajaClaveDT.value + "','destinoMes':'" + CajaMesDestino.textContent + "','motivoTransfer':'" + CajaMotivo.value + "'}";
             console.log(actionDataTransfer);
             $.ajax({
                 url: '@Url.Action("Transferencia", "ClavesPresupuestales")',
@@ -754,7 +805,7 @@
 
         document.getElementById('NavInitial').style.display = 'inline';
 
-        document.getElementById('MontoDisponible2').style.display = 'none';
+        //document.getElementById('MontoDisponible2').style.display = 'none';
 
     }
 
@@ -810,6 +861,37 @@
         Linea.innerHTML = "";
         ESCRIBE.insertAdjacentHTML('beforeend', Valor)
     });
+    ////
+    $('#ElMonto').click(function (e) {
+        var li = e.target.parentNode;
+        let ID = li.id;
+        var Identidad = document.getElementById(ID).textContent;
+        const WRITELINE = document.querySelector('#CajaMontoR');
+        var Lista = document.getElementById('CajaMontoR');
+        Lista.innerHTML = "";
+        WRITELINE.insertAdjacentHTML('beforeend', Identidad)
+
+        //var Valor = document.getElementById(ID).value;
+        //const ESCRIBE = document.querySelector('#CajaMontoR');
+        //var Linea = document.getElementById('CajaMontoR');
+        //Linea.innerHTML = "";
+        //ESCRIBE.insertAdjacentHTML('beforeend', Valor)
+        //console.log('El value es: ', Valor);
+        //parseFloat(cadena)
+        console.log('Usando parseFloat : ', parseFloat(Identidad));
+    });
+    //////
+    $('#ElMonto2').click(function (e) {
+        var li = e.target.parentNode;
+        let ID = li.id;
+        var Identidad = document.getElementById(ID).textContent;
+        const WRITELINE = document.querySelector('#CajaMontoOrigen');
+        var Lista = document.getElementById('CajaMontoOrigen');
+        Lista.innerHTML = "";
+        WRITELINE.insertAdjacentHTML('beforeend', Identidad)
+
+        console.log('Usando parseFloat : ', parseFloat(Identidad));
+    });
 
 
     //$(document).ready(function () {
@@ -854,9 +936,9 @@
         var mes = document.getElementById("CajaMesValue");
         var mesReduccTextContent = mes.textContent;
         //Muestro la clave, el mes y el monto que escribe el usuario.
-        console.log(mesReduccTextContent);
-        console.log(claveReduccValue);
-        console.log(elemento.srcElement.value);
+        console.log('Mes ',mesReduccTextContent);
+        console.log('Clave ',claveReduccValue);
+        console.log('Monto despues del click ',elemento.srcElement.value);
 
         if (clave.value == '') {
             alert('Por favor ingrese una clave antes del monto')
@@ -881,20 +963,23 @@
                 if (montoObtenido == null) {
                     montoObtenido = resultado;
                     //console.log("Es el hijo más mayor de Cronos...", montoObtenido);
-                    document.getElementById('MontoDisponible').style.display = 'inline';
+
+                    //document.getElementById('MontoDisponible').style.display = 'inline';
                 }
                 //const WRITELINE = document.querySelector('#ElMonto');
                 //var Monto = document.getElementById('ElMonto');
                 //Monto.innerHTML = "";
                 //WRITELINE.insertAdjacentHTML('beforeend', montoObtenido)
 
-
+                console.log('Monto Obtenido', montoObtenido);
                 const WRITELINE = document.querySelector('#ElMonto');
                 var Monto = document.getElementById('ElMonto');
                 i = 0;
                 Monto.innerHTML = "";
-                WRITELINE.insertAdjacentHTML('beforeend', '<li><a id="MontoDisponibleValidar">' + montoObtenido + '</a></li>')
+                WRITELINE.insertAdjacentHTML('beforeend', '<li id="MontoDisponibleValidar" value="' + montoObtenido + '"><a>' + montoObtenido + '</a></li>')
 
+
+                    //< li value = "01" id = "Month1" > <a>Enero</a></li >
                 //const OPTIONS = document.querySelector('#ElMonto');
                 //    i = 0;
                 //    //arrayAños.forEach(Element => {
@@ -968,19 +1053,19 @@
                     if (montoObtenido == null) {
                         montoObtenido = resultado;
                         //console.log("Es el hijo más mayor de Cronos...", montoObtenido);
-                        document.getElementById('MontoDisponible2').style.display = 'inline';
+                        //document.getElementById('MontoDisponible2').style.display = 'inline';
                     }
                     //const WRITELINE = document.querySelector('#ElMonto2');
                     //var Monto = document.getElementById('ElMonto2');
                     //Monto.innerHTML = "";
                     //WRITELINE.insertAdjacentHTML('beforeend', montoObtenido)
-
+                    console.log('Monto Obtenido', montoObtenido);
                     const WRITELINE = document.querySelector('#ElMonto2');
                     var Monto = document.getElementById('ElMonto2');
                     i = 0;
                     Monto.innerHTML = "";
-                    WRITELINE.insertAdjacentHTML('beforeend', '<li><a id="MontoDisponibleValidar2">' + montoObtenido + '</a></li>')
-
+                    //WRITELINE.insertAdjacentHTML('beforeend', '<li><a id="MontoDisponibleValidar2">' + montoObtenido + '</a></li>')
+                    WRITELINE.insertAdjacentHTML('beforeend', '<li id="MontoDisponibleValidar2" value="' + montoObtenido + '"><a>' + montoObtenido + '</a></li>')
 
 
                     //console.log("Resultado " + resultado);

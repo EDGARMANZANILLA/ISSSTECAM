@@ -72,7 +72,7 @@
         <h5 class="P-Kevin">Monto</h5>
         <ul>
             <li name="monto1">
-                <textarea name="NCajaMontoReduccion" maxlength="6" id="CajaMontoR"></textarea>
+                <textarea name="NCajaMontoReduccion" id="CajaMontoR"></textarea>
             </li>
         </ul>
     </nav>
@@ -710,6 +710,11 @@
             alert('Por favor ingrese un monto igual o menor al disponible')
         } else {
             //
+            console.log(CajaMontoOrigen.value);
+            CajaMontoOrigen.value = 0,66;
+            console.log(CajaMontoOrigen.value);
+
+
             var actionDataTransfer = "{'origenClave': '" + CajaClaveOT.value + "','origenMes':'" + CajaMesOrigen.textContent + "','origenMonto':'" + CajaMontoOrigen.value + /*"','destinoMonto':'" + CajaMontoDestino.value +*/ "','destinoClave':'" + CajaClaveDT.value + "','destinoMes':'" + CajaMesDestino.textContent + "','motivoTransfer':'" + CajaMotivo.value + "'}";
             console.log(actionDataTransfer);
             $.ajax({
@@ -1084,7 +1089,7 @@
 
 
           $.ajax({
-            url: '@Url.Action("TransferirDeMuchosAUno", "ClavesPresupuestales")',
+            url: '@Url.Action("TransferenciaDeClavesAClave", "ClavesPresupuestales")',
               data: JSON.stringify({ cuentasRemitentes, cuentaDestino, motivo: 'compra3x' }),
             type: "POST",
             contentType: "application/json; charset=utf-8",

@@ -15,7 +15,7 @@ namespace ISSSTECAM.Presupuesto.Entidades
     public partial class Transacciones
     {
         public long Id { get; set; }
-        public System.DateTime Fecha { get; set; }
+        public System.DateTime FechaOperacion { get; set; }
         public int IdClavePresupuestalRemitente { get; set; }
         public int IdMesRemitente { get; set; }
         public Nullable<int> IdClavePresupuestalDestinataria { get; set; }
@@ -23,12 +23,15 @@ namespace ISSSTECAM.Presupuesto.Entidades
         public decimal Monto { get; set; }
         public string Motivo { get; set; }
         public int IdTipoDeTransaccion { get; set; }
+        public int IdEmpleadoOperacion { get; set; }
+        public string NombreEmpleadoOperacion { get; set; }
+        public System.Guid IdentificadorOperacion { get; set; }
         public bool Activo { get; set; }
     
         public virtual ClavesPresupuestales ClavesPresupuestales { get; set; }
         public virtual ClavesPresupuestales ClavesPresupuestales1 { get; set; }
         public virtual Meses Meses { get; set; }
-        public virtual TiposDeTransacciones TiposDeTransacciones { get; set; }
         public virtual Meses Meses1 { get; set; }
+        public virtual TiposDeTransacciones TiposDeTransacciones { get; set; }
     }
 }

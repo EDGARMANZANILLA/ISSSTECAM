@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace ISSSTECAM.Presupuesto.Negocios
 {
-    public class ClavesPresupuestalesNegocios
+      public class ClavesPresupuestalesNegocios
     {
         public static ClavesPresupuestales Agregar(ClavesPresupuestales clave)
         {
@@ -80,7 +80,7 @@ namespace ISSSTECAM.Presupuesto.Negocios
             return repositorio.ObtenerPorFiltro(c => c.Anio == anio && c.Clave == clave && c.Activo == true).FirstOrDefault();
         }
 
-        public static bool GuardarTransaccion(Transacciones nueva)
+        public static bool GuardarRegistroTransaccion(Transacciones nueva)
         {
             bool bandera;
                 var transaccion = new Transaccion();
@@ -102,7 +102,7 @@ namespace ISSSTECAM.Presupuesto.Negocios
 
 
 
-        public static bool Reducir(string clavePresupuestal, int mes, decimal monto, int anio)
+        public static bool Reducir(string clavePresupuestal, int mes, decimal monto, string motivo, int anio)
         {
             //se ocupa para hacer los metodos en cascada
             bool bandera = false;
@@ -111,63 +111,82 @@ namespace ISSSTECAM.Presupuesto.Negocios
             var repositorio = new Repositorio<ClavesPresupuestales>(transaccion);
 
             //Se obtiene la clave a la que se va a reducir
-            ClavesPresupuestales claves = 
+            ClavesPresupuestales claveAReducir = 
                 repositorio.ObtenerPorFiltro(c => c.Anio == anio && c.Clave == clavePresupuestal && c.Activo == true).FirstOrDefault();
 
             //Verifica que la clave que vine de la DB sea la que nos da el usuario
             //Cambia el monto en el mes indicado de la clave 
-            if (claves.Clave == clavePresupuestal)
+            if (claveAReducir.Clave == clavePresupuestal)
             {
-
                 switch (mes)
                 {
                     case 1:
-                        claves.PresupuestoEnero -= monto;
+                        claveAReducir.PresupuestoEnero -= monto;
                         break;
                     case 2:
-                        claves.PresupuestoFebrero -= monto;
+                        claveAReducir.PresupuestoFebrero -= monto;
                         break;
                     case 3:
-                        claves.PresupuestoMarzo -= monto;
+                        claveAReducir.PresupuestoMarzo -= monto;
                         break;
                     case 4:
-                        claves.PresupuestoAbril -= monto;
+                        claveAReducir.PresupuestoAbril -= monto;
                         break;
                     case 5:
-                        claves.PresupuestoMayo -= monto;
+                        claveAReducir.PresupuestoMayo -= monto;
                         break;
                     case 6:
-                        claves.PresupuestoJunio -= monto;
+                        claveAReducir.PresupuestoJunio -= monto;
                         break;
                     case 7:
-                        claves.PresupuestoJulio -= monto;
+                        claveAReducir.PresupuestoJulio -= monto;
                         break;
                     case 8:
-                        claves.PresupuestoAgosto -= monto;
+                        claveAReducir.PresupuestoAgosto -= monto;
                         break;
                     case 9:
-                        claves.PresupuestoSeptiembre -= monto;
+                        claveAReducir.PresupuestoSeptiembre -= monto;
                         break;
                     case 10:
-                        claves.PresupuestoOctubre -= monto;
+                        claveAReducir.PresupuestoOctubre -= monto;
                         break;
                     case 11:
-                        claves.PresupuestoNoviembre -= monto;
+                        claveAReducir.PresupuestoNoviembre -= monto;
                         break;
                     case 12:
-                        claves.PresupuestoDiciembre -= monto;
+                        claveAReducir.PresupuestoDiciembre -= monto;
                         break;
                 }
-
-
             }
 
 
+            //guarda un registro de la Reduccion
+            Transacciones nuevaReduccion = new Transacciones();
+            nuevaReduccion.FechaOperacion = DateTime.Now;
+            nuevaReduccion.IdClavePresupuestalRemitente = claveAReducir.Id;
+            nuevaReduccion.IdMesRemitente = mes;
+            nuevaReduccion.IdClavePresupuestalDestinataria = null;
+            nuevaReduccion.IdMesDestinataria = null;
+            nuevaReduccion.Monto = monto;
+            nuevaReduccion.Motivo = motivo;
+            nuevaReduccion.IdTipoDeTransaccion = 1;
+
+            //Solicitar servicio para traernos el id del empleado y nombre de empleado 
+            nuevaReduccion.IdEmpleadoOperacion = 0000000;
+            nuevaReduccion.NombreEmpleadoOperacion = "Nombre De Prueba";
+            nuevaReduccion.IdentificadorOperacion = Guid.NewGuid();
+            nuevaReduccion.Activo = true;
+
+        
+
             //Se utiliza el mismo repositorio para hacer el update por medio de (Modificar)    
             try
-            {
-              
-                repositorio.Modificar(claves);
+            {   
+               
+                //Guarda la entidad modificada con los nuevosvalores
+                repositorio.Modificar(claveAReducir);
+                //Guarda el registro de la transaccion
+                GuardarRegistroTransaccion(nuevaReduccion);
                 transaccion.GuardarCambios();
                 bandera = true;
             }
@@ -180,71 +199,160 @@ namespace ISSSTECAM.Presupuesto.Negocios
             return bandera;
         }
 
-        public static  bool Transferir(string clavePresupuestal, int mes, decimal monto, int anio)
+
+
+        public static bool Transferir(string clavePresupuestalAReducir, int mesAReducir, decimal montoAtransferir, string clavePresupuestalAtransferir, int mesAtransferir, string motivoDeTransferencia, int anio, Guid identificadorDeOperacion)
         {
-            bool bandera= false;
+            bool bandera = false;
 
 
             var transaccion = new Transaccion();
             var repositorio = new Repositorio<ClavesPresupuestales>(transaccion);
 
+
+            //Se realiza la reduccion del montoATransferir a la clave y mes indicado
+
+            //Se obtiene la clave a la que se va a reducir
+            ClavesPresupuestales claveAReducir =
+                repositorio.ObtenerPorFiltro(c => c.Anio == anio && c.Clave == clavePresupuestalAReducir && c.Activo == true).FirstOrDefault();
+
+            //Verifica que la clave que vine de la DB sea la que nos da el usuario
+            // Y cambia el monto en el mes indicado de la clave 
+
+            if (claveAReducir.Clave == clavePresupuestalAReducir)
+            {
+
+                switch (mesAReducir)
+                {
+                    case 1:
+                        claveAReducir.PresupuestoEnero -= montoAtransferir;
+                        break;
+                    case 2:
+                        claveAReducir.PresupuestoFebrero -= montoAtransferir;
+                        break;
+                    case 3:
+                        claveAReducir.PresupuestoMarzo -= montoAtransferir;
+                        break;
+                    case 4:
+                        claveAReducir.PresupuestoAbril -= montoAtransferir;
+                        break;
+                    case 5:
+                        claveAReducir.PresupuestoMayo -= montoAtransferir;
+                        break;
+                    case 6:
+                        claveAReducir.PresupuestoJunio -= montoAtransferir;
+                        break;
+                    case 7:
+                        claveAReducir.PresupuestoJulio -= montoAtransferir;
+                        break;
+                    case 8:
+                        claveAReducir.PresupuestoAgosto -= montoAtransferir;
+                        break;
+                    case 9:
+                        claveAReducir.PresupuestoSeptiembre -= montoAtransferir;
+                        break;
+                    case 10:
+                        claveAReducir.PresupuestoOctubre -= montoAtransferir;
+                        break;
+                    case 11:
+                        claveAReducir.PresupuestoNoviembre -= montoAtransferir;
+                        break;
+                    case 12:
+                        claveAReducir.PresupuestoDiciembre -= montoAtransferir;
+                        break;
+                }
+
+            }
+
+
+
+            //Se realiza la Suma del MontoAtransferir a la clave y mes indicada 
             //Se obtiene la clave a la que se va a transferir
-            ClavesPresupuestales claves =
-                repositorio.ObtenerPorFiltro(c => c.Anio == anio && c.Clave == clavePresupuestal && c.Activo == true).FirstOrDefault();
+            ClavesPresupuestales claveAtransferir =
+            repositorio.ObtenerPorFiltro(c => c.Anio == anio && c.Clave == clavePresupuestalAtransferir && c.Activo == true).FirstOrDefault();
 
             //Verifica que la clave que vine de la DB sea la que nos da el usuario
             //Cambia el monto en el mes indicado de la clave 
-            if (claves.Clave == clavePresupuestal)
+            if (claveAtransferir.Clave == clavePresupuestalAtransferir)
             {
 
-                switch (mes)
+                switch (mesAtransferir)
                 {
                     case 1:
-                        claves.PresupuestoEnero     += monto;
+                        claveAtransferir.PresupuestoEnero += montoAtransferir;
                         break;
                     case 2:
-                        claves.PresupuestoFebrero   += monto;
+                        claveAtransferir.PresupuestoFebrero += montoAtransferir;
                         break;
                     case 3:
-                        claves.PresupuestoMarzo     += monto;
+                        claveAtransferir.PresupuestoMarzo += montoAtransferir;
                         break;
                     case 4:
-                        claves.PresupuestoAbril     += monto;
+                        claveAtransferir.PresupuestoAbril += montoAtransferir;
                         break;
                     case 5:
-                        claves.PresupuestoMayo      += monto;
+                        claveAtransferir.PresupuestoMayo += montoAtransferir;
                         break;
                     case 6:
-                        claves.PresupuestoJunio     += monto;
+                        claveAtransferir.PresupuestoJunio += montoAtransferir;
                         break;
                     case 7:
-                        claves.PresupuestoJulio     += monto;
+                        claveAtransferir.PresupuestoJulio += montoAtransferir;
                         break;
                     case 8:
-                        claves.PresupuestoAgosto    += monto;
+                        claveAtransferir.PresupuestoAgosto += montoAtransferir;
                         break;
                     case 9:
-                        claves.PresupuestoSeptiembre += monto;
+                        claveAtransferir.PresupuestoSeptiembre += montoAtransferir;
                         break;
                     case 10:
-                        claves.PresupuestoOctubre   += monto;
+                        claveAtransferir.PresupuestoOctubre += montoAtransferir;
                         break;
                     case 11:
-                        claves.PresupuestoNoviembre  += monto;
+                        claveAtransferir.PresupuestoNoviembre += montoAtransferir;
                         break;
                     case 12:
-                        claves.PresupuestoDiciembre  += monto;
+                        claveAtransferir.PresupuestoDiciembre += montoAtransferir;
                         break;
                 }
 
 
             }
 
-                    //Se utiliza el mismo repositorio para hacer el update por medio de (Modificar)    
+
+
+
+            //Guarda el registro de la transaccion
+            Transacciones nuevaTrasferencia = new Transacciones();
+            nuevaTrasferencia.FechaOperacion = DateTime.Now;
+            nuevaTrasferencia.IdClavePresupuestalRemitente = claveAReducir.Id;
+            nuevaTrasferencia.IdMesRemitente = mesAReducir;
+            nuevaTrasferencia.IdClavePresupuestalDestinataria = claveAtransferir.Id;
+            nuevaTrasferencia.IdMesDestinataria = mesAtransferir;
+            nuevaTrasferencia.Monto = montoAtransferir;
+            nuevaTrasferencia.Motivo = motivoDeTransferencia;
+            nuevaTrasferencia.IdTipoDeTransaccion = 2;
+            //Solicitar servicio para traernos el id del empleado y nombre de empleado 
+            nuevaTrasferencia.IdEmpleadoOperacion = 0000000;
+            nuevaTrasferencia.NombreEmpleadoOperacion = "Nombre De Prueba";
+            nuevaTrasferencia.IdentificadorOperacion = identificadorDeOperacion;
+            nuevaTrasferencia.Activo = true;
+
+
+            //Guid g = Guid.Empty;
+
+            //Guid g2 = new Guid();
+
+
+
+            //Se utiliza el mismo repositorio para hacer el update por medio de (Modificar)    
                     try
                     {
-
-                        repositorio.Modificar(claves);
+                        //guarda el registro de la transferencia
+                        GuardarRegistroTransaccion(nuevaTrasferencia);
+                        //guarda las entidades que fueron modificadas
+                        repositorio.Modificar(claveAReducir);
+                        repositorio.Modificar(claveAtransferir);
                         transaccion.GuardarCambios();
                         bandera = true;
                     }
@@ -261,5 +369,9 @@ namespace ISSSTECAM.Presupuesto.Negocios
             return bandera;
         }
 
-    }
+
+
+      }
+
+
 }

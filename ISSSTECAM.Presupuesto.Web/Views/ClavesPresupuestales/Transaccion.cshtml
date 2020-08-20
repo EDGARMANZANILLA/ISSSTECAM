@@ -836,7 +836,13 @@
                 contentType: "application/json; charset=utf-8",
                 success: function (msg) {
                     console.log("msg", msg);
-                    document.getElementById('ModalReducc').style.display = 'inline';
+                    if (msg == true) {
+                        document.getElementById('ModalReducc').style.display = 'inline';
+                    } else {
+                        document.getElementById('ModalReduccError').style.display = 'inline';
+                    }
+
+                    //document.getElementById('ModalReducc').style.display = 'inline';
                 },
                 error: function (result) {
                     document.getElementById('ModalReduccError').style.display = 'inline';
@@ -936,7 +942,13 @@
                  contentType: "application/json; charset=utf-8",
                  success: function (msg) {
                      console.log("msg", msg);
-                     document.getElementById('ModalTransfer').style.display = 'inline';
+                     if (msg == true) {
+                         document.getElementById('ModalTransfer').style.display = 'inline';
+                     } else {
+                         document.getElementById('ModalTransferError').style.display = 'inline';
+                     }
+
+                     //document.getElementById('ModalTransfer').style.display = 'inline';
                  },
                 error: function (result) {
                     document.getElementById('ModalTransferError').style.display = 'inline';
@@ -1413,10 +1425,11 @@
 
             success: function (msg) {
                 console.log("msg", msg);
-                document.getElementById('ModalTMTU').style.display = 'inline';
-                //if (msg) {
-                //    alert("Se realizo con exito");
-                //}
+               
+                if (msg) {
+                    alert("Se realizo con exito");
+                    document.getElementById('ModalTMTU').style.display = 'inline';
+                }
 
               },
               error: function (msg) {

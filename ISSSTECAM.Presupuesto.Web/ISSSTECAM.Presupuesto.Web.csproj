@@ -238,6 +238,7 @@
     <Content Include="Content\bootstrap-rtl.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\images\Banner.jpg" />
+    <Content Include="Content\images\Error.png" />
     <Content Include="Content\images\EscudoCampeche.png" />
     <Content Include="Content\images\Escudo_palomita.png" />
     <Content Include="Content\images\issstecam_logo.png" />

@@ -15,15 +15,15 @@
 <nav class="Navigate" id="NavInitial">
     <h2 id="TxtInicial">Selecciona la opción que desea</h2>
     <br>
-    <button title="Reducción" class="btn-T" id="Reduc" onclick="ProcReduc();" style="display:inline;position:center;margin-left:5%">Reduccion</button>
-    <button title="Transferir" class="btn-T" id="Transfer" onclick="ProcTransfer();" style="display:inline;position:center;margin-left:5%">Transferencia</button>
-    <button title="Transfer" class="btn-T" id="TDMButton" onclick="ProcTMTU();" style="display:inline;position:center;margin-left:5%">Transferencia de Muchas claves a una</button>
+    <button title="Reducción" class="btn-Procces" id="Reduc" onclick="ProcReduc();" style="display:inline;position:center;margin-left:5%">Reduccion</button>
+    <button title="Transferir" class="btn-Procces" id="Transfer" onclick="ProcTransfer();" style="display:inline;position:center;margin-left:5%">Transferencia</button>
+    <button title="Transfer" class="btn-Procces" id="TDMButton" onclick="ProcTMTU();" style="display:inline;position:center;margin-left:5%">Transferencia de Muchas claves a una</button>
 </nav>
 @*/SECCION DEL MENU DE REDUCCIÓN/*@
 <div class="Centrar" @*class="col-md-6"*@>
     <h3 id="TxtRedu" style="display:none;">Introduzca los siguientes datos para realizar la reducción</h3>
     <nav name="MenuReduc2" id="IDMenuReduc2" class="menu" style="display:none;">
-        <h5 class="P-Kevin">Clave</h5>
+        <h5 class="Texto-h5">Clave</h5>
         @*<ul>
                 <li name="clave1">
                     <textarea name="NCajaClaveReduccion" id="CajaClaveR"> </textarea>
@@ -40,7 +40,7 @@
     @*<br>*@
     @*///////////////////////////////////////////////////////////////////*@
     <nav name="MenuReduc4" id="IDMenuReduc4" class="listado" style="display:none;">
-        <h5 class="P-Kevin">Mes</h5>
+        <h5 class="Texto-h5">Mes</h5>
         <ul>
             <li name="mes1">
                 <textarea name="NCajaMesReduccion" id="CajaMesR" readonly="readonly"> </textarea>
@@ -63,7 +63,7 @@
     </nav>
     <br>
     <nav name="MenuReduc1" id="IDMenuReduc1" class="listado2" style="display:none;">
-        <h5 class="P-Kevin">Monto</h5>
+        <h5 class="Texto-h5">Monto</h5>
         <ul>
             <li name="monto1">
                 <textarea name="NCajaMontoReduccion" id="CajaMontoR"></textarea>
@@ -72,18 +72,9 @@
             </li>
         </ul>
     </nav>
-    @*<nav id="MontoDisponible" class="listado" style="display:none;">
-            <ul>
-                <li name="monto" style="margin-top:-110px;">
-                    <textarea name="cajaMontoDisponible" id="cajaMontoDisponible" readonly="readonly">Monto Disponible</textarea>
-                    <ul id="ElMonto">
-                    </ul>
-                </li>
-            </ul>
-        </nav>*@
     <br>
     <nav name="MenuReduc3" id="IDMenuReduc3" class="menu" style="display:none;">
-        <h5 class="P-Kevin">Motivo</h5>
+        <h5 class="Texto-h5">Motivo</h5>
         <ul>
             <li name="motivo1">
                 <textarea name="NCajaMotivoReduccion" id="CajaMotivoR"></textarea>
@@ -94,7 +85,7 @@
     <br>
     <button id="EnviarReduc" class="btn btn-success" onclick="Reduccion();" style="display:none">Reducir</button>
     <nav name="Prueba" id="Prueba" class="menu" style="display:none;">
-        <h5 class="P-Kevin">Prueba</h5>
+        <h5 class="Texto-h5">Prueba</h5>
         <ul>
             <li name="Prueba1">
                 <textarea name="prueba2" id="CajaMesValue" readonly="readonly">0</textarea>
@@ -102,15 +93,6 @@
         </ul>
     </nav>
 </div>
-@*<nav id="MontoDisponible" class="listado" style="display:none;">
-            <ul >
-                <li name="monto" style="margin-top:-110px;">
-                    <textarea name="cajaMontoDisponible" id="cajaMontoDisponible" readonly="readonly">Monto Disponible</textarea>
-                    <ul id="ElMonto">
-                    </ul>
-                </li>
-            </ul>
-    </nav>*@
 @*/aqui va el modal de "proceso éxitoso"/*@
 <div id="ModalReducc" style="display:none;height:900px;" class="modal-backdrop">
     <div class="modal-content" style="width:400px;left:25%;margin-right:10%;margin-left:10%;margin-top:10%;height:auto;">
@@ -174,14 +156,12 @@
     </div>
 </div>
 @*/SECCION DEL MENU DE TRANSFERENCIA/*@
-
 <div class="col-md-6" id="Transferencia" style="margin-left: 10%; width: 90%;display:none;">
     <h3 id="TxtTrans" style="display:none;margin-right:0%;margin-left: 20%;">Introduzca los datos para la transferencia</h3>
-    @*<br>*@
     <div class="col-md-6" id="Origen">
         @*////////////////////////////////////////////////////////////////////////////////////////////////////////////////*@
         <nav name="MenuTransfer2" id="IDMenuTransfer2" class="menu" style="display:none;">
-            <h5 class="P-Kevin">Clave Origen</h5>
+            <h5 class="Texto-h5">Clave Origen</h5>
             @*<ul>
                     <li name="claveOrigen">
                         <textarea name="NCajaClaveOrigenTransfer" id="CajaClaveOrigenT"> </textarea>
@@ -197,7 +177,7 @@
         </nav>
         @*///////////////////////////////////////////////////////////////////////////////////////////////////////////////*@
         <nav name="MenuOculto1" id="MenuOculto1" class="menu" style="display:none;">
-            <h5 class="P-Kevin">Oculto1</h5>
+            <h5 class="Texto-h5">Oculto1</h5>
             <ul>
                 <li name="MenuOculto1.1">
                     <textarea name="CajaOculta1" id="CajaOcultaMesOrigen" readonly="readonly">0</textarea>
@@ -205,7 +185,7 @@
             </ul>
         </nav>
         <nav name="MenuTransfer5" id="IDMenuTransfer5" class="listado" style="display:none;">
-            <h5 class="P-Kevin">Mes Origen</h5>
+            <h5 class="Texto-h5">Mes Origen</h5>
             <ul>
                 <li name="mesOrigen">
                     <textarea name="NCajaMesOrigen" id="CajaMesOrigen" readonly="readonly"> </textarea>
@@ -229,7 +209,7 @@
         <br>
         @*///*@
         <nav name="MenuTransfer1" id="IDMenuTransfer1" class="listado2" style="display:none;">
-            <h5 class="P-Kevin">Monto Origen</h5>
+            <h5 class="Texto-h5">Monto Origen</h5>
             <ul>
                 <li name="montoOrigen">
                     <textarea name="NCajaMontoOrigen" id="CajaMontoOrigen" style="margin-right:5px;"></textarea>
@@ -239,27 +219,11 @@
             </ul>
         </nav>
         @*/////////////////////////////////*@
-        @*<nav id="MontoDisponible2" class="listado" style="display:none;">
-                <ul>
-                    <li name="monto" style="margin-left:240px;">
-                        <textarea name="cajaMontoDisponible2" id="cajaMontoDisponible2" readonly="readonly">Monto Disponible</textarea>
-                        <ul id="ElMonto2">
-                        </ul>
-                    </li>
-                </ul>
-
-            </nav>*@
     </div>
     <div class="col-md-6" @*style="margin-left: 1%;"*@ id="Destino">
         @*///////////////////////////////////////////////////////////////////////////////*@
         <nav name="MenuTransfer3" id="IDMenuTransfer3" class="menu" style="display:none;">
-
-            <h5 class="P-Kevin">Clave Destino</h5>
-            @*<ul>
-                    <li name="claveDestino">
-                        <textarea name="NCajaClaveDestinoTransfer" id="CajaClaveDestinoT"> </textarea>
-                    </li>
-                </ul>*@
+            <h5 class="Texto-h5">Clave Destino</h5>
             <select id="CajaClaveDestinoT">
                 <option></option>
                 @foreach (string item in Model)
@@ -268,18 +232,8 @@
                 }
             </select>
         </nav>
-        @*<nav name="MenuTransfer7" id="IDMenuTransfer7" class="menu" style="display:none;">
-                <h5 class="P-Kevin">Monto Destino</h5>
-                <ul>
-                    <li name="montoDestino">
-                        <textarea name="NCajaMontoDestino" id="CajaMontoDestino"> </textarea>
-                    </li>
-                </ul>
-            </nav>*@
-
-
         <nav name="MenuOculto2" id="MenuOculto2" class="menu" style="display:none;">
-            <h5 class="P-Kevin">Oculto2</h5>
+            <h5 class="Texto-h5">Oculto2</h5>
             <ul>
                 <li name="MenuOculto1.2">
                     <textarea name="CajaOculta2" id="CajaOcultaMesDestino" readonly="readonly"> </textarea>
@@ -287,7 +241,7 @@
             </ul>
         </nav>
         <nav name="MenuTransfer6" id="IDMenuTransfer6" class="listado" style="display:none;">
-            <h5 class="P-Kevin">Mes Destino</h5>
+            <h5 class="Texto-h5">Mes Destino</h5>
             <ul>
                 <li name="mesDestino">
                     <textarea name="NCajaMesDestino" id="CajaMesDestino" readonly="readonly"> </textarea>
@@ -311,7 +265,7 @@
         <br>
         @*///*@
         <nav name="MenuTransfer4" id="IDMenuTransfer4" class="menu" style="display:none;">
-            <h5 class="P-Kevin">Motivo</h5>
+            <h5 class="Texto-h5">Motivo</h5>
             <ul>
                 <li name="motivo2">
                     <textarea name="NCajaMotivoTransferencia" id="CajaMotivoT"> </textarea>
@@ -328,22 +282,18 @@
         <button id="EnviarTransfer" class="btn btn-success" onclick="Transferencia();" style="display:none">Transferir</button>
     </div>
 </div>
-
-
-
 @*//////AQUI VA LA SECCIÓN DE TRANSFERENCIA DE MUCHOS A UNO////////*@
-
 @*onclick="TDM();"*@
-@*//TMTU = Transferencia Muchos a uno*@
+@*//TMTU = Transferencia Muchos To Uno*@
 
-<div class="col-md-6" id="TransMuchosToUno" style="margin-left: 10%; width: 90%;display:none;">
-    <h3 id="TxtTransMTU" style="display:none;margin-right:0%;margin-left: 20%;">Introduzca los datos para la transferencia</h3>
-    @*///////////////////////////////////////////////////////////////////////////////////////////////////////////////*@
-    <div class="col-md-6" id="ClavesTMTU">
-        <nav name="MenuTMTU1" id="IDMenuTMTU1" class="menu" style="display:none;">
-            <h5 class="P-Kevin">Clave Origen</h5>
+<div class="col-md-6" id="TransMuchosToUno" style="margin-left: 0; width: 100%;display:none;">
+    <h3 id="TxtTransMTU" style="display:none;margin-right:30%;margin-left:30%;width:40%;">Ingrese los Remitentes:</h3>
 
-            <select id="CajaClaveTMTU">
+    @*///////////////////////////////REMITENTE////////////////////////////////////////////////////////////////////////////////*@
+    <div class="col-md-6" id="ClavesTMTU" style="margin-left:0;width:43%">
+        <nav name="MenuTMTUClave1" id="IDTMTUClave1" class="menu" style="display:none;margin-left:0;">
+            <h5 class="Texto-h5">Clave</h5>
+            <select id="CajaClaveTMTU1" style="margin-left:0;">
                 <option></option>
                 @foreach (string item in Model)
                 {
@@ -352,19 +302,29 @@
             </select>
         </nav>
         <br>
+        @*<nav name="MenuTMTUClave2" id="IDTMTUClave2" class="menu" style="display:none;margin-left:0;">
+                <h5 class="Texto-h5">Clave</h5>
+                <select id="CajaClaveTMTU2" style="margin-left:0;">
+                    <option></option>
+                    @foreach (string item in Model)
+                    {
+                        <option value="@item" id="@item">@item</option>
+                    }
+                </select>
+            </nav>*@
     </div>
     @*///////////////////////////////////////////////////////////////////////////////////////////////////////////////*@
-    <div class="col-md-6" id="MesesTMTU">
-        <nav name="MenuOcultoTMTU1" id="MenuOcultoTMTU1" class="menu" style="display:none;">
-            <h5 class="P-Kevin">Oculto1</h5>
+    <div class="col-md-6" id="MesesTMTU" style="margin-left: 0;margin-right:0;width:28.5%">
+        <nav name="MenuOcultoTMTU1" id="MenuOcultoMesTMTU1" class="menu" style="display:none;">
+            <h5 class="Texto-h5">Oculto1</h5>
             <ul>
                 <li name="MenuOcultoTMTU1.1">
                     <textarea name="CajaOcultaTMTU1" id="CajaOcultaMesOrigenTMTU" readonly="readonly">0</textarea>
                 </li>
             </ul>
         </nav>
-        <nav name="MenuTMTU2" id="IDMenuTMTU2" class="listado" style="display:none;">
-            <h5 class="P-Kevin">Mes Origen</h5>
+        <nav name="MenuTMTU2" id="IDMenuMesTMTU" class="listado" style="display:none;">
+            <h5 class="Texto-h5">Mes Origen</h5>
             <ul>
                 <li name="mesTMTU">
                     <textarea name="NCajaMesTMTU" id="CajaMesTMTU" readonly="readonly"> </textarea>
@@ -387,13 +347,62 @@
         </nav>
     </div>
     @*///////////////////////////////////////////////////////////////////////////////////////////////////////////////*@
-    <div class="col-md-6" id="MontosTMTU">
+    <div class="col-md-6" id="MontosTMTU" style="margin-left: 0;margin-right:0;width:28.5%">
         <nav name="MenuTMTU3" id="IDMenuTMTU3" class="listado2" style="display:none;">
-            <h5 class="P-Kevin">Monto Origen</h5>
+            <h5 class="Texto-h5">Monto Origen</h5>
             <ul>
                 <li name="montoTMTU">
                     <textarea name="NCajaMontoOrigenTMTU" id="CajaMontoOrigenTMTU" style="margin-right:5px;"></textarea>
-                    <ul id="ElMonto2TMTU">
+                    <ul id="ElMontoTMTU">
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    @*///////////////////////////////////DESTINATARIO////////////////////////////////////////////////////////////////////////////*@
+    <h3 id="TxtTransMTUDesti" style="display:none;margin-right:30%;margin-left:30%;width:40%;padding-right:30%">Ingrese el Destinatario:</h3>
+    <br>
+    <div class="col-md-6" id="ClavesTMTUDesti" style="margin-left:10%;width:43%;height:8%;">
+        <nav name="MenuTMTUClave1" id="IDTMTUClave1Desti" class="menu" style="display:none;margin-left:0;">
+            <h5 class="Texto-h5">Clave</h5>
+            <select id="CajaClaveTMTUDesti" style="margin-left:0;">
+                <option></option>
+                @foreach (string item in Model)
+                {
+                    <option value="@item" id="@item">@item</option>
+                }
+            </select>
+        </nav>
+        <br>
+    </div>
+    @*/////////////////////////////////////////////////////////////////*@
+    <div class="col-md-6" id="MesesTMTUDesti" style="margin-left: 2%;margin-right:10%;width:28.5%;height:8%;">
+        <nav name="MenuOcultoTMTUDesti" id="MenuOcultoMesTMTUDesti" class="menu" style="display:none;">
+            <h5 class="Texto-h5">Oculto1</h5>
+            <ul>
+                <li name="MenuOcultoTMTU1.2">
+                    <textarea name="CajaOcultaTMTU1" id="CajaOcultaMesTMTUDesti" readonly="readonly">0</textarea>
+                </li>
+            </ul>
+        </nav>
+        <nav name="MenuTMTU2" id="IDMesTMTUDesti" class="listado2" style="display:none;">
+            <h5 class="Texto-h5">Mes</h5>
+            <ul>
+                <li name="mesTMTUDesti">
+                    <textarea name="NCajaMesTMTUDesti" id="CajaMesTMTUDesti" readonly="readonly"> </textarea>
+                    <ul id="ListaMesesTMTUDesti">
+                        <li value="1" id="Month1"><a>Enero</a></li>
+                        <li value="2" id="Month2"><a>Febrero</a></li>
+                        <li value="3" id="Month3"><a>Marzo</a></li>
+                        <li value="4" id="Month4"><a>Abril</a></li>
+                        <li value="5" id="Month5"><a>Mayo</a></li>
+                        <li value="6" id="Month6"><a>Junio</a></li>
+                        <li value="7" id="Month7"><a>Julio</a></li>
+                        <li value="8" id="Month8"><a>Agosto</a></li>
+                        <li value="9" id="Month9"><a>Septiembre</a></li>
+                        <li value="10" id="Month10"><a>Octubre</a></li>
+                        <li value="11" id="Month11"><a>Noviembre</a></li>
+                        <li value="12" id="Month12"><a>Diciembre</a></li>
                     </ul>
                 </li>
             </ul>
@@ -401,31 +410,25 @@
     </div>
     @*///////////////////////////////////////////////////////////////////////////////////////////////////////////////*@
     @*seccion media*@
-    <nav name="MenuTMTU4" id="IDMenuTMTU4" class="menu" style="display:none;">
-        <h5 class="P-Kevin">Motivo</h5>
-        <ul>
-            <li name="motivoTMTU">
-                <textarea name="NCajaMotivoTMTU" id="CajaMotivoTMTU"> </textarea>
-            </li>
-        </ul>
-    </nav>
-    <br>
-    <div class="col-md-6" style="margin-left:35%;">
+    <div class="col-md-6" style="margin-left:-20%;width:30%;height:8%;">
+        <nav name="MenuTMTU4" id="IDMenuTMTU4" class="menu" style="display:none;z-index:0;">
+            <h5 class="Texto-h5">Motivo</h5>
+            <ul>
+                <li name="motivoTMTU" style="z-index:0;">
+                    <textarea name="NCajaMotivoTMTU" id="CajaMotivoTMTU" style="z-index:0;"> </textarea>
+                </li>
+            </ul>
+        </nav>
         <br>
-        <br>
-        <button id="EnviarTMTU" class="btn btn-success" onclick="TDM();" style="display:none">Transferir</button>
+        <button id="EnviarTMTU" class="btn btn-success" onclick="TDM();" style="display:none;margin-left:25%;margin-top:5%;">Transferir</button>
     </div>
 </div>
 
     @*/de aqui en adelante está la sección del css/*@
 
-
     <style>
-            .Navigate {
-                display: inline;
-            }
-
-            .btn-T {
+            .Navigate {display: inline;}
+            .btn-Procces {
                 background-color: rgb(154, 154, 151);
                 border-radius: 30px;
                 color: white;
@@ -435,19 +438,13 @@
                 display: inline-block;
                 font-size: 30px;
             }
-
-            .Clase {
-                width: 100%;
-                height: 539px;
-            }
+            .Clase {width: 100%;height: 539px;}
             /* //////////////////////////////seccion para el modal///////////////////////*/
             .LOGOS {
                 height: 150px;
                 width: 37.5%;
-                /*float: left;*/
                 margin-left: 31.25%;
                 margin-right: 31.25%;
-                /* z-index: 9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999;*/
             }
 
             .modal-backdrop {
@@ -461,11 +458,9 @@
                 top: 0%;
                 left: 0%;
             }
-
             .modal-content {
                 font-weight: bold;
                 color: black;
-                /* z-index: 999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999;*/
             }
             /* ///////////////////////////////////listado de monto///////////////////////////////////////////////////////////////*/
             .listado2 ul {
@@ -475,7 +470,6 @@
                 width: 240px;
                 background-color: rgb(69, 110, 185);
             }
-
                 .listado2 ul a {
                     display: block;
                     cursor: pointer;
@@ -487,12 +481,7 @@
                     text-transform: uppercase;
                     letter-spacing: 0px;
                 }
-
-            .listado2 {
-                z-index: 0;
-                padding-left: 8px;
-            }
-
+            .listado2 {z-index: 0;padding-left: 8px; }
                 .listado2 ul li {
                     position: relative;
                     float: left;
@@ -500,15 +489,10 @@
                     padding: 0;
                     z-index: 9;
                 }
-
-                    .listado2 ul li textarea {
-                        z-index: 0;
-                    }
-
+                    .listado2 ul li textarea { z-index: 0; }
                     .listado2 ul li:hover {
                         background: rgb(11, 66, 167);
                     }
-
                 .listado2 ul ul {
                     display: none;
                     position: absolute;
@@ -516,24 +500,19 @@
                     left: 0;
                     padding: 0;
                 }
-
                     .listado2 ul ul li {
                         float: none;
                         /*width: 100px;*/
                         width: 240px;
                         z-index: 99;
                     }
-
                     .listado2 ul ul a {
                         line-height: 100%;
                         padding: 10px 15px;
                         padding: 10px 10px;
                         z-index: 9;
                     }
-
-                .listado2 ul li:hover > ul {
-                    display: block;
-                }
+                .listado2 ul li:hover > ul { display: block; }
 
             /* ///////////////sección para la lista de meses/////////////////////////////////////////////////////*/
             .listado ul {
@@ -747,9 +726,7 @@
                     display: block;
                 }
 
-            .P-Kevin {
-                text-align: left;
-            }
+                 .Texto-h5 { text-align: left;}
     </style>
 
     <script>
@@ -782,17 +759,7 @@
 
         document.getElementById('EnviarTransfer').style.display = 'inline';
         }
-        function ProcTMTU() {
-            document.getElementById('TransMuchosToUno').style.display = 'inline';
-            document.getElementById('NavInitial').style.display = 'none';
-            document.getElementById('TxtTransMTU').style.display = 'inline';
-            document.getElementById('IDMenuTMTU1').style.display = 'inline';
-            document.getElementById('IDMenuTMTU2').style.display = 'inline';
-            document.getElementById('IDMenuTMTU3').style.display = 'inline';
-            document.getElementById('IDMenuTMTU4').style.display = 'inline';
 
-            document.getElementById('EnviarTMTU').style.display = 'inline';
-        }
     function Reduccion() {
         var CajaMonto = document.getElementById('CajaMontoR');
         var CajaClave = document.getElementById('CajaClaveR');
@@ -1292,9 +1259,25 @@
 
     ////////////SECCION DE TRANSFERENCIA DE MUCHOS A UNO////////////////////////////////////////////////
     //onclick = "ProcTransMuchosToUno()"
-       
-       
-        
+
+        function ProcTMTU() {
+            document.getElementById('TransMuchosToUno').style.display = 'inline';
+            document.getElementById('NavInitial').style.display = 'none';
+            document.getElementById('TxtTransMTU').style.display = 'inline';
+            document.getElementById('TxtTransMTUDesti').style.display = 'inline';
+
+            document.getElementById('IDTMTUClave1').style.display = 'inline';
+            //document.getElementById('IDTMTUClave2').style.display = 'inline';
+            document.getElementById('IDTMTUClave1Desti').style.display = 'inline';
+
+            document.getElementById('IDMenuMesTMTU').style.display = 'inline';
+            document.getElementById('IDMesTMTUDesti').style.display = 'inline';
+
+            document.getElementById('IDMenuTMTU3').style.display = 'inline';
+            document.getElementById('IDMenuTMTU4').style.display = 'inline';
+
+            document.getElementById('EnviarTMTU').style.display = 'inline';
+        }
 
         $('#ListaMesesTMTU').click(function (e) {
             var li = e.target.parentNode;
@@ -1311,12 +1294,54 @@
             Linea.innerHTML = "";
             ESCRIBE.insertAdjacentHTML('beforeend', Valor)
         });
+
+        $('#ListaMesesTMTUDesti').click(function (e) {
+            var li = e.target.parentNode;
+            let ID = li.id;
+            var Identidad = document.getElementById(ID).textContent;
+            const WRITELINE = document.querySelector('#CajaMesTMTUDesti');
+            var Lista = document.getElementById('CajaMesTMTUDesti');
+            Lista.innerHTML = "";
+            WRITELINE.insertAdjacentHTML('beforeend', Identidad)
+
+            Valor = document.getElementById(ID).value;
+            const ESCRIBE = document.querySelector('#CajaOcultaMesTMTUDesti');
+            var Linea = document.getElementById('CajaOcultaMesTMTUDesti');
+            Linea.innerHTML = "";
+            ESCRIBE.insertAdjacentHTML('beforeend', Valor)
+        });
+
         $(document).ready(function () {
-            $('#CajaClaveTMTU').select2({
+            $('#CajaClaveTMTU1').select2({
                 placeholder: "Ingrese la clave",
                 allowClear: true,
                 minimumInputLength: 3
             });
+        });
+        //$(document).ready(function () {
+        //    $('#CajaClaveTMTU2').select2({
+        //        placeholder: "Ingrese la clave",
+        //        allowClear: true,
+        //        minimumInputLength: 3
+        //    });
+        //});
+        $(document).ready(function () {
+            $('#CajaClaveTMTUDesti').select2({
+                placeholder: "Ingrese la clave",
+                allowClear: true,
+                minimumInputLength: 3
+            });
+        });
+        $('#ElMontoTMTU').click(function (e) {
+            var li = e.target.parentNode;
+            let ID = li.id;
+            var Identidad = document.getElementById(ID).textContent;
+            const WRITELINE = document.querySelector('#CajaMontoOrigenTMTU');
+            var Lista = document.getElementById('CajaMontoOrigenTMTU');
+            Lista.innerHTML = "";
+            WRITELINE.insertAdjacentHTML('beforeend', Identidad)
+
+            console.log('Usando parseFloat : ', parseFloat(Identidad));
         });
         function HideModalTMTU() {
             document.getElementById('ModalTMTU').style.display = 'none';
@@ -1324,8 +1349,14 @@
             document.getElementById('TransMuchosToUno').style.display = 'none';
             document.getElementById('NavInitial').style.display = 'inline';
             document.getElementById('TxtTransMTU').style.display = 'none';
-            document.getElementById('IDMenuTMTU1').style.display = 'none';
-            document.getElementById('IDMenuTMTU2').style.display = 'none';
+            document.getElementById('TxtTransMTUDesti').style.display = 'none';
+            document.getElementById('IDTMTUClave1').style.display = 'none';
+            //document.getElementById('IDTMTUClave2').style.display = 'none';
+            document.getElementById('IDTMTUClave1Desti').style.display = 'none';
+
+            document.getElementById('IDMenuMesTMTU').style.display = 'none';
+            document.getElementById('IDMesTMTUDesti').style.display = 'none';
+
             document.getElementById('IDMenuTMTU3').style.display = 'none';
             document.getElementById('IDMenuTMTU4').style.display = 'none';
 
@@ -1338,14 +1369,75 @@
             document.getElementById('TransMuchosToUno').style.display = 'none';
             document.getElementById('NavInitial').style.display = 'inline';
             document.getElementById('TxtTransMTU').style.display = 'none';
-            document.getElementById('IDMenuTMTU1').style.display = 'none';
-            document.getElementById('IDMenuTMTU2').style.display = 'none';
+            document.getElementById('TxtTransMTUDesti').style.display = 'none';
+            document.getElementById('IDTMTUClave1').style.display = 'none';
+            //document.getElementById('IDTMTUClave2').style.display = 'none';
+            document.getElementById('IDTMTUClave1Desti').style.display = 'none';
+
+            document.getElementById('IDMenuMesTMTU').style.display = 'none';
+            document.getElementById('IDMesTMTUDesti').style.display = 'none';
+
             document.getElementById('IDMenuTMTU3').style.display = 'none';
             document.getElementById('IDMenuTMTU4').style.display = 'none';
 
 
             document.getElementById('EnviarTMTU').style.display = 'none';
         }
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        var flujoCajaMontoTMTU = Rx.Observable.fromEvent(document.getElementById("CajaMontoOrigenTMTU"), 'click');
+
+    flujoCajaMontoTMTU.subscribe(function (elemento) {
+        //Obtengo la clave
+        var clave = document.getElementById("CajaClaveTMTU1");
+        var claveTMTUValue = clave.value;
+        //Obtengo el mes
+        var mes = document.getElementById("CajaOcultaMesOrigenTMTU");
+        var mesTMTUTextContent = mes.textContent;
+        //Muestro la clave, el mes y el monto que escribe el usuario.
+        console.log(mesTMTUTextContent);
+        console.log(claveTMTUValue);
+        console.log(elemento.srcElement.value);
+
+        if (clave.value == '') {
+            alert('Por favor ingrese una clave antes del monto')
+        } else if (mes.textContent == '0') {
+            alert('Por favor seleccione un mes antes de ingresar el monto')
+        } else {
+            //Aqui es la parte donde debo enviar estos datos al controlador para obtener el monto disponible de la DB.
+            var actionDataMontoTransferencia = "{'clave':'" + claveTMTUValue + "','mes':'" + mesTMTUTextContent + "'}";
+            $.ajax({
+                url: '@Url.Action("MostrarMonto", "ClavesPresupuestales")',
+                data: actionDataMontoTransferencia,
+                dataType: "json",
+                returnType: 'json',
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                success: function (resultado) {
+                    console.log("Monto" + resultado);
+                    var montoObtenido = null;
+                    if (montoObtenido == null) {
+                        montoObtenido = resultado;
+                    }
+                    console.log('Monto Obtenido', montoObtenido);
+                    const WRITELINE = document.querySelector('#ElMontoTMTU');
+                    var Monto = document.getElementById('ElMontoTMTU');
+                    i = 0;
+                    Monto.innerHTML = "";
+                    WRITELINE.insertAdjacentHTML('beforeend', '<li id="MontoDisponibleValidar3" value="' + montoObtenido + '"><a>' + montoObtenido + '</a></li>')
+
+                },
+                error: function (result) {
+                    alert("ERROR SEVERO, VUELVA A CARGAR LA PÁGINA" + result.status);
+                }
+            });
+
+        }
+
+
+    });
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
      @*function Transferencia() {
         var CajaMontoOrigen = document.getElementById('CajaMontoOrigen');
         var CajaClaveOT = document.getElementById('CajaClaveOrigenT');
@@ -1380,7 +1472,7 @@
         } else {
             var MontoCorrectoTransfer = parseFloat(CajaMontoOrigen.value);
             console.log('Monto a Enviar ', MontoCorrectoTransfer);
-        
+
             var actionDataTransfer = "{'origenClave': '" + CajaClaveOT.value + "','origenMes':'" + CajaMesOrigen.textContent + "','origenMonto':'" + MontoCorrectoTransfer + /*"','destinoMonto':'" + CajaMontoDestino.value +*/ "','destinoClave':'" + CajaClaveDT.value + "','destinoMes':'" + CajaMesDestino.textContent + "','motivoTransfer':'" + CajaMotivo.value + "'}";
             console.log(actionDataTransfer);
             $.ajax({
@@ -1425,12 +1517,11 @@
 
             success: function (msg) {
                 console.log("msg", msg);
-               
-                if (msg) {
-                    alert("Se realizo con exito");
+                if (msg == true) {
                     document.getElementById('ModalTMTU').style.display = 'inline';
+                } else {
+                    document.getElementById('ModalTMTUError').style.display = 'inline';
                 }
-
               },
               error: function (msg) {
                   document.getElementById('ModalTMTUError').style.display = 'inline';

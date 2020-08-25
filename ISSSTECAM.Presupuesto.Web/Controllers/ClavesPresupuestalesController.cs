@@ -12,6 +12,7 @@ using System.Web.Mvc;
 using ISSSTECAM.Presupuesto.Entidades.DTO;
 using System.Collections;
 using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 
 namespace ISSSTECAM.Presupuesto.Web.Controllers
 {
@@ -136,22 +137,25 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
 
             Guid identificadorDeOperacion = Guid.NewGuid();
 
-
-            try
+            if (ModelState.IsValid)
             {
-                foreach (DatosDeClaves remitente in cuentasRemitentes)
+              
+                try
                 {
-                    //Ejecutar varias transferencias
-                    //La bandera sirve como indicador para saber si fue correcta y todo salio bien en el metodo para poder seguir al siguiente paso    
-                    exitoDeTransferencias = Negocios.ClavesPresupuestalesNegocios.Transferir(remitente.clave, remitente.mes, remitente.monto, cuentaDestino.clave, cuentaDestino.mes, motivo, anio, identificadorDeOperacion);
+                    foreach (DatosDeClaves remitente in cuentasRemitentes)
+                    {
+                        //Ejecutar varias transferencias
+                        //La bandera sirve como indicador para saber si fue correcta y todo salio bien en el metodo para poder seguir al siguiente paso    
+                        exitoDeTransferencias = Negocios.ClavesPresupuestalesNegocios.Transferir(remitente.clave, remitente.mes, remitente.monto, cuentaDestino.clave, cuentaDestino.mes, motivo, anio, identificadorDeOperacion);
 
+                    }
                 }
-            }
-            catch (Exception E) 
-            {
-                return Json("Hubo un problema intentelo de nuevo", JsonRequestBehavior.AllowGet);
-            }
+                catch (Exception ex) 
+                {
+                    return Json("Hubo un problema intentelo de nuevo", JsonRequestBehavior.AllowGet);
+                }
 
+            }
 
 
 
@@ -230,8 +234,11 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
 
     public class DatosDeClaves
     {
+        [Required]
         public string clave { get; set; }
+        [Required]
         public int mes { get; set; }
+        [Required]
         public decimal monto { get; set; }
     }
 

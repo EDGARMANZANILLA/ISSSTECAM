@@ -89,18 +89,18 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
         }
 
         public JsonResult Reducciones(decimal reduccionMonto, string reduccionClave, int reduccionMes, string reduccionMotivo/*el mes debe venir en int */) {
-            bool bandera;
+            bool exitoDeTransferencias = false;
             int anio = 2019;
 
-           // var a = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.CurrencyGroupSeparator; // Separador miles: ,
-           //var b = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalSeparator; // Separador decimal: 
+            // var a = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.CurrencyGroupSeparator; // Separador miles: ,
+            //var b = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalSeparator; // Separador decimal: 
 
 
-            bandera = Negocios.ClavesPresupuestalesNegocios.Reducir( reduccionClave, reduccionMes, reduccionMonto, reduccionMotivo, anio);
+            exitoDeTransferencias = Negocios.ClavesPresupuestalesNegocios.Reducir( reduccionClave, reduccionMes, reduccionMonto, reduccionMotivo, anio);
 
 
 
-            return Json(bandera, JsonRequestBehavior.AllowGet);
+            return Json(exitoDeTransferencias, JsonRequestBehavior.AllowGet);
         }
 
 
@@ -108,22 +108,19 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
         public JsonResult Transferencia(string origenClave, int origenMes, decimal origenMonto, string destinoClave, int destinoMes, string motivoTransfer)
 
         {
-            var a = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.CurrencyGroupSeparator; // Separador miles: ,
-            var b = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalSeparator; // Separador decimal: 
+            //var a = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.CurrencyGroupSeparator; // Separador miles: ,
+          //  var b = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalSeparator; // Separador decimal: 
 
-            bool bandera= false;         
+            bool exitoDeTransferencias = false;         
             int anio = 2019;
 
             Guid identificadorDeOperacion = Guid.NewGuid();
 
-
-
             //La bandera sirve como indicador para saber si fue correcta y todo salio bien en el metodo para poder seguir al siguiente paso    
-            bandera = Negocios.ClavesPresupuestalesNegocios.Transferir(origenClave, origenMes, origenMonto, destinoClave, destinoMes, motivoTransfer,  anio, identificadorDeOperacion);
+            exitoDeTransferencias = Negocios.ClavesPresupuestalesNegocios.Transferir(origenClave, origenMes, origenMonto, destinoClave, destinoMes, motivoTransfer,  anio, identificadorDeOperacion);
 
-            bandera = !bandera ;
 
-            return Json(bandera, JsonRequestBehavior.AllowGet);
+            return Json(exitoDeTransferencias, JsonRequestBehavior.AllowGet);
         }
 
 
@@ -215,7 +212,7 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
                     break;
 
                 default:
-                    montoDisponible = 0.0m;
+                    montoDisponible = 0.00m;
                     break;
             }
 

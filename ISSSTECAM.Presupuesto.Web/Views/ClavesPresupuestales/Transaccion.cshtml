@@ -782,7 +782,10 @@
         //if (isNaN(formulario.edad.value)==true
         else if (isNaN(CajaMonto.value) == true) {
            alert('Por favor ingrese un monto valido')
-        } else if (CajaMotivo.value == '') {
+         } else if (CajaMonto.value == '0') {
+             alert('No es posible Reducir 0 pesos de  ' + CajaClave.value)
+         }
+         else if (CajaMotivo.value == '') {
             alert('Por favor ingrese un motivo')
         } else if (ValorMes.textContent == '0') {
              alert('Por favor seleccione el mes al que se le hara la reducción')
@@ -876,6 +879,8 @@
             alert('Por favor ingrese un monto de origen')
         } else if (isNaN(CajaMontoOrigen.value) == true) {
             alert('Por favor ingrese un monto de origen valido')
+        } else if (CajaMontoOrigen.value == '0') {
+            alert('No es posible Transferir 0 pesos de  ' + CajaClaveOT.value)
         }
         else if (CajaClaveOT.value == '') {
             alert('Por favor ingrese una clave de origen')

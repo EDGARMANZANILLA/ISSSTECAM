@@ -10,7 +10,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ISSSTECAM.Presupuesto.Entidades.DTO;
-using System.Runtime;
+using System.Collections;
+using Newtonsoft.Json;
 
 namespace ISSSTECAM.Presupuesto.Web.Controllers
 {
@@ -26,13 +27,13 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
         {
             //Esta lista proviene de la DB
             List<string> claves = new List<string>();
-           
+
 
             //extrae la tabla ClavesPresupuestales filtrada por anio
             var listaDeClaves = Negocios.ClavesPresupuestalesNegocios.ObtenerClavesActivasPorAnio(2019);
 
             //filtramos solo las claves de lo extraido
-            foreach (var item  in listaDeClaves)
+            foreach (var item in listaDeClaves)
             {
                 claves.Add(item.Clave);
 
@@ -88,121 +89,87 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
         }
 
         public JsonResult Reducciones(decimal reduccionMonto, string reduccionClave, int reduccionMes, string reduccionMotivo/*el mes debe venir en int */) {
-            bool bandera;
+            bool exitoDeTransferencias = false;
             int anio = 2019;
 
-            //datos que se obtienen como parametros
-            decimal monto= 9984.03M;
-            string clavePresupuestal = "21120283626211C016000J186038910780L415A4211";
-            int mes = 1;
-            string motivo = "";
+            // var a = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.CurrencyGroupSeparator; // Separador miles: ,
+            //var b = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalSeparator; // Separador decimal: 
+
+
+            exitoDeTransferencias = Negocios.ClavesPresupuestalesNegocios.Reducir( reduccionClave, reduccionMes, reduccionMonto, reduccionMotivo, anio);
 
 
 
-            //1-se realiza la transaccion y si no hay problemas se continua
-             //Transaccion nuevaTransaccion = new Transaccion();
-             //bandera = nuevaTransaccion.Reduccion(monto, clavePresupuestal, mes);
-
-            bandera = Negocios.ClavesPresupuestalesNegocios.Reducir(monto, clavePresupuestal, mes, anio);
-
-
-            if (bandera)
-            {
-                //obtener el id de la clave remitente
-                var clave = Negocios.ClavesPresupuestalesNegocios.ObtenerPorUnicaClave(anio, clavePresupuestal);
-
-
-                Transacciones nueva = new Transacciones();
-                nueva.Fecha = DateTime.Now;
-                nueva.IdClavePresupuestalRemitente = clave.Id;
-                nueva.IdMesRemitente = 1;
-                nueva.IdClavePresupuestalDestinataria = null;
-                nueva.IdMesDestinataria = null;
-                nueva.Monto = monto;
-                nueva.Motivo = "";
-                nueva.IdTipoDeTransaccion = 1;
-                nueva.Activo = true;
-
-
-                bandera = Negocios.ClavesPresupuestalesNegocios.GuardarTransaccion(nueva);
-
-            }
-
-
-
-            return Json(bandera, JsonRequestBehavior.AllowGet);
+            return Json(exitoDeTransferencias, JsonRequestBehavior.AllowGet);
         }
 
 
 
-        public JsonResult Transferencia(decimal origenMonto, string origenClave, int origenMes, /*decimal destinoMonto,*/ string destinoClave, string destinoMes, string motivoTransfer/*el mes debe venir en int*/)
+        public JsonResult Transferencia(string origenClave, int origenMes, decimal origenMonto, string destinoClave, int destinoMes, string motivoTransfer)
+
         {
-            bool bandera= false;
+            //var a = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.CurrencyGroupSeparator; // Separador miles: ,
+          //  var b = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalSeparator; // Separador decimal: 
+
+            bool exitoDeTransferencias = false;         
             int anio = 2019;
-            //datos para reducir que se obtienen como parametros
-            decimal monto1 = 1000000;
-            string clavePresupuestal1 = "21120283626211C016000J186038910780L415A4211";
-            int mes1 = 1;
 
-            //datos hacia donde se va a transferir
-            decimal monto2 = 9984.03M; //no hay segundo monto
-            string clavePresupuestal2 = "21120283626311C016000J187039010790L415A4511";
-            int mes2 = 12;
+            Guid identificadorDeOperacion = Guid.NewGuid();
 
-            string motivo = "";
+            //La bandera sirve como indicador para saber si fue correcta y todo salio bien en el metodo para poder seguir al siguiente paso    
+            exitoDeTransferencias = Negocios.ClavesPresupuestalesNegocios.Transferir(origenClave, origenMes, origenMonto, destinoClave, destinoMes, motivoTransfer,  anio, identificadorDeOperacion);
 
 
-
-            //La bandera sirve como indicador para saber si fue correcta y todo salio bien en el metodo para poder seguir al siguiente paso
-            bandera = Negocios.ClavesPresupuestalesNegocios.Reducir(monto1, clavePresupuestal1, mes1, anio);
-
-            //Se procede a la transferencia si todo salio bien en la reduccion
-            if (bandera)
-            {   
-                bandera = Negocios.ClavesPresupuestalesNegocios.Transferir(monto1, clavePresupuestal2, mes2, anio); 
-            }
-            if (bandera)
-            {
-                //obtener el id de la clave remitente
-                var claveRemitente = Negocios.ClavesPresupuestalesNegocios.ObtenerPorUnicaClave(anio, clavePresupuestal1);
-
-                //obtener el id de la clave remitente
-                var claveDestino = Negocios.ClavesPresupuestalesNegocios.ObtenerPorUnicaClave(anio, clavePresupuestal2);
-
-
-                Transacciones nueva = new Transacciones();
-                nueva.Fecha = DateTime.Now;
-                nueva.IdClavePresupuestalRemitente = claveRemitente.Id;
-                nueva.IdMesRemitente = 1;
-                nueva.IdClavePresupuestalDestinataria = claveDestino.Id;
-                nueva.IdMesDestinataria = 12;
-                nueva.Monto = monto1;
-                nueva.Motivo = "Compras";
-                nueva.IdTipoDeTransaccion = 2;
-                nueva.Activo = true;
-
-
-                bandera = Negocios.ClavesPresupuestalesNegocios.GuardarTransaccion(nueva);
-
-            }
-            else 
-            {
-                 Negocios.ClavesPresupuestalesNegocios.Reducir(monto1, clavePresupuestal2, mes2, anio);
-                 bandera = false;
-            }
-
-            return Json(bandera, JsonRequestBehavior.AllowGet);
+            return Json(exitoDeTransferencias, JsonRequestBehavior.AllowGet);
         }
 
-  
+
+
+
+
+        [HttpPost]
+        public JsonResult TransferenciaDeClavesAClave(List<DatosDeClaves> cuentasRemitentes, DatosDeClaves cuentaDestino, string motivo) {
+
+            bool exitoDeTransferencias = false;
+            int anio = 2019 ;
+            Decimal sumaAtransferir = cuentasRemitentes.Sum(x => x.monto);
+
+            Guid identificadorDeOperacion = Guid.NewGuid();
+
+
+            try
+            {
+                foreach (DatosDeClaves remitente in cuentasRemitentes)
+                {
+                    //Ejecutar varias transferencias
+                    //La bandera sirve como indicador para saber si fue correcta y todo salio bien en el metodo para poder seguir al siguiente paso    
+                    exitoDeTransferencias = Negocios.ClavesPresupuestalesNegocios.Transferir(remitente.clave, remitente.mes, remitente.monto, cuentaDestino.clave, cuentaDestino.mes, motivo, anio, identificadorDeOperacion);
+
+                }
+            }
+            catch (Exception E) 
+            {
+                return Json("Hubo un problema intentelo de nuevo", JsonRequestBehavior.AllowGet);
+            }
+
+
+
+
+            return Json(exitoDeTransferencias, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+
+
         #region ObtenerMontoDelaDB aquí se supone q debo recibir el mes y la clave para obtener el monto y mostrarlo.
         public JsonResult MostrarMonto(string clave, int mes)
         {
 
-            decimal montoDisponible;
+            decimal montoDisponible= 0;
 
             var claveObtenida = Negocios.ClavesPresupuestalesNegocios.ObtenerPorUnicaClave(2019, clave);
-           
+
 
             switch (mes)
             {
@@ -243,9 +210,9 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
                 case 12:
                     montoDisponible = claveObtenida.PresupuestoDiciembre;
                     break;
-                    
+
                 default:
-                    montoDisponible = 0.0m;
+                    montoDisponible = 0.00m;
                     break;
             }
 
@@ -259,6 +226,15 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
 
 
     }
+
+
+    public class DatosDeClaves
+    {
+        public string clave { get; set; }
+        public int mes { get; set; }
+        public decimal monto { get; set; }
+    }
+
 
 
 

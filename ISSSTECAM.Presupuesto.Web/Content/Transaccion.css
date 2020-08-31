@@ -7,8 +7,10 @@
     list-style: none;
     font-weight: 300;
     font-size: small;
+    z-index: 9999999;
     /*cursor: pointer;*/
     display: block;
+    margin-bottom:200px;
 }
     .ListaArray input {
         cursor: pointer;

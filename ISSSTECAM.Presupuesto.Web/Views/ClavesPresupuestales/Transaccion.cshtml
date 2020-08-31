@@ -357,9 +357,11 @@
         @*<br><input type="button" onclick="return AgregarAlArray()" value="Agregar">*@
 
         <nav name="ListaDeArrays" id="ListaDeArrays" class="ListaArray">
+            @*<br><button class="btn btn-success" onclick="PruebaEnviar()">CHECK</button>*@
             <h5>Aqui van los arrays</h5>
-            <ul id="listaDesordenada">
+            <ul id="listaDesordenada" style=" margin-bottom: 78px;">
             </ul>
+
         </nav>
     </div>
     @*///////////////////////////////////DESTINATARIO////////////////////////////////////////////////////////////////////////////*@
@@ -1450,14 +1452,35 @@
             node = document.getElementById(id);
             node.parentNode.removeChild(node);
             console.log("El id es:", id);
-            ListaArray.splice(id, 1);
-            console.log("Nuevo Array: ",ListaArray)
+            //ListaArray.splice(id, 1);
+            delete ListaArray[id]; //true
+
+            console.log("Nuevo Array: ", ListaArray);
         }
+        ////////////////esto debo ejecutarse justo antes de enviar, para generar el array sin espacios vacios///////////
+        //function PruebaEnviar() {
+            
+            //var newArray = [];
+            //for (var i = 0; i < ListaArray.length; i++) {
+            //    if (ListaArray[i]) {
+            //        newArray.push(ListaArray[i]);
+            //    }
+            //}
+            //console.log("Array listo para enviar : ", newArray);
+        //}
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // prueba de transferencia de muchos a uno
 
-    function TDM() {
+        function TDM() {
+            var newArray = [];
+            for (var i = 0; i < ListaArray.length; i++) {
+                if (ListaArray[i]) {
+                    newArray.push(ListaArray[i]);
+                }
+            }
+            console.log("Array listo para enviar : ", newArray);
+
         console.log('entre');
         var cuentasRemitentes =
             [

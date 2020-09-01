@@ -155,6 +155,16 @@
 
     </div>
 </div>
+<div id="ModalArray" style="display:none;height:900px;" class="modal-backdrop">
+    <div class="modal-content" style="width:600px;left:25%;margin-right:10%;margin-left:10%;margin-top:10%;height:auto;">
+        <div class="modal-header Popup" id="HeaderModal2" style="height:auto;text-align:center;">
+            <ul id="ArrayEnviar">
+            </ul>
+            <button title="Siguiente" class="btn btn-success" data-backdrop="false" onclick="HideModal();" style="margin-right:45%;margin-left:45%">siguiente</button>
+        </div>
+
+    </div>
+</div>
 @*/SECCION DEL MENU DE TRANSFERENCIA/*@
 <div class="col-md-6" id="Transferencia" style="margin-left: 10%; width: 90%;display:none;">
     <h3 id="TxtTrans" style="display:none;margin-right:0%;margin-left: 20%;">Introduzca los datos para la transferencia</h3>
@@ -359,7 +369,7 @@
         <nav name="ListaDeArrays" id="ListaDeArrays" class="ListaArray">
             @*<br><button class="btn btn-success" onclick="PruebaEnviar()">CHECK</button>*@
             <h5>Aqui van los arrays</h5>
-            <ul id="listaDesordenada" style=" margin-bottom: 78px;">
+            <ul class="ListZoom" id="listaDesordenada" style=" margin-bottom: 78px;">
             </ul>
 
         </nav>
@@ -1104,11 +1114,6 @@
 
                     //document.getElementById('MontoDisponible').style.display = 'inline';
                 }
-                //const WRITELINE = document.querySelector('#ElMonto');
-                //var Monto = document.getElementById('ElMonto');
-                //Monto.innerHTML = "";
-                //WRITELINE.insertAdjacentHTML('beforeend', montoObtenido)
-
                 console.log('Monto Obtenido', montoObtenido);
                 const WRITELINE = document.querySelector('#ElMonto');
                 var Monto = document.getElementById('ElMonto');
@@ -1117,33 +1122,11 @@
                 WRITELINE.insertAdjacentHTML('beforeend', '<li id="MontoDisponibleValidar" value="' + montoObtenido + '"><a>' + montoObtenido + '</a></li>')
 
 
-                    //< li value = "01" id = "Month1" > <a>Enero</a></li >
-                //const OPTIONS = document.querySelector('#ElMonto');
-                //    i = 0;
-                //    //arrayAños.forEach(Element => {
-                //montoObtenido.forEach(Element => {
-                //        // OPTIONS.insertAdjacentHTML('beforeend', '<option value="' + i + '">' + Element + '</option>');
-                //        OPTIONS.insertAdjacentHTML('beforeend', '<li value="' + i + '" id="MontoDisp-' + i + '"><a>' + Element + '</a></li>')
-                //        i++;
-                //    });
-
-
-
             },
             error: function (result) {
                 alert("ERROR SEVERO, VUELVA A CARGAR LA PÁGINA" + result.status);
             }
         });
-        // <h5 id="ElMonto"></h5>
-        //var li = e.target.parentNode;
-        //let ID = li.id;
-        //var Identidad = document.getElementById('#ElMonto').textContent;
-
-        //const WRITELINE = document.querySelector('#ElMonto');
-        //var Monto = document.getElementById('ElMonto');
-        //Monto.innerHTML = "";
-        //WRITELINE.insertAdjacentHTML('beforeend', msg)
-        //document.getElementById('MontoDisponible').style.display = 'inline';
     }
 
     });
@@ -1193,35 +1176,13 @@
                         //console.log("Es el hijo más mayor de Cronos...", montoObtenido);
                         //document.getElementById('MontoDisponible2').style.display = 'inline';
                     }
-                    //const WRITELINE = document.querySelector('#ElMonto2');
-                    //var Monto = document.getElementById('ElMonto2');
-                    //Monto.innerHTML = "";
-                    //WRITELINE.insertAdjacentHTML('beforeend', montoObtenido)
                     console.log('Monto Obtenido', montoObtenido);
                     const WRITELINE = document.querySelector('#ElMonto2');
                     var Monto = document.getElementById('ElMonto2');
                     i = 0;
                     Monto.innerHTML = "";
                     //WRITELINE.insertAdjacentHTML('beforeend', '<li><a id="MontoDisponibleValidar2">' + montoObtenido + '</a></li>')
-                    WRITELINE.insertAdjacentHTML('beforeend', '<li id="MontoDisponibleValidar2" value="' + montoObtenido + '"><a>' + montoObtenido + '</a></li>')
-
-
-                    //console.log("Resultado " + resultado);
-                    //var añoNuevo = null;
-                    //if (añoNuevo == null) {
-                    //    añoNuevo = resultado;
-                    //    console.log("Es el hijo más mayor de Cronos...", añoNuevo);
-
-                    //}
-
-                    //const OPTIONS = document.querySelector('#ListaAños');
-                    //i = 0;
-                    ////arrayAños.forEach(Element => {
-                    //añoNuevo.forEach(Element => {
-                    //    // OPTIONS.insertAdjacentHTML('beforeend', '<option value="' + i + '">' + Element + '</option>');
-                    //    OPTIONS.insertAdjacentHTML('beforeend', '<li value="' + i + '" id="Año-' + i + '"><a>' + Element + '</a></li>')
-                    //    i++;
-                    //});
+                    WRITELINE.insertAdjacentHTML('beforeend', '<li id="MontoDisponibleValidar2" value="' + montoObtenido + '"><a>' + montoObtenido + '</a></li>');
 
                 },
                 error: function (result) {
@@ -1295,13 +1256,7 @@
                 minimumInputLength: 3
             });
         });
-        //$(document).ready(function () {
-        //    $('#CajaClaveTMTU2').select2({
-        //        placeholder: "Ingrese la clave",
-        //        allowClear: true,
-        //        minimumInputLength: 3
-        //    });
-        //});
+
         $(document).ready(function () {
             $('#CajaClaveTMTUDesti').select2({
                 placeholder: "Ingrese la clave",
@@ -1430,7 +1385,7 @@
                 Valor = indice;
             })
             li.id = Valor;
-            li.innerHTML = ' Clave: ' + Clave + ' Mes: ' + Mes + ' Monto: ' + Monto + '<button style="font-family: sans-serif,arial;font-size: 1em;color: #333;cursor: pointer;" onclick="eliminar(this)">X</button>';
+            li.innerHTML = ' Clave: ' + Clave + ' Mes: ' + Mes + ' Monto: ' + Monto + '<div class="info" ><a>Clave: ' + Clave + ' Mes: ' + Mes + ' Monto: ' + Monto + '</a></div><button style="font-family: sans-serif,arial;font-size: 1em;color: #333;cursor: pointer;" onclick="eliminar(this)">X</button>';
             document.getElementById("listaDesordenada").appendChild(li);
 
            
@@ -1470,6 +1425,10 @@
         //}
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        function HideModal() {
+            document.getElementById('ModalArray').style.display = 'none';
+        }
+
     // prueba de transferencia de muchos a uno
 
         function TDM() {
@@ -1480,6 +1439,21 @@
                 }
             }
             console.log("Array listo para enviar : ", newArray);
+            //"Click on the button to see the array structure using Alert().<br> Array is = "
+            //    + arr;
+            var tamaño = newArray.length; 
+            var contador;
+            //var li = document.createElement('li');
+            const WRITELINE = document.querySelector('#ArrayEnviar');
+            for (contador = 0; contador < tamaño; contador++) {
+                //li.id = contador;
+                //li.innerHTML = "El valor de la posición [" + contador + "] es [" + newArray[contador] + "]<br>";
+                //Object.values(object1)
+                WRITELINE.insertAdjacentHTML('beforeend', '<li id="ModArr' + contador + '"><a> El valor de la posición[' + contador + '] es[' + Object.values(newArray[contador]) + ']</a></li>');
+                //document.getElementById("ArrayEnviar").appendChild(li);
+            }
+            document.getElementById('ModalArray').style.display = 'inline';
+            //alert("Array listo para enviar : " + newArray);
 
         console.log('entre');
         var cuentasRemitentes =

@@ -1,6 +1,40 @@
 ﻿body {
 }
 
+ul.ListZoom {
+   /* width: 960px;*/
+    list-style: none;
+/*    margin: 0 auto;*/
+   /* padding: 0;*/
+}
+    ul.ListZoom li {
+      /*  display: inline;*/
+      /*  margin: 10px;*/
+    /*    padding: 0;*/
+       /* position: relative;*/
+    }
+        ul.ListZoom li:hover {
+            /*  z-index:auto;*/
+             position: relative;
+        }
+
+        ul.ListZoom li .info {
+            position: absolute;
+            left: 350px;
+            top: -150px;
+            display: none;
+            background-color: rgb(69, 110, 185);
+            font-size: 2em;
+            height: 140px;
+            width: 550px;
+            font-weight: bold;
+            z-index: 9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999;
+        }
+            ul.ListZoom li .info a {color: white;}
+        ul.ListZoom li:hover .info {
+            display: block;
+        }
+/*//////////////////////////////////////////////////////////////////////////////*/
 .ListaArray {
     /*text-transform: uppercase;*/
     text-decoration: none;

@@ -156,7 +156,7 @@
     </div>
 </div>
 <div id="ModalArray" style="display:none;height:900px;" class="modal-backdrop">
-    <div class="modal-content" style="width:600px;left:25%;margin-right:10%;margin-left:10%;margin-top:10%;height:auto;">
+    <div class="modal-content" style="width:600px;left:15%;margin-right:10%;margin-left:10%;margin-top:10%;height:auto;">
         <div class="modal-header Popup" id="HeaderModal2" style="height:auto;text-align:center;">
             <ul id="ArrayEnviar">
             </ul>
@@ -1449,20 +1449,30 @@
                 //li.id = contador;
                 //li.innerHTML = "El valor de la posición [" + contador + "] es [" + newArray[contador] + "]<br>";
                 //Object.values(object1)
-                WRITELINE.insertAdjacentHTML('beforeend', '<li id="ModArr' + contador + '"><a> El valor de la posición[' + contador + '] es[' + Object.values(newArray[contador]) + ']</a></li>');
+                WRITELINE.insertAdjacentHTML('beforeend', '<li id="ModArr' + contador + '"><a> El valor de la posición[' + contador + '] es[' + Object.values(newArray[contador]) + ']</a></li><br>');
                 //document.getElementById("ArrayEnviar").appendChild(li);
             }
             document.getElementById('ModalArray').style.display = 'inline';
             //alert("Array listo para enviar : " + newArray);
 
         console.log('entre');
-        var cuentasRemitentes =
-            [
-                { clave: '21120283626211C016000J186038910780L415A4211', mes: 2, monto: 4204215.10 },
-                { clave: '21120283626311C016000J187039010790L415A4511', mes: 2, monto: 1290006.60 },
-                { clave: '21120283626211C016000J187039010790L415A4521', mes: 2, monto: 33738637.36 },
-            ];
-        var cuentaDestino = { clave: '21120283626211C016000J187039010790L414A4521', mes: 2, monto: 000 };
+            var cuentasRemitentes = newArray;
+            //[
+            //    { clave: '21120283626211C016000J186038910780L415A4211', mes: 2, monto: 4204215.10 },
+            //    { clave: '21120283626311C016000J187039010790L415A4511', mes: 2, monto: 1290006.60 },
+            //    { clave: '21120283626211C016000J187039010790L415A4521', mes: 2, monto: 33738637.36 },
+            //];
+            //var cuentaDestino = { clave: '21120283626211C016000J187039010790L414A4521', mes: 2, monto: 000 };
+            var ClaveDestino = document.getElementById("CajaClaveTMTUDesti").value;
+            var MesDestino = document.getElementById("CajaOcultaMesTMTUDesti").value;
+            var MotivoDestino = document.getElementById("CajaMotivoTMTU").value;
+
+            var cuentaDestino = { clave: ClaveDestino, mes: MesDestino, motivo: MotivoDestino };
+
+
+            console.log("Remitentes: ", cuentasRemitentes);
+            console.log("Destinatario", cuentaDestino);
+
        // NuevasCuentas.push({ clave: 'ocho', mes: 8, monto: 8888.8 });
        // NuevasCuentas.push({ motivo: 'compra2x' });
 

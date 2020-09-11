@@ -2,35 +2,41 @@
 }
 
 ul.ListZoom {
-   /* width: 960px;*/
+    /* width: 960px;*/
     list-style: none;
-/*    margin: 0 auto;*/
-   /* padding: 0;*/
+    /*    margin: 0 auto;*/
+    /* padding: 0;*/
 }
+
     ul.ListZoom li {
-      /*  display: inline;*/
-      /*  margin: 10px;*/
-    /*    padding: 0;*/
-       /* position: relative;*/
+        /*  display: inline;*/
+        /*  margin: 10px;*/
+        /*    padding: 0;*/
+        /* position: relative;*/
     }
+
         ul.ListZoom li:hover {
             /*  z-index:auto;*/
-             position: relative;
+            position: relative;
         }
 
         ul.ListZoom li .info {
             position: absolute;
-            left: 350px;
-            top: -150px;
+            margin-left: 0px;
+            margin-top: 0px;
             display: none;
             background-color: rgb(69, 110, 185);
             font-size: 2em;
             height: 140px;
-            width: 550px;
+            width: 500px;
             font-weight: bold;
-            z-index: 9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999;
+            z-index: 9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999;
         }
-            ul.ListZoom li .info a {color: white;}
+
+            ul.ListZoom li .info a {
+                color: white;
+            }
+
         ul.ListZoom li:hover .info {
             display: block;
         }
@@ -44,16 +50,23 @@ ul.ListZoom {
     z-index: 9999999;
     /*cursor: pointer;*/
     display: block;
-    margin-bottom:200px;
+    margin-bottom: 200px;
 }
+
     .ListaArray input {
         cursor: pointer;
     }
 
     .ListaArray ul li span {
-        color: #ff0000;background-color: #808080;font-weight: bold;font-size:20px;cursor: pointer;width:10px;
-
-        font-family: sans-serif,arial;font-size: 1em;color: #333;
+        color: #ff0000;
+        background-color: #808080;
+        font-weight: bold;
+        font-size: 20px;
+        cursor: pointer;
+        width: 10px;
+        font-family: sans-serif,arial;
+        font-size: 1em;
+        color: #333;
     }
 
 

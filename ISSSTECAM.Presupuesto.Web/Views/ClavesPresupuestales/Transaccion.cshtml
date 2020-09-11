@@ -366,16 +366,19 @@
         <br><button class="btn btn-success" onclick="AgregarAlArray()">Agregar</button>
         @*<br><input type="button" onclick="return AgregarAlArray()" value="Agregar">*@
 
+    </div>
+    <div class="col-md-6" id="MostrarListaArray">
         <nav name="ListaDeArrays" id="ListaDeArrays" class="ListaArray">
             @*<br><button class="btn btn-success" onclick="PruebaEnviar()">CHECK</button>*@
             <h5>Aqui van los arrays</h5>
-            <ul class="ListZoom" id="listaDesordenada" style=" margin-bottom: 78px;">
+            <ul class="ListZoom" id="listaDesordenada" @*style=" margin-bottom: 78px;"*@>
             </ul>
 
         </nav>
     </div>
     @*///////////////////////////////////DESTINATARIO////////////////////////////////////////////////////////////////////////////*@
-    <div class="col-md-6" id="Destinatario" style="width:40%;">
+    <br>
+    <div @*class="col-md-6"*@ id="Destinatario" style="width:40%;">
         <h3 id="TxtTransMTUDesti" style="display:none;">Ingrese el Destinatario:</h3>
         @*margin-right:30%;margin-left:30%;width:40%;padding-right:30%"*@
         <br>
@@ -428,186 +431,186 @@
         </div>
         @*///////////////////////////////////////////////////////////////////////////////////////////////////////////////*@
         @*seccion media*@
-    <div style="margin-left:0;width:30%;height:8%;">
+        <div style="margin-left:0;width:30%;height:8%;">
 
-        <nav name="MenuTMTU4" id="IDMenuTMTU4" class="menu" style="display:none;z-index:0;">
-            <h5 class="Texto-h5">Motivo</h5>
-            <ul>
-                <li name="motivoTMTU" style="z-index:0;">
-                    <textarea name="NCajaMotivoTMTU" id="CajaMotivoTMTU" style="z-index:0;"> </textarea>
-                </li>
-            </ul>
-        </nav>
-        <br>
-        <br>
-        <br>
-        <br>
-        <button id="EnviarTMTU" class="btn btn-success" onclick="TDM();" style="display:none;">Transferir</button>
-        @*"margin-left:25%;margin-top:5%;"*@
-    </div>
+            <nav name="MenuTMTU4" id="IDMenuTMTU4" class="menu" style="display:none;z-index:0;">
+                <h5 class="Texto-h5">Motivo</h5>
+                <ul>
+                    <li name="motivoTMTU" style="z-index:0;">
+                        <textarea name="NCajaMotivoTMTU" id="CajaMotivoTMTU" style="z-index:0;"> </textarea>
+                    </li>
+                </ul>
+            </nav>
+            <br>
+            <br>
+            <br>
+            <br>
+            <button id="EnviarTMTU" class="btn btn-success" onclick="TDM();" style="display:none;">Transferir</button>
+            @*"margin-left:25%;margin-top:5%;"*@
         </div>
     </div>
+</div>
 
-    @*/de aqui en adelante está la sección del css/*@
+@*/de aqui en adelante está la sección del css/*@
 
-    <style>
-        .Navigate {
-            display: inline;
-        }
+<style>
+    .Navigate {
+        display: inline;
+    }
 
-        .btn-Procces {
-            background-color: rgb(154, 154, 151);
-            border-radius: 30px;
-            color: white;
-            padding: 15px 32px;
-            text-align: center;
+    .btn-Procces {
+        background-color: rgb(154, 154, 151);
+        border-radius: 30px;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 30px;
+    }
+
+    .Clase {
+        width: 100%;
+        height: 539px;
+    }
+    /* //////////////////////////////seccion para el modal///////////////////////*/
+    .LOGOS {
+        height: 150px;
+        width: 37.5%;
+        margin-left: 31.25%;
+        margin-right: 31.25%;
+    }
+
+    .modal-backdrop {
+        background-color: rgba(0, 0, 0, 0.50);
+        /* background-color: rgba(0, 0, 0, 0.00);*/
+        /* display: none;*/
+        width: 100%;
+        z-index: 999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999;
+        height: 100%;
+        position: absolute;
+        top: 0%;
+        left: 0%;
+    }
+
+    .modal-content {
+        font-weight: bold;
+        color: black;
+    }
+    /* ///////////////sección para la lista de meses/////////////////////////////////////////////////////*/
+    .listado ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        /* width: 105px;*/
+        width: 240px;
+        background-color: rgb(69, 110, 185);
+    }
+
+        .listado ul a {
+            display: block;
+            cursor: pointer;
+            color: #fff;
             text-decoration: none;
-            display: inline-block;
-            font-size: 30px;
+            font-weight: 300;
+            /* font-size: 12px;*/
+            font-size: large;
+            padding: 0px;
+            text-transform: uppercase;
+            letter-spacing: 0px;
         }
 
-        .Clase {
-            width: 100%;
-            height: 539px;
-        }
-        /* //////////////////////////////seccion para el modal///////////////////////*/
-        .LOGOS {
-            height: 150px;
-            width: 37.5%;
-            margin-left: 31.25%;
-            margin-right: 31.25%;
-        }
+    .listado {
+        z-index: 0;
+        padding-left: 8px;
+    }
 
-        .modal-backdrop {
-            background-color: rgba(0, 0, 0, 0.50);
-            /* background-color: rgba(0, 0, 0, 0.00);*/
-            /* display: none;*/
-            width: 100%;
-            z-index: 999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999;
-            height: 100%;
-            position: absolute;
-            top: 0%;
-            left: 0%;
-        }
-
-        .modal-content {
-            font-weight: bold;
-            color: black;
-        }
-        /* ///////////////sección para la lista de meses/////////////////////////////////////////////////////*/
-        .listado ul {
-            list-style: none;
+        .listado ul li {
+            /* background-color: rgb(69, 110, 185);*/
+            /*   background-color: white;*/
+            /*    border-radius: 2px;
+                border-color: dimgrey;*/
+            position: relative;
+            float: left;
             margin: 0;
             padding: 0;
-            /* width: 105px;*/
-            width: 240px;
-            background-color: rgb(69, 110, 185);
+            z-index: 999999999;
         }
 
-            .listado ul a {
-                display: block;
-                cursor: pointer;
-                color: #fff;
-                text-decoration: none;
-                font-weight: 300;
-                /* font-size: 12px;*/
-                font-size: large;
-                padding: 0px;
-                text-transform: uppercase;
-                letter-spacing: 0px;
+            .listado ul li textarea {
+                z-index: 0;
             }
 
-        .listado {
-            z-index: 0;
-            padding-left: 8px;
+            .listado ul li:hover {
+                background: rgb(11, 66, 167);
+            }
+
+        .listado ul ul {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            padding: 0;
         }
 
-            .listado ul li {
-                /* background-color: rgb(69, 110, 185);*/
-                /*   background-color: white;*/
-                /*    border-radius: 2px;
-                border-color: dimgrey;*/
-                position: relative;
-                float: left;
-                margin: 0;
-                padding: 0;
-                z-index: 999999999;
+            .listado ul ul li {
+                float: none;
+                /*width: 100px;*/
+                width: 240px;
+                z-index: 9999999999999;
             }
 
-                .listado ul li textarea {
-                    z-index: 0;
-                }
-
-                .listado ul li:hover {
-                    background: rgb(11, 66, 167);
-                }
-
-            .listado ul ul {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                padding: 0;
+            .listado ul ul a {
+                line-height: 100%;
+                padding: 10px 15px;
+                padding: 10px 10px;
+                z-index: 9999999999999999;
             }
 
-                .listado ul ul li {
-                    float: none;
-                    /*width: 100px;*/
-                    width: 240px;
-                    z-index: 9999999999999;
-                }
+        .listado ul li:hover > ul {
+            display: block;
+        }
 
-                .listado ul ul a {
-                    line-height: 100%;
-                    padding: 10px 15px;
-                    padding: 10px 10px;
-                    z-index: 9999999999999999;
-                }
-
-            .listado ul li:hover > ul {
-                display: block;
-            }
-
-        textarea {
-            /*width: 110px;*/
-            width: 240px;
-            font-family: Arial;
-            /*font-size: medium;*/
-            font-size: large;
-            /*background-color: transparent;
+    textarea {
+        /*width: 110px;*/
+        width: 240px;
+        font-family: Arial;
+        /*font-size: medium;*/
+        font-size: large;
+        /*background-color: transparent;
             color: white;*/
-            background-color: white;
-            color: black;
-            /*     height: 28px;*/
-            border-radius: 2px;
-            border-color: grey;
-            /**/
-            height: 34px;
-            resize: none;
-            padding-bottom: 0px;
-            padding-top: 3px;
-            padding-left: 4px;
-        }
+        background-color: white;
+        color: black;
+        /*     height: 28px;*/
+        border-radius: 2px;
+        border-color: grey;
+        /**/
+        height: 34px;
+        resize: none;
+        padding-bottom: 0px;
+        padding-top: 3px;
+        padding-left: 4px;
+    }
 
-        .Centrar {
-            margin-left: 35%;
-            height: 0;
-        }
+    .Centrar {
+        margin-left: 35%;
+        height: 0;
+    }
 
-        .Monto {
-            margin-left: 0%;
-            height: 0;
+    .Monto {
+        margin-left: 0%;
+        height: 0;
+        width: 15%;
+    }
+
+        .Monto h4 {
             width: 15%;
+            height: 0;
+            margin-bottom: 5%;
+            margin-top: 0;
         }
 
-            .Monto h4 {
-                width: 15%;
-                height: 0;
-                margin-bottom: 5%;
-                margin-top: 0;
-            }
-
-        /*  #MontoDisponible {
+    /*  #MontoDisponible {
             width: 6%;
             margin-top: 70%;
         }
@@ -616,102 +619,102 @@
             width: 6%;
 
         }*/
-        /*/////////////////////////////////////////////////////////////////////////////////*/
-        .menu select {
-            width: 440px;
+    /*/////////////////////////////////////////////////////////////////////////////////*/
+    .menu select {
+        width: 440px;
+        font-family: Arial;
+        font-size: medium;
+        background-color: rgb(11, 66, 167);
+        height: 34px;
+    }
+
+        .menu select option {
+            width: 330px;
             font-family: Arial;
-            font-size: medium;
+            font-size: large;
             background-color: rgb(11, 66, 167);
             height: 34px;
         }
 
-            .menu select option {
-                width: 330px;
-                font-family: Arial;
-                font-size: large;
-                background-color: rgb(11, 66, 167);
-                height: 34px;
-            }
+    .menu ul li {
+        display: inline-block;
+        /* background-color: rgb(69, 110, 185);*/
+        background-color: white;
+        border-radius: 3px;
+        border-color: dimgrey;
+    }
+
+    .menu ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        width: 105px;
+        width: 240px;
+    }
+
+        .menu ul a {
+            display: block;
+            cursor: pointer;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 300;
+            font-size: 12px;
+            font-size: large;
+            padding: 0px;
+            text-transform: uppercase;
+            letter-spacing: 0px;
+        }
+
+    .menu {
+        z-index: 99999999999999999;
+        padding-left: 8px;
+    }
 
         .menu ul li {
-            display: inline-block;
-            /* background-color: rgb(69, 110, 185);*/
-            background-color: white;
-            border-radius: 3px;
-            border-color: dimgrey;
-        }
-
-        .menu ul {
-            list-style: none;
+            position: relative;
+            float: left;
             margin: 0;
             padding: 0;
-            width: 105px;
-            width: 240px;
+            z-index: 99;
         }
 
-            .menu ul a {
-                display: block;
-                cursor: pointer;
-                color: #fff;
-                text-decoration: none;
-                font-weight: 300;
-                font-size: 12px;
-                font-size: large;
-                padding: 0px;
-                text-transform: uppercase;
-                letter-spacing: 0px;
+            .menu ul li:hover {
+                /*background: rgb(128, 128, 128);*/
+                background: rgba(128, 128, 128, 0.00);
             }
 
-        .menu {
-            z-index: 99999999999999999;
-            padding-left: 8px;
+        .menu ul ul {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            padding: 0;
         }
 
-            .menu ul li {
-                position: relative;
-                float: left;
-                margin: 0;
-                padding: 0;
-                z-index: 99;
+            .menu ul ul li {
+                float: none;
+                width: 100px;
+                width: 240px;
+                z-index: 9999999999999999;
             }
 
-                .menu ul li:hover {
-                    /*background: rgb(128, 128, 128);*/
-                    background: rgba(128, 128, 128, 0.00);
-                }
-
-            .menu ul ul {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                padding: 0;
+            .menu ul ul a {
+                line-height: 100%;
+                padding: 10px 15px;
+                padding: 10px 10px;
+                z-index: 99999999999999999999;
             }
 
-                .menu ul ul li {
-                    float: none;
-                    width: 100px;
-                    width: 240px;
-                    z-index: 9999999999999999;
-                }
-
-                .menu ul ul a {
-                    line-height: 100%;
-                    padding: 10px 15px;
-                    padding: 10px 10px;
-                    z-index: 99999999999999999999;
-                }
-
-            .menu ul li:hover > ul {
-                display: block;
-            }
-
-        .Texto-h5 {
-            text-align: left;
+        .menu ul li:hover > ul {
+            display: block;
         }
-    </style>
 
-    <script>
+    .Texto-h5 {
+        text-align: left;
+    }
+</style>
+
+<script>
     function ProcReduc() {
         document.getElementById('TxtRedu').style.display = 'inline';
         document.getElementById('NavInitial').style.display = 'none';
@@ -1370,7 +1373,7 @@
     });
 /////////////////////////////////////////////////sección del array y la listahtml////////////////////////////////////////////////////////////
         var ListaArray = [];
- 
+
         function AgregarAlArray() {
             var Clave = document.getElementById("CajaClaveTMTU1").value;
             var Mes = document.getElementById("CajaOcultaMesOrigenTMTU").value;
@@ -1388,7 +1391,7 @@
             li.innerHTML = ' Clave: ' + Clave + ' Mes: ' + Mes + ' Monto: ' + Monto + '<div class="info" ><a>Clave: ' + Clave + ' Mes: ' + Mes + ' Monto: ' + Monto + '</a></div><button style="font-family: sans-serif,arial;font-size: 1em;color: #333;cursor: pointer;" onclick="eliminar(this)">X</button>';
             document.getElementById("listaDesordenada").appendChild(li);
 
-           
+
         }
         function find_li(contenido) {
             var el = document.getElementById("listaDesordenada").getElementsByTagName("li");
@@ -1414,7 +1417,7 @@
         }
         ////////////////esto debo ejecutarse justo antes de enviar, para generar el array sin espacios vacios///////////
         //function PruebaEnviar() {
-            
+
             //var newArray = [];
             //for (var i = 0; i < ListaArray.length; i++) {
             //    if (ListaArray[i]) {
@@ -1441,7 +1444,7 @@
             console.log("Array listo para enviar : ", newArray);
             //"Click on the button to see the array structure using Alert().<br> Array is = "
             //    + arr;
-            var tamaño = newArray.length; 
+            var tamaño = newArray.length;
             var contador;
             //var li = document.createElement('li');
             const WRITELINE = document.querySelector('#ArrayEnviar');
@@ -1499,4 +1502,4 @@
 
     }
 
-    </script>
+</script>

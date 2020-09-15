@@ -160,7 +160,8 @@
         <div class="modal-header Popup" id="HeaderModal2" style="height:auto;text-align:center;">
             <ul id="ArrayEnviar">
             </ul>
-            <button title="Siguiente" class="btn btn-success" data-backdrop="false" onclick="HideModal();" style="margin-right:45%;margin-left:45%">siguiente</button>
+            <button title="Siguiente" class="btn btn-success" data-backdrop="false" onclick="TDM();" style="margin-right:45%;margin-left:45%">siguiente</button>
+            <button title="Cancelar" class="btn btn-danger" data-backdrop="false" onclick="HideModal();" style="margin-right:45%;margin-left:45%">Cancelar</button>
         </div>
 
     </div>
@@ -445,7 +446,7 @@
             <br>
             <br>
             <br>
-            <button id="EnviarTMTU" class="btn btn-success" onclick="TDM();" style="display:none;">Transferir</button>
+            <button id="EnviarTMTU" class="btn btn-success" onclick="ShowListArray();" style="display:none;">Transferir</button>
             @*"margin-left:25%;margin-top:5%;"*@
         </div>
     </div>
@@ -1430,11 +1431,32 @@
 
         function HideModal() {
             document.getElementById('ModalArray').style.display = 'none';
+
+            var Lista = document.getElementById('ArrayEnviar');
+            Lista.innerHTML = "";
         }
 
+    function ShowListArray() {
+        var nuevoArray = [];
+        for (var i = 0; i < ListaArray.length; i++) {
+            if (ListaArray[i]) {
+                nuevoArray.push(ListaArray[i]);
+            }
+        }
+        console.log("Array listo para enviar : ", nuevoArray);
+        var tamaño = nuevoArray.length;
+        var contador;
+        const WRITELINE = document.querySelector('#ArrayEnviar');
+        for (contador = 0; contador < tamaño; contador++) {
+            WRITELINE.insertAdjacentHTML('beforeend', '<li id="ModArr' + contador + '"><a> El valor de la posición[' + contador + '] es[' + Object.values(nuevoArray[contador]) + ']</a></li><br>');
+        }
+
+        document.getElementById('ModalArray').style.display = 'inline';
+    }
     // prueba de transferencia de muchos a uno
 
-        function TDM() {
+    function TDM() {
+            document.getElementById('ModalArray').style.display = 'none';
             var newArray = [];
             for (var i = 0; i < ListaArray.length; i++) {
                 if (ListaArray[i]) {
@@ -1455,7 +1477,8 @@
                 WRITELINE.insertAdjacentHTML('beforeend', '<li id="ModArr' + contador + '"><a> El valor de la posición[' + contador + '] es[' + Object.values(newArray[contador]) + ']</a></li><br>');
                 //document.getElementById("ArrayEnviar").appendChild(li);
             }
-            document.getElementById('ModalArray').style.display = 'inline';
+
+            //document.getElementById('ModalArray').style.display = 'inline';
             //alert("Array listo para enviar : " + newArray);
 
         console.log('entre');
@@ -1470,8 +1493,8 @@
             var MesDestino = document.getElementById("CajaOcultaMesTMTUDesti").value;
             var MotivoDestino = document.getElementById("CajaMotivoTMTU").value;
 
-            var cuentaDestino = { clave: ClaveDestino, mes: MesDestino, motivo: MotivoDestino };
-
+        var cuentaDestino = { clave: ClaveDestino, mes: MesDestino, motivo: MotivoDestino };
+        var motivo = MotivoDestino;
 
             console.log("Remitentes: ", cuentasRemitentes);
             console.log("Destinatario", cuentaDestino);
@@ -1483,7 +1506,7 @@
 
           $.ajax({
             url: '@Url.Action("TransferirDeMuchosAUno", "ClavesPresupuestales")',
-              data: JSON.stringify({ cuentasRemitentes, cuentaDestino, motivo: 'compra3x' }),
+              data: JSON.stringify({ cuentasRemitentes, cuentaDestino, motivo}),
             type: "POST",
             contentType: "application/json; charset=utf-8",
 

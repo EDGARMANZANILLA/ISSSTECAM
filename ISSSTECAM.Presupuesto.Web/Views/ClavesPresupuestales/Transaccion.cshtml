@@ -158,6 +158,7 @@
 <div id="ModalArray" style="display:none;height:900px;" class="modal-backdrop">
     <div class="modal-content" style="width:600px;left:15%;margin-right:10%;margin-left:10%;margin-top:10%;height:auto;">
         <div class="modal-header Popup" id="HeaderModal2" style="height:auto;text-align:center;">
+            <p>Lista a enviar como : Clave , Mes , Monto</p>
             <ul id="ArrayEnviar">
             </ul>
             <button title="Siguiente" class="btn btn-success" data-backdrop="false" onclick="TDM();" style="margin-right:45%;margin-left:45%">siguiente</button>
@@ -1380,18 +1381,22 @@
             var Mes = document.getElementById("CajaOcultaMesOrigenTMTU").value;
             var Monto = document.getElementById("CajaMontoOrigenTMTU").value;
 
-            var li = document.createElement('li');
-            let NuevoObjeto = ListaArray.push({ Clave, Mes, Monto });
-            ListaArray.forEach(function (elemento, indice, array) {
-                console.log("Indice: ", indice, " Elemento: ", elemento);
-                //let Tamaño = Champs.length;
-                //console.log("Tamaño del array", Tamaño);
-                Valor = indice;
-            })
-            li.id = Valor;
-            li.innerHTML = ' Clave: ' + Clave + ' Mes: ' + Mes + ' Monto: ' + Monto + '<div class="info" ><a>Clave: ' + Clave + ' Mes: ' + Mes + ' Monto: ' + Monto + '</a></div><button style="font-family: sans-serif,arial;font-size: 1em;color: #333;cursor: pointer;" onclick="eliminar(this)">X</button>';
-            document.getElementById("listaDesordenada").appendChild(li);
+            if (Monto == '0') {
+                alert('El monto no puede ser 0, por favor ingrese un monto valido')
+            } else {
 
+                var li = document.createElement('li');
+                let NuevoObjeto = ListaArray.push({ Clave, Mes, Monto });
+                ListaArray.forEach(function (elemento, indice, array) {
+                    console.log("Indice: ", indice, " Elemento: ", elemento);
+                    //let Tamaño = Champs.length;
+                    //console.log("Tamaño del array", Tamaño);
+                    Valor = indice;
+                })
+                li.id = Valor;
+                li.innerHTML = ' Clave: ' + Clave + ' Mes: ' + Mes + ' Monto: ' + Monto + '<div class="info" ><a>Clave: ' + Clave + ' Mes: ' + Mes + ' Monto: ' + Monto + '</a></div><button style="font-family: sans-serif,arial;font-size: 1em;color: #333;cursor: pointer;" onclick="eliminar(this)">X</button>';
+                document.getElementById("listaDesordenada").appendChild(li);
+            }
 
         }
         function find_li(contenido) {
@@ -1448,7 +1453,8 @@
         var contador;
         const WRITELINE = document.querySelector('#ArrayEnviar');
         for (contador = 0; contador < tamaño; contador++) {
-            WRITELINE.insertAdjacentHTML('beforeend', '<li id="ModArr' + contador + '"><a> El valor de la posición[' + contador + '] es[' + Object.values(nuevoArray[contador]) + ']</a></li><br>');
+            //WRITELINE.insertAdjacentHTML('beforeend', '<li id="ModArr' + contador + '"><a> El valor de la posición[' + contador + '] es[' + Object.values(nuevoArray[contador]) + ']</a></li><br>');
+            WRITELINE.insertAdjacentHTML('beforeend', '<li id="ModArr' + contador + '"><a style="list-style:none;font-size:medium;text-decoration:none;"> [' + Object.values(nuevoArray[contador]) + '] </a></li><br>');
         }
 
         document.getElementById('ModalArray').style.display = 'inline';

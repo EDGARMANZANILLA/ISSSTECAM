@@ -158,7 +158,7 @@
 <div id="ModalArray" style="display:none;height:900px;" class="modal-backdrop">
     <div class="modal-content" style="width:600px;left:15%;margin-right:10%;margin-left:10%;margin-top:10%;height:auto;">
         <div class="modal-header Popup" id="HeaderModal2" style="height:auto;text-align:center;">
-            <p>Lista a enviar como : Clave , Mes , Monto</p>
+            <p>Remitentes a enviar:</p>
             <ul id="ArrayEnviar">
             </ul>
             <button title="Siguiente" class="btn btn-success" data-backdrop="false" onclick="TDM();" style="margin-right:45%;margin-left:45%">siguiente</button>
@@ -366,19 +366,24 @@
         <br>
         @*<input type="text" id="nuevo_li">*@
         <br><button class="btn btn-success" onclick="AgregarAlArray()">Agregar</button>
+        <br>
+        <br>
+        <br>
+        <br>
         @*<br><input type="button" onclick="return AgregarAlArray()" value="Agregar">*@
 
     </div>
     <div class="col-md-6" id="MostrarListaArray">
         <nav name="ListaDeArrays" id="ListaDeArrays" class="ListaArray">
             @*<br><button class="btn btn-success" onclick="PruebaEnviar()">CHECK</button>*@
-            <h5>Aqui van los arrays</h5>
+            <h4 style="color:forestgreen;">Remitentes agregados :</h4>
             <ul class="ListZoom" id="listaDesordenada" @*style=" margin-bottom: 78px;"*@>
             </ul>
 
         </nav>
     </div>
     @*///////////////////////////////////DESTINATARIO////////////////////////////////////////////////////////////////////////////*@
+
     <br>
     <div @*class="col-md-6"*@ id="Destinatario" style="width:40%;">
         <h3 id="TxtTransMTUDesti" style="display:none;">Ingrese el Destinatario:</h3>
@@ -1375,7 +1380,7 @@
     });
 /////////////////////////////////////////////////sección del array y la listahtml////////////////////////////////////////////////////////////
         var ListaArray = [];
-
+        var ArrayComparativo = [];
         function AgregarAlArray() {
             var Clave = document.getElementById("CajaClaveTMTU1").value;
             var Mes = document.getElementById("CajaOcultaMesOrigenTMTU").value;
@@ -1387,6 +1392,7 @@
 
                 var li = document.createElement('li');
                 let NuevoObjeto = ListaArray.push({ Clave, Mes, Monto });
+                let ObjetoComparativo = ArrayComparativo.push({ Clave, Mes });
                 ListaArray.forEach(function (elemento, indice, array) {
                     console.log("Indice: ", indice, " Elemento: ", elemento);
                     //let Tamaño = Champs.length;
@@ -1418,6 +1424,7 @@
             console.log("El id es:", id);
             //ListaArray.splice(id, 1);
             delete ListaArray[id]; //true
+            delete ArrayComparativo[id];
 
             console.log("Nuevo Array: ", ListaArray);
         }
@@ -1440,14 +1447,49 @@
             var Lista = document.getElementById('ArrayEnviar');
             Lista.innerHTML = "";
         }
-
     function ShowListArray() {
+        var ArrayParaComparar = [];
+        var ClaveDestino = document.getElementById("CajaClaveTMTUDesti").value;
+        var MesDestino = document.getElementById("CajaOcultaMesTMTUDesti").value;
+        var ObjetoDestino = { Clave: ClaveDestino, Mes: MesDestino };
+        console.log("ObjetoDestino = ", ObjetoDestino);
+        Bandera = false;
+        //ArrayComparativo.forEach(function (elemento, indice, array) {
+            //if (JSON.stringify(elemento) == JSON.stringify(ObjetoDestino)) {
+            //    alert("Uno de los remitentes es identico al destinatario, elimine dicho remitente o cambie el destinatario");
+            //}
+        //    //else {
+        //    //    ShowListArray2();
+        //    //}
+        //});
+        for (var i = 0; i < ArrayComparativo.length; i++) {
+            if (ArrayComparativo[i]) {
+                ArrayParaComparar.push(ArrayComparativo[i]);
+                if (JSON.stringify(ArrayComparativo[i]) == JSON.stringify(ObjetoDestino)) {
+                    //alert("Uno de los remitentes es identico al destinatario, elimine dicho remitente o cambie el destinatario");
+                    Bandera = true;
+                }
+            }
+        }
+        if (Bandera == true) {
+            alert("Uno de los remitentes es identico al destinatario, elimine dicho remitente o cambie el destinatario");
+        } else {
+            ShowListArray2();
+        }
+        //ShowListArray2();
+    }
+
+    function ShowListArray2() {
         var nuevoArray = [];
         for (var i = 0; i < ListaArray.length; i++) {
             if (ListaArray[i]) {
                 nuevoArray.push(ListaArray[i]);
+                //if (ListaArray[i] == ObjetoDestino) {
+                //    alert("No se puede tener el mismo remitente y destinatario, por favor elimine el remitente o cambie el destinatario");
+                //}
             }
         }
+        
         console.log("Array listo para enviar : ", nuevoArray);
         var tamaño = nuevoArray.length;
         var contador;
@@ -1458,6 +1500,7 @@
         }
 
         document.getElementById('ModalArray').style.display = 'inline';
+
     }
     // prueba de transferencia de muchos a uno
 

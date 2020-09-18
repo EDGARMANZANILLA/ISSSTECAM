@@ -88,7 +88,6 @@ namespace ISSSTECAM.Presupuesto.Negocios
                 {
                     var repositorio = new Repositorio<Transacciones>(transaccion);
                     repositorio.Agregar(nueva);
-                    transaccion.GuardarCambios();
                     bandera = true;
                 }
                 catch (Exception ex)
@@ -182,10 +181,8 @@ namespace ISSSTECAM.Presupuesto.Negocios
             //Se utiliza el mismo repositorio para hacer el update por medio de (Modificar)    
             try
             {   
-               
-                //Guarda la entidad modificada con los nuevosvalores
-                repositorio.Modificar(claveAReducir);
-                //Guarda el registro de la transaccion
+               //Guarda el registro primero y luego todo el contexto de datos, si sucede un problema el contexto de datos
+               //no se guarda ya que entra a dipose pero tenemos el registro de la transsaccion en la DB
                 GuardarRegistroTransaccion(nuevaReduccion);
                 transaccion.GuardarCambios();
                 bandera = true;
@@ -351,8 +348,8 @@ namespace ISSSTECAM.Presupuesto.Negocios
                         //guarda el registro de la transferencia
                         GuardarRegistroTransaccion(nuevaTrasferencia);
                         //guarda las entidades que fueron modificadas
-                        repositorio.Modificar(claveAReducir);
-                        repositorio.Modificar(claveAtransferir);
+                        //repositorio.Modificar(claveAReducir);
+                        //repositorio.Modificar(claveAtransferir);
                         transaccion.GuardarCambios();
                         bandera = true;
                     }

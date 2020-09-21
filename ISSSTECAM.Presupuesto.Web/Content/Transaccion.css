@@ -1,0 +1,139 @@
+﻿body {
+}
+
+ul.ListZoom {
+    /* width: 960px;*/
+    list-style: none;
+    /*    margin: 0 auto;*/
+    /* padding: 0;*/
+}
+
+    ul.ListZoom li {
+        /*  display: inline;*/
+        /*  margin: 10px;*/
+        /*    padding: 0;*/
+        /* position: relative;*/
+    }
+
+        ul.ListZoom li:hover {
+            /*  z-index:auto;*/
+            position: relative;
+        }
+
+        ul.ListZoom li .info {
+            position: absolute;
+            margin-left: 0px;
+            margin-top: 0px;
+            display: none;
+            background-color: rgb(69, 110, 185);
+            font-size: 2em;
+            height: 140px;
+            width: 500px;
+            font-weight: bold;
+            z-index: 9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999;
+        }
+
+            ul.ListZoom li .info a {
+                color: white;
+            }
+
+        ul.ListZoom li:hover .info {
+            display: block;
+        }
+/*//////////////////////////////////////////////////////////////////////////////*/
+.ListaArray {
+    /*text-transform: uppercase;*/
+    text-decoration: none;
+    list-style: none;
+    font-weight: 300;
+    font-size: small;
+    z-index: 9999999;
+    /*cursor: pointer;*/
+    display: block;
+    margin-bottom: 200px;
+}
+
+    .ListaArray input {
+        cursor: pointer;
+    }
+
+    .ListaArray ul li span {
+        color: #ff0000;
+        background-color: #808080;
+        font-weight: bold;
+        font-size: 20px;
+        cursor: pointer;
+        width: 10px;
+        font-family: sans-serif,arial;
+        font-size: 1em;
+        color: #333;
+    }
+
+
+/*//////////////////////////////////////////////////////////////////////////////*/
+.listado2 ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 240px;
+    background-color: rgb(69, 110, 185);
+}
+
+    .listado2 ul a {
+        display: block;
+        cursor: pointer;
+        color: #fff;
+        text-decoration: none;
+        font-weight: 300;
+        font-size: large;
+        padding: 0px;
+        text-transform: uppercase;
+        letter-spacing: 0px;
+    }
+
+.listado2 {
+    z-index: 0;
+    padding-left: 8px;
+}
+
+    .listado2 ul li {
+        position: relative;
+        float: left;
+        margin: 0;
+        padding: 0;
+        z-index: 9;
+    }
+
+        .listado2 ul li textarea {
+            z-index: 0;
+        }
+
+        .listado2 ul li:hover {
+            background: rgb(11, 66, 167);
+        }
+
+    .listado2 ul ul {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        padding: 0;
+    }
+
+        .listado2 ul ul li {
+            float: none;
+            /*width: 100px;*/
+            width: 240px;
+            z-index: 99;
+        }
+
+        .listado2 ul ul a {
+            line-height: 100%;
+            padding: 10px 15px;
+            padding: 10px 10px;
+            z-index: 9;
+        }
+
+    .listado2 ul li:hover > ul {
+        display: block;
+    }

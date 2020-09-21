@@ -158,9 +158,18 @@
 <div id="ModalArray" style="display:none;height:900px;" class="modal-backdrop">
     <div class="modal-content" style="width:600px;left:15%;margin-right:10%;margin-left:10%;margin-top:10%;height:auto;">
         <div class="modal-header Popup" id="HeaderModal2" style="height:auto;text-align:center;">
-            <p>Remitentes a enviar:</p>
-            <ul id="ArrayEnviar">
-            </ul>
+            @*<p>Remitentes a enviar:</p>
+        <ul id="ArrayEnviar">
+        </ul>*@
+            <div style="width:300px;z-index:9999999999999999999999999999999;margin-right:5%;margin-left:5%;height:auto;">
+                <table id="TablaExcel" style="border-color: black;">
+                    <thead><tr><th>Clave</th><th>Mes</th><th>Monto</th></tr></thead>
+                    <tbody id="CuerpoTabla"> </tbody>
+                    @*<tbody id="SeparaCeldas"><tr><td>...</td><td>...</td></tr></tbody>
+                    <tfoot id="PieDeTabla"></tfoot>*@
+                </table>
+            </div>
+            @*///////*@
             <button title="Siguiente" class="btn btn-success" data-backdrop="false" onclick="TDM();" style="margin-right:45%;margin-left:45%">siguiente</button>
             <button title="Cancelar" class="btn btn-danger" data-backdrop="false" onclick="HideModal();" style="margin-right:45%;margin-left:45%">Cancelar</button>
         </div>
@@ -461,6 +470,9 @@
 @*/de aqui en adelante está la sección del css/*@
 
 <style>
+    table {
+    }
+
     .Navigate {
         display: inline;
     }
@@ -617,15 +629,7 @@
             margin-top: 0;
         }
 
-    /*  #MontoDisponible {
-            width: 6%;
-            margin-top: 70%;
-        }
 
-        #MontoDisponible p {
-            width: 6%;
-
-        }*/
     /*/////////////////////////////////////////////////////////////////////////////////*/
     .menu select {
         width: 440px;
@@ -1444,7 +1448,7 @@
         function HideModal() {
             document.getElementById('ModalArray').style.display = 'none';
 
-            var Lista = document.getElementById('ArrayEnviar');
+            var Lista = document.getElementById('CuerpoTabla');
             Lista.innerHTML = "";
         }
     function ShowListArray() {
@@ -1491,14 +1495,37 @@
         }
         
         console.log("Array listo para enviar : ", nuevoArray);
-        var tamaño = nuevoArray.length;
-        var contador;
-        const WRITELINE = document.querySelector('#ArrayEnviar');
-        for (contador = 0; contador < tamaño; contador++) {
-            //WRITELINE.insertAdjacentHTML('beforeend', '<li id="ModArr' + contador + '"><a> El valor de la posición[' + contador + '] es[' + Object.values(nuevoArray[contador]) + ']</a></li><br>');
-            WRITELINE.insertAdjacentHTML('beforeend', '<li id="ModArr' + contador + '"><a style="list-style:none;font-size:medium;text-decoration:none;"> [' + Object.values(nuevoArray[contador]) + '] </a></li><br>');
-        }
+        //var tamaño = nuevoArray.length;
+        //var contador;
+        //const WRITELINE = document.querySelector('#ArrayEnviar');
+        //for (contador = 0; contador < tamaño; contador++) {
+        //    //WRITELINE.insertAdjacentHTML('beforeend', '<li id="ModArr' + contador + '"><a> El valor de la posición[' + contador + '] es[' + Object.values(nuevoArray[contador]) + ']</a></li><br>');
+        //    WRITELINE.insertAdjacentHTML('beforeend', '<li id="ModArr' + contador + '"><a style="list-style:none;font-size:medium;text-decoration:none;"> [' + Object.values(nuevoArray[contador]) + '] </a></li><br>');
+        //}
+        var ArrayTabla = nuevoArray;
+        const CUERPOTABLA = document.querySelector('#CuerpoTabla');
+        //recorrer todos los datos 
+        ArrayTabla.forEach(Dato => {
+            //crear un <tr>
+            const TR = document.createElement("tr");
+            // Creamos el <td> de Nómina y lo adjuntamos a tr
+            let tdClave = document.createElement("td");
+            tdClave.textContent = Dato.Clave; //el textContent del td es el concepto
+            TR.appendChild(tdClave);
+            // el td de nómina
+            let tdMes = document.createElement("td");
+            tdMes.textContent = "  " + Dato.Mes;
+            TR.appendChild(tdMes);
 
+            let tdMonto = document.createElement("td");
+            tdMonto.textContent = "  " + Dato.Monto;
+            TR.appendChild(tdMonto);
+
+            CUERPOTABLA.appendChild(TR);
+            //y el ciclo se repite hasta q se termine de recorrer el arreglo
+        })
+      
+        //////////////////////////////////////////////////////////////////////////
         document.getElementById('ModalArray').style.display = 'inline';
 
     }
@@ -1513,22 +1540,6 @@
                 }
             }
             console.log("Array listo para enviar : ", newArray);
-            //"Click on the button to see the array structure using Alert().<br> Array is = "
-            //    + arr;
-            var tamaño = newArray.length;
-            var contador;
-            //var li = document.createElement('li');
-            const WRITELINE = document.querySelector('#ArrayEnviar');
-            for (contador = 0; contador < tamaño; contador++) {
-                //li.id = contador;
-                //li.innerHTML = "El valor de la posición [" + contador + "] es [" + newArray[contador] + "]<br>";
-                //Object.values(object1)
-                WRITELINE.insertAdjacentHTML('beforeend', '<li id="ModArr' + contador + '"><a> El valor de la posición[' + contador + '] es[' + Object.values(newArray[contador]) + ']</a></li><br>');
-                //document.getElementById("ArrayEnviar").appendChild(li);
-            }
-
-            //document.getElementById('ModalArray').style.display = 'inline';
-            //alert("Array listo para enviar : " + newArray);
 
         console.log('entre');
             var cuentasRemitentes = newArray;

@@ -1,6 +1,30 @@
 ﻿body {
 }
 
+table {
+    position: center;
+    background-color: rgba(151, 202, 228, 0.85);
+    margin-left: 0%;
+    margin-right: 0%;
+    margin-top: 0%;
+    margin-bottom: 0%;
+    border: groove 4px rgba(16, 79, 155, 0.50);
+    width: 100%; }
+
+td {
+    border: solid 3px rgba(22, 81, 152, 0.75);
+    padding: 3px;
+    text-align: left;
+    color: black;
+}
+
+th {
+    font-weight: bold;
+    font-size: larger;
+}
+
+
+
 ul.ListZoom {
     /* width: 960px;*/
     list-style: none;

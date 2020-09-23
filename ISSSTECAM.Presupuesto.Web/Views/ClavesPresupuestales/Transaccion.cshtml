@@ -789,6 +789,12 @@
              var MontoCorrectoReducc = parseFloat(CajaMonto.value);
              console.log('Monto a Enviar ', MontoCorrectoReducc);
 
+
+             //cambio para enviar datos y validar como modelo
+             var cuentaOrigen = { clave: CajaClave.value, mes: ValorMes.textContent, monto: MontoCorrectoReducc };
+             
+             console.log("cuenta origen" + " " , cuentaOrigen);
+
              var actionDataReducc = "{'reduccionMonto': '" + MontoCorrectoReducc + "','reduccionClave':'" + CajaClave.value + "','reduccionMes':'" + ValorMes.textContent + "','reduccionMotivo':'" + CajaMotivo.value + "'}";
             $.ajax({
                 url: '@Url.Action("Reducciones", "ClavesPresupuestales")',

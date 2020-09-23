@@ -1398,6 +1398,14 @@
 
             if (Monto == '0') {
                 alert('El monto no puede ser 0, por favor ingrese un monto valido')
+            } else if (Monto == '0.00') {
+                alert('El monto no puede ser 0.00, por favor ingrese un monto valido')
+            } else if (Monto == '0.0') {
+                alert('El monto no puede ser 0.0, por favor ingrese un monto valido')
+            } else if (Monto == '0.000') {
+                alert('El monto no puede ser 0.000, por favor ingrese un monto valido')
+            } else if (Monto == '0.0000') {
+                alert('El monto no puede ser 0.0000, por favor ingrese un monto valido')
             } else {
 
                 var li = document.createElement('li');
@@ -1458,35 +1466,39 @@
             Lista.innerHTML = "";
         }
     function ShowListArray() {
-        var ArrayParaComparar = [];
-        var ClaveDestino = document.getElementById("CajaClaveTMTUDesti").value;
-        var MesDestino = document.getElementById("CajaOcultaMesTMTUDesti").value;
-        var ObjetoDestino = { Clave: ClaveDestino, Mes: MesDestino };
-        console.log("ObjetoDestino = ", ObjetoDestino);
-        Bandera = false;
-        //ArrayComparativo.forEach(function (elemento, indice, array) {
+        if (ListaArray.length == 0) { alert('El remitente no puede estar vacio, agregue al menos 1 remitente')}
+        else {
+
+            var ArrayParaComparar = [];
+            var ClaveDestino = document.getElementById("CajaClaveTMTUDesti").value;
+            var MesDestino = document.getElementById("CajaOcultaMesTMTUDesti").value;
+            var ObjetoDestino = { Clave: ClaveDestino, Mes: MesDestino };
+            console.log("ObjetoDestino = ", ObjetoDestino);
+            Bandera = false;
+            //ArrayComparativo.forEach(function (elemento, indice, array) {
             //if (JSON.stringify(elemento) == JSON.stringify(ObjetoDestino)) {
             //    alert("Uno de los remitentes es identico al destinatario, elimine dicho remitente o cambie el destinatario");
             //}
-        //    //else {
-        //    //    ShowListArray2();
-        //    //}
-        //});
-        for (var i = 0; i < ArrayComparativo.length; i++) {
-            if (ArrayComparativo[i]) {
-                ArrayParaComparar.push(ArrayComparativo[i]);
-                if (JSON.stringify(ArrayComparativo[i]) == JSON.stringify(ObjetoDestino)) {
-                    //alert("Uno de los remitentes es identico al destinatario, elimine dicho remitente o cambie el destinatario");
-                    Bandera = true;
+            //    //else {
+            //    //    ShowListArray2();
+            //    //}
+            //});
+            for (var i = 0; i < ArrayComparativo.length; i++) {
+                if (ArrayComparativo[i]) {
+                    ArrayParaComparar.push(ArrayComparativo[i]);
+                    if (JSON.stringify(ArrayComparativo[i]) == JSON.stringify(ObjetoDestino)) {
+                        //alert("Uno de los remitentes es identico al destinatario, elimine dicho remitente o cambie el destinatario");
+                        Bandera = true;
+                    }
                 }
             }
+            if (Bandera == true) {
+                alert("Uno de los remitentes es identico al destinatario, elimine dicho remitente o cambie el destinatario");
+            } else {
+                ShowListArray2();
+            }
+            //ShowListArray2();
         }
-        if (Bandera == true) {
-            alert("Uno de los remitentes es identico al destinatario, elimine dicho remitente o cambie el destinatario");
-        } else {
-            ShowListArray2();
-        }
-        //ShowListArray2();
     }
 
     function ShowListArray2() {

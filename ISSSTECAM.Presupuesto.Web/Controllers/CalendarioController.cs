@@ -2,6 +2,7 @@
 using ISSSTECAM.Presupuesto.Entidades.DTO;
 using ISSSTECAM.Presupuesto.Negocios;
 using OfficeOpenXml;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Logical;
 using OfficeOpenXml.Style;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,9 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
             //List<CalendarioClavePresupuestal> claves = new List<CalendarioClavePresupuestal>();
 
             List<ClavesPresupuestales> claves = new List<ClavesPresupuestales>();
+            List<ClavesPresupuestales> clavesAgrupadas = new List<ClavesPresupuestales>();
+
+
 
             var archivo = Request.Files[0];
             using (ExcelPackage package = new ExcelPackage(archivo.InputStream))
@@ -43,61 +47,226 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
 
                 int filas = hoja.Dimension.End.Row;
 
+
+                #region Valida que la cada celda de la columna 1 tenga 43 caracteres (valida la clave presupuestal sea correcta en digitos) 
+                Dictionary<int, int> verificarCeldasDiferentesA43 = new Dictionary<int, int>();
+
+                if (hoja.Dimension != null) {
+                    for (int i = 2; i <= filas; i++)
+                    {
+                        string celda = hoja.Cells[i, 1].Value.ToString();
+                        //busca error
+
+                        int caracteresEnCelda = celda.Length;
+
+                        if (caracteresEnCelda != 43)
+                        {
+                            verificarCeldasDiferentesA43.Add(i, caracteresEnCelda);
+                        }
+                    }
+
+                    if (verificarCeldasDiferentesA43.Count() != 0 ) 
+                    {
+                        return Json(new { exitoso = false, errores = string.Join(Environment.NewLine, verificarCeldasDiferentesA43.ToArray()), });
+                    }
+                    
+                }
+                #endregion
+                #region verificar que ninguno de los elementos de la clave presupuestas este vacio
+                //Valida que la cada elemento
+                Dictionary<int, string> verificacion = new Dictionary<int, string>();
+
                 for (int i = 2; i <= filas; i++)
                 {
+                   
                     string cadenaClave = hoja.Cells[i, 1].Value.ToString();
 
-                    var pro = ProgramasNegocios.ObtenerActivosDelAnioPorClave(2019, cadenaClave.Substring(22, 3));
-                    var proj = ProyectosNegocios.ObtenerActivosDelAnioPorClave(2019, cadenaClave.Substring(25, 4));
-                    var act = ActividadesNegocios.ObtenerActivosDelAnioPorClave(2019, cadenaClave.Substring(29, 4));
-                    var par = PartidasNegocios.ObtenerActivaPorClave(cadenaClave.Substring(39, 4));
-                    var cc = CentrosCostosNegocios.ObtenerPorClave(ObtenerClaveCentroDeCostoPorClaveActividad(cadenaClave.Substring(29, 4)));
+                    var programa = ProgramasNegocios.ObtenerActivosDelAnioPorClave(2019, cadenaClave.Substring(22, 3));
+                    var projecto = ProyectosNegocios.ObtenerActivosDelAnioPorClave(2019, cadenaClave.Substring(25, 4));
+                    var actividad = ActividadesNegocios.ObtenerActivosDelAnioPorClave(2019, cadenaClave.Substring(29, 4));
+                    var partida = PartidasNegocios.ObtenerActivaPorClave(cadenaClave.Substring(39, 4));
 
-                    claves.Add(new ClavesPresupuestales
+                    if (programa == null)
                     {
-                        Clave = cadenaClave,
-                        PresupuestoEnero = hoja.Cells[i, 2].Value == null ? 0 : Convert.ToDecimal(hoja.Cells[i, 2].Value.ToString()),
-                        PresupuestoFebrero = hoja.Cells[i, 3].Value == null ? 0 : Convert.ToDecimal(hoja.Cells[i, 3].Value.ToString()),
-                        PresupuestoMarzo = hoja.Cells[i, 4].Value == null ? 0 : Convert.ToDecimal(hoja.Cells[i, 4].Value.ToString()),
-                        PresupuestoAbril = hoja.Cells[i, 5].Value == null ? 0 : Convert.ToDecimal(hoja.Cells[i, 5].Value.ToString()),
-                        PresupuestoMayo = hoja.Cells[i, 6].Value == null ? 0 : Convert.ToDecimal(hoja.Cells[i, 6].Value.ToString()),
-                        PresupuestoJunio = hoja.Cells[i, 7].Value == null ? 0 : Convert.ToDecimal(hoja.Cells[i, 7].Value.ToString()),
-                        PresupuestoJulio = hoja.Cells[i, 8].Value == null ? 0 : Convert.ToDecimal(hoja.Cells[i, 8].Value.ToString()),
-                        PresupuestoAgosto = hoja.Cells[i, 9].Value == null ? 0 : Convert.ToDecimal(hoja.Cells[i, 9].Value.ToString()),
-                        PresupuestoSeptiembre = hoja.Cells[i, 10].Value == null ? 0 : Convert.ToDecimal(hoja.Cells[i, 10].Value.ToString()),
-                        PresupuestoOctubre = hoja.Cells[i, 11].Value == null ? 0 : Convert.ToDecimal(hoja.Cells[i, 11].Value.ToString()),
-                        PresupuestoNoviembre = hoja.Cells[i, 12].Value == null ? 0 : Convert.ToDecimal(hoja.Cells[i, 12].Value.ToString()),
-                        PresupuestoDiciembre = hoja.Cells[i, 13].Value == null ? 0 : Convert.ToDecimal(hoja.Cells[i, 13].Value.ToString()),
-                        Anio = 2019,
-                        Activo = true,
-                        IdPrograma = pro.Id,
-                        Programas = pro,
-                        IdProyecto = proj.Id,
-                        Proyectos = proj,
-                        IdActividad = act.Id,
-                        Actividades = act,
-                        IdPartida = par.Id,
-                        Partidas = par,
-                        IdCentroCosto = cc.Id,
-                        CentrosCostos = cc
+                        verificacion.Add(Convert.ToInt16(cadenaClave.Substring(22, 3)), "Programa");
+
+                    }else if (projecto == null)
+                    {
+                        verificacion.Add(Convert.ToInt16(cadenaClave.Substring(25, 4)), "Projecto");
+
+                    }else if(actividad == null)
+                    {
+                        verificacion.Add(Convert.ToInt16(cadenaClave.Substring(29, 4)), "Actividad");
+
+                    }else if (partida == null)
+                    {
+                        verificacion.Add(Convert.ToInt16(cadenaClave.Substring(39, 4)), "Partida");
+
+                    }
+
+                }
+                if (verificacion.Count() != 0)
+                {
+                    verificacion.GroupBy(d => d.Value);
+                    return Json(new { exitoso = false, elementoDeClave = string.Join(Environment.NewLine, verificacion.ToArray()), });
+                }
+                #endregion
+
+
+
+                //verificar la validacion
+                if (verificarCeldasDiferentesA43.Count() == 0)
+                {
+
+                    for (int i = 2; i <= filas; i++)
+                    {
+                        string cadenaClave = hoja.Cells[i, 1].Value.ToString();
+
+                        var pro = ProgramasNegocios.ObtenerActivosDelAnioPorClave(2019, cadenaClave.Substring(22, 3));
+                        var proj = ProyectosNegocios.ObtenerActivosDelAnioPorClave(2019, cadenaClave.Substring(25, 4));
+                        var act = ActividadesNegocios.ObtenerActivosDelAnioPorClave(2019, cadenaClave.Substring(29, 4));
+                        var par = PartidasNegocios.ObtenerActivaPorClave(cadenaClave.Substring(39, 4));
+                        
+                        var cc = CentrosCostosNegocios.ObtenerPorClave(ObtenerClaveCentroDeCostoPorClaveActividad(cadenaClave.Substring(29, 4)));
+
+
+
+
+
+                        //Guarda las claves en una lista de claves
+                            claves.Add(new ClavesPresupuestales
+                            {
+                                Clave = cadenaClave,
+                                PresupuestoEnero = hoja.Cells[i, 2].Value == null ? 0 : Convert.ToDecimal(hoja.Cells[i, 2].Value.ToString()),
+                                PresupuestoFebrero = hoja.Cells[i, 3].Value == null ? 0 : Convert.ToDecimal(hoja.Cells[i, 3].Value.ToString()),
+                                PresupuestoMarzo = hoja.Cells[i, 4].Value == null ? 0 : Convert.ToDecimal(hoja.Cells[i, 4].Value.ToString()),
+                                PresupuestoAbril = hoja.Cells[i, 5].Value == null ? 0 : Convert.ToDecimal(hoja.Cells[i, 5].Value.ToString()),
+                                PresupuestoMayo = hoja.Cells[i, 6].Value == null ? 0 : Convert.ToDecimal(hoja.Cells[i, 6].Value.ToString()),
+                                PresupuestoJunio = hoja.Cells[i, 7].Value == null ? 0 : Convert.ToDecimal(hoja.Cells[i, 7].Value.ToString()),
+                                PresupuestoJulio = hoja.Cells[i, 8].Value == null ? 0 : Convert.ToDecimal(hoja.Cells[i, 8].Value.ToString()),
+                                PresupuestoAgosto = hoja.Cells[i, 9].Value == null ? 0 : Convert.ToDecimal(hoja.Cells[i, 9].Value.ToString()),
+                                PresupuestoSeptiembre = hoja.Cells[i, 10].Value == null ? 0 : Convert.ToDecimal(hoja.Cells[i, 10].Value.ToString()),
+                                PresupuestoOctubre = hoja.Cells[i, 11].Value == null ? 0 : Convert.ToDecimal(hoja.Cells[i, 11].Value.ToString()),
+                                PresupuestoNoviembre = hoja.Cells[i, 12].Value == null ? 0 : Convert.ToDecimal(hoja.Cells[i, 12].Value.ToString()),
+                                PresupuestoDiciembre = hoja.Cells[i, 13].Value == null ? 0 : Convert.ToDecimal(hoja.Cells[i, 13].Value.ToString()),
+                                Anio = 2019,
+                                Activo = true,
+                                IdPrograma = pro.Id,
+                                Programas = pro,
+                                IdProyecto = proj.Id,
+                                Proyectos = proj,
+                                IdActividad = act.Id,
+                                Actividades = act,
+                                IdPartida = par.Id,
+                                Partidas = par,
+                                IdCentroCosto = cc.Id,
+                                CentrosCostos = cc
+                            });
+
+
+                      
+
+
+                    }
+
+                    //obtiene las claves antes guardadas y las reasigna agrupandolas por clave presupuestal y sumando los que sean iguales
+                    foreach (ClavesPresupuestales clave in claves)
+                    {
+                      
+                        bool b = clavesAgrupadas.Exists(x => x.Clave == clave.Clave);
+                   
+                        if (b)
+                        {
+                            foreach (var unicaClaveAgrupada in clavesAgrupadas)
+                            {   
+                                if(unicaClaveAgrupada.Clave == clave.Clave)
+                                {
+                                    unicaClaveAgrupada.PresupuestoEnero += clave.PresupuestoEnero;
+                                    unicaClaveAgrupada.PresupuestoFebrero += clave.PresupuestoFebrero;
+                                    unicaClaveAgrupada.PresupuestoMarzo += clave.PresupuestoMarzo;
+                                    unicaClaveAgrupada.PresupuestoAbril += clave.PresupuestoAbril;
+                                    unicaClaveAgrupada.PresupuestoMayo += clave.PresupuestoMayo;
+                                    unicaClaveAgrupada.PresupuestoJunio += clave.PresupuestoJunio;
+                                    unicaClaveAgrupada.PresupuestoJulio += clave.PresupuestoJulio;
+                                    unicaClaveAgrupada.PresupuestoAgosto += clave.PresupuestoAgosto;
+                                    unicaClaveAgrupada.PresupuestoSeptiembre += clave.PresupuestoSeptiembre;
+                                    unicaClaveAgrupada.PresupuestoOctubre += clave.PresupuestoOctubre;
+                                    unicaClaveAgrupada.PresupuestoNoviembre += clave.PresupuestoNoviembre;
+                                    unicaClaveAgrupada.PresupuestoDiciembre += clave.PresupuestoDiciembre;
+
+                                }
+                            
+                            }
+                          
+                        }
+                        else
+                        {
+
+                            clavesAgrupadas.Add(new ClavesPresupuestales
+                            {
+                                Clave = clave.Clave,
+                                PresupuestoEnero = clave.PresupuestoEnero,
+                                PresupuestoFebrero = clave.PresupuestoFebrero,
+                                PresupuestoMarzo = clave.PresupuestoMarzo,
+                                PresupuestoAbril = clave.PresupuestoAbril,
+                                PresupuestoMayo = clave.PresupuestoMayo,
+                                PresupuestoJunio = clave.PresupuestoJunio,
+                                PresupuestoJulio = clave.PresupuestoJulio,
+                                PresupuestoAgosto = clave.PresupuestoAgosto,
+                                PresupuestoSeptiembre = clave.PresupuestoSeptiembre,
+                                PresupuestoOctubre = clave.PresupuestoOctubre,
+                                PresupuestoNoviembre = clave.PresupuestoNoviembre,
+                                PresupuestoDiciembre = clave.PresupuestoDiciembre,
+                                Anio = 2019,
+                                Activo = true,
+                                IdPrograma = clave.IdPrograma,
+                                Programas = clave.Programas,
+                                IdProyecto = clave.IdProyecto,
+                                Proyectos = clave.Proyectos,
+                                IdActividad = clave.IdActividad,
+                                Actividades = clave.Actividades,
+                                IdPartida = clave.IdPartida,
+                                Partidas = clave.Partidas,
+                                IdCentroCosto = clave.IdCentroCosto,
+                                CentrosCostos = clave.CentrosCostos
+                            });
+
+
+                        }
+
+
+
+
+                    }
+
+
+             
+
+
+
+                    var clavesDTO = AutoMapper.Mapper.Map<IEnumerable<ClavesPresupuestales>, IEnumerable<ClavePresupuestalDTO>>(clavesAgrupadas);
+                    Session["ClavesPresupuestales"] = clavesDTO;
+
+                    return Json (new
+                    {
+                        exitoso = true,
+                        mensaje = "Se importó correctamente",
+                        claves = clavesDTO.Select(c => new
+                        {
+                            clave = c.Clave + "| |" + c.PresupuestoEnero + "|" + c.PresupuestoFebrero + "|" + c.PresupuestoMarzo +
+                            "|" + c.PresupuestoAbril + "|" + c.PresupuestoMayo + "|" + c.PresupuestoJunio + "|" + c.PresupuestoJulio + "|" + c.PresupuestoAgosto + "|" + c.PresupuestoSeptiembre +
+                            "|" + c.PresupuestoOctubre + "|" + c.PresupuestoNoviembre + "|" + c.PresupuestoDiciembre
+                        }),
+                        clavesPresupuestales = clavesDTO
                     });
+
+
                 }
 
-                var clavesDTO = AutoMapper.Mapper.Map<IEnumerable<ClavesPresupuestales>, IEnumerable<ClavePresupuestalDTO>>(claves);
-                Session["ClavesPresupuestales"] = clavesDTO;
 
-                return Json(new
-                {
-                    exitoso = true,
-                    mensaje = "Se importó correctamente",
-                    claves = clavesDTO.Select(c => new
-                    {
-                        clave = c.Clave + "| |" + c.PresupuestoEnero + "|" + c.PresupuestoFebrero + "|" + c.PresupuestoMarzo +
-                        "|" + c.PresupuestoAbril + "|" + c.PresupuestoMayo + "|" + c.PresupuestoJunio + "|" + c.PresupuestoJulio + "|" + c.PresupuestoAgosto + "|" + c.PresupuestoSeptiembre +
-                        "|" + c.PresupuestoOctubre + "|" + c.PresupuestoNoviembre + "|" + c.PresupuestoDiciembre
-                    }),
-                    clavesPresupuestales = clavesDTO
-                });
+
+
+                return Json(new { exitoso = false });
             }
         }
 
@@ -105,7 +274,7 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
         public JsonResult ObtenerClaves()
         {
             List<ClavesPresupuestales> claves =
-                Negocios.ClavesPresupuestalesNegocios.ObtenerClavesActivasPorAnio(DateTime.Now.Year).ToList();
+                Negocios.ClavesPresupuestalesNegocios.ObtenerClavesActivasPorAnio(2019).ToList();
 
             var clavesDTO = AutoMapper.Mapper.Map<IEnumerable<ClavesPresupuestales>, IEnumerable<ClavePresupuestalDTO>>(claves);
             Session["ClavesPresupuestales"] = clavesDTO;
@@ -212,76 +381,76 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
             switch (claveActividad)
             {
                 case "1078":
-                    return "11";
+                    return "011";
 
                 case "1079":
-                    return "01";
+                    return "001";
 
                 case "1080":
-                    return "02";
+                    return "002";
 
                 case "1081":
-                    return "02";
+                    return "002";
 
                 case "1082":
-                    return "02";
+                    return "002";
 
                 case "1083":
-                    return "02";
+                    return "002";
 
                 case "1084":
-                    return "03";
+                    return "003";
 
                 case "1085":
-                    return "04";
+                    return "004";
 
                 case "1086":
-                    return "04";
+                    return "004";
 
                 case "1087":
-                    return "05";
+                    return "005";
 
                 case "1088":
-                    return "06";
+                    return "006";
 
                 case "1089":
-                    return "06";
+                    return "006";
 
                 case "1090":
-                    return "06";
+                    return "006";
 
                 case "1091":
-                    return "06";
+                    return "006";
 
                 case "1092":
-                    return "06";
+                    return "006";
 
                 case "1093":
-                    return "06";
+                    return "006";
 
                 case "1094":
-                    return "06";
+                    return "006";
 
                 case "1095":
-                    return "06";
+                    return "006";
 
                 case "1096":
-                    return "08";
+                    return "008";
 
                 case "1097":
-                    return "08";
+                    return "008";
 
                 case "1098":
-                    return "08";
+                    return "008";
 
                 case "1099":
-                    return "07";
+                    return "007";
 
                 case "1100":
-                    return "09";
+                    return "009";
 
                 case "1101":
-                    return "10";
+                    return "010";
 
                 default:
                     return "0";
@@ -523,5 +692,9 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
                 })
             });
         }
+
+
+
+
     }
 }

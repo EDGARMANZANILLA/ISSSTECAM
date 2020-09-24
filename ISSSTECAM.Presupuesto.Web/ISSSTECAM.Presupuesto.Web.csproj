@@ -238,7 +238,9 @@
     <Content Include="Content\bootstrap-rtl.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\images\Banner.jpg" />
+    <Content Include="Content\images\Error.png" />
     <Content Include="Content\images\EscudoCampeche.png" />
+    <Content Include="Content\images\Escudo_palomita.png" />
     <Content Include="Content\images\issstecam_logo.png" />
     <Content Include="Content\images\issstecam_logo2.png" />
     <Content Include="Content\images\logo%282016%29.png" />
@@ -304,6 +306,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Content\Transaccion.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\animo.js\animo.js" />
@@ -443,6 +446,7 @@
     <Content Include="Scripts\select2\js\i18n\en.js" />
     <Content Include="Scripts\select2\js\i18n\es.js" />
     <Content Include="Scripts\select2\js\select2.js" />
+    <Content Include="Scripts\select2\js\select2_locale_es.js" />
     <Content Include="Scripts\simple-line-icons\css\simple-line-icons.css" />
     <Content Include="Scripts\simple-line-icons\fonts\Simple-Line-Icons.svg" />
     <Content Include="Scripts\spinkit\css\spinkit.css" />
@@ -540,6 +544,8 @@
       <SubType>Designer</SubType>
     </None>
     <Content Include="Views\Nomina\Reporte.cshtml" />
+    <Content Include="Views\ClavesPresupuestales\Transaccion.cshtml" />
+    <Content Include="Views\ClavesPresupuestales\Calendario.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -607,11 +613,12 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>3162</DevelopmentServerPort>
+          <DevelopmentServerPort>5596</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:53317/</IISUrl>
+          <IISUrl>
+          </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

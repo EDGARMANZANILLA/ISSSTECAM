@@ -1,0 +1,1615 @@
+﻿@model List<string>
+@section titulo{
+    <h2>Transacción</h2>
+}
+
+<h3>Transacción</h3>
+@*//*@
+@*class="js-data-example-ajax"*@
+@*<select id="SelectClave1">
+        @foreach (string item in Model)
+        { <option value="@item" id="@item">@item</option>}
+    </select>*@
+
+@*<textarea name="some" class="select2-container"> </textarea>*@
+<nav class="Navigate" id="NavInitial">
+    <h2 id="TxtInicial">Selecciona la opción que desea</h2>
+    <br>
+    <button title="Reducción" class="btn-Procces" id="Reduc" onclick="ProcReduc();" style="display:inline;position:center;margin-left:5%">Reduccion</button>
+    <button title="Transferir" class="btn-Procces" id="Transfer" onclick="ProcTransfer();" style="display:inline;position:center;margin-left:5%">Transferencia</button>
+    <button title="Transfer" class="btn-Procces" id="TDMButton" onclick="ProcTMTU();" style="display:inline;position:center;margin-left:5%">Transferencia de Muchas claves a una</button>
+</nav>
+@*/SECCION DEL MENU DE REDUCCIÓN/*@
+<div class="Centrar" @*class="col-md-6"*@>
+    <h3 id="TxtRedu" style="display:none;">Introduzca los siguientes datos para realizar la reducción</h3>
+    <nav name="MenuReduc2" id="IDMenuReduc2" class="menu" style="display:none;">
+        <h5 class="Texto-h5">Clave</h5>
+        @*<ul>
+                <li name="clave1">
+                    <textarea name="NCajaClaveReduccion" id="CajaClaveR"> </textarea>
+                </li>
+            </ul>*@
+        <select id="CajaClaveR">
+            <option></option>
+            @foreach (string item in Model)
+            {
+                <option value="@item" id="@item">@item</option>
+            }
+        </select>
+    </nav>
+    @*<br>*@
+    @*///////////////////////////////////////////////////////////////////*@
+    <nav name="MenuReduc4" id="IDMenuReduc4" class="listado" style="display:none;">
+        <h5 class="Texto-h5">Mes</h5>
+        <ul>
+            <li name="mes1">
+                <textarea name="NCajaMesReduccion" id="CajaMesR" readonly="readonly"> </textarea>
+                <ul id="ListaMesesReducc">
+                    <li value="01" id="Month1"><a>Enero</a></li>
+                    <li value="02" id="Month2"><a>Febrero</a></li>
+                    <li value="03" id="Month3"><a>Marzo</a></li>
+                    <li value="04" id="Month4"><a>Abril</a></li>
+                    <li value="05" id="Month5"><a>Mayo</a></li>
+                    <li value="06" id="Month6"><a>Junio</a></li>
+                    <li value="07" id="Month7"><a>Julio</a></li>
+                    <li value="08" id="Month8"><a>Agosto</a></li>
+                    <li value="09" id="Month9"><a>Septiembre</a></li>
+                    <li value="10" id="Month10"><a>Octubre</a></li>
+                    <li value="11" id="Month11"><a>Noviembre</a></li>
+                    <li value="12" id="Month12"><a>Diciembre</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <br>
+    <nav name="MenuReduc1" id="IDMenuReduc1" class="listado2" style="display:none;">
+        <h5 class="Texto-h5">Monto</h5>
+        <ul>
+            <li name="monto1">
+                <textarea name="NCajaMontoReduccion" id="CajaMontoR"></textarea>
+                <ul id="ElMonto">
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <br>
+    <nav name="MenuReduc3" id="IDMenuReduc3" class="menu" style="display:none;">
+        <h5 class="Texto-h5">Motivo</h5>
+        <ul>
+            <li name="motivo1">
+                <textarea name="NCajaMotivoReduccion" id="CajaMotivoR"></textarea>
+            </li>
+        </ul>
+    </nav>
+    <br>
+    <br>
+    <button id="EnviarReduc" class="btn btn-success" onclick="Reduccion();" style="display:none">Reducir</button>
+    <nav name="Prueba" id="Prueba" class="menu" style="display:none;">
+        <h5 class="Texto-h5">Prueba</h5>
+        <ul>
+            <li name="Prueba1">
+                <textarea name="prueba2" id="CajaMesValue" readonly="readonly">0</textarea>
+            </li>
+        </ul>
+    </nav>
+</div>
+@*/aqui va el modal de "proceso éxitoso"/*@
+<div id="ModalReducc" style="display:none;height:900px;" class="modal-backdrop">
+    <div class="modal-content" style="width:400px;left:25%;margin-right:10%;margin-left:10%;margin-top:10%;height:auto;">
+        <img src="@Url.Content("~/Content/images/Escudo_palomita.png")" class="LOGOS" />
+        <div class="modal-header Popup" id="HeaderModal" style="height:auto;text-align:center;">
+            <h2>El proceso se ha realizado éxitosamente</h2>
+            <button title="Siguiente" class="btn btn-success" data-backdrop="false" onclick="HideModalReducc();" style="margin-right:45%;margin-left:45%">Salir</button>
+        </div>
+
+    </div>
+</div>
+<div id="ModalTransfer" style="display:none;height:900px;" class="modal-backdrop">
+    <div class="modal-content" style="width:400px;left:25%;margin-right:10%;margin-left:10%;margin-top:10%;height:auto;">
+        <img src="@Url.Content("~/Content/images/Escudo_palomita.png")" class="LOGOS" />
+        <div class="modal-header Popup" id="HeaderModal" style="height:auto;text-align:center;">
+            <h2>El proceso se ha realizado éxitosamente</h2>
+            <button title="Siguiente" class="btn btn-success" data-backdrop="false" onclick="HideModalTransfer();" style="margin-right:45%;margin-left:45%">Finalizar</button>
+        </div>
+
+    </div>
+</div>
+<div id="ModalTMTU" style="display:none;height:900px;" class="modal-backdrop">
+    <div class="modal-content" style="width:400px;left:25%;margin-right:10%;margin-left:10%;margin-top:10%;height:auto;">
+        <img src="@Url.Content("~/Content/images/Escudo_palomita.png")" class="LOGOS" />
+        <div class="modal-header Popup" id="HeaderModal" style="height:auto;text-align:center;">
+            <h2>El proceso se ha realizado éxitosamente</h2>
+            <button title="Siguiente" class="btn btn-success" data-backdrop="false" onclick="HideModalTMTU();" style="margin-right:45%;margin-left:45%">Finalizar</button>
+        </div>
+
+    </div>
+</div>
+@*/aqui va el modal de "proceso fallido"/*@
+<div id="ModalReduccError" style="display:none;height:900px;" class="modal-backdrop">
+    <div class="modal-content" style="width:400px;left:25%;margin-right:10%;margin-left:10%;margin-top:10%;height:auto;">
+        <img src="@Url.Content("~/Content/images/Error.png")" class="LOGOS" />
+        <div class="modal-header Popup" id="HeaderModal2" style="height:auto;text-align:center;">
+            <h2>El proceso no se pudo realizar correctamente</h2>
+            <button title="Siguiente" class="btn btn-success" data-backdrop="false" onclick="HideModalReduccError();" style="margin-right:45%;margin-left:45%">Salir</button>
+        </div>
+
+    </div>
+</div>
+<div id="ModalTransferError" style="display:none;height:900px;" class="modal-backdrop">
+    <div class="modal-content" style="width:400px;left:25%;margin-right:10%;margin-left:10%;margin-top:10%;height:auto;">
+        <img src="@Url.Content("~/Content/images/Error.png")" class="LOGOS" />
+        <div class="modal-header Popup" id="HeaderModal2" style="height:auto;text-align:center;">
+            <h2>El proceso no se pudo realizar correctamente</h2>
+            <button title="Siguiente" class="btn btn-success" data-backdrop="false" onclick="HideModalTransferError();" style="margin-right:45%;margin-left:45%">Finalizar</button>
+        </div>
+
+    </div>
+</div>
+<div id="ModalTMTUError" style="display:none;height:900px;" class="modal-backdrop">
+    <div class="modal-content" style="width:400px;left:25%;margin-right:10%;margin-left:10%;margin-top:10%;height:auto;">
+        <img src="@Url.Content("~/Content/images/Error.png")" class="LOGOS" />
+        <div class="modal-header Popup" id="HeaderModal2" style="height:auto;text-align:center;">
+            <h2>El proceso no se pudo realizar correctamente</h2>
+            <button title="Siguiente" class="btn btn-success" data-backdrop="false" onclick="HideModalTMTUError();" style="margin-right:45%;margin-left:45%">Finalizar</button>
+        </div>
+
+    </div>
+</div>
+<div id="ModalArray" style="display:none;height:900px;" class="modal-backdrop">
+    <div class="modal-content" style="width:600px;left:15%;margin-right:10%;margin-left:10%;margin-top:10%;height:auto;">
+        <div class="modal-header Popup" id="HeaderModal2" style="height:auto;text-align:center;">
+            @*<p>Remitentes a enviar:</p>
+        <ul id="ArrayEnviar">
+        </ul>*@
+            <div style="width:300px;z-index:9999999999999999999999999999999;margin-right:5%;margin-left:5%;height:auto;">
+                <table id="TablaExcel" style="border-color: black;">
+                    <thead><tr><th>Clave</th><th>Mes</th><th>Monto</th></tr></thead>
+                    <tbody id="CuerpoTabla"> </tbody>
+                    @*<tbody id="SeparaCeldas"><tr><td>...</td><td>...</td></tr></tbody>
+                    <tfoot id="PieDeTabla"></tfoot>*@
+                </table>
+            </div>
+            @*///////*@
+            <button title="Siguiente" class="btn btn-success" data-backdrop="false" onclick="TDM();" style="margin-right:45%;margin-left:45%">siguiente</button>
+            <button title="Cancelar" class="btn btn-danger" data-backdrop="false" onclick="HideModal();" style="margin-right:45%;margin-left:45%">Cancelar</button>
+        </div>
+
+    </div>
+</div>
+@*/SECCION DEL MENU DE TRANSFERENCIA/*@
+<div class="col-md-6" id="Transferencia" style="margin-left: 10%; width: 90%;display:none;">
+    <h3 id="TxtTrans" style="display:none;margin-right:0%;margin-left: 20%;">Introduzca los datos para la transferencia</h3>
+    <div class="col-md-6" id="Origen">
+        @*////////////////////////////////////////////////////////////////////////////////////////////////////////////////*@
+        <nav name="MenuTransfer2" id="IDMenuTransfer2" class="menu" style="display:none;">
+            <h5 class="Texto-h5">Clave Origen</h5>
+            @*<ul>
+                    <li name="claveOrigen">
+                        <textarea name="NCajaClaveOrigenTransfer" id="CajaClaveOrigenT"> </textarea>
+                    </li>
+                </ul>*@
+            <select id="CajaClaveOrigenT">
+                <option></option>
+                @foreach (string item in Model)
+                {
+                    <option value="@item" id="@item">@item</option>
+                }
+            </select>
+        </nav>
+        @*///////////////////////////////////////////////////////////////////////////////////////////////////////////////*@
+        <nav name="MenuOculto1" id="MenuOculto1" class="menu" style="display:none;">
+            <h5 class="Texto-h5">Oculto1</h5>
+            <ul>
+                <li name="MenuOculto1.1">
+                    <textarea name="CajaOculta1" id="CajaOcultaMesOrigen" readonly="readonly">0</textarea>
+                </li>
+            </ul>
+        </nav>
+        <nav name="MenuTransfer5" id="IDMenuTransfer5" class="listado" style="display:none;">
+            <h5 class="Texto-h5">Mes Origen</h5>
+            <ul>
+                <li name="mesOrigen">
+                    <textarea name="NCajaMesOrigen" id="CajaMesOrigen" readonly="readonly"> </textarea>
+                    <ul id="ListaMesesOrigen">
+                        <li value="1" id="Month1"><a>Enero</a></li>
+                        <li value="2" id="Month2"><a>Febrero</a></li>
+                        <li value="3" id="Month3"><a>Marzo</a></li>
+                        <li value="4" id="Month4"><a>Abril</a></li>
+                        <li value="5" id="Month5"><a>Mayo</a></li>
+                        <li value="6" id="Month6"><a>Junio</a></li>
+                        <li value="7" id="Month7"><a>Julio</a></li>
+                        <li value="8" id="Month8"><a>Agosto</a></li>
+                        <li value="9" id="Month9"><a>Septiembre</a></li>
+                        <li value="10" id="Month10"><a>Octubre</a></li>
+                        <li value="11" id="Month11"><a>Noviembre</a></li>
+                        <li value="12" id="Month12"><a>Diciembre</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <br>
+        @*///*@
+        <nav name="MenuTransfer1" id="IDMenuTransfer1" class="listado2" style="display:none;">
+            <h5 class="Texto-h5">Monto Origen</h5>
+            <ul>
+                <li name="montoOrigen">
+                    <textarea name="NCajaMontoOrigen" id="CajaMontoOrigen" style="margin-right:5px;"></textarea>
+                    <ul id="ElMonto2">
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        @*/////////////////////////////////*@
+    </div>
+    <div class="col-md-6" @*style="margin-left: 1%;"*@ id="Destino">
+        @*///////////////////////////////////////////////////////////////////////////////*@
+        <nav name="MenuTransfer3" id="IDMenuTransfer3" class="menu" style="display:none;">
+            <h5 class="Texto-h5">Clave Destino</h5>
+            <select id="CajaClaveDestinoT">
+                <option></option>
+                @foreach (string item in Model)
+                {
+                    <option value="@item" id="@item">@item</option>
+                }
+            </select>
+        </nav>
+        <nav name="MenuOculto2" id="MenuOculto2" class="menu" style="display:none;">
+            <h5 class="Texto-h5">Oculto2</h5>
+            <ul>
+                <li name="MenuOculto1.2">
+                    <textarea name="CajaOculta2" id="CajaOcultaMesDestino" readonly="readonly"> </textarea>
+                </li>
+            </ul>
+        </nav>
+        <nav name="MenuTransfer6" id="IDMenuTransfer6" class="listado" style="display:none;">
+            <h5 class="Texto-h5">Mes Destino</h5>
+            <ul>
+                <li name="mesDestino">
+                    <textarea name="NCajaMesDestino" id="CajaMesDestino" readonly="readonly"> </textarea>
+                    <ul id="ListaMesesDestino">
+                        <li value="01" id="Month1"><a>Enero</a></li>
+                        <li value="02" id="Month2"><a>Febrero</a></li>
+                        <li value="03" id="Month3"><a>Marzo</a></li>
+                        <li value="04" id="Month4"><a>Abril</a></li>
+                        <li value="05" id="Month5"><a>Mayo</a></li>
+                        <li value="06" id="Month6"><a>Junio</a></li>
+                        <li value="07" id="Month7"><a>Julio</a></li>
+                        <li value="08" id="Month8"><a>Agosto</a></li>
+                        <li value="09" id="Month9"><a>Septiembre</a></li>
+                        <li value="10" id="Month10"><a>Octubre</a></li>
+                        <li value="11" id="Month11"><a>Noviembre</a></li>
+                        <li value="12" id="Month12"><a>Diciembre</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <br>
+        @*///*@
+        <nav name="MenuTransfer4" id="IDMenuTransfer4" class="menu" style="display:none;">
+            <h5 class="Texto-h5">Motivo</h5>
+            <ul>
+                <li name="motivo2">
+                    <textarea name="NCajaMotivoTransferencia" id="CajaMotivoT"> </textarea>
+                </li>
+            </ul>
+        </nav>
+
+    </div>
+    @*seccion media*@
+    <br>
+    <div class="col-md-6" style="margin-left:35%;">
+        <br>
+        <br>
+        <button id="EnviarTransfer" class="btn btn-success" onclick="Transferencia();" style="display:none">Transferir</button>
+    </div>
+</div>
+@*//////AQUI VA LA SECCIÓN DE TRANSFERENCIA DE MUCHOS A UNO////////*@
+@*onclick="TDM();"*@
+@*//TMTU = Transferencia Muchos To Uno*@
+
+<div @*class="col-md-6"*@ id="TransMuchosToUno" style="margin-left: 0; width: 100%;display:none;">
+    <div class="col-md-6" id="Remitente" style="width:40%;">
+        <h3 id="TxtTransMTU" style="display:none;">Ingrese los Remitentes:</h3>
+        @*margin-right:30%;margin-left:30%;width:40%;*@
+
+        @*///////////////////////////////REMITENTE////////////////////////////////////////////////////////////////////////////////*@
+        <div id="ClavesTMTU" style="margin-left:0;width:100%">
+            <nav name="MenuTMTUClave1" id="IDTMTUClave1" class="menu" style="display:none;margin-left:0;">
+                <h5 class="Texto-h5">Clave</h5>
+                <select id="CajaClaveTMTU1" style="margin-left:0;">
+                    <option></option>
+                    @foreach (string item in Model)
+                    {
+                        <option value="@item" id="@item">@item</option>
+                    }
+                </select>
+            </nav>
+            @*<br>*@
+        </div>
+
+        <div @*class="col-md-6"*@ id="MesesTMTU" style="margin-left: 0;margin-right:0;width:28.5%">
+            <nav name="MenuOcultoTMTU1" id="MenuOcultoMesTMTU1" class="menu" style="display:none;">
+                <h5 class="Texto-h5">Oculto1</h5>
+                <ul>
+                    <li name="MenuOcultoTMTU1.1">
+                        <textarea name="CajaOcultaTMTU1" id="CajaOcultaMesOrigenTMTU" readonly="readonly">0</textarea>
+                    </li>
+                </ul>
+            </nav>
+            <nav name="MenuTMTU2" id="IDMenuMesTMTU" class="listado" style="display:none;">
+                <h5 class="Texto-h5">Mes Origen</h5>
+                <ul>
+                    <li name="mesTMTU">
+                        <textarea name="NCajaMesTMTU" id="CajaMesTMTU" readonly="readonly"> </textarea>
+                        <ul id="ListaMesesTMTU">
+                            <li value="1" id="Month1"><a>Enero</a></li>
+                            <li value="2" id="Month2"><a>Febrero</a></li>
+                            <li value="3" id="Month3"><a>Marzo</a></li>
+                            <li value="4" id="Month4"><a>Abril</a></li>
+                            <li value="5" id="Month5"><a>Mayo</a></li>
+                            <li value="6" id="Month6"><a>Junio</a></li>
+                            <li value="7" id="Month7"><a>Julio</a></li>
+                            <li value="8" id="Month8"><a>Agosto</a></li>
+                            <li value="9" id="Month9"><a>Septiembre</a></li>
+                            <li value="10" id="Month10"><a>Octubre</a></li>
+                            <li value="11" id="Month11"><a>Noviembre</a></li>
+                            <li value="12" id="Month12"><a>Diciembre</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <div @*class="col-md-6"*@ id="MontosTMTU" style="margin-left: 0;margin-right:0;width:28.5%">
+            <nav name="MenuTMTU3" id="IDMenuTMTU3" class="listado2" style="display:none;">
+                <h5 class="Texto-h5">Monto Origen</h5>
+                <ul>
+                    <li name="montoTMTU">
+                        <textarea name="NCajaMontoOrigenTMTU" id="CajaMontoOrigenTMTU" style="margin-right:5px;"></textarea>
+                        <ul id="ElMontoTMTU">
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <br>
+        @*<input type="text" id="nuevo_li">*@
+        <br><button class="btn btn-success" onclick="AgregarAlArray()">Agregar</button>
+        <br>
+        <br>
+        <br>
+        <br>
+        @*<br><input type="button" onclick="return AgregarAlArray()" value="Agregar">*@
+
+    </div>
+    <div class="col-md-6" id="MostrarListaArray">
+        <nav name="ListaDeArrays" id="ListaDeArrays" class="ListaArray">
+            @*<br><button class="btn btn-success" onclick="PruebaEnviar()">CHECK</button>*@
+            <h4 style="color:forestgreen;">Remitentes agregados :</h4>
+            <ul class="ListZoom" id="listaDesordenada" @*style=" margin-bottom: 78px;"*@>
+            </ul>
+
+        </nav>
+    </div>
+    @*///////////////////////////////////DESTINATARIO////////////////////////////////////////////////////////////////////////////*@
+
+    <br>
+    <div @*class="col-md-6"*@ id="Destinatario" style="width:40%;">
+        <h3 id="TxtTransMTUDesti" style="display:none;">Ingrese el Destinatario:</h3>
+        @*margin-right:30%;margin-left:30%;width:40%;padding-right:30%"*@
+        <br>
+
+        <div @*class="col-md-6"*@ id="ClavesTMTUDesti" style="margin-left:0;width:100%">
+            <nav name="MenuTMTUClave1" id="IDTMTUClave1Desti" class="menu" style="display:none;margin-left:0;">
+                <h5 class="Texto-h5">Clave</h5>
+                <select id="CajaClaveTMTUDesti" style="margin-left:0;">
+                    <option></option>
+                    @foreach (string item in Model)
+                    {
+                        <option value="@item" id="@item">@item</option>
+                    }
+                </select>
+            </nav>
+        </div>
+        @*/////////////////////////////////////////////////////////////////*@
+        <div @*class="col-md-6"*@ id="MesesTMTUDesti">
+            @*style="margin-left: 2%;margin-right:10%;width:28.5%;height:8%;"*@
+            <nav name="MenuOcultoTMTUDesti" id="MenuOcultoMesTMTUDesti" class="menu" style="display:none;">
+                <h5 class="Texto-h5">Oculto1</h5>
+                <ul>
+                    <li name="MenuOcultoTMTU1.2">
+                        <textarea name="CajaOcultaTMTU1" id="CajaOcultaMesTMTUDesti" readonly="readonly">0</textarea>
+                    </li>
+                </ul>
+            </nav>
+            <nav name="MenuTMTU2" id="IDMesTMTUDesti" class="listado2" style="display:none;">
+                <h5 class="Texto-h5">Mes</h5>
+                <ul>
+                    <li name="mesTMTUDesti">
+                        <textarea name="NCajaMesTMTUDesti" id="CajaMesTMTUDesti" readonly="readonly"> </textarea>
+                        <ul id="ListaMesesTMTUDesti">
+                            <li value="1" id="Month1"><a>Enero</a></li>
+                            <li value="2" id="Month2"><a>Febrero</a></li>
+                            <li value="3" id="Month3"><a>Marzo</a></li>
+                            <li value="4" id="Month4"><a>Abril</a></li>
+                            <li value="5" id="Month5"><a>Mayo</a></li>
+                            <li value="6" id="Month6"><a>Junio</a></li>
+                            <li value="7" id="Month7"><a>Julio</a></li>
+                            <li value="8" id="Month8"><a>Agosto</a></li>
+                            <li value="9" id="Month9"><a>Septiembre</a></li>
+                            <li value="10" id="Month10"><a>Octubre</a></li>
+                            <li value="11" id="Month11"><a>Noviembre</a></li>
+                            <li value="12" id="Month12"><a>Diciembre</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        @*///////////////////////////////////////////////////////////////////////////////////////////////////////////////*@
+        @*seccion media*@
+        <div style="margin-left:0;width:30%;height:8%;">
+
+            <nav name="MenuTMTU4" id="IDMenuTMTU4" class="menu" style="display:none;z-index:0;">
+                <h5 class="Texto-h5">Motivo</h5>
+                <ul>
+                    <li name="motivoTMTU" style="z-index:0;">
+                        <textarea name="NCajaMotivoTMTU" id="CajaMotivoTMTU" style="z-index:0;"> </textarea>
+                    </li>
+                </ul>
+            </nav>
+            <br>
+            <br>
+            <br>
+            <br>
+            <button id="EnviarTMTU" class="btn btn-success" onclick="ShowListArray();" style="display:none;">Transferir</button>
+            @*"margin-left:25%;margin-top:5%;"*@
+        </div>
+    </div>
+</div>
+
+@*/de aqui en adelante está la sección del css/*@
+
+<style>
+    table {
+    }
+
+    .Navigate {
+        display: inline;
+    }
+
+    .btn-Procces {
+        background-color: rgb(154, 154, 151);
+        border-radius: 30px;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 30px;
+    }
+
+    .Clase {
+        width: 100%;
+        height: 539px;
+    }
+    /* //////////////////////////////seccion para el modal///////////////////////*/
+    .LOGOS {
+        height: 150px;
+        width: 37.5%;
+        margin-left: 31.25%;
+        margin-right: 31.25%;
+    }
+
+    .modal-backdrop {
+        background-color: rgba(0, 0, 0, 0.50);
+        /* background-color: rgba(0, 0, 0, 0.00);*/
+        /* display: none;*/
+        width: 100%;
+        z-index: 999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999;
+        height: 100%;
+        position: absolute;
+        top: 0%;
+        left: 0%;
+    }
+
+    .modal-content {
+        font-weight: bold;
+        color: black;
+    }
+    /* ///////////////sección para la lista de meses/////////////////////////////////////////////////////*/
+    .listado ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        /* width: 105px;*/
+        width: 240px;
+        background-color: rgb(69, 110, 185);
+    }
+
+        .listado ul a {
+            display: block;
+            cursor: pointer;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 300;
+            /* font-size: 12px;*/
+            font-size: large;
+            padding: 0px;
+            text-transform: uppercase;
+            letter-spacing: 0px;
+        }
+
+    .listado {
+        z-index: 0;
+        padding-left: 8px;
+    }
+
+        .listado ul li {
+            /* background-color: rgb(69, 110, 185);*/
+            /*   background-color: white;*/
+            /*    border-radius: 2px;
+                border-color: dimgrey;*/
+            position: relative;
+            float: left;
+            margin: 0;
+            padding: 0;
+            z-index: 999999999;
+        }
+
+            .listado ul li textarea {
+                z-index: 0;
+            }
+
+            .listado ul li:hover {
+                background: rgb(11, 66, 167);
+            }
+
+        .listado ul ul {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            padding: 0;
+        }
+
+            .listado ul ul li {
+                float: none;
+                /*width: 100px;*/
+                width: 240px;
+                z-index: 9999999999999;
+            }
+
+            .listado ul ul a {
+                line-height: 100%;
+                padding: 10px 15px;
+                padding: 10px 10px;
+                z-index: 9999999999999999;
+            }
+
+        .listado ul li:hover > ul {
+            display: block;
+        }
+
+    textarea {
+        /*width: 110px;*/
+        width: 240px;
+        font-family: Arial;
+        /*font-size: medium;*/
+        font-size: large;
+        /*background-color: transparent;
+            color: white;*/
+        background-color: white;
+        color: black;
+        /*     height: 28px;*/
+        border-radius: 2px;
+        border-color: grey;
+        /**/
+        height: 34px;
+        resize: none;
+        padding-bottom: 0px;
+        padding-top: 3px;
+        padding-left: 4px;
+    }
+
+    .Centrar {
+        margin-left: 35%;
+        height: 0;
+    }
+
+    .Monto {
+        margin-left: 0%;
+        height: 0;
+        width: 15%;
+    }
+
+        .Monto h4 {
+            width: 15%;
+            height: 0;
+            margin-bottom: 5%;
+            margin-top: 0;
+        }
+
+
+    /*/////////////////////////////////////////////////////////////////////////////////*/
+    .menu select {
+        width: 440px;
+        font-family: Arial;
+        font-size: medium;
+        background-color: rgb(11, 66, 167);
+        height: 34px;
+    }
+
+        .menu select option {
+            width: 330px;
+            font-family: Arial;
+            font-size: large;
+            background-color: rgb(11, 66, 167);
+            height: 34px;
+        }
+
+    .menu ul li {
+        display: inline-block;
+        /* background-color: rgb(69, 110, 185);*/
+        background-color: white;
+        border-radius: 3px;
+        border-color: dimgrey;
+    }
+
+    .menu ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        width: 105px;
+        width: 240px;
+    }
+
+        .menu ul a {
+            display: block;
+            cursor: pointer;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 300;
+            font-size: 12px;
+            font-size: large;
+            padding: 0px;
+            text-transform: uppercase;
+            letter-spacing: 0px;
+        }
+
+    .menu {
+        z-index: 99999999999999999;
+        padding-left: 8px;
+    }
+
+        .menu ul li {
+            position: relative;
+            float: left;
+            margin: 0;
+            padding: 0;
+            z-index: 99;
+        }
+
+            .menu ul li:hover {
+                /*background: rgb(128, 128, 128);*/
+                background: rgba(128, 128, 128, 0.00);
+            }
+
+        .menu ul ul {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            padding: 0;
+        }
+
+            .menu ul ul li {
+                float: none;
+                width: 100px;
+                width: 240px;
+                z-index: 9999999999999999;
+            }
+
+            .menu ul ul a {
+                line-height: 100%;
+                padding: 10px 15px;
+                padding: 10px 10px;
+                z-index: 99999999999999999999;
+            }
+
+        .menu ul li:hover > ul {
+            display: block;
+        }
+
+    .Texto-h5 {
+        text-align: left;
+    }
+</style>
+
+<script>
+    function ProcReduc() {
+        document.getElementById('TxtRedu').style.display = 'inline';
+        document.getElementById('NavInitial').style.display = 'none';
+
+
+        document.getElementById('IDMenuReduc1').style.display = 'inline';
+        document.getElementById('IDMenuReduc2').style.display = 'inline';
+        document.getElementById('IDMenuReduc3').style.display = 'inline';
+        document.getElementById('IDMenuReduc4').style.display = 'inline';
+
+        document.getElementById('EnviarReduc').style.display = 'inline';
+    }
+    function ProcTransfer() {
+        document.getElementById('Transferencia').style.display = 'inline';
+
+        document.getElementById('NavInitial').style.display = 'none';
+        document.getElementById('TxtTrans').style.display = 'inline';
+
+        document.getElementById('IDMenuTransfer1').style.display = 'inline';
+        document.getElementById('IDMenuTransfer2').style.display = 'inline';
+        document.getElementById('IDMenuTransfer3').style.display = 'inline';
+        document.getElementById('IDMenuTransfer4').style.display = 'inline';
+        document.getElementById('IDMenuTransfer5').style.display = 'inline';
+        document.getElementById('IDMenuTransfer6').style.display = 'inline';
+        //document.getElementById('IDMenuTransfer7').style.display = 'inline';
+
+
+        document.getElementById('EnviarTransfer').style.display = 'inline';
+        }
+
+    function Reduccion() {
+        var CajaMonto = document.getElementById('CajaMontoR');
+        var CajaClave = document.getElementById('CajaClaveR');
+        var CajaMotivo = document.getElementById('CajaMotivoR');
+        //var CajaMes = document.getElementById('CajaMesR');
+        var ValorMes = document.getElementById('CajaMesValue');
+        var MontoDisponible = document.getElementById('MontoDisponibleValidar');
+
+        //console.log('Caja Monto ', CajaMonto.value);
+        //console.log('Monto Disponible ', MontoDisponible.textContent);
+        //console.log('Monto Disponible con parseFloat', parseFloat(MontoDisponible.textContent));
+        //console.log('Caja Monto con parseFloat', parseFloat(CajaMonto.value));
+
+         if (CajaClave.value == '') {
+            alert('Por favor ingrese una clave')
+        } else if (CajaMonto.value == '') {
+            alert('Por favor ingrese un monto ')
+         }
+        //MontoDisponibleValidar
+        //if (isNaN(formulario.edad.value)==true
+        else if (isNaN(CajaMonto.value) == true) {
+           alert('Por favor ingrese un monto valido')
+         } else if (CajaMonto.value == '0') {
+             alert('No es posible Reducir 0 pesos de  ' + CajaClave.value)
+         }
+         else if (CajaMotivo.value == '') {
+            alert('Por favor ingrese un motivo')
+        } else if (ValorMes.textContent == '0') {
+             alert('Por favor seleccione el mes al que se le hara la reducción')
+             //(CajaMonto.value > MontoDisponible.textContent)
+             //1157541.55
+         } else if (parseFloat(CajaMonto.value) > MontoDisponible.textContent) {
+             alert('Por favor ingrese un monto igual o menor al disponible')
+         } else {
+             var MontoCorrectoReducc = parseFloat(CajaMonto.value);
+             console.log('Monto a Enviar ', MontoCorrectoReducc);
+
+
+             //cambio para enviar datos y validar como modelo
+             var cuentaRemitente = { clave: CajaClave.value, mes: ValorMes.textContent, monto: MontoCorrectoReducc };
+             var motivo = CajaMotivo.value;
+             
+            $.ajax({
+                url: '@Url.Action("Reducciones", "ClavesPresupuestales")',
+                data: JSON.stringify({ cuentaRemitente, motivo }),
+                dataType: "json",
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                success: function (msg) {
+                    console.log("msg", msg);
+                    if (msg == true) {
+                        document.getElementById('ModalReducc').style.display = 'inline';
+                    } else {
+                        document.getElementById('ModalReduccError').style.display = 'inline';
+                    }
+
+                    //document.getElementById('ModalReducc').style.display = 'inline';
+                },
+                error: function (result) {
+                    document.getElementById('ModalReduccError').style.display = 'inline';
+                    //alert("ERROR SEVERO, VUELVA A CARGAR LA PÁGINA" + result.status);
+                }
+            });
+
+             //document.getElementById('ModalReducc').style.display = 'inline';
+
+
+        }
+
+    }
+    function HideModalReducc() {
+        document.getElementById('ModalReducc').style.display = 'none';
+
+        document.getElementById('TxtRedu').style.display = 'none';
+
+        document.getElementById('IDMenuReduc1').style.display = 'none';
+        document.getElementById('IDMenuReduc2').style.display = 'none';
+        document.getElementById('IDMenuReduc3').style.display = 'none';
+        document.getElementById('IDMenuReduc4').style.display = 'none';
+
+        document.getElementById('EnviarReduc').style.display = 'none';
+
+        document.getElementById('NavInitial').style.display = 'inline';
+
+        //document.getElementById('MontoDisponible').style.display = 'none';
+
+    }
+    function HideModalReduccError() {
+        document.getElementById('ModalReduccError').style.display = 'none';
+
+        document.getElementById('TxtRedu').style.display = 'none';
+
+        document.getElementById('IDMenuReduc1').style.display = 'none';
+        document.getElementById('IDMenuReduc2').style.display = 'none';
+        document.getElementById('IDMenuReduc3').style.display = 'none';
+        document.getElementById('IDMenuReduc4').style.display = 'none';
+
+        document.getElementById('EnviarReduc').style.display = 'none';
+
+        document.getElementById('NavInitial').style.display = 'inline';
+
+        //document.getElementById('MontoDisponible').style.display = 'none';
+
+    }
+
+    function Transferencia() {
+        var CajaMontoOrigen = document.getElementById('CajaMontoOrigen');
+        var CajaClaveOT = document.getElementById('CajaClaveOrigenT');
+        var CajaMesOrigen = document.getElementById('CajaOcultaMesOrigen');
+
+        var CajaClaveDT = document.getElementById('CajaClaveDestinoT');
+        //var CajaMontoDestino = document.getElementById('CajaMontoDestino');
+        var CajaMesDestino = document.getElementById('CajaOcultaMesDestino');
+        var CajaMotivo = document.getElementById('CajaMotivoT');
+        var MontoDisponible2 = document.getElementById('MontoDisponibleValidar2');
+
+        console.log('Monto Origen ',CajaMontoOrigen.value)
+
+
+        if (CajaMontoOrigen.value == '') {
+            alert('Por favor ingrese un monto de origen')
+        } else if (isNaN(CajaMontoOrigen.value) == true) {
+            alert('Por favor ingrese un monto de origen valido')
+        } else if (CajaMontoOrigen.value == '0') {
+            alert('No es posible Transferir 0 pesos de  ' + CajaClaveOT.value)
+        }
+        else if (CajaClaveOT.value == '') {
+            alert('Por favor ingrese una clave de origen')
+        } else if (CajaMesOrigen.textContent == '0') {
+            alert('Por favor ingrese un mes de origen')
+
+        } else if (CajaClaveDT.value == '') {
+            alert('Por favor ingrese una clave de destino')
+        }
+        //else if (CajaMontoDestino.value == ' ') {
+        //    alert('Por favor ingrese un monto de destino')
+        //}
+        else if (CajaMesDestino.textContent == ' ') {
+            alert('Por favor ingrese un mes de destino')
+        }
+        else if (CajaMotivo.value == ' ') {
+            alert('Por favor ingrese el motivo de la transferencia')
+        } else if (parseFloat(CajaMontoOrigen.value) > MontoDisponible2.textContent) {
+            alert('Por favor ingrese un monto igual o menor al disponible')
+        } else {
+            var MontoCorrectoTransfer = parseFloat(CajaMontoOrigen.value);
+            console.log('Monto a Enviar ', MontoCorrectoTransfer);
+            //
+            var actionDataTransfer = "{'origenClave': '" + CajaClaveOT.value + "','origenMes':'" + CajaMesOrigen.textContent + "','origenMonto':'" + MontoCorrectoTransfer + /*"','destinoMonto':'" + CajaMontoDestino.value +*/ "','destinoClave':'" + CajaClaveDT.value + "','destinoMes':'" + CajaMesDestino.textContent + "','motivoTransfer':'" + CajaMotivo.value + "'}";
+            console.log("actionDataTransfer", actionDataTransfer);
+
+
+            //cambio para enviar datos y validar como modelo
+            var cuentaRemitente = { clave: CajaClaveOT.value, mes: CajaMesOrigen.textContent, monto: MontoCorrectoTransfer};
+            var cuentaDestino = { clave: CajaClaveDT.value, mes: CajaMesDestino.textContent, monto: 0 };
+            var motivo = CajaMotivo.value;
+
+            console.log("remitente", cuentaRemitente);
+            console.log("remitente", cuentaDestino);
+            console.log("motivo", motivo);
+
+            $.ajax({
+                url: '@Url.Action("Transferencia", "ClavesPresupuestales")',
+                data: JSON.stringify({ cuentaRemitente, cuentaDestino, motivo }),
+                dataType: "json",
+                type: "POST",
+                 contentType: "application/json; charset=utf-8",
+                 success: function (msg) {
+                     console.log("msg", msg);
+                     if (msg == true) {
+                         document.getElementById('ModalTransfer').style.display = 'inline';
+                     } else {
+                         document.getElementById('ModalTransferError').style.display = 'inline';
+                     }
+
+                     //document.getElementById('ModalTransfer').style.display = 'inline';
+                 },
+                error: function (result) {
+                    document.getElementById('ModalTransferError').style.display = 'inline';
+                    //alert("ERROR SEVERO, VUELVA A CARGAR LA PÁGINA" + result.status);
+                }
+            });
+            //alert(" La transferencia se ha realizado con éxito :) ");
+
+            //document.getElementById('ModalTransfer').style.display = 'inline';
+
+        }
+    }
+    function HideModalTransfer() {
+        document.getElementById('ModalTransfer').style.display = 'none';
+
+        document.getElementById('IDMenuTransfer1').style.display = 'none';
+        document.getElementById('IDMenuTransfer2').style.display = 'none';
+        document.getElementById('IDMenuTransfer3').style.display = 'none';
+        document.getElementById('IDMenuTransfer4').style.display = 'none';
+        document.getElementById('IDMenuTransfer5').style.display = 'none';
+        document.getElementById('IDMenuTransfer6').style.display = 'none';
+        //document.getElementById('IDMenuTransfer7').style.display = 'none';
+
+        document.getElementById('TxtTrans').style.display = 'none';
+
+        document.getElementById('EnviarTransfer').style.display = 'none';
+
+        document.getElementById('Transferencia').style.display = 'none';
+
+        document.getElementById('NavInitial').style.display = 'inline';
+
+        //document.getElementById('MontoDisponible2').style.display = 'none';
+    }
+    function HideModalTransferError() {
+        document.getElementById('ModalTransferError').style.display = 'none';
+
+        document.getElementById('IDMenuTransfer1').style.display = 'none';
+        document.getElementById('IDMenuTransfer2').style.display = 'none';
+        document.getElementById('IDMenuTransfer3').style.display = 'none';
+        document.getElementById('IDMenuTransfer4').style.display = 'none';
+        document.getElementById('IDMenuTransfer5').style.display = 'none';
+        document.getElementById('IDMenuTransfer6').style.display = 'none';
+        //document.getElementById('IDMenuTransfer7').style.display = 'none';
+
+        document.getElementById('TxtTrans').style.display = 'none';
+
+        document.getElementById('EnviarTransfer').style.display = 'none';
+
+        document.getElementById('Transferencia').style.display = 'none';
+
+        document.getElementById('NavInitial').style.display = 'inline';
+
+        //document.getElementById('MontoDisponible2').style.display = 'none';
+    }
+
+    $('#ListaMesesReducc').click(function (e) {
+        var li = e.target.parentNode;
+        let ID = li.id;
+        var Identidad = document.getElementById(ID).textContent;
+        const WRITELINE = document.querySelector('#CajaMesR');
+        var Lista = document.getElementById('CajaMesR');
+        Lista.innerHTML = "";
+        WRITELINE.insertAdjacentHTML('beforeend', Identidad)
+
+        Valor = document.getElementById(ID).value;
+        const ESCRIBE = document.querySelector('#CajaMesValue');
+        var Linea = document.getElementById('CajaMesValue');
+        Linea.innerHTML = "";
+        ESCRIBE.insertAdjacentHTML('beforeend', Valor)
+
+        //var mes = document.getElementById("CajaMesR");
+        //var mesRV = mes.value;
+        //console.log(mesRV);
+    });
+    ////
+    $('#ListaMesesOrigen').click(function (e) {
+        var li = e.target.parentNode;
+        let ID = li.id;
+        var Identidad = document.getElementById(ID).textContent;
+        const WRITELINE = document.querySelector('#CajaMesOrigen');
+        var Lista = document.getElementById('CajaMesOrigen');
+        Lista.innerHTML = "";
+        WRITELINE.insertAdjacentHTML('beforeend', Identidad)
+
+        Valor = document.getElementById(ID).value;
+        const ESCRIBE = document.querySelector('#CajaOcultaMesOrigen');
+        var Linea = document.getElementById('CajaOcultaMesOrigen');
+        Linea.innerHTML = "";
+        ESCRIBE.insertAdjacentHTML('beforeend', Valor)
+    });
+    ////
+    $('#ListaMesesDestino').click(function (e) {
+        var li = e.target.parentNode;
+        let ID = li.id;
+        var Identidad = document.getElementById(ID).textContent;
+        const WRITELINE = document.querySelector('#CajaMesDestino');
+        var Lista = document.getElementById('CajaMesDestino');
+        Lista.innerHTML = "";
+        WRITELINE.insertAdjacentHTML('beforeend', Identidad)
+
+        Valor = document.getElementById(ID).value;
+        const ESCRIBE = document.querySelector('#CajaOcultaMesDestino');
+        var Linea = document.getElementById('CajaOcultaMesDestino');
+        Linea.innerHTML = "";
+        ESCRIBE.insertAdjacentHTML('beforeend', Valor)
+    });
+    ////
+    $('#ElMonto').click(function (e) {
+        var li = e.target.parentNode;
+        let ID = li.id;
+        var Identidad = document.getElementById(ID).textContent;
+        const WRITELINE = document.querySelector('#CajaMontoR');
+        var Lista = document.getElementById('CajaMontoR');
+        Lista.innerHTML = "";
+        WRITELINE.insertAdjacentHTML('beforeend', Identidad)
+
+        //var Valor = document.getElementById(ID).value;
+        //const ESCRIBE = document.querySelector('#CajaMontoR');
+        //var Linea = document.getElementById('CajaMontoR');
+        //Linea.innerHTML = "";
+        //ESCRIBE.insertAdjacentHTML('beforeend', Valor)
+        //console.log('El value es: ', Valor);
+        //parseFloat(cadena)
+        console.log('Usando parseFloat : ', parseFloat(Identidad));
+    });
+    //////
+    $('#ElMonto2').click(function (e) {
+        var li = e.target.parentNode;
+        let ID = li.id;
+        var Identidad = document.getElementById(ID).textContent;
+        const WRITELINE = document.querySelector('#CajaMontoOrigen');
+        var Lista = document.getElementById('CajaMontoOrigen');
+        Lista.innerHTML = "";
+        WRITELINE.insertAdjacentHTML('beforeend', Identidad)
+
+        console.log('Usando parseFloat : ', parseFloat(Identidad));
+    });
+
+
+    //$(document).ready(function () {
+    //    $('#SelectClave1').select2();
+    //});
+
+    $(document).ready(function () {
+        $('#CajaClaveR').select2({
+            placeholder: "Ingrese la clave",
+            allowClear: true,
+            minimumInputLength: 3
+        });
+    });
+
+    $(document).ready(function () {
+        $('#CajaClaveOrigenT').select2({
+            placeholder: "Ingrese la clave",
+            allowClear: true,
+            minimumInputLength: 3
+        });
+    });
+
+    $(document).ready(function () {
+        $('#CajaClaveDestinoT').select2({
+            placeholder: "Ingrese la clave",
+            allowClear: true,
+            minimumInputLength: 3
+        });
+    });
+
+ //////////////////////////////Aquí se maneja el observable para Reducción///////////////////////////////
+
+    var flujoCajaMontoReduc = Rx.Observable.fromEvent(document.getElementById("CajaMontoR"), 'click');
+    //var flujoCaja2 = Rx.Observable.fromEvent(document.getElementById("CajaMesR"), 'keyup');
+
+    flujoCajaMontoReduc.subscribe(function (elemento) {
+        //Obtengo la clave
+        var clave = document.getElementById("CajaClaveR");
+        var claveReduccValue = clave.value;
+        //Obtengo el mes
+        //var ValorMes = document.getElementById('CajaMesValue');
+        var mes = document.getElementById("CajaMesValue");
+        var mesReduccTextContent = mes.textContent;
+        //Muestro la clave, el mes y el monto que escribe el usuario.
+        console.log('Mes ',mesReduccTextContent);
+        console.log('Clave ',claveReduccValue);
+        console.log('Monto despues del click ',elemento.srcElement.value);
+
+        if (clave.value == '') {
+            alert('Por favor ingrese una clave antes del monto')
+        } else if (mes.textContent == '0') {
+            alert('Por favor seleccione un mes antes de ingresar el monto')
+        } else {
+        //Aqui es la parte donde debo enviar estos datos al controlador para obtener el monto disponible de la DB.
+        ///////////////////////////////////////////////////////////////
+        var actionDataMontoReduccion = "{'clave':'" + claveReduccValue + "','mes':'" + mesReduccTextContent + "'}";
+
+        $.ajax({
+            url: '@Url.Action("MostrarMonto", "ClavesPresupuestales")',
+            data: actionDataMontoReduccion,
+            dataType: "json",
+            returnType: 'json',
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            //contentType: "application/json; charset=utf-8",
+            success: function (resultado) {
+                console.log("Monto" + resultado);
+                var montoObtenido = null;
+                if (montoObtenido == null) {
+                    montoObtenido = resultado;
+                    //console.log("Es el hijo más mayor de Cronos...", montoObtenido);
+
+                    //document.getElementById('MontoDisponible').style.display = 'inline';
+                }
+                console.log('Monto Obtenido', montoObtenido);
+                const WRITELINE = document.querySelector('#ElMonto');
+                var Monto = document.getElementById('ElMonto');
+                i = 0;
+                Monto.innerHTML = "";
+                WRITELINE.insertAdjacentHTML('beforeend', '<li id="MontoDisponibleValidar" value="' + montoObtenido + '"><a>' + montoObtenido + '</a></li>')
+
+
+            },
+            error: function (result) {
+                alert("ERROR SEVERO, VUELVA A CARGAR LA PÁGINA" + result.status);
+            }
+        });
+    }
+
+    });
+
+ //////////////////////////////Aquí se maneja el observable para Transacción///////////////////////////////
+
+
+    var flujoCajaMontoTrans = Rx.Observable.fromEvent(document.getElementById("CajaMontoOrigen"), 'click');
+    //var flujoCaja2 = Rx.Observable.fromEvent(document.getElementById("CajaMesR"), 'keyup');
+
+    flujoCajaMontoTrans.subscribe(function (elemento) {
+        //Obtengo la clave
+        var clave = document.getElementById("CajaClaveOrigenT");
+        var claveTransValue = clave.value;
+        //Obtengo el mes
+        var mes = document.getElementById("CajaOcultaMesOrigen");
+        var mesTransTextContent = mes.textContent;
+        //Muestro la clave, el mes y el monto que escribe el usuario.
+        console.log(mesTransTextContent);
+        console.log(claveTransValue);
+        console.log(elemento.srcElement.value);
+
+        if (clave.value == '') {
+            alert('Por favor ingrese una clave antes del monto')
+        } else if (mes.textContent == '0') {
+            alert('Por favor seleccione un mes antes de ingresar el monto')
+        } else {
+            //Aqui es la parte donde debo enviar estos datos al controlador para obtener el monto disponible de la DB.
+
+
+
+            var actionDataMontoTransferencia = "{'clave':'" + claveTransValue + "','mes':'" + mesTransTextContent + "'}";
+
+            $.ajax({
+                url: '@Url.Action("MostrarMonto", "ClavesPresupuestales")',
+                data: actionDataMontoTransferencia,
+                dataType: "json",
+                returnType: 'json',
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                //contentType: "application/json; charset=utf-8",
+                success: function (resultado) {
+                    console.log("Monto" + resultado);
+                    var montoObtenido = null;
+                    if (montoObtenido == null) {
+                        montoObtenido = resultado;
+                        //console.log("Es el hijo más mayor de Cronos...", montoObtenido);
+                        //document.getElementById('MontoDisponible2').style.display = 'inline';
+                    }
+                    console.log('Monto Obtenido', montoObtenido);
+                    const WRITELINE = document.querySelector('#ElMonto2');
+                    var Monto = document.getElementById('ElMonto2');
+                    i = 0;
+                    Monto.innerHTML = "";
+                    //WRITELINE.insertAdjacentHTML('beforeend', '<li><a id="MontoDisponibleValidar2">' + montoObtenido + '</a></li>')
+                    WRITELINE.insertAdjacentHTML('beforeend', '<li id="MontoDisponibleValidar2" value="' + montoObtenido + '"><a>' + montoObtenido + '</a></li>');
+
+                },
+                error: function (result) {
+                    alert("ERROR SEVERO, VUELVA A CARGAR LA PÁGINA" + result.status);
+                }
+            });
+
+        }
+
+
+    });
+
+    ////////////SECCION DE TRANSFERENCIA DE MUCHOS A UNO////////////////////////////////////////////////
+    //onclick = "ProcTransMuchosToUno()"
+
+        function ProcTMTU() {
+            document.getElementById('TransMuchosToUno').style.display = 'inline';
+            document.getElementById('NavInitial').style.display = 'none';
+            document.getElementById('TxtTransMTU').style.display = 'inline';
+            document.getElementById('TxtTransMTUDesti').style.display = 'inline';
+
+            document.getElementById('IDTMTUClave1').style.display = 'inline';
+            //document.getElementById('IDTMTUClave2').style.display = 'inline';
+            document.getElementById('IDTMTUClave1Desti').style.display = 'inline';
+
+            document.getElementById('IDMenuMesTMTU').style.display = 'inline';
+            document.getElementById('IDMesTMTUDesti').style.display = 'inline';
+
+            document.getElementById('IDMenuTMTU3').style.display = 'inline';
+            document.getElementById('IDMenuTMTU4').style.display = 'inline';
+
+            document.getElementById('EnviarTMTU').style.display = 'inline';
+        }
+
+        $('#ListaMesesTMTU').click(function (e) {
+            var li = e.target.parentNode;
+            let ID = li.id;
+            var Identidad = document.getElementById(ID).textContent;
+            const WRITELINE = document.querySelector('#CajaMesTMTU');
+            var Lista = document.getElementById('CajaMesTMTU');
+            Lista.innerHTML = "";
+            WRITELINE.insertAdjacentHTML('beforeend', Identidad)
+
+            Valor = document.getElementById(ID).value;
+            const ESCRIBE = document.querySelector('#CajaOcultaMesOrigenTMTU');
+            var Linea = document.getElementById('CajaOcultaMesOrigenTMTU');
+            Linea.innerHTML = "";
+            ESCRIBE.insertAdjacentHTML('beforeend', Valor)
+        });
+
+        $('#ListaMesesTMTUDesti').click(function (e) {
+            var li = e.target.parentNode;
+            let ID = li.id;
+            var Identidad = document.getElementById(ID).textContent;
+            const WRITELINE = document.querySelector('#CajaMesTMTUDesti');
+            var Lista = document.getElementById('CajaMesTMTUDesti');
+            Lista.innerHTML = "";
+            WRITELINE.insertAdjacentHTML('beforeend', Identidad)
+
+            Valor = document.getElementById(ID).value;
+            const ESCRIBE = document.querySelector('#CajaOcultaMesTMTUDesti');
+            var Linea = document.getElementById('CajaOcultaMesTMTUDesti');
+            Linea.innerHTML = "";
+            ESCRIBE.insertAdjacentHTML('beforeend', Valor)
+        });
+
+        $(document).ready(function () {
+            $('#CajaClaveTMTU1').select2({
+                placeholder: "Ingrese la clave",
+                allowClear: true,
+                minimumInputLength: 3
+            });
+        });
+
+        $(document).ready(function () {
+            $('#CajaClaveTMTUDesti').select2({
+                placeholder: "Ingrese la clave",
+                allowClear: true,
+                minimumInputLength: 3
+            });
+        });
+        $('#ElMontoTMTU').click(function (e) {
+            var li = e.target.parentNode;
+            let ID = li.id;
+            var Identidad = document.getElementById(ID).textContent;
+            const WRITELINE = document.querySelector('#CajaMontoOrigenTMTU');
+            var Lista = document.getElementById('CajaMontoOrigenTMTU');
+            Lista.innerHTML = "";
+            WRITELINE.insertAdjacentHTML('beforeend', Identidad)
+
+            console.log('Usando parseFloat : ', parseFloat(Identidad));
+        });
+        function HideModalTMTU() {
+            document.getElementById('ModalTMTU').style.display = 'none';
+
+            document.getElementById('TransMuchosToUno').style.display = 'none';
+            document.getElementById('NavInitial').style.display = 'inline';
+            document.getElementById('TxtTransMTU').style.display = 'none';
+            document.getElementById('TxtTransMTUDesti').style.display = 'none';
+            document.getElementById('IDTMTUClave1').style.display = 'none';
+            //document.getElementById('IDTMTUClave2').style.display = 'none';
+            document.getElementById('IDTMTUClave1Desti').style.display = 'none';
+
+            document.getElementById('IDMenuMesTMTU').style.display = 'none';
+            document.getElementById('IDMesTMTUDesti').style.display = 'none';
+
+            document.getElementById('IDMenuTMTU3').style.display = 'none';
+            document.getElementById('IDMenuTMTU4').style.display = 'none';
+
+
+            document.getElementById('EnviarTMTU').style.display = 'none';
+        }
+        function HideModalTMTUError() {
+            document.getElementById('ModalTMTUError').style.display = 'none';
+
+            document.getElementById('TransMuchosToUno').style.display = 'none';
+            document.getElementById('NavInitial').style.display = 'inline';
+            document.getElementById('TxtTransMTU').style.display = 'none';
+            document.getElementById('TxtTransMTUDesti').style.display = 'none';
+            document.getElementById('IDTMTUClave1').style.display = 'none';
+            //document.getElementById('IDTMTUClave2').style.display = 'none';
+            document.getElementById('IDTMTUClave1Desti').style.display = 'none';
+
+            document.getElementById('IDMenuMesTMTU').style.display = 'none';
+            document.getElementById('IDMesTMTUDesti').style.display = 'none';
+
+            document.getElementById('IDMenuTMTU3').style.display = 'none';
+            document.getElementById('IDMenuTMTU4').style.display = 'none';
+
+
+            document.getElementById('EnviarTMTU').style.display = 'none';
+        }
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        var flujoCajaMontoTMTU = Rx.Observable.fromEvent(document.getElementById("CajaMontoOrigenTMTU"), 'click');
+
+    flujoCajaMontoTMTU.subscribe(function (elemento) {
+        //Obtengo la clave
+        var clave = document.getElementById("CajaClaveTMTU1");
+        var claveTMTUValue = clave.value;
+        //Obtengo el mes
+        var mes = document.getElementById("CajaOcultaMesOrigenTMTU");
+        var mesTMTUTextContent = mes.textContent;
+        //Muestro la clave, el mes y el monto que escribe el usuario.
+        console.log(mesTMTUTextContent);
+        console.log(claveTMTUValue);
+        console.log(elemento.srcElement.value);
+
+        if (clave.value == '') {
+            alert('Por favor ingrese una clave antes del monto')
+        } else if (mes.textContent == '0') {
+            alert('Por favor seleccione un mes antes de ingresar el monto')
+        } else {
+            //Aqui es la parte donde debo enviar estos datos al controlador para obtener el monto disponible de la DB.
+            var actionDataMontoTransferencia = "{'clave':'" + claveTMTUValue + "','mes':'" + mesTMTUTextContent + "'}";
+            $.ajax({
+                url: '@Url.Action("MostrarMonto", "ClavesPresupuestales")',
+                data: actionDataMontoTransferencia,
+                dataType: "json",
+                returnType: 'json',
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                success: function (resultado) {
+                    console.log("Monto" + resultado);
+                    var montoObtenido = null;
+                    if (montoObtenido == null) {
+                        montoObtenido = resultado;
+                    }
+                    console.log('Monto Obtenido', montoObtenido);
+                    const WRITELINE = document.querySelector('#ElMontoTMTU');
+                    var Monto = document.getElementById('ElMontoTMTU');
+                    i = 0;
+                    Monto.innerHTML = "";
+                    WRITELINE.insertAdjacentHTML('beforeend', '<li id="MontoDisponibleValidar3" value="' + montoObtenido + '"><a>' + montoObtenido + '</a></li>')
+
+                },
+                error: function (result) {
+                    alert("ERROR SEVERO, VUELVA A CARGAR LA PÁGINA" + result.status);
+                }
+            });
+
+        }
+
+
+    });
+/////////////////////////////////////////////////sección del array y la listahtml////////////////////////////////////////////////////////////
+        var ListaArray = [];
+        var ArrayComparativo = [];
+        function AgregarAlArray() {
+            var Clave = document.getElementById("CajaClaveTMTU1").value;
+            var Mes = document.getElementById("CajaOcultaMesOrigenTMTU").value;
+            var Monto = document.getElementById("CajaMontoOrigenTMTU").value;
+
+            if (Monto == '0') {
+                alert('El monto no puede ser 0, por favor ingrese un monto valido')
+            } else if (Monto == '0.00') {
+                alert('El monto no puede ser 0.00, por favor ingrese un monto valido')
+            } else if (Monto == '0.0') {
+                alert('El monto no puede ser 0.0, por favor ingrese un monto valido')
+            } else if (Monto == '0.000') {
+                alert('El monto no puede ser 0.000, por favor ingrese un monto valido')
+            } else if (Monto == '0.0000') {
+                alert('El monto no puede ser 0.0000, por favor ingrese un monto valido')
+            } else {
+
+                var li = document.createElement('li');
+                let NuevoObjeto = ListaArray.push({ Clave, Mes, Monto });
+                let ObjetoComparativo = ArrayComparativo.push({ Clave, Mes });
+                ListaArray.forEach(function (elemento, indice, array) {
+                    console.log("Indice: ", indice, " Elemento: ", elemento);
+                    //let Tamaño = Champs.length;
+                    //console.log("Tamaño del array", Tamaño);
+                    Valor = indice;
+                })
+                li.id = Valor;
+                li.innerHTML = ' Clave: ' + Clave + ' Mes: ' + Mes + ' Monto: ' + Monto + '<div class="info" ><a>Clave: ' + Clave + ' Mes: ' + Mes + ' Monto: ' + Monto + '</a></div><button style="font-family: sans-serif,arial;font-size: 1em;color: #333;cursor: pointer;" onclick="eliminar(this)">X</button>';
+                document.getElementById("listaDesordenada").appendChild(li);
+            }
+
+        }
+        function find_li(contenido) {
+            var el = document.getElementById("listaDesordenada").getElementsByTagName("li");
+            for (var i = 0; i < el.length; i++) {
+                if (el[i].innerHTML == contenido)
+                    return false;
+            }
+            return true;
+        }
+        /**
+         * Funcion para eliminar los elementos
+         * Tiene que recibir el elemento pulsado
+         */
+        function eliminar(elemento) {
+            var id = elemento.parentNode.getAttribute("id");
+            node = document.getElementById(id);
+            node.parentNode.removeChild(node);
+            console.log("El id es:", id);
+            //ListaArray.splice(id, 1);
+            delete ListaArray[id]; //true
+            delete ArrayComparativo[id];
+
+            console.log("Nuevo Array: ", ListaArray);
+        }
+        ////////////////esto debo ejecutarse justo antes de enviar, para generar el array sin espacios vacios///////////
+        //function PruebaEnviar() {
+
+            //var newArray = [];
+            //for (var i = 0; i < ListaArray.length; i++) {
+            //    if (ListaArray[i]) {
+            //        newArray.push(ListaArray[i]);
+            //    }
+            //}
+            //console.log("Array listo para enviar : ", newArray);
+        //}
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        function HideModal() {
+            document.getElementById('ModalArray').style.display = 'none';
+
+            var Lista = document.getElementById('CuerpoTabla');
+            Lista.innerHTML = "";
+        }
+    function ShowListArray() {
+        if (ListaArray.length == 0) { alert('El remitente no puede estar vacio, agregue al menos 1 remitente')}
+        else {
+
+            var ArrayParaComparar = [];
+            var ClaveDestino = document.getElementById("CajaClaveTMTUDesti").value;
+            var MesDestino = document.getElementById("CajaOcultaMesTMTUDesti").value;
+            var ObjetoDestino = { Clave: ClaveDestino, Mes: MesDestino };
+            console.log("ObjetoDestino = ", ObjetoDestino);
+            Bandera = false;
+            //ArrayComparativo.forEach(function (elemento, indice, array) {
+            //if (JSON.stringify(elemento) == JSON.stringify(ObjetoDestino)) {
+            //    alert("Uno de los remitentes es identico al destinatario, elimine dicho remitente o cambie el destinatario");
+            //}
+            //    //else {
+            //    //    ShowListArray2();
+            //    //}
+            //});
+            for (var i = 0; i < ArrayComparativo.length; i++) {
+                if (ArrayComparativo[i]) {
+                    ArrayParaComparar.push(ArrayComparativo[i]);
+                    if (JSON.stringify(ArrayComparativo[i]) == JSON.stringify(ObjetoDestino)) {
+                        //alert("Uno de los remitentes es identico al destinatario, elimine dicho remitente o cambie el destinatario");
+                        Bandera = true;
+                    }
+                }
+            }
+            if (Bandera == true) {
+                alert("Uno de los remitentes es identico al destinatario, elimine dicho remitente o cambie el destinatario");
+            } else {
+                ShowListArray2();
+            }
+            //ShowListArray2();
+        }
+    }
+
+    function ShowListArray2() {
+        var nuevoArray = [];
+        for (var i = 0; i < ListaArray.length; i++) {
+            if (ListaArray[i]) {
+                nuevoArray.push(ListaArray[i]);
+                //if (ListaArray[i] == ObjetoDestino) {
+                //    alert("No se puede tener el mismo remitente y destinatario, por favor elimine el remitente o cambie el destinatario");
+                //}
+            }
+        }
+        
+        console.log("Array listo para enviar : ", nuevoArray);
+        //var tamaño = nuevoArray.length;
+        //var contador;
+        //const WRITELINE = document.querySelector('#ArrayEnviar');
+        //for (contador = 0; contador < tamaño; contador++) {
+        //    //WRITELINE.insertAdjacentHTML('beforeend', '<li id="ModArr' + contador + '"><a> El valor de la posición[' + contador + '] es[' + Object.values(nuevoArray[contador]) + ']</a></li><br>');
+        //    WRITELINE.insertAdjacentHTML('beforeend', '<li id="ModArr' + contador + '"><a style="list-style:none;font-size:medium;text-decoration:none;"> [' + Object.values(nuevoArray[contador]) + '] </a></li><br>');
+        //}
+        var ArrayTabla = nuevoArray;
+        const CUERPOTABLA = document.querySelector('#CuerpoTabla');
+        //recorrer todos los datos 
+        ArrayTabla.forEach(Dato => {
+            //crear un <tr>
+            const TR = document.createElement("tr");
+            // Creamos el <td> de Nómina y lo adjuntamos a tr
+            let tdClave = document.createElement("td");
+            tdClave.textContent = Dato.Clave; //el textContent del td es el concepto
+            TR.appendChild(tdClave);
+            // el td de nómina
+            let tdMes = document.createElement("td");
+            tdMes.textContent = "  " + Dato.Mes;
+            TR.appendChild(tdMes);
+
+            let tdMonto = document.createElement("td");
+            tdMonto.textContent = "  " + Dato.Monto;
+            TR.appendChild(tdMonto);
+
+            CUERPOTABLA.appendChild(TR);
+            //y el ciclo se repite hasta q se termine de recorrer el arreglo
+        })
+      
+        //////////////////////////////////////////////////////////////////////////
+        document.getElementById('ModalArray').style.display = 'inline';
+
+    }
+    // prueba de transferencia de muchos a uno
+
+    function TDM() {
+            document.getElementById('ModalArray').style.display = 'none';
+            var newArray = [];
+            for (var i = 0; i < ListaArray.length; i++) {
+                if (ListaArray[i]) {
+                    newArray.push(ListaArray[i]);
+                }
+            }
+            console.log("Array listo para enviar : ", newArray);
+
+        console.log('entre');
+            var cuentasRemitentes = newArray;
+            //[
+            //    { clave: '21120283626211C016000J186038910780L415A4211', mes: 2, monto: 4204215.10 },
+            //    { clave: '21120283626311C016000J187039010790L415A4511', mes: 2, monto: 1290006.60 },
+            //    { clave: '21120283626211C016000J187039010790L415A4521', mes: 2, monto: 33738637.36 },
+            //];
+            //var cuentaDestino = { clave: '21120283626211C016000J187039010790L414A4521', mes: 2, monto: 000 };
+            var ClaveDestino = document.getElementById("CajaClaveTMTUDesti").value;
+            var MesDestino = document.getElementById("CajaOcultaMesTMTUDesti").value;
+            var MotivoDestino = document.getElementById("CajaMotivoTMTU").value;
+
+        var cuentaDestino = { clave: ClaveDestino, mes: MesDestino, monto: 0 };
+        var motivo = MotivoDestino;
+
+            console.log("Remitentes: ", cuentasRemitentes);
+            console.log("Destinatario", cuentaDestino);
+
+       // NuevasCuentas.push({ clave: 'ocho', mes: 8, monto: 8888.8 });
+       // NuevasCuentas.push({ motivo: 'compra2x' });
+
+        console.log(cuentaDestino);
+
+          $.ajax({
+            url: '@Url.Action("TransferenciaDeClavesAClave", "ClavesPresupuestales")',
+              data: JSON.stringify({ cuentasRemitentes, cuentaDestino, motivo}),
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+
+            success: function (msg) {
+                console.log("msg", msg);
+                if (msg == true) {
+                    document.getElementById('ModalTMTU').style.display = 'inline';
+                } else {
+                    document.getElementById('ModalTMTUError').style.display = 'inline';
+                }
+              },
+              error: function (msg) {
+                  document.getElementById('ModalTMTUError').style.display = 'inline';
+              }
+        });
+
+    }
+
+</script>

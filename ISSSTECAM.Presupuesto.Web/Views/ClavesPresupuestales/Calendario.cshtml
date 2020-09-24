@@ -1,0 +1,460 @@
+﻿@{ ViewBag.Title = "Mostrar Calendario"; }
+@model List<string>
+@section titulo{
+    <h2>Mostrar Calendario</h2>
+}
+
+<h3>Calendario presupuestal mostrado al usuario</h3>
+
+<div class="row">
+    <div class="pull-right">
+
+        <!-- <button class="btn btn-success" id="recargar">Recargar</button> -->
+        @*ESTE BOTON SIRVE PARA EJECUTAR LA FUNCIÓN CON LA QUE POSIBLEMENTE SE PUEDAN PINTAR LOS DATOS DEL CALENDARIO*@
+        <button class="btn btn-success" id="Pintar" onclick="PintarCalendario();">MOSTRAR CALENDARIO</button>
+        @*<button onclick="myFunction()">Try it</button>*@
+      
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-3 col-md-6">
+        <span>GRAN TOTAL</span>
+        <h2 id="granTotal">$0</h2>
+
+    </div>
+    @*<div class="col-md-6 col-xl-9">
+            <div id="fileuploader">Agregar archivo</div>
+        </div>*@
+</div>
+
+<div class="row">
+    <div id="BuscarConSelect2" class="col-md-12" style="display:none; @*margin-left:100px;*@">
+        <select id="CajaClaveSearch">
+            <option> </option>
+            @foreach (string item in Model)
+            {<option value="@item" id="@item">@item</option>            }
+        </select>
+    </div>
+    <div id="Check">
+        Seleccione para buscar por partida.
+        <input id="Check" type="checkbox" onclick="ShowSelect2()">
+    </div>
+    @*@foreach (string item in Model)
+        {<option value="@item" id="@item">@item</option>
+            }*@
+<div class="col-md-12">
+    @*<p id="demo"></p>*@
+    <table class="table table-striped table-hover" id="clavesCalendario">
+        <thead>
+            <tr>
+                <th>Clave presupuestal</th>
+                <th></th>
+                <th>Enero</th>
+                <th>Febrero</th>
+                <th>Marzo</th>
+                <th>Abril</th>
+                <th>Mayo</th>
+                <th>Junio</th>
+                <th>Julio</th>
+                <th>Agosto</th>
+                <th>Septiembre</th>
+                <th>Octubre</th>
+                <th>Noviembre</th>
+                <th>Diciembre</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+</div>
+
+<div class="row">
+    <div class="col-md-6" id="graficaMensual">
+    </div>
+    <div class="col-md-6" id="graficaMensualCapitulo">
+    </div>
+</div>
+
+<style>
+    table {
+        position: center;
+        background-color: rgba(151, 202, 228, 0.85);
+        margin-left: 0%;
+        margin-right: 0%;
+        margin-top: 0%;
+        margin-bottom: 0%;
+        border: groove 4px rgba(16, 79, 155, 0.50);
+        width: 100%;
+    }
+
+    td, th {
+        border: solid 3px rgba(22, 81, 152, 0.75);
+        padding: 3px;
+        text-align: left;
+        color: black;
+    }
+
+    th {
+        font-weight: normal;
+        font-size: small;
+    }
+
+    select {
+        width: 440px;
+        font-family: Arial;
+        font-size: medium;
+        background-color: rgb(11, 66, 167);
+        height: 34px;
+    }
+
+        select option {
+            width: 330px;
+            font-family: Arial;
+            font-size: large;
+            background-color: rgb(11, 66, 167);
+            height: 34px;
+        }
+
+    #BuscarConSelect2 {
+        margin-left: 59%;
+        height: 10%;
+    }
+</style>
+
+<script>
+    //PintarCalendario();
+
+    $(function () {
+
+        $('#anios').select2();
+        //habilitarImportacion();
+        //habilitarGuardarCalendario();
+        habilitarCalendario();
+        habilitarCargarClaves();
+    });
+
+    function habilitarCalendario() {
+        tabla = $('#clavesCalendario').DataTable({
+            "scrollY": "200px",
+            "scrollCollapse": true,
+            "paging": false,
+            select: true,
+            language: {
+                "emptyTable": "Sin claves a mostrar",
+                "info": "Mostrando _START_ a _END_ de _TOTAL_ claves",
+                "infoEmpty": "Mostrando 0 a 0 de 0 claves",
+                "infoFiltered": "(filtered from _MAX_ total entries)",
+                "infoPostFix": "",
+                "thousands": ",",
+                "lengthMenu": "Show _MENU_ entries",
+                "loadingRecords": "Loading...",
+                "processing": "Processing...",
+                "search": "Buscar:",
+                "zeroRecords": "No matching records found",
+                "paginate": {
+                    "first": "First",
+                    "last": "Last",
+                    "next": "Next",
+                    "previous": "Previous"
+                },
+                "aria": {
+                    "sortAscending": ": activate to sort column ascending",
+                    "sortDescending": ": activate to sort column descending"
+                }
+            }
+        });
+    }
+
+      function habilitarCargarClaves() {
+        $('#recargar').click(function (evento) {
+            evento.preventDefault();
+
+            $.blockUI({
+                message: 'Cargando claves...',
+                css: {
+                    border: 'none',
+                    padding: '15px',
+                    backgroundColor: '#000',
+                    '-webkit-border-radius': '10px',
+                    '-moz-border-radius': '10px',
+                    opacity: .5,
+                    color: '#fff'
+                }
+            });
+
+            $.ajax({
+                url: "@Url.Action("ObtenerClaves", "ClavesPresupuestales")",
+                type: "POST",
+                dataType: "json",
+                success: function (resultado) {
+
+                    $.each(resultado.claves, function (index, c) {
+                        filaClave = tabla.row.add(c.clave.split('|')).draw();
+
+                        var datos = c.clave.split('|').slice(2, c.clave.split('|').length);
+                        var chart = $('<span></span>');
+                        $(filaClave.nodes()[0]).children().first().next().append(chart);
+
+                        chart.sparkline($.map(datos, function (i) {
+                            return parseFloat(i);
+                        }));
+
+                    });
+
+                    $('#granTotal').text('$' + numeral($.Enumerable.From(resultado.clavesPresupuestales).Select(function (x) { return x.PresupuestoAnual }).Sum()).format('0,0.00'));
+
+                    cargarGraficaMensual();
+                    cargarGraficaMensualCapitulo();
+
+                    $.unblockUI();
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+
+        });
+      }
+
+      function cargarGraficaMensual() {
+        $.ajax({
+            url: "@Url.Action("MontoMensual", "ClavesPresupuestales")",
+            type: "POST",
+            dataType: "json",
+            success: function (resultado) {
+                //console.log(resultado);
+
+                Highcharts.chart('graficaMensual', {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Presupuesto por meses'
+                    },
+                    subtitle: {
+                        text: 'Fuente: apps.issstecam.gob.mx'
+                    },
+                    xAxis: {
+                        categories: [
+                            'Ene',
+                            'Feb',
+                            'Mar',
+                            'Abr',
+                            'May',
+                            'Jun',
+                            'Jul',
+                            'Ago',
+                            'Sep',
+                            'Oct',
+                            'Nov',
+                            'Dic'
+                        ],
+                        crosshair: true
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: 'En pesos ($)'
+                        }
+                    },
+                    tooltip: {
+                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                            '<td style="padding:0"><b>${point.y:.1f}</b></td></tr>',
+                        footerFormat: '</table>',
+                        shared: true,
+                        useHTML: true
+                    },
+                    plotOptions: {
+                        column: {
+                            pointPadding: 0.2,
+                            borderWidth: 0
+                        }
+                    },
+                    series: resultado,
+                    credits: {
+                        enabled: false
+                    }
+                });
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+    function cargarGraficaMensualCapitulo() {
+        $.ajax({
+            url: "@Url.Action("MontoMensualCapitulo", "ClavesPresupuestales")",
+            type: "POST",
+            dataType: "json",
+            success: function (resultado) {
+                console.log(resultado);
+                //$('#graficaMensual').
+
+                Highcharts.chart('graficaMensualCapitulo', {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Presupuesto por capítulo'
+                    },
+                    subtitle: {
+                        text: 'Fuente: apps.issstecam.gob.mx'
+                    },
+                    xAxis: {
+                        categories: resultado.capitulos,
+                        crosshair: true
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: 'En pesos ($)'
+                        }
+                    },
+                    tooltip: {
+                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                            '<td style="padding:0"><b>${point.y:.1f}</b></td></tr>',
+                        footerFormat: '</table>',
+                        shared: true,
+                        useHTML: true
+                    },
+                    plotOptions: {
+                        column: {
+                            pointPadding: 0.2,
+                            borderWidth: 0
+                        }
+                    },
+                    series: resultado.datos,
+                    credits: {
+                        enabled: false
+                    }
+                });
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+    //Script de prueba para pintar los datos
+     @*$.ajax({
+            type: 'POST',
+            url: '@Url.Action("DevolverAnio", "Nomina")',
+            dataType: "json",
+            returnType: 'json',
+                success: function(resultado)
+                {*@
+    //ObtenerClaves
+
+    function PintarCalendario() {
+        document.getElementById('Pintar').style.display = 'none';
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("ObtenerClaves", "Calendario")', //Aquí ira el nombre del metodo del cual recibiremos los datos
+            dataType: "json",
+            returnType: 'json',
+            success: function (resultado) {
+
+                console.log("datos recibidos : ", resultado);
+                $.each(resultado.claves, function (index, c) {
+                    filaClave = tabla.row.add(c.clave.split('|')).draw();
+
+                    var datos = c.clave.split('|').slice(2, c.clave.split('|').length);
+                    var chart = $('<span></span>');
+                    $(filaClave.nodes()[0]).children().first().next().append(chart);
+
+                    chart.sparkline($.map(datos, function (i) {
+                        return parseFloat(i);
+                    }));
+
+                });
+
+                $('#granTotal').text('$' + numeral($.Enumerable.From(resultado.clavesPresupuestales).Select(function (x) { return x.PresupuestoAnual }).Sum()).format('0,0.00'));
+
+                cargarGraficaMensual();
+                cargarGraficaMensualCapitulo();
+            },
+            error: function (error) {
+                console.error(error);
+            }
+        });
+    }
+
+
+    //$(document).ready(function () {
+    //    $('#CajaClaveSearch').select2({
+    //        placeholder: "Ingrese los ultimos 4 digitos de la clave",
+    //        allowClear: true,
+    //        minimumInputLength: 4
+           
+    //        //,
+    //        //language: {
+    //        //    "Please": "Por favor",
+    //        //    "enter": "ingrese",
+    //        //    "or": "o",
+    //        //    "more": "más",
+    //        //    "characters": "carácteres"
+    //        //}
+    //    });
+    //    //myFunction();
+
+
+
+    //});
+
+    ////////////////
+    $("#CajaClaveSearch").on("change", function () {
+        var clave = document.getElementById("CajaClaveSearch");
+        if (clave.value == '') {
+        } else { 
+            var str = clave.value;
+            var res = str.substr(-4);
+            alert("La partida es: " + res);
+        }
+
+        //alert($(this).val());
+    });
+
+    function myFunction() {
+        var clave = document.getElementById("CajaClaveSearch");
+        //var str = "Hello world!";
+        var str = clave.value;
+        var res = str.substr(-4);
+        //document.getElementById("demo").innerHTML = res;
+        //document.getElementsByClassName("example").innerHTML = res;
+       
+         alert("La partida es: " + res);
+
+
+        //var x = document.getElementsByClassName("form-control input-sm");
+        //x[0].innerHTML = res;
+
+
+    }
+    /////////////////////
+    function ShowSelect2() {
+        document.getElementById('BuscarConSelect2').style.display = 'inline';
+        document.getElementById('Check').style.display = 'none';
+
+        $(document).ready(function () {
+            $('#CajaClaveSearch').select2({
+                placeholder: "Ingrese los ultimos 5 digitos de la clave",
+                allowClear: true,
+                minimumInputLength: 5
+                //,
+                //language: {
+                //    "Please": "Por favor",
+                //    "enter": "ingrese",
+                //    "or": "o",
+                //    "more": "más",
+                //    "characters": "carácteres"
+                //}
+            });
+            //myFunction();
+        });
+    }
+
+  
+</script>

@@ -65,5 +65,7 @@ namespace ISSSTECAM.RH.Entidades
         public Nullable<int> IdCosto { get; set; }
         public string ClaveCosto { get; set; }
         public string NombreCosto { get; set; }
+        public string Correo { get; set; }
+        public string CorreoElectronicoOficial { get; set; }
     }
 }

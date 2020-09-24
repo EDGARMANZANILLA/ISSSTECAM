@@ -1,4 +1,5 @@
-﻿@{
+﻿@model List<string>
+@{
     ViewBag.Title = "Reporte";
 }
 
@@ -6,9 +7,886 @@
     <h2>Generar Reporte</h2>
 }
 
+@*<h3>Generar Reporte</h3>*@
+@*onload="Comienzo();"*@
 <h3>Generar Reporte</h3>
 
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>*@
+@*<p>*@
+@*<a class="btn btn-success" href="@Url.Action("GenerarReporte", "Nomina")">Download Report</a> *@
+@*</p>*@
+<nav>
 
-<p>
-   <a class="btn btn-success" href="@Url.Action("GenerarReporte", "Nomina")">Download Report</a> 
-</p>
+    <p>
+        <a class="btn btn-success" id="DlReport" style="display:none;" href="@Url.Action("GenerarReporte", "Nomina")">Descargar Reporte</a>
+    </p>
+    <br><h3 id="Inicio">Introduzca los datos para generar su reporte por quincena</h3>
+    <br><h3 id="Final" style="display:none;">Reporte Generado Exitosamente</h3>
+    @*<button id="CargarAño" onclick="Comienzo();">Comenzar</button>*@
+    <br>
+    <br>
+    <button title="Guarda la tabla en PDF" class="btn btn-success" id="ConvertPDF" onclick="CrearPDF();" style="display:none;position:center;margin-left:1%">Guardar Tabla</button>
+</nav>
+<div class="row">
+    @*<button id="Enviar" onclick="QuincenaReporte();" style="display:none">Enviar</button>
+        <p>
+            <a class="btn btn-success" id="DlReport" style="display:none;" href="@Url.Action("GenerarReporte", "Nomina")">Download Report</a>
+        </p>*@
+
+    @*<div class="col-md-6">
+            <br><h3 id="Inicio">Introduzca los datos para generar su reporte por quincena</h3>
+            <br><h3 id="Final" style="display:none;">Reporte Generado Exitosamente</h3>
+
+            <br>
+            <br>
+            <button title="Guarda la tabla en PDF" class="btn btn-success" id="ConvertPDF" onclick="CrearPDF();" style="display:none;position:center;margin-left:1%">Guardar Tabla</button>
+        </div>
+        <br>*@
+
+
+    @*////////////////////////////////////////////////////////////////////*@
+    @*<br>
+        <br>
+        <br>*@
+    <div class="col-md-6">
+        <p id="RI">Reporte Inicial</p>
+        <nav name="NMenuFecha4" id="MenuFecha4" class="menu" style="display:none;">
+            <p>Quincena</p>
+            <ul>
+                <li name="quincena2">
+                    <textarea name="NCajaQuincenaReporte" id="CajaQuincenaReporte" readonly="readonly"> </textarea>
+                    <ul id="ListaQuincenasReporte">
+                        <li value="01" id="1ra"><a>1ra</a></li>
+                        <li value="02" id="2da"><a>2da</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <nav name="NMenuFecha5" id="MenuFecha5" class="menu" style="display:none;">
+            <p>Mes</p>
+            <ul>
+                <li name="meses2">
+                    <textarea name="NCajaMesReporte" id="CajaMesReporte" readonly="readonly"> </textarea>
+                    <ul id="ListaMesesReporte">
+                        <li value="Enero" id="Month1"><a>Enero</a></li>
+                        <li value="Febrero" id="Month2"><a>Febrero</a></li>
+                        <li value="Marzo" id="Month3"><a>Marzo</a></li>
+                        <li value="Abril" id="Month4"><a>Abril</a></li>
+                        <li value="Mayo" id="Month5"><a>Mayo</a></li>
+                        <li value="Junio" id="Month6"><a>Junio</a></li>
+                        <li value="Julio" id="Month7"><a>Julio</a></li>
+                        <li value="Agosto" id="Month8"><a>Agosto</a></li>
+                        <li value="Septiembre" id="Month9"><a>Septiembre</a></li>
+                        <li value="Octubre" id="Month10"><a>Octubre</a></li>
+                        <li value="Noviembre" id="Month11"><a>Noviembre</a></li>
+                        <li value="Diciembre" id="Month12"><a>Diciembre</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <nav name="NMenuFecha6" id="MenuFecha6" class="menu" style="display:none;">
+            <p>Año</p>
+            <ul>
+                <li name="años2">
+                    <textarea name="NCajaAñoReporte" id="CajaAñoReporte" readonly="readonly"> </textarea>
+                    <ul id="ListaAñosReporte">
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <br>
+        <br>
+        <br>
+        <nav name="Nomina1" id="nominaReporte" class="menu" style="display:none;">
+            <h5>Seleccione el tipo de nómina</h5>
+            <ul>
+                <li name="nominaReporte">
+                    <textarea name="NCajaNominaReporte" id="CajaNominaReporte" readonly="readonly"> </textarea>
+                    <ul id="ListaTipoNominaReporte">
+                        <li value="1" id="N_Regular"><a>Regular</a></li>
+                        <li value="2" id="N_Extraordinaria"><a>Extraordinaria</a></li>
+                        <li value="3" id="N_Ambos"><a>Ambos</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <br>
+        <br>
+        <button id="Enviar" onclick="QuincenaReporte();" style="display:none">Siguiente</button>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+    </div>
+    <div class="col-md-6">
+        <p id="RF">Reporte Final</p>
+        <nav name="NMenuFecha7" id="MenuFecha7" class="menu" style="display:none;">
+            <p>Quincena</p>
+            <ul>
+                <li name="quincena3">
+                    <textarea name="NCajaQuincenaReporte2" id="CajaQuincenaReporte2" readonly="readonly"> </textarea>
+                    <ul id="ListaQuincenasReporte2">
+                        <li value="01" id="1raReporte"><a>1ra</a></li>
+                        <li value="02" id="2daReporte"><a>2da</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+
+
+        <nav name="NMenuFecha8" id="MenuFecha8" class="menu" style="display:none;">
+            <p>Mes</p>
+            <ul>
+                <li name="meses3">
+                    <textarea name="NCajaMesReporte2" id="CajaMesReporte2" readonly="readonly"> </textarea>
+                    <ul id="ListaMesesReporte2">
+                        <li value="Enero" id="Month1"><a>Enero</a></li>
+                        <li value="Febrero" id="Month2"><a>Febrero</a></li>
+                        <li value="Marzo" id="Month3"><a>Marzo</a></li>
+                        <li value="Abril" id="Month4"><a>Abril</a></li>
+                        <li value="Mayo" id="Month5"><a>Mayo</a></li>
+                        <li value="Junio" id="Month6"><a>Junio</a></li>
+                        <li value="Julio" id="Month7"><a>Julio</a></li>
+                        <li value="Agosto" id="Month8"><a>Agosto</a></li>
+                        <li value="Septiembre" id="Month9"><a>Septiembre</a></li>
+                        <li value="Octubre" id="Month10"><a>Octubre</a></li>
+                        <li value="Noviembre" id="Month11"><a>Noviembre</a></li>
+                        <li value="Diciembre" id="Month12"><a>Diciembre</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <nav name="NMenuFecha9" id="MenuFecha9" class="menu" style="display:none;">
+            <p>Año</p>
+            <ul>
+                <li name="años3">
+                    <textarea name="NCajaAñoReporte2" id="CajaAñoReporte2" readonly="readonly"> </textarea>
+                    <ul id="ListaAñosReporte2">
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <br>
+        <br>
+        <br>
+
+        @*<nav name="Nomina2" id="nominaReporte2" class="menu" style="display:none;">
+                <h5>Seleccione el tipo de nómina</h5>
+                <ul>
+                    <li name="nominaReporte2">
+                        <textarea name="NCajaNominaReporte2" id="CajaNominaReporte2" readonly="readonly">Tipo</textarea>
+                        <ul id="ListaTipoNominaReporte2">
+                            <li value="Regular" id="N_Regular"><a>Regular</a></li>
+                            <li value="Extraordinaria" id="N_Extraordinaria"><a>Extraordinaria</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>*@
+    </div>
+
+    <div id="Modal2" style="display:none" class="modal-backdrop">
+        <div class="modal-content" style="width:400px;z-index:9999999999999999999999999999999;left:25%;margin-right:10%;margin-left:10%;height:auto;">
+            Conceptos Nomina
+            <div class="modal-header Popup" id="HeaderModal" style="height:auto;text-align:center;">
+                <div style="width:300px;z-index:9999999999999999999999999999999;margin-right:8%;margin-left:8%;height:auto;">
+                    <table id="TablaConceptos">
+                        <thead>
+                            <tr>
+                                <th colspan="2" style="text-align:center;">Seleccione un máximo de 10 conceptos</th>
+                            </tr>
+                        </thead>
+                        @*<tbody id="CuerpoTablaConceptos"> </tbody>*@
+                        @foreach (string item in Model)
+                        {
+
+                            <tr>
+                                <td>@item</td>
+                                <td class="tablainput"><input class="single-checkbox" value="@item" id="@item" type="checkbox"></td>
+                            </tr>
+
+                        }
+                        @*<tr>
+                                <td>Sueldo</td>
+                                <td class="tablainput"><input class="single-checkbox" type="checkbox"></td>
+                            </tr>
+                            <tr>
+                                <td>Día Economico</td>
+                                <td class="tablainput"><input class="single-checkbox" type="checkbox"></td>
+                            </tr>
+                            <tr>
+                                <td>Puntualidad</td>
+                                <td class="tablainput"><input class="single-checkbox" type="checkbox"></td>
+                            </tr>
+                            <tr>
+                                <td>Quinquenio</td>
+                                <td class="tablainput"><input class="single-checkbox" type="checkbox"></td>
+                            </tr>
+                            <tr>
+                                <td>Sueldo Eventual</td>
+                                <td class="tablainput"><input class="single-checkbox" type="checkbox"></td>
+                            </tr>*@
+                        @*<tbody id="CuerpoTabla"> </tbody>*@
+                        @*<tbody id="Separa"><tr><td>...</td><td>...</td></tr></tbody>*@
+                        @*<tfoot id="PieDeTabla"> </tfoot>*@
+                    </table>
+                </div>
+            </div>
+            <button title="Siguiente" class="btn btn-success" data-backdrop="false" onclick="ocultarModalReporte();GetListConcept();" style="float:right;margin-left:1%">Siguiente</button>
+        </div>
+    </div>
+    @*//////////////////////////////////////////////////////////////*@
+
+
+    @*////////////////////////////////////////////////////////////////////////////*@
+    <div id="Modal" class="modal-backdrop">
+        <div class="modal-content" id="ModalTabla" style="width:400px;z-index:999999;left:25%;margin-right:10%;margin-left:10%;height:auto;">
+            Gastos por concepto
+            <button title="Proceder a Guardar/Imprimir su tabla" class="btn btn-danger" onclick="HideModalReport();" style="position:relative;left:55%;margin-left:1%">X</button>
+            <div class="modal-header Popup" id="Cabecera" style="height:auto;text-align:center;">
+                <div style="width:300px;z-index:9999999999999999999999999999999;margin-right:10%;margin-left:10%;height:auto;">
+                    <table id="TablaExcelReporte">
+                        <thead><tr><th>Concepto</th><th>Total</th></tr></thead>
+                        <tbody id="CuerpoTablaReporte"> </tbody>
+                        <tbody id="SeparaCeldasReporte"><tr><td>...</td><td>...</td></tr></tbody>
+                        <tfoot id="PieDeTablaReporte"></tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<div style="display:none">
+        <ul id="ListaConceptos">
+            @foreach (string item in Model)
+            {
+                <li value="@item"> "@item", </li>
+            }
+        </ul>
+    </div>*@
+
+<div class="row">
+    <div class="Clase">
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+    .Clase {
+        width: 100%;
+        height: 539px;
+    }
+
+    table {
+        position: center;
+        background-color: rgba(151, 202, 228, 0.85);
+        margin-left: 0%;
+        margin-right: 0%;
+        margin-top: 0%;
+        margin-bottom: 0%;
+        border: groove 4px rgba(16, 79, 155, 0.50);
+        width: 100%;
+    }
+
+    #SeparaCeldasReporte {
+        background-color: rgba(151, 220, 255, 185);
+        border-color: rgba(151, 220, 255, 185);
+        color: rgba(151, 220, 255, 185);
+    }
+
+        #SeparaCeldasReporte td {
+            color: rgba(255, 255, 255, 0.00);
+            background-color: white;
+        }
+
+    td, th {
+        border: solid 3px rgba(22, 81, 152, 0.75);
+        padding: 3px;
+        text-align: left;
+        color: black;
+    }
+
+    th {
+        font-weight: bold;
+        font-size: larger;
+    }
+
+    .modal-backdrop {
+        background-color: rgba(00,00,00,0.5);
+        display: none;
+        width: 100%;
+        z-index: 99999999999999;
+        height: 100%;
+        position: absolute;
+        top: 0%;
+        left: 0%;
+    }
+
+    .modal-content {
+        font-weight: bold;
+        color: black;
+    }
+    /* ////////////////////////////////////////////////////////////////////*/
+    .tablainput {
+        /*border: 2px solid rgb(22, 81, 152);*/
+        /*border: solid 1px rgba(22, 81, 152, 0.75);*/
+        /*float: right;*/
+    }
+    /*.demo input[type="checkbox"] {
+            display:none;
+        }
+    .demo input[type="checkbox"] + label span {
+        display: inline-block;
+        width: 15px;
+        height: 15px;
+        margin: -1px 4px 0 0;
+        vertical-align: middle;
+        background: url(checkbox-uncheck.png);
+        background-size: cover;
+        cursor: pointer;
+    }
+    .demo input[type="checkbox"]:checked + label span {
+        background: url(checkbox-check.png);
+        background-size: cover;
+    }*/
+
+    /*/////////////////////////////////////////////////////////////////////////////////*/
+    .menu ul li {
+        display: inline-block;
+        background-color: rgb(69, 110, 185);
+    }
+
+    .menu ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        width: 105px;
+    }
+
+        .menu ul a {
+            display: block;
+            cursor: pointer;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 300;
+            font-size: 12px;
+            padding: 0px;
+            /* font-family:"HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif; */
+            /*font-family: Arial;*/
+            text-transform: uppercase;
+            letter-spacing: 0px;
+        }
+
+    .menu {
+        z-index: 99999999999999999999;
+        padding-left: 8px;
+    }
+
+        .menu ul li {
+            position: relative;
+            float: left;
+            margin: 0;
+            padding: 0;
+            z-index: 99999999999999999999;
+        }
+
+            .menu ul li:hover {
+                background: rgb(11, 66, 167);
+            }
+
+        .menu ul ul {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            padding: 0;
+        }
+
+            .menu ul ul li {
+                float: none;
+                width: 100px;
+                z-index: 99999999999999999999;
+            }
+
+            .menu ul ul a {
+                line-height: 100%;
+                padding: 10px 15px;
+                padding: 10px 10px;
+                z-index: 99999999999999999999;
+            }
+
+        .menu ul li:hover > ul {
+            display: block;
+        }
+
+    textarea {
+        width: 100px;
+        font-family: Arial;
+        font-size: small;
+        background-color: transparent;
+        color: white;
+        height: 21px;
+        resize: none;
+        border: none;
+        padding-bottom: 0px;
+        padding-top: 3px;
+        padding-left: 4px;
+    }
+</style>
+<script>
+    window.onload = Comienzo();{ };
+
+    function QuincenaReporte() {
+        //var Mensaje;
+        //var indice1 = document.formularioA.quincenaA.selectedIndex;
+        //var indice2 = document.formularioA.meses1.selectedIndex;
+        //  var indice3 = document.formularioA.años1.selectedIndex;
+
+        //var quincenaEscogida = document.formularioA.quincenaA.options[indice1].text;
+        //var valorQuincena = document.formularioA.quincenaA.options[indice1].value;
+        //Mensaje = "Quincena inicial: " + quincenaEscogida;
+        //var mesEscogido = document.formularioA.meses1.options[indice2].text;
+        //Mensaje += " de " + mesEscogido;
+
+        var CajaQ = document.getElementById('CajaQuincenaReporte');
+        var QuincenaInicialMes = document.getElementById('CajaMesReporte');
+        var QuincenaInicialAño = document.getElementById('CajaAñoReporte');
+        var TipoNominaReporte = document.getElementById('CajaNominaReporte');
+
+        var TipoNomina = document.getElementById('N_Regular').textContent;
+        var TipoNomina2 = document.getElementById('N_Extraordinaria').textContent;
+
+        if (TipoNomina == TipoNominaReporte.textContent) {
+            QuincenaTipoNomina = document.getElementById('N_Regular').getAttribute('value');
+        } else if  (TipoNomina2 == TipoNominaReporte.textContent){
+            QuincenaTipoNomina = document.getElementById('N_Extraordinaria').getAttribute('value');
+        } else {
+             QuincenaTipoNomina = document.getElementById('N_Ambos').getAttribute('value');
+        }
+
+        var QuincenaInicialQuincena = 0;
+        var Val1 = document.getElementById('1ra').textContent;
+        if (Val1 == CajaQ.textContent) {
+            QuincenaInicialQuincena = document.getElementById('1ra').getAttribute('Value');
+            // alert("ValActionData es = "+ValActionData)
+        } else {
+            QuincenaInicialQuincena = document.getElementById('2da').getAttribute('Value');
+            //  alert("ValActionData es = "+ValActionData)
+        }
+        //  alert("Esta es la " + CajaQ.textContent + " quincena " + " de " +  QuincenaInicialMes.textContent + " del " + QuincenaInicialAño.textContent + "Del inicio del reporte");
+
+        $('#ListaQuincenasReporte').click(function (e) {
+            var li = e.target.parentNode;
+            // alert(li.id);
+            let ID = li.id;
+            // let Val = li.Value;
+            //alert("Ver " + ID)
+            // var Ident = li.id;
+            var Identidad = document.getElementById(ID).textContent;
+            var Valor = document.getElementById(ID).getAttribute("Value");
+            //alert("Has invocado a " + Summon)
+            const WRITELINE = document.querySelector('#CajaQuincenaReporte');
+            var Lista = document.getElementById('CajaQuincenaReporte');
+            Lista.innerHTML = "";
+            // WRITELINE.insertAdjacentHTML('beforeend','<p>Has invocado a '+Summon+'</p>')
+            WRITELINE.insertAdjacentHTML('beforeend', Identidad);
+            ///
+            //  alert("Variable Valor" + Valor);
+
+        });
+        //var actionData1 = "{'quincena': '" + valorQuincena + "','mes': '" + mesEscogido + "', 'ano': '" + añoEscogido + "' }";
+         @*var actionData1 = "{'quincena': '" + QuincenaInicialQuincena + "','mes': '" +  QuincenaInicialMes.textContent + "', 'ano': '" +  QuincenaInicialAño.textContent + "' }";
+        $.ajax(
+            {
+                url: '@Url.Action("ObtenerFechaReporte", "Nomina")',
+                data: actionData1,
+                dataType: "json",
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                succes: function (msg) { console.log("msg", msg); },
+                error: function (result) {
+                    alert("ERROR SEVERO, VUELVA A CARGAR LA PÁGINA" + result.status);
+                }
+
+            });*@
+        ////////////////////////////////////////////////////////////////////////////
+        var CajaQ2 = document.getElementById('CajaQuincenaReporte2');
+        var QuincenaFinalMes = document.getElementById('CajaMesReporte2');
+        var QuincenaFinalAño = document.getElementById('CajaAñoReporte2');
+
+        var QuincenaFinalQuincena = 0;
+        var Val2 = document.getElementById('1raReporte').textContent;
+        if (Val2 == CajaQ2.textContent) {
+            QuincenaFinalQuincena = document.getElementById('1raReporte').getAttribute('Value');
+            // alert("ValActionData es = "+ValActionData)
+        } else {
+            QuincenaFinalQuincena = document.getElementById('2daReporte').getAttribute('Value');
+            //  alert("ValActionData es = "+ValActionData)
+        }
+        //   alert("Esta es la " + CajaQ2.textContent + " quincena " + " de " + QuincenaFinalMes.textContent + " del " + QuincenaFinalAño.textContent + "Del final del reporte");
+
+        $('#ListaQuincenasReporte2').click(function (e) {
+            var li = e.target.parentNode;
+            // alert(li.id);
+            let ID = li.id;
+            // let Val = li.Value;
+            //alert("Ver " + ID)
+            // var Ident = li.id;
+            var Identidad = document.getElementById(ID).textContent;
+            var Valor = document.getElementById(ID).getAttribute("Value");
+            //alert("Has invocado a " + Summon)
+            const WRITELINE = document.querySelector('#CajaQuincenaReporte2');
+            var Lista = document.getElementById('CajaQuincenaReporte2');
+            Lista.innerHTML = "";
+            // WRITELINE.insertAdjacentHTML('beforeend','<p>Has invocado a '+Summon+'</p>')
+            WRITELINE.insertAdjacentHTML('beforeend', Identidad);
+            ///
+            //  alert("Variable Valor" + Valor);
+
+        });
+        //  var actionData1 = "{'quincena': '" + QuincenaInicialQuincena + "','mes': '" +  QuincenaInicialMes.textContent + "', 'ano': '" +  QuincenaInicialAño.textContent + "' }";
+        //int inicialQuincena, string inicialMes, int  inicialAnio, int finalQuincena, string finalMes, int finalAnio
+        //var actionData1 = "{'quincena': '" + valorQuincena + "','mes': '" + mesEscogido + "', 'ano': '" + añoEscogido + "' }";
+
+        //Aqui van las validaciones de los las fechas y el tipo nomina.
+        if (CajaQ.textContent == ' ') {
+            alert('Por favor seleccione una quincena inicial')
+        } else if (QuincenaInicialMes.textContent == ' ') {
+            alert('Por favor seleccione un mes para la quincena inicial del reporte')
+        } else if (QuincenaInicialAño.textContent == ' ') {
+            alert('Por favor seleccione un año inicial para el reporte')
+        } else if (TipoNominaReporte.textContent == ' ') {
+            alert('Por favor seleccione un tipo de nómina para el reporte')
+            //Con esto ya valido todos los datos del menu, seguirían los datos de los checkboxes, q sean un maximo de 10.
+        } else if (CajaQ2.textContent == ' ') {
+            alert('Por favor seleccione una quincena final')
+        } else if (QuincenaFinalMes.textContent == ' ') {
+            alert('Por favor seleccione un mes para la quincena final del reporte')
+        } else if (QuincenaFinalAño.textContent == ' ') {
+            alert('Por favor seleccione un año final para el reporte')
+        } else {
+
+            alert("Esta es la " + CajaQ.textContent + " quincena " + " de " + QuincenaInicialMes.textContent + " del " + QuincenaInicialAño.textContent + "Del inicio del reporte");
+            alert("Esta es la " + CajaQ2.textContent + " quincena " + " de " + QuincenaFinalMes.textContent + " del " + QuincenaFinalAño.textContent + "Del final del reporte");
+            //
+            var actionData2 = "{'inicialQuincena': '" + QuincenaInicialQuincena + "','inicialMes': '" + QuincenaInicialMes.textContent + "', 'inicialAnio': '" + QuincenaInicialAño.textContent + "','finalQuincena': '" + QuincenaFinalQuincena + "','finalMes': '" + QuincenaFinalMes.textContent + "', 'finalAnio': '" + QuincenaFinalAño.textContent + "','tipoNomina':'" + QuincenaTipoNomina + "' }";
+
+            $.ajax(
+                {
+                    url: '@Url.Action("ObtenerFechaReporte", "Nomina")',
+                    data: actionData2,
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    succes: function (msg) { console.log("msg", msg); },
+                    error: function (result) {
+                        alert("ERROR SEVERO, VUELVA A CARGAR LA PÁGINA" + result.status);
+                    }
+
+                });
+            //crearTablaRep();
+            document.getElementById('Enviar').style.display = 'none';
+            document.getElementById('Final').style.display = 'inline';
+            document.getElementById('Inicio').style.display = 'none';
+            document.getElementById('nominaReporte').style.display = 'none'; /////////////////////
+            //document.getElementById('nominaReporte2').style.display = 'none';
+            document.getElementById('MenuFecha4').style.display = 'none';
+            document.getElementById('MenuFecha5').style.display = 'none';
+            document.getElementById('MenuFecha6').style.display = 'none';
+            document.getElementById('MenuFecha7').style.display = 'none';
+            document.getElementById('MenuFecha8').style.display = 'none';
+            document.getElementById('MenuFecha9').style.display = 'none';
+            document.getElementById('DlReport').style.display = 'inline'; ///////////////////////////
+            document.getElementById('RI').style.display = 'none';
+            document.getElementById('RF').style.display = 'none';
+            document.getElementById('Modal2').style.display = 'inline';
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+     function ObtenAño() {
+        //alert("entro");
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("DevolverAnio", "Nomina")',
+            dataType: "json",
+            returnType: 'json',
+                success: function(resultado)
+                {
+
+
+                    console.log("Resultado " + resultado);
+                    var añoNuevo = null;
+                    if (añoNuevo == null) {
+                        añoNuevo = resultado;
+                        console.log("Es el hijo más mayor de Cronos...", añoNuevo);
+                      //  arrayAños = ["2019"];
+                    }
+                    //    if (arrayAños.indexOf(añoNuevo) === -1) {
+                    //        arrayAños.push(añoNuevo);
+                    //        console.log("Lista de años ", arrayAños);
+                    //    } else if (arrayAños.indexOf(añoNuevo) > -1) {
+                    //        console.log(añoNuevo + " es el año en curso, pringao...");
+
+                    //}
+                    const OPTIONS = document.querySelector('#ListaAñosReporte');
+                    i = 0;
+                    //arrayAños.forEach(Element => {
+                    añoNuevo.forEach(Element => {
+                       // OPTIONS.insertAdjacentHTML('beforeend', '<option value="' + i + '">' + Element + '</option>');
+                        OPTIONS.insertAdjacentHTML('beforeend', '<li value="' + i + '" id="Año-' + i + '"><a>' + Element + '</a></li>')
+                        i++;
+                    });
+                   /////////
+                    const OPTIONS2 = document.querySelector('#ListaAñosReporte2');
+                    x = 0;
+                    añoNuevo.forEach(Element => {
+                        OPTIONS2.insertAdjacentHTML('beforeend', '<li value="' + x + '" id="Año-' + x + '"><a>' + Element + '</a></li>')
+                      //  OPTIONS2.insertAdjacentHTML('beforeend', '<option value="' + x + '">' + Element + '</option>');
+                        x++;
+                    });
+
+                },
+
+
+            error:function(error)
+            {
+                console.error(error);
+            }
+        });
+   //    nuevoAño = resultado;
+
+         //Mañana revisar con más detalle y agregar scripts faltantes en NominaCargar
+         //, hoy 12 / 03 / 2020 03: 57 p.m.
+    }
+
+
+    $('#ListaAñosReporte').click(function(e){
+      var li = e.target.parentNode;
+     // alert(li.id);
+      let ID = li.id;
+     //alert("Ver " + ID)
+     // var Ident = li.id;
+      var Identidad = document.getElementById(ID).textContent;
+    //alert("Has invocado a " + Summon)
+      const WRITELINE = document.querySelector('#CajaAñoReporte');
+      var Lista = document.getElementById('CajaAñoReporte');
+      Lista.innerHTML = "";
+      // WRITELINE.insertAdjacentHTML('beforeend','<p>Has invocado a '+Summon+'</p>')
+      WRITELINE.insertAdjacentHTML('beforeend',Identidad)
+    });
+     $('#ListaAñosReporte2').click(function(e){
+      var li = e.target.parentNode;
+     // alert(li.id);
+      let ID = li.id;
+     //alert("Ver " + ID)
+     // var Ident = li.id;
+      var Identidad = document.getElementById(ID).textContent;
+    //alert("Has invocado a " + Summon)
+      const WRITELINE = document.querySelector('#CajaAñoReporte2');
+      var Lista = document.getElementById('CajaAñoReporte2');
+      Lista.innerHTML = "";
+      // WRITELINE.insertAdjacentHTML('beforeend','<p>Has invocado a '+Summon+'</p>')
+      WRITELINE.insertAdjacentHTML('beforeend',Identidad)
+     });
+
+
+     $('#ListaMesesReporte').click(function(e){
+      var li = e.target.parentNode;
+     // alert(li.id);
+      let ID = li.id;
+     //alert("Ver " + ID)
+     // var Ident = li.id;
+      var Identidad = document.getElementById(ID).textContent;
+    //alert("Has invocado a " + Summon)
+      const WRITELINE = document.querySelector('#CajaMesReporte');
+      var Lista = document.getElementById('CajaMesReporte');
+      Lista.innerHTML = "";
+      // WRITELINE.insertAdjacentHTML('beforeend','<p>Has invocado a '+Summon+'</p>')
+      WRITELINE.insertAdjacentHTML('beforeend',Identidad)
+     });
+     $('#ListaMesesReporte2').click(function(e){
+      var li = e.target.parentNode;
+     // alert(li.id);
+      let ID = li.id;
+     //alert("Ver " + ID)
+     // var Ident = li.id;
+      var Identidad = document.getElementById(ID).textContent;
+    //alert("Has invocado a " + Summon)
+      const WRITELINE = document.querySelector('#CajaMesReporte2');
+      var Lista = document.getElementById('CajaMesReporte2');
+      Lista.innerHTML = "";
+      // WRITELINE.insertAdjacentHTML('beforeend','<p>Has invocado a '+Summon+'</p>')
+      WRITELINE.insertAdjacentHTML('beforeend',Identidad)
+     });
+
+
+
+     $('#ListaQuincenasReporte').click(function(e){
+      var li = e.target.parentNode;
+     // alert(li.id);
+         let ID = li.id;
+        // let Val = li.Value;
+     //alert("Ver " + ID)
+     // var Ident = li.id;
+         var Identidad = document.getElementById(ID).textContent;
+         var Valor = document.getElementById(ID).getAttribute("Value");
+    //alert("Has invocado a " + Summon)
+      const WRITELINE = document.querySelector('#CajaQuincenaReporte');
+      var Lista = document.getElementById('CajaQuincenaReporte');
+      Lista.innerHTML = "";
+      // WRITELINE.insertAdjacentHTML('beforeend','<p>Has invocado a '+Summon+'</p>')
+         WRITELINE.insertAdjacentHTML('beforeend', Identidad);
+         ///
+         //alert("Variable Valor" + Valor);
+
+     });
+      $('#ListaQuincenasReporte2').click(function(e){
+      var li = e.target.parentNode;
+     // alert(li.id);
+         let ID = li.id;
+        // let Val = li.Value;
+     //alert("Ver " + ID)
+     // var Ident = li.id;
+         var Identidad = document.getElementById(ID).textContent;
+         var Valor = document.getElementById(ID).getAttribute("Value");
+    //alert("Has invocado a " + Summon)
+      const WRITELINE = document.querySelector('#CajaQuincenaReporte2');
+      var Lista = document.getElementById('CajaQuincenaReporte2');
+      Lista.innerHTML = "";
+      // WRITELINE.insertAdjacentHTML('beforeend','<p>Has invocado a '+Summon+'</p>')
+         WRITELINE.insertAdjacentHTML('beforeend', Identidad);
+         ///
+         //alert("Variable Valor" + Valor);
+
+     });
+
+
+
+
+     $('#ListaTipoNominaReporte').click(function(e){
+      var li = e.target.parentNode;
+     // alert(li.id);
+      let ID = li.id;
+     //alert("Ver " + ID)
+     // var Ident = li.id;
+      var Identidad = document.getElementById(ID).textContent;
+    //alert("Has invocado a " + Summon)
+      const WRITELINE = document.querySelector('#CajaNominaReporte');
+      var Lista = document.getElementById('CajaNominaReporte');
+      Lista.innerHTML = "";
+      // WRITELINE.insertAdjacentHTML('beforeend','<p>Has invocado a '+Summon+'</p>')
+         WRITELINE.insertAdjacentHTML('beforeend', Identidad)
+
+     });
+  //    $('#ListaTipoNominaReporte2').click(function(e){
+  //    var li = e.target.parentNode;
+  //   // alert(li.id);
+  //    let ID = li.id;
+  //   //alert("Ver " + ID)
+  //   // var Ident = li.id;
+  //    var Identidad = document.getElementById(ID).textContent;
+  //  //alert("Has invocado a " + Summon)
+  //    const WRITELINE = document.querySelector('#CajaNominaReporte2');
+  //    var Lista = document.getElementById('CajaNominaReporte2');
+  //    Lista.innerHTML = "";
+  //    // WRITELINE.insertAdjacentHTML('beforeend','<p>Has invocado a '+Summon+'</p>')
+  //       WRITELINE.insertAdjacentHTML('beforeend', Identidad)
+
+  //});
+
+
+
+
+
+
+
+
+    //function GetListConcept() {
+    //    //var ListConcept = [];
+    //    var ListConcept = document.getElementById('ListaConceptos').textContent;
+    //    console.log("Lista Conceptos " + ListConcept);
+    //    const CUERPOTABLACONCEPTOS = document.querySelector('#CuerpoTablaConceptos');
+    //    i = 1;
+    //    ListConcept.forEach(Element => {
+    //        CUERPOTABLACONCEPTOS.insertAdjacentHTML('beforeend', '<tr><td>' + Element + '</td><td class="tablainput"><input class="single-checkbox" value="' + Element + '" id="Concept'+i+'" type="checkbox"></td></tr>')
+    //    })
+
+
+    //}
+    function GetListConcept() {
+        var selected = new Array();
+        CountCheckBoxes = 0;
+        $('#TablaConceptos').ready(function () {
+
+            $("input:checkbox:checked").each(function () {
+                //alert($(this).val());
+                selected.push($(this).val());
+                CountCheckBoxes++;
+            });
+
+        });
+        console.log("Array de Conceptos... ", selected);
+        //Aqui va la validacion de no mas de 10 conceptos.
+        if (CountCheckBoxes > 10) {
+            alert('Ha seleccionado demasiados conceptos, el máximo es de 10')
+            document.getElementById('Modal2').style.display = 'inline';
+        } else {
+            console.log("Array de Conceptos... ", selected);
+            //
+            var actionData = selected;
+            $.ajax(
+                {
+            @*url: '@Url.Action("ObtenerFechaReporte", "Nomina")',*@
+                    url: '@Url.Action("RecibirArray", "Nomina")',
+                    type: "POST",
+                    //  dataType: "json",
+                    data: JSON.stringify(actionData),
+                    contentType: "application/json",
+                    success: function (msg) { console.log("msg", msg); },
+                    error: function (result) {
+                        alert("ERROR " + result.status);
+                    }
+                });
+        }
+    }
+
+</script>

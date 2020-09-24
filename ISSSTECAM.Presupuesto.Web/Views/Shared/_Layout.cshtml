@@ -19,12 +19,10 @@
     <link href="@Url.Content("~/Scripts/animate.css/animate.min.css")" rel="stylesheet" />
     <link href="@Url.Content("~/Scripts/spinkit/css/spinkit.css")" rel="stylesheet" />
     <!--DATA TABLES.CSS-->
-
-
     <!-- =============== BOOTSTRAP STYLES ===============-->
     @*<link href="Content/bootstrap.css" rel="stylesheet" />*@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    
+
     <!-- =============== APP STYLES ===============-->
     <link href="@Url.Content("~/content/app.css?a=1")" rel="stylesheet" />
     <!--Tema.CSS-->
@@ -41,16 +39,21 @@
     <link href="@Url.Content("~/Scripts/Upload/uploadfile.css")" rel="stylesheet">
 
     <link href="@Url.Content("~/Scripts/select2/css/select2.css")" rel="stylesheet" />
-    
+
+
+    @*<script src="~/Scripts/select2/js/i18n/es.js"></script>*@
+
     @*<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">*@
     @*<link href="~/Scripts/datatables/media/css/dataTables.bootstrap.css" rel="stylesheet" />
-    <link href="~/Scripts/datatables/media/css/responsive.dataTables.css" rel="stylesheet" />
-    <link href="~/Scripts/datatables/media/css/tablesaw.css" rel="stylesheet" />*@
+        <link href="~/Scripts/datatables/media/css/responsive.dataTables.css" rel="stylesheet" />
+        <link href="~/Scripts/datatables/media/css/tablesaw.css" rel="stylesheet" />*@
 
-  
-    
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/w/bs/dt-1.10.18/af-2.3.3/b-1.5.6/cr-1.5.0/fc-3.2.5/fh-3.1.4/kt-2.5.0/r-2.2.2/rg-1.1.0/rr-1.2.4/sc-2.0.0/sl-1.3.0/datatables.min.css"/>
- 
+    @*<link href="~/Content/Transaccion.css" rel="stylesheet" />*@
+    <link href="@Url.Content("~/Content/Transaccion.css")" rel="stylesheet" />
+
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/w/bs/dt-1.10.18/af-2.3.3/b-1.5.6/cr-1.5.0/fc-3.2.5/fh-3.1.4/kt-2.5.0/r-2.2.2/rg-1.1.0/rr-1.2.4/sc-2.0.0/sl-1.3.0/datatables.min.css" />
+
 </head>
 <body class="layout-fixed">
     <div class="wrapper">
@@ -304,6 +307,20 @@
                                         <span>Captura</span>
                                     </a>
                                 </li>
+
+                                <li class="sidebar-subnav-header">Transacción</li>
+                                <li>
+                                    <a href="@Url.Action("Transaccion", "ClavesPresupuestales")" class="ajax">
+                                        <span>Transacción</span>
+                                    </a>
+                                </li>
+
+                                <li class="sidebar-subnav-header">Mostrar Calendario</li>
+                                <li>
+                                    <a href="@Url.Action("Calendario", "ClavesPresupuestales")" class="ajax">
+                                        <span>Mostrar Calendario</span>
+                                    </a>
+                                </li>
                             </ul>
 
 
@@ -357,7 +374,7 @@
                                     </a>
                                 </li>
 
-                                 <li class="sidebar-subnav-header">Generar Reportes</li>
+                                <li class="sidebar-subnav-header">Generar Reportes</li>
                                 <li>
                                     <a href="@Url.Action("Reporte", "Nomina")" class="ajax">
                                         <span>Generar Reporte</span>
@@ -483,6 +500,12 @@
     @*<script src="~/Scripts/Html2Canvas/html2canvas.js"></script>
         <script src="~/Scripts/Html2Canvas/html2canvas.min.js"></script>*@
 
+    @*<script src="~/Scripts/select2/js/select2_locale_es.js"></script>*@
+    <script src="~/Scripts/select2/js/i18n/es.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/4.1.0/rx.all.js"></script>
+
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.4.3/Rx.js"></script>*@
 
     <script src="~/Scripts/app.js"></script>
     @RenderSection("scripts", required: false)

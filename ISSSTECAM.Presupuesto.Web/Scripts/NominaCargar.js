@@ -2,87 +2,32 @@
 
 
 
-function Quincena() {
-    var texto;
-    var indice = document.formul.quince.selectedIndex;
-    var indice2 = document.formul.mes.selectedIndex;
-
-
-
-    // var indice3 = document.formul.año.selectedIndex;
-    //var valor = document.formul.quince.options[indice].value;
-    //texto = "valor de la opcion escogida: " + valor;
-    var quincenaEscogida = document.formul.quince.options[indice].text;
-    texto = "Quincena escogida: " + quincenaEscogida;
-    var mesEscogido = document.formul.mes.options[indice2].text;
-    texto += " ,Mes escogido: " + mesEscogido;
-    var añoEscogido = parseFloat(document.getElementsByName('año')[0].value);
-    if (isNaN(añoEscogido)) {
-        alert("El valor ingresado no es número válido");
-        return;
-    } else {
-        texto += " del año " + añoEscogido;
-    }
-
-    //document.write(Año.getFullYear());
-    //document.getElementById('AutoSelec').write(Año.getFullYear());
-    //var mesEscogido = document.getElementById('AutoSelec').month;
-    //texto += " ,Mes escogido: " + mesEscogido;
-    alert(texto);
-    
-    document.getElementById('Formulario').style.display = 'none';
-    document.getElementById('ConvertPDF').style.display = 'inline';
-    document.getElementById('guardar').style.display = 'inline';
-
-
-   /* int quincena = $('#txtNombre').val();
-    string mes =
-        int ano = $('#txtApellido').val();
-        */
-
-   // var dataPost = { Nombre: indice, Apellido: 'msg' };
-    var actionData = {quincena: indice , mes : indice2 , ano:  indice  };
-   // var actionData = "{'quincena': '" + indice + "','mes': '" + indice2 + "', 'ano': '" + indice + "' }";
-
-    $.ajax(
-        {
-            url: '@Url.Action("FechaG", "Nomina")',
-            data: actionData,
-            dataType: "json",
-            type: "POST",
-            contentType: "application/json; charset=utf-8",
-            success: function (msg) { alert(msg); },
-            error: function (result) {
-                //alert("ERROR " + result.status + ' ' + result.statusText);
-            }
-        });
-
-}
-
-//<script type=” text /javascript”>
-//var d = new Date()	
-//document.write(d.getDate());
-//</script >
-
-
-//getFullYear()	
-function getFullYear() {
-    var dateControl = document.querySelector('input[type="date"]');
-    dateControl.value = '2020';
-}
- function ShowModal(){
+ function mostrarModal(){
         document.getElementById('Modal').style.display = 'inline';
         document.getElementById('Grafos').style.display = 'inline';
 }
 //funcion para ocultar el modal y mostrar los botones de guardar tabla en PDF y guardar el archivo en la BD
-function HideModal() {
+function ocultarModal() {
     //mostrar botones de guardadado
     //document.getElementById('ConvertPDF').style.display = 'inline';
     //document.getElementById('guardar').style.display = 'inline';
-    document.getElementById('Formulario').style.display = 'inline';
+
+   // document.getElementById('Formulario').style.display = 'inline';
+    document.getElementById('MenuFecha').style.display = 'inline-block';
+    document.getElementById('MenuFecha2').style.display = 'inline-block';
+    document.getElementById('MenuFecha3').style.display = 'inline-block';
+
+    //document.getElementById('MenuFecha3').style.display = 'block';
     document.getElementById('Modal').style.display = 'none';
+    document.getElementById('btnGuarda').style.display = 'inline';
+    document.getElementById('nomina').style.display = "inline";
+    document.getElementById('Deshacer').style.display = "inline";
     //getAño('#AutoSelec');
     $.unblockUI();
+}
+function ocultarModalReporte() {
+    document.getElementById('Modal2').style.display = 'none';
+    //$.unblockUI();
 }
 
 //funcion para ocultar loa botones y las graficas, además de borrar la tabla generada 
@@ -91,8 +36,34 @@ function Delete() {
     document.getElementById('CuerpoTabla').innerHTML = '';
     document.getElementById('Grafos').style.display = 'none';
 }
+function Comienzo() {
+    document.getElementById('Enviar').style.display = 'inline';
+    //document.getElementById('Formulario1').style.display = 'inline';
+    //document.getElementById('Formulario2').style.display = 'inline';
+    //document.getElementById('FormularioNomina1').style.display = 'inline';
+    //document.getElementById('FormularioNomina2').style.display = 'inline';
+    //document.getElementById('CargarAño').style.display = 'none';
+    //document.getElementById('CargarAño').style.display = 'none';
+    document.getElementById('nominaReporte').style.display = 'inline-block';
+    //document.getElementById('nominaReporte2').style.display = 'inline-block';
+    document.getElementById('MenuFecha4').style.display = 'inline-block';
+    document.getElementById('MenuFecha5').style.display = 'inline-block';
+    document.getElementById('MenuFecha6').style.display = 'inline-block';
+    document.getElementById('MenuFecha7').style.display = 'inline-block';
+    document.getElementById('MenuFecha8').style.display = 'inline-block';
+    document.getElementById('MenuFecha9').style.display = 'inline-block';
+    ObtenAño();
+
+    
+}
+
+function HideModalReport() {
+    document.getElementById('Modal').style.display = 'none';
+    document.getElementById('ConvertPDF').style.display = 'none';
+    $.unblockUI();
+}
 //Funcion para guardar la tabla como un archivo pdf
-function CreatePDF() {
+function CrearPDF() {
     doc = new jsPDF('l', 'pt', [700, 450]);
     var nombre = $('#cell').html();
     //var specialElementHandlers = {function (element, render) {
@@ -105,4 +76,44 @@ function CreatePDF() {
     doc.fromHTML(nombre, 85, 20, { 'width': 10, 'height': 10, 'elementHandlers': specialElementHandlers });
 
     doc.save('test.pdf');
+}
+
+function crearTablaConceptos(ArrayConceptos) {
+    //dibujar tabla
+    var ArrayTabla = null;
+    if (ArrayTabla == null) {
+        ArrayTabla = ArrayConceptos;
+        const CUERPOTABLA = document.querySelector('#CuerpoTabla');
+        //recorrer todos los datos 
+        ArrayTabla.forEach(Dato => {
+            //crear un <tr>
+            const TR = document.createElement("tr");
+            // Creamos el <td> de Nómina y lo adjuntamos a tr
+            let tdConcepto = document.createElement("td");
+            tdConcepto.textContent = Dato.Concepto; //el textContent del td es el concepto
+            TR.appendChild(tdConcepto);
+            // el td de nómina
+            let tdTotal = document.createElement("td");
+            tdTotal.textContent = "$  "+Dato.Total;
+            TR.appendChild(tdTotal);
+
+            CUERPOTABLA.appendChild(TR);
+            //y el ciclo se repite hasta q se termine de recorrer el arreglo
+        })
+        //
+        const SUMATOTAL = document.querySelector('#PieDeTabla')
+        var SumatoriaTotal = 0;
+        var Totales = "Suma de Totales";
+        const TR2 = document.createElement("tr");
+        let TdTotales = document.createElement("td");
+        TdTotales.textContent = Totales;
+        TR2.appendChild(TdTotales);
+        let TdSuma = document.createElement("td");
+        ArrayTabla.forEach(Dato => {
+            SumatoriaTotal = SumatoriaTotal + Dato.Total;
+        })
+        TdSuma.textContent = "$  "+SumatoriaTotal;
+        TR2.appendChild(TdSuma);
+        SUMATOTAL.appendChild(TR2);
+    }
 }

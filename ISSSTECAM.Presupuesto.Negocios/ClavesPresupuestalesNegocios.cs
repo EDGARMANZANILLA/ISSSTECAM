@@ -170,7 +170,7 @@ namespace ISSSTECAM.Presupuesto.Negocios
             nuevaReduccion.Motivo = motivo;
             nuevaReduccion.IdTipoDeTransaccion = 1;
 
-            //Solicitar servicio para traernos el id del empleado y nombre de empleado 
+            //Solicitar servicio para traernos el id del empleado y nombre de empleado (lo mas recomendable es que el servicio se pida en el controlador y solo se pase el parametro)
             nuevaReduccion.IdEmpleadoOperacion = 0000000;
             nuevaReduccion.NombreEmpleadoOperacion = "Nombre De Prueba";
             nuevaReduccion.IdentificadorOperacion = Guid.NewGuid();

@@ -89,51 +89,78 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
             return claves;
         }
 
-        public JsonResult Reducciones(decimal reduccionMonto, string reduccionClave, int reduccionMes, string reduccionMotivo/*el mes debe venir en int */) {
-            bool exitoDeTransferencias = false;
+        [HttpPost]
+        public JsonResult Reducciones(DatosDeClaves cuentaRemitente, string motivo)
+        {
+            //El boleano se utiliza como bandera para que la vista sepa si todo el proceso fue satisfatorio
+            //El anio se debe jalar del sistema operativo por ahora se tiene como constante porque la nomina con la que se trabaja actualmente es la 2019
+            //Cambiar anio antes de llegar a produccion
+            bool exitoDeReduccion = false;
             int anio = 2019;
+            
+            //valida el modelo como comentario por si alguna razon no llegan los decimales verificar la region del sistema operativo en desarrolo
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    exitoDeReduccion = Negocios.ClavesPresupuestalesNegocios.Reducir(cuentaRemitente.clave, cuentaRemitente.mes, cuentaRemitente.monto, motivo, anio);
 
-            // var a = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.CurrencyGroupSeparator; // Separador miles: ,
-            //var b = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalSeparator; // Separador decimal: 
+                }
+                catch (Exception ex)
+                {
+                    return Json("Hubo un problema intentelo de nuevo", JsonRequestBehavior.AllowGet);
+                }
 
+            }
 
-            exitoDeTransferencias = Negocios.ClavesPresupuestalesNegocios.Reducir( reduccionClave, reduccionMes, reduccionMonto, reduccionMotivo, anio);
-
-
-
-            return Json(exitoDeTransferencias, JsonRequestBehavior.AllowGet);
+            return Json(exitoDeReduccion, JsonRequestBehavior.AllowGet);
         }
 
 
-
-        public JsonResult Transferencia(string origenClave, int origenMes, decimal origenMonto, string destinoClave, int destinoMes, string motivoTransfer)
+        [HttpPost]
+        public JsonResult Transferencia(DatosDeClaves cuentaRemitente, DatosDeClaves cuentaDestino, string motivo  /*string origenClave, int origenMes, decimal origenMonto, string destinoClave, int destinoMes, string motivoTransfer*/)
         {
-            //var a = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.CurrencyGroupSeparator; // Separador miles: ,
-          //  var b = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalSeparator; // Separador decimal: 
 
-            bool exitoDeTransferencias = false;         
+            //El boleano se utiliza como bandera para que la vista sepa si todo el proceso fue satisfatorio
+            //El anio se debe jalar del sistema operativo por ahora se tiene como constante porque la nomina con la que se trabaja actualmente es la 2019
+            //Cambiar anio antes de llegar a produccion
+            bool exitoDeTransferencia = false;         
             int anio = 2019;
 
             Guid identificadorDeOperacion = Guid.NewGuid();
 
-            //La bandera sirve como indicador para saber si fue correcta y todo salio bien en el metodo para poder seguir al siguiente paso    
-            exitoDeTransferencias = Negocios.ClavesPresupuestalesNegocios.Transferir(origenClave, origenMes, origenMonto, destinoClave, destinoMes, motivoTransfer,  anio, identificadorDeOperacion);
+            if (ModelState.IsValid)
+            {
+
+                try
+                {
+                    //La bandera sirve como indicador para saber si fue correcta y todo salio bien en el metodo para poder seguir al siguiente paso    
+                    exitoDeTransferencia = Negocios.ClavesPresupuestalesNegocios.Transferir(cuentaRemitente.clave, cuentaRemitente.mes, cuentaRemitente.monto, cuentaDestino.clave, cuentaDestino.mes, motivo, anio, identificadorDeOperacion);
+
+                }
+                catch (Exception ex)
+                {
+                    return Json("Hubo un problema intentelo de nuevo", JsonRequestBehavior.AllowGet);
+                }
+
+            }
 
 
-            return Json(exitoDeTransferencias, JsonRequestBehavior.AllowGet);
+
+            return Json(exitoDeTransferencia, JsonRequestBehavior.AllowGet);
         }
-
-
 
 
 
         [HttpPost]
         public JsonResult TransferenciaDeClavesAClave(List<DatosDeClaves> cuentasRemitentes, DatosDeClaves cuentaDestino, string motivo) {
 
+            //El boleano se utiliza como bandera para que la vista sepa si todo el proceso fue satisfatorio
+            //El anio se debe jalar del sistema operativo por ahora se tiene como constante porque la nomina con la que se trabaja actualmente es la 2019
+            //Cambiar anio antes de llegar a produccion
             bool exitoDeTransferencias = false;
             int anio = 2019 ;
-            Decimal sumaAtransferir = cuentasRemitentes.Sum(x => x.monto);
-
+            
             Guid identificadorDeOperacion = Guid.NewGuid();
 
             if (ModelState.IsValid)

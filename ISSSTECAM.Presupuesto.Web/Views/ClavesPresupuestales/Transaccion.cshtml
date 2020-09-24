@@ -795,14 +795,12 @@
 
 
              //cambio para enviar datos y validar como modelo
-             var cuentaOrigen = { clave: CajaClave.value, mes: ValorMes.textContent, monto: MontoCorrectoReducc };
+             var cuentaRemitente = { clave: CajaClave.value, mes: ValorMes.textContent, monto: MontoCorrectoReducc };
+             var motivo = CajaMotivo.value;
              
-             console.log("cuenta origen" + " " , cuentaOrigen);
-
-             var actionDataReducc = "{'reduccionMonto': '" + MontoCorrectoReducc + "','reduccionClave':'" + CajaClave.value + "','reduccionMes':'" + ValorMes.textContent + "','reduccionMotivo':'" + CajaMotivo.value + "'}";
             $.ajax({
                 url: '@Url.Action("Reducciones", "ClavesPresupuestales")',
-                data: actionDataReducc,
+                data: JSON.stringify({ cuentaRemitente, motivo }),
                 dataType: "json",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
@@ -907,10 +905,21 @@
             console.log('Monto a Enviar ', MontoCorrectoTransfer);
             //
             var actionDataTransfer = "{'origenClave': '" + CajaClaveOT.value + "','origenMes':'" + CajaMesOrigen.textContent + "','origenMonto':'" + MontoCorrectoTransfer + /*"','destinoMonto':'" + CajaMontoDestino.value +*/ "','destinoClave':'" + CajaClaveDT.value + "','destinoMes':'" + CajaMesDestino.textContent + "','motivoTransfer':'" + CajaMotivo.value + "'}";
-            console.log(actionDataTransfer);
+            console.log("actionDataTransfer", actionDataTransfer);
+
+
+            //cambio para enviar datos y validar como modelo
+            var cuentaRemitente = { clave: CajaClaveOT.value, mes: CajaMesOrigen.textContent, monto: MontoCorrectoTransfer};
+            var cuentaDestino = { clave: CajaClaveDT.value, mes: CajaMesDestino.textContent, monto: 0 };
+            var motivo = CajaMotivo.value;
+
+            console.log("remitente", cuentaRemitente);
+            console.log("remitente", cuentaDestino);
+            console.log("motivo", motivo);
+
             $.ajax({
                 url: '@Url.Action("Transferencia", "ClavesPresupuestales")',
-                 data: actionDataTransfer,
+                data: JSON.stringify({ cuentaRemitente, cuentaDestino, motivo }),
                 dataType: "json",
                 type: "POST",
                  contentType: "application/json; charset=utf-8",
@@ -1571,7 +1580,7 @@
             var MesDestino = document.getElementById("CajaOcultaMesTMTUDesti").value;
             var MotivoDestino = document.getElementById("CajaMotivoTMTU").value;
 
-        var cuentaDestino = { clave: ClaveDestino, mes: MesDestino, motivo: MotivoDestino };
+        var cuentaDestino = { clave: ClaveDestino, mes: MesDestino, monto: 0 };
         var motivo = MotivoDestino;
 
             console.log("Remitentes: ", cuentasRemitentes);

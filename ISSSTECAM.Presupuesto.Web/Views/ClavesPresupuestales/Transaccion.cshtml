@@ -1592,7 +1592,7 @@
         console.log(cuentaDestino);
 
           $.ajax({
-            url: '@Url.Action("TransferirDeMuchosAUno", "ClavesPresupuestales")',
+            url: '@Url.Action("TransferenciaDeClavesAClave", "ClavesPresupuestales")',
               data: JSON.stringify({ cuentasRemitentes, cuentaDestino, motivo}),
             type: "POST",
             contentType: "application/json; charset=utf-8",

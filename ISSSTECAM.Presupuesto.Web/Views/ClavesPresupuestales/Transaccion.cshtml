@@ -71,6 +71,7 @@
                 </ul>
             </li>
         </ul>
+        @*<input type="button" title="Borra todo el monto" id="BorrarMonto" value="X"style="color:red;height:34px">*@
     </nav>
     <br>
     <nav name="MenuReduc3" id="IDMenuReduc3" class="menu" style="display:none;">
@@ -900,7 +901,11 @@
             alert('Por favor ingrese el motivo de la transferencia')
         } else if (parseFloat(CajaMontoOrigen.value) > MontoDisponible2.textContent) {
             alert('Por favor ingrese un monto igual o menor al disponible')
-        } else {
+        } 
+        else if (CajaMesOrigen.textContent == CajaMesDestino.textContent && CajaClaveOT.value == CajaClaveDT.value) {
+            alert('No es posible transferir si el origen y el destino son iguales')
+        }
+            else {
             var MontoCorrectoTransfer = parseFloat(CajaMontoOrigen.value);
             console.log('Monto a Enviar ', MontoCorrectoTransfer);
             //
@@ -1039,22 +1044,19 @@
         ESCRIBE.insertAdjacentHTML('beforeend', Valor)
     });
     ////
+    //$('#BorrarMonto').click(function (e) {
+    //    var Lista = document.getElementById('CajaMontoR');
+    //    Lista.innerHTML = '';
+    //});
     $('#ElMonto').click(function (e) {
         var li = e.target.parentNode;
         let ID = li.id;
         var Identidad = document.getElementById(ID).textContent;
         const WRITELINE = document.querySelector('#CajaMontoR');
         var Lista = document.getElementById('CajaMontoR');
-        Lista.innerHTML = "";
-        WRITELINE.insertAdjacentHTML('beforeend', Identidad)
+        Lista.innerHTML = '';
+        WRITELINE.insertAdjacentHTML('afterbegin', Identidad);
 
-        //var Valor = document.getElementById(ID).value;
-        //const ESCRIBE = document.querySelector('#CajaMontoR');
-        //var Linea = document.getElementById('CajaMontoR');
-        //Linea.innerHTML = "";
-        //ESCRIBE.insertAdjacentHTML('beforeend', Valor)
-        //console.log('El value es: ', Valor);
-        //parseFloat(cadena)
         console.log('Usando parseFloat : ', parseFloat(Identidad));
     });
     //////

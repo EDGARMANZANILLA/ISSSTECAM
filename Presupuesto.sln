@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISSSTECAM.Presupuesto.Web", "ISSSTECAM.Presupuesto.Web\ISSSTECAM.Presupuesto.Web.csproj", "{B3DDF0D3-531D-4A8E-9982-A7BE438D9EE5}"
 	ProjectSection(ProjectDependencies) = postProject
 		{E8ABE797-C406-400D-8B23-45CD9C95AB0C} = {E8ABE797-C406-400D-8B23-45CD9C95AB0C}
@@ -23,6 +25,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RH", "RH", "{E70D6CAB-EF45-450F-B89A-C3713A988C9A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISSSTECAM.RH.Negocios", "ISSSTECAM.RH.Negocios\ISSSTECAM.RH.Negocios.csproj", "{9CD89DE9-F883-4C00-A274-6846A6F94F94}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISSSTECAM.Presupuesto.Web.Tests", "ISSSTECAM.Presupuesto.Web.Tests\ISSSTECAM.Presupuesto.Web.Tests.csproj", "{376CBA30-5756-4619-A190-2C7D9EB65F27}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -66,14 +70,21 @@ Global
 		{9CD89DE9-F883-4C00-A274-6846A6F94F94}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9CD89DE9-F883-4C00-A274-6846A6F94F94}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9CD89DE9-F883-4C00-A274-6846A6F94F94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{376CBA30-5756-4619-A190-2C7D9EB65F27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{376CBA30-5756-4619-A190-2C7D9EB65F27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{376CBA30-5756-4619-A190-2C7D9EB65F27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{376CBA30-5756-4619-A190-2C7D9EB65F27}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{E8ABE797-C406-400D-8B23-45CD9C95AB0C} = {E70D6CAB-EF45-450F-B89A-C3713A988C9A}
 		{635B9E53-68D7-4045-B8D5-E0D267941EA6} = {E70D6CAB-EF45-450F-B89A-C3713A988C9A}
 		{738F25B7-3B0E-40DC-BC8D-8444BB6EF058} = {E70D6CAB-EF45-450F-B89A-C3713A988C9A}
-		{E8ABE797-C406-400D-8B23-45CD9C95AB0C} = {E70D6CAB-EF45-450F-B89A-C3713A988C9A}
 		{9CD89DE9-F883-4C00-A274-6846A6F94F94} = {E70D6CAB-EF45-450F-B89A-C3713A988C9A}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3CC068A3-F05C-456B-8B4F-5CF92E1DC89F}
 	EndGlobalSection
 EndGlobal

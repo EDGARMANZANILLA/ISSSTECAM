@@ -108,7 +108,7 @@ namespace ISSSTECAM.Presupuesto.Web.Controllers
                 }
                 catch (Exception ex)
                 {
-                    return Json("Hubo un problema intentelo de nuevo", JsonRequestBehavior.AllowGet);
+                    return Json(exitoDeReduccion, JsonRequestBehavior.AllowGet);
                 }
 
             }

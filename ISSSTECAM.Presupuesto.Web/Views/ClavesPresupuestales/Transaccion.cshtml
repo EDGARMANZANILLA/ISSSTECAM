@@ -71,6 +71,8 @@
                 </ul>
             </li>
         </ul>
+       
+
         @*<input type="button" title="Borra todo el monto" id="BorrarMonto" value="X"style="color:red;height:34px">*@
     </nav>
     <br>
@@ -779,8 +781,8 @@
         //if (isNaN(formulario.edad.value)==true
         else if (isNaN(CajaMonto.value) == true) {
            alert('Por favor ingrese un monto valido')
-         } else if (CajaMonto.value == '0') {
-             alert('No es posible Reducir 0 pesos de  ' + CajaClave.value)
+         } else if (CajaMonto.value < 0.01 ) {
+             alert('No es posible Reducir esa cantidad de pesos de  ' + CajaClave.value)
          }
          else if (CajaMotivo.value == '') {
             alert('Por favor ingrese un motivo')
@@ -880,8 +882,8 @@
             alert('Por favor ingrese un monto de origen')
         } else if (isNaN(CajaMontoOrigen.value) == true) {
             alert('Por favor ingrese un monto de origen valido')
-        } else if (CajaMontoOrigen.value == '0') {
-            alert('No es posible Transferir 0 pesos de  ' + CajaClaveOT.value)
+        } else if (CajaMontoOrigen.value < 0.01 ) {
+            alert('No es posible Transferir esa cantidad de pesos de  ' + CajaClaveOT.value)
         }
         else if (CajaClaveOT.value == '') {
             alert('Por favor ingrese una clave de origen')
@@ -1052,10 +1054,12 @@
         var li = e.target.parentNode;
         let ID = li.id;
         var Identidad = document.getElementById(ID).textContent;
-        const WRITELINE = document.querySelector('#CajaMontoR');
-        var Lista = document.getElementById('CajaMontoR');
-        Lista.innerHTML = '';
-        WRITELINE.insertAdjacentHTML('afterbegin', Identidad);
+        //const WRITELINE = document.querySelector('#CajaMontoR');
+        //var Lista = document.getElementById('CajaMontoR');
+        //Lista.innerHTML = '';
+        //WRITELINE.insertAdjacentHTML('beforeend', parseFloat(Identidad));
+
+        $("#CajaMontoR").val(Identidad);
 
         console.log('Usando parseFloat : ', parseFloat(Identidad));
     });
@@ -1064,10 +1068,11 @@
         var li = e.target.parentNode;
         let ID = li.id;
         var Identidad = document.getElementById(ID).textContent;
-        const WRITELINE = document.querySelector('#CajaMontoOrigen');
-        var Lista = document.getElementById('CajaMontoOrigen');
-        Lista.innerHTML = "";
-        WRITELINE.insertAdjacentHTML('beforeend', Identidad)
+        //const WRITELINE = document.querySelector('#CajaMontoOrigen');
+        //var Lista = document.getElementById('CajaMontoOrigen');
+        //Lista.innerHTML = "";
+        //WRITELINE.insertAdjacentHTML('beforeend', Identidad)
+        $("#CajaMontoOrigen").val(Identidad);
 
         console.log('Usando parseFloat : ', parseFloat(Identidad));
     });
@@ -1076,6 +1081,7 @@
     //$(document).ready(function () {
     //    $('#SelectClave1').select2();
     //});
+
 
     $(document).ready(function () {
         $('#CajaClaveR').select2({
@@ -1100,6 +1106,7 @@
             minimumInputLength: 3
         });
     });
+
 
  //////////////////////////////Aquí se maneja el observable para Reducción///////////////////////////////
 
@@ -1147,12 +1154,13 @@
                 }
                 console.log('Monto Obtenido', montoObtenido);
                 const WRITELINE = document.querySelector('#ElMonto');
+                //const WRITELINE = document.querySelector('#CajaMontoR');
                 var Monto = document.getElementById('ElMonto');
                 i = 0;
                 Monto.innerHTML = "";
                 WRITELINE.insertAdjacentHTML('beforeend', '<li id="MontoDisponibleValidar" value="' + montoObtenido + '"><a>' + montoObtenido + '</a></li>')
-
-
+                //< option id = "" ></option >
+                //WRITELINE.insertAdjacentHTML('beforeend', '<option id="Monto' + montoObtenido + '">' + montoObtenido + '</option>')
             },
             error: function (result) {
                 alert("ERROR SEVERO, VUELVA A CARGAR LA PÁGINA" + result.status);
@@ -1299,10 +1307,11 @@
             var li = e.target.parentNode;
             let ID = li.id;
             var Identidad = document.getElementById(ID).textContent;
-            const WRITELINE = document.querySelector('#CajaMontoOrigenTMTU');
-            var Lista = document.getElementById('CajaMontoOrigenTMTU');
-            Lista.innerHTML = "";
-            WRITELINE.insertAdjacentHTML('beforeend', Identidad)
+            //const WRITELINE = document.querySelector('#CajaMontoOrigenTMTU');
+            //var Lista = document.getElementById('CajaMontoOrigenTMTU');
+            //Lista.innerHTML = "";
+            //WRITELINE.insertAdjacentHTML('beforeend', Identidad)
+            $("#CajaMontoOrigenTMTU").val(Identidad);
 
             console.log('Usando parseFloat : ', parseFloat(Identidad));
         });
@@ -1407,17 +1416,10 @@
             var Mes = document.getElementById("CajaOcultaMesOrigenTMTU").value;
             var Monto = document.getElementById("CajaMontoOrigenTMTU").value;
 
-            if (Monto == '0') {
-                alert('El monto no puede ser 0, por favor ingrese un monto valido')
-            } else if (Monto == '0.00') {
-                alert('El monto no puede ser 0.00, por favor ingrese un monto valido')
-            } else if (Monto == '0.0') {
-                alert('El monto no puede ser 0.0, por favor ingrese un monto valido')
-            } else if (Monto == '0.000') {
-                alert('El monto no puede ser 0.000, por favor ingrese un monto valido')
-            } else if (Monto == '0.0000') {
-                alert('El monto no puede ser 0.0000, por favor ingrese un monto valido')
-            } else {
+            if (Monto < 0.01) {
+                alert('El monto no puede ser inferior a 0.01, por favor ingrese un monto valido')
+            } 
+                else {
 
                 var li = document.createElement('li');
                 let NuevoObjeto = ListaArray.push({ Clave, Mes, Monto });
